@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6268,6 +6269,27 @@ function initPanels() {
   function qsClamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
   function qsNowTs() { return Math.floor(Date.now() / 1000); }
 
+  // CycleX Scan Archive — website bridge.
+  // Fire-and-forget only: never blocks Quick Scan, Deep Intelligence, or UI.
+  // The browser sends ONLY {chain, token}; all scoring/tracking remains server-side.
+  const CX_ARCHIVE_INGEST_URL = "https://cyclex-ingest.cyclexdev.workers.dev/ingest/web";
+  function cxArchiveWebPing(net, token){
+    try {
+      const chain = String(net || "").toLowerCase();
+      const addr = String(token || "").trim();
+      if (!chain || !addr) return;
+      fetch(CX_ARCHIVE_INGEST_URL, {
+        method: "POST",
+        mode: "cors",
+        credentials: "omit",
+        cache: "no-store",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chain, token: addr })
+      }).catch(() => {});
+    } catch {}
+  }
+
   function qsEscapeHtml(s){
     return String(s ?? "")
       .replace(/&/g, "&amp;")
@@ -8962,6 +8984,10 @@ async function qsLiqCheckBasic(net, token, provider) {
       return;
     }
 
+    // Archive only after on-chain ERC-20 validation. Invalid addresses, EOAs and
+    // non-token contracts never enter the website archive path.
+    cxArchiveWebPing(net, token);
+
     try {
       const meta = await cxReadWithFallback(net, async (read) => {
         let name = "", symbol = "", decimals = 18, totalSupply = 0n;
@@ -9964,6 +9990,10 @@ async function qsLiqCheckBasic(net, token, provider) {
     // reliability on the calls that actually depend on that endpoint.
     const mintInfo = await qsFetchSolanaMintInfo(token).catch(() => null);
 
+    // A valid on-chain Mint account is enough to archive even before a pool exists.
+    // This preserves the high-value "CycleX saw it before liquidity" case.
+    if (mintInfo) cxArchiveWebPing("solana", token);
+
     const [gpS, dsS, cexS, solHoldersS, heliusCreatorS, gtS, gtInfoS] = await Promise.allSettled([
       qsFetchGoPlusSolana(token),
       qsFetchDexScreener("solana", token),
@@ -9984,6 +10014,11 @@ async function qsLiqCheckBasic(net, token, provider) {
     const heliusCreator = heliusCreatorS.status === "fulfilled" ? heliusCreatorS.value : null;
     const gt = gtS.status === "fulfilled" ? gtS.value : null;
     const gtInfo = gtInfoS.status === "fulfilled" ? gtInfoS.value : null;
+
+    // If the direct Mint RPC was temporarily unavailable, a positive token result
+    // from the independent market/security providers is enough to queue server-side
+    // validation. The Tracker still remains the authority for the stored result.
+    if (!mintInfo && (gp || ds || gt || gtInfo)) cxArchiveWebPing("solana", token);
 
     if (!gp && !ds) {
       rep.redFlags.push("Could not retrieve any Solana security/market data for this address.");
