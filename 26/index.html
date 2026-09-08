@@ -3195,7 +3195,7 @@
     overflow:visible!important;
   }
   .qs-scan-console::before{
-    content:"TOKEN INTELLIGENCE";
+    content:attr(data-intel-label);
     display:block;margin:0 0 11px 2px;
     font-family:var(--mono);font-size:8px;font-weight:850;letter-spacing:.22em;
     color:rgba(100,235,255,.62);
@@ -3664,6 +3664,124 @@
     overflow-wrap:break-word!important;
   }
 
+
+
+  /* ================================================================
+     CYCLEX PREMIUM SCANNER v1.8 — FINAL WEBSITE PASS
+     Auto-detect reliability + liquidity severity + share + i18n/mobile.
+     No scoring, Deep-worker, Archive, D1 or tracker logic is changed.
+     ================================================================ */
+
+  /* Report actions: wider and slimmer. New Scan uses the same cyan language
+     as the primary Scan CTA; Share stays premium but secondary. */
+  #panel-quick[data-qs-mode="report"] .qs-report-toolbar-actions{gap:10px!important}
+  #panel-quick[data-qs-mode="report"] .qs-report-action{
+    min-height:34px!important;height:34px!important;
+    padding:0 18px!important;border-radius:9px!important;
+    font-size:10.4px!important;font-weight:950!important;letter-spacing:.055em!important;
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  }
+  #panel-quick[data-qs-mode="report"] #qs-new-scan{
+    min-width:142px!important;
+    border-color:rgba(72,229,255,.52)!important;
+    background:linear-gradient(135deg,#42dff7,#7ce7fa)!important;
+    color:#031019!important;
+    box-shadow:0 8px 24px rgba(0,229,255,.16)!important;
+  }
+  #panel-quick[data-qs-mode="report"] #qs-new-scan:hover{
+    filter:saturate(1.08)!important;box-shadow:0 10px 28px rgba(0,229,255,.24)!important;
+  }
+  #panel-quick[data-qs-mode="report"] .qs-share-menu > summary{
+    min-width:118px!important;
+    border-color:rgba(143,118,255,.30)!important;
+    background:linear-gradient(180deg,rgba(124,92,255,.13),rgba(124,92,255,.055))!important;
+    color:#ded7ff!important;
+  }
+
+  /* Auto-detect hint: slightly more legible, still compact. */
+  #panel-quick .qs-detect-status{
+    font-size:11.2px!important;line-height:1.48!important;font-weight:720!important;
+    padding:10px 12px!important;min-height:40px!important;
+  }
+
+  /* Scanner text and addresses remain readable in RTL locales. */
+  html[dir="rtl"] #panel-quick #qs-token,
+  html[dir="rtl"] #panel-quick .mono,
+  html[dir="rtl"] #panel-quick .qs-result-meta .mono{
+    direction:ltr!important;text-align:left!important;unicode-bidi:isolate!important;
+  }
+  html[dir="rtl"] #panel-quick .qs-detect-status{text-align:right!important}
+  html[dir="rtl"] #panel-quick .qs-report-toolbar-actions{direction:rtl}
+  html[dir="rtl"] #panel-quick .qs-share-popover{right:auto!important;left:0!important}
+
+  /* Share popover remains contained. */
+  #panel-quick .qs-share-popover{max-width:min(420px,calc(100vw - 28px))!important}
+
+  /* Deep pulse stays perfectly centered; no legacy translate/sweep can leak in. */
+  .qs-intel-column .cx-deep-radar{isolation:isolate!important}
+  .qs-intel-column .cx-deep-radar-core{
+    position:absolute!important;left:50%!important;top:50%!important;
+    margin:0!important;transform:translate(-50%,-50%) rotate(45deg)!important;
+    transform-origin:center!important;
+  }
+  .qs-intel-column .cx-deep-shell[data-state="running"] .cx-deep-radar-core{
+    animation:cxQsCoreGlowFinal 1.35s ease-in-out infinite!important;
+  }
+  @keyframes cxQsCoreGlowFinal{
+    0%,100%{transform:translate(-50%,-50%) rotate(45deg) scale(.90);box-shadow:0 0 7px rgba(0,229,255,.72),0 0 16px rgba(0,229,255,.28)}
+    50%{transform:translate(-50%,-50%) rotate(45deg) scale(1.18);box-shadow:0 0 10px rgba(0,229,255,1),0 0 28px rgba(124,92,255,.42)}
+  }
+
+  /* Mobile: input controls stack cleanly; report actions are wide touch targets
+     without becoming tall pills; long token addresses never widen the viewport. */
+  @media(max-width:760px){
+    #panel-quick[data-qs-mode="input"],#panel-quick[data-qs-mode="report"]{
+      width:100%!important;max-width:100%!important;padding:17px 13px 20px!important;
+      overflow-x:hidden!important;
+    }
+    #panel-quick[data-qs-mode="input"] .panel-head{margin-bottom:14px!important;padding-bottom:13px!important}
+    #panel-quick[data-qs-mode="input"] .panel-title{font-size:19px!important;line-height:1.22!important}
+    #panel-quick[data-qs-mode="input"] .panel-sub{font-size:11.5px!important;line-height:1.55!important}
+    #panel-quick[data-qs-mode="input"] .qs-scan-console{padding:15px 13px!important;border-radius:16px!important}
+    #panel-quick[data-qs-mode="input"] .qs-scan-row{grid-template-columns:1fr!important;gap:9px!important}
+    #panel-quick[data-qs-mode="input"] .qs-scan-row select,
+    #panel-quick[data-qs-mode="input"] .qs-scan-row input,
+    #panel-quick[data-qs-mode="input"] #qs-run{width:100%!important;height:45px!important}
+    #panel-quick .qs-detect-status{font-size:10.6px!important;padding:9px 10px!important}
+    #panel-quick .qs-advanced > summary{min-height:40px!important;font-size:10.5px!important}
+    #panel-quick .qs-advanced[open] .qs-advanced-body{padding:10px!important}
+    #panel-quick .api-block-row1{align-items:flex-start!important}
+    #panel-quick .api-net-sel{width:100%!important;max-width:100%!important}
+    #panel-quick .api-block-row2{grid-template-columns:1fr!important}
+    #panel-quick .api-block-row2 input,#panel-quick .api-block-row2 .btn{width:100%!important}
+
+    #panel-quick[data-qs-mode="report"] .qs-report-toolbar{
+      min-height:0!important;padding:8px!important;gap:8px!important;align-items:center!important;
+    }
+    #panel-quick[data-qs-mode="report"] .qs-report-toolbar-left{display:none!important}
+    #panel-quick[data-qs-mode="report"] .qs-report-toolbar-actions{
+      width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;
+    }
+    #panel-quick[data-qs-mode="report"] .qs-report-action{
+      width:100%!important;min-width:0!important;height:39px!important;min-height:39px!important;
+      padding:0 10px!important;font-size:10.6px!important;
+    }
+    #panel-quick .qs-share-popover{
+      position:fixed!important;left:10px!important;right:10px!important;bottom:10px!important;top:auto!important;
+      width:auto!important;max-width:none!important;padding:10px!important;
+    }
+    #panel-quick .qs-share-popover .qs-share-row{grid-template-columns:1fr 1fr!important;gap:7px!important}
+    #panel-quick .qs-share-popover .qs-share-row .btn{min-height:42px!important;font-size:10px!important}
+    #panel-quick .qs-result-meta,#panel-quick .qs-result-meta .mono{overflow-wrap:anywhere!important;word-break:break-word!important}
+    .qs-analysis-layout{grid-template-columns:1fr!important}
+    .qs-intel-column .cx-deep-stages{grid-template-columns:1fr!important}
+    .qs-intel-column .cx-deep-stage{min-height:64px!important}
+  }
+  @media(max-width:420px){
+    #panel-quick[data-qs-mode="input"] .panel-title{font-size:18px!important}
+    #panel-quick .qs-share-popover .qs-share-row{grid-template-columns:1fr!important}
+    #panel-quick[data-qs-mode="report"] .qs-report-action{font-size:10px!important}
+  }
 </style>
 </head>
 <body>
@@ -3803,12 +3921,12 @@
       </div>
 
       <!-- Full-width scan console -->
-      <div class="qs-scan-console">
+      <div class="qs-scan-console" data-intel-label="Token Intelligence">
         <div class="qs-scan-row">
           <div class="field qs-scan-field">
             <div class="label" data-i18n="net_label">Network</div>
             <select id="qs-net">
-              <option value="auto" selected>Auto Detect</option>
+              <option value="auto" selected data-i18n="qs_auto_detect">Auto Detect</option>
               <option value="bsc">BSC (BNB Chain)</option>
               <option value="eth">Ethereum</option>
               <option value="polygon">Polygon</option>
@@ -3825,14 +3943,14 @@
           </div>
           <div class="field qs-scan-field">
             <div class="label" data-i18n="addr_label">Token address</div>
-            <input id="qs-token" class="mono" placeholder="Paste 0x… or Solana mint" autocomplete="off" spellcheck="false" />
+            <input id="qs-token" class="mono" placeholder="Paste 0x… or Solana mint" data-i18n-placeholder="qs_token_placeholder" autocomplete="off" spellcheck="false" />
           </div>
           <div class="qs-scan-btn-wrap">
             <button class="btn btn-primary" id="qs-run" data-i18n="btn_scan">Scan</button>
           </div>
         </div>
         <div class="qs-detect-status" id="qs-detect-status" data-state="idle" aria-live="polite">
-          <span class="qs-detect-dot"></span><span class="qs-detect-copy">Auto Detect is on — paste a token contract. CycleX will verify the network when possible; if several chains match, you’ll choose one.</span>
+          <span class="qs-detect-dot"></span><span class="qs-detect-copy" data-i18n="qs_auto_idle">Paste an EVM token contract or Solana mint. CycleX will auto-detect the network when it can verify it. If the address exists on multiple networks, you’ll choose the intended one.</span>
         </div>
 
         <div class="qs-input-advanced-wrap">
@@ -3882,12 +4000,12 @@
       <div class="qs-report-toolbar" id="qs-report-toolbar">
         <div class="qs-report-toolbar-left">
           <span class="qs-report-live-dot"></span>
-          <span class="qs-report-toolbar-label">CycleX Intelligence Report</span>
+          <span class="qs-report-toolbar-label" data-i18n="qs_report_label">CycleX Intelligence Report</span>
         </div>
         <div class="qs-report-toolbar-actions">
-          <button type="button" class="qs-report-action" id="qs-new-scan">↻ New Scan</button>
+          <button type="button" class="qs-report-action" id="qs-new-scan" data-i18n="qs_new_scan">↻ New Scan</button>
           <details class="qs-share-menu" id="qs-share-menu">
-            <summary class="qs-report-action">Share ▾</summary>
+            <summary class="qs-report-action" data-i18n="qs_share">Share ▾</summary>
             <div class="qs-share-popover">
               <div class="qs-share-row">
           <button class="btn btn-ghost" id="qs-copy-link" data-i18n="btn_copy_link">🔗 Share Link</button>
@@ -3918,7 +4036,7 @@
                 <div class="cx-deep-kicker" data-i18n="deep_kicker">Protected Analysis</div>
                 <div class="cx-deep-title" data-i18n="deep_title">CycleX Deep Intelligence</div>
                 <div class="cx-deep-sub" data-i18n="deep_sub">Behavior, history and relationships beyond the contract.</div>
-                <div class="cx-deep-micro">10 protected intelligence layers</div>
+                <div class="cx-deep-micro" data-i18n="deep_micro">10 protected intelligence layers</div>
               </div>
               <div class="cx-deep-badge" id="cx-deep-badge" data-i18n="deep_badge_ready">Ready</div>
             </div>
@@ -4261,6 +4379,48 @@ const translations = {
     fw_hero_btn_mobile: "🛡️ CycleX Firewall",
     hero_actions_hint: "Run a fast token scan first · Deep Intelligence adds context automatically · Firewall helps protect wallet permissions.",
     quick_start_here: "Open Scan",
+    qs_auto_detect: "Auto Detect",
+    qs_token_placeholder: "Paste 0x… or Solana mint",
+    qs_token_intelligence: "Token Intelligence",
+    qs_auto_idle: "Paste an EVM token contract or Solana mint. CycleX will auto-detect the network when it can verify it. If the address exists on multiple networks, you’ll choose the intended one.",
+    qs_auto_partial: "Paste a full 0x token contract or Solana mint to start Auto Detect.",
+    qs_auto_checking_evm: "Checking supported EVM networks…",
+    qs_auto_verifying_evm: "Verifying the EVM network on-chain…",
+    qs_auto_detected: "✓ {network} detected{evidence}",
+    qs_auto_seen_multi: "Seen on {networks} · press Scan to verify on-chain, or choose the intended network manually.",
+    qs_auto_no_market: "No market match yet. Solana mints are recognized immediately; for this 0x token, press Scan and CycleX will verify on-chain across supported EVM networks.",
+    qs_auto_verified_multi: "Verified on multiple networks ({networks}) · choose the intended network above.",
+    qs_auto_not_found: "CycleX could not verify a supported EVM network for this contract · choose a network manually if you know it.",
+    qs_auto_manual: "Manual network · {network}",
+    qs_ev_mint_format: "mint format verified",
+    qs_ev_market_match: "market match",
+    qs_ev_market_strong: "strongest market match",
+    qs_ev_erc20: "ERC-20 verified on-chain",
+    qs_ev_contract: "contract verified on-chain",
+    qs_ev_verified_market: "strongest verified market match",
+    qs_report_label: "CycleX Intelligence Report",
+    qs_new_scan: "↻ New Scan",
+    qs_share: "Share ▾",
+    qs_scanning: "SCANNING",
+    qs_err_invalid_address: "Please paste a valid EVM contract or Solana mint address.",
+    qs_err_selected_evm: "The selected network expects a 0x token contract.",
+    qs_share_score: "CycleX Score",
+    qs_share_liquidity: "Liquidity",
+    qs_share_pool_one: "1 pool",
+    qs_share_pool_many: "{count} pools",
+    qs_share_strong: "Strong",
+    qs_share_review: "Review",
+    qs_share_no_strong: "No major positive signal highlighted",
+    qs_share_no_review: "No major negative signal surfaced in this scan",
+    qs_liq_none: "No/Unknown",
+    qs_liq_very_low: "Very low (thin)",
+    qs_liq_low: "Low",
+    qs_liq_medium: "Medium",
+    qs_liq_healthy: "Healthy",
+    qs_overall_high: "High risk",
+    qs_overall_good: "Good",
+    qs_overall_mixed: "Mixed signals",
+    deep_micro: "10 protected intelligence layers",
     fw_hero_tagline: "Real-time wallet scanner — checks approvals, flags risky contracts & sends <em>live alerts</em>. Wallet Passport · Permission Guard · One-click revoke. Your keys, always safe.",
     hub_title: "Advanced Security Tools",
     hub_subtitle: "Quick / Deep Scan tokens, verify RPC health, decode transactions, and use dev tools — no wallet connection required.",
@@ -4693,6 +4853,48 @@ const translations = {
     fw_hero_btn_mobile: "🛡️ CycleX Firewall",
     hero_actions_hint: "立即扫描代币 · 使用 Firewall 检查钱包权限 · 验证链上信号。",
     quick_start_here: "打开扫描",
+    qs_auto_detect: "自动检测",
+    qs_token_placeholder: "粘贴 0x… 或 Solana Mint",
+    qs_token_intelligence: "代币智能分析",
+    qs_auto_idle: "粘贴 EVM 代币合约或 Solana Mint。CycleX 会在能够验证时自动识别网络；如果该地址存在于多个网络，你可以选择目标网络。",
+    qs_auto_partial: "粘贴完整的 0x 代币合约或 Solana Mint 以开始自动检测。",
+    qs_auto_checking_evm: "正在检查支持的 EVM 网络…",
+    qs_auto_verifying_evm: "正在链上验证 EVM 网络…",
+    qs_auto_detected: "✓ 已检测到 {network}{evidence}",
+    qs_auto_seen_multi: "在 {networks} 上发现该地址 · 点击“扫描”进行链上验证，或手动选择目标网络。",
+    qs_auto_no_market: "暂未找到市场匹配。Solana Mint 会立即识别；对于这个 0x 代币，请点击“扫描”，CycleX 将在支持的 EVM 网络上进行链上验证。",
+    qs_auto_verified_multi: "已在多个网络验证（{networks}）· 请在上方选择目标网络。",
+    qs_auto_not_found: "CycleX 无法在支持的 EVM 网络中验证该合约 · 如果你知道所在网络，请手动选择。",
+    qs_auto_manual: "手动选择网络 · {network}",
+    qs_ev_mint_format: "Mint 格式已验证",
+    qs_ev_market_match: "市场匹配",
+    qs_ev_market_strong: "最强市场匹配",
+    qs_ev_erc20: "已链上验证 ERC-20",
+    qs_ev_contract: "已链上验证合约",
+    qs_ev_verified_market: "最强已验证市场匹配",
+    qs_report_label: "CycleX 智能报告",
+    qs_new_scan: "↻ 新扫描",
+    qs_share: "分享 ▾",
+    qs_scanning: "扫描中",
+    qs_err_invalid_address: "请粘贴有效的 EVM 合约或 Solana Mint 地址。",
+    qs_err_selected_evm: "所选网络需要 0x 代币合约地址。",
+    qs_share_score: "CycleX 评分",
+    qs_share_liquidity: "流动性",
+    qs_share_pool_one: "1 个池",
+    qs_share_pool_many: "{count} 个池",
+    qs_share_strong: "优势信号",
+    qs_share_review: "需检查",
+    qs_share_no_strong: "未突出显示主要正面信号",
+    qs_share_no_review: "本次扫描未发现主要负面信号",
+    qs_liq_none: "无/未知",
+    qs_liq_very_low: "极低（流动性薄）",
+    qs_liq_low: "低",
+    qs_liq_medium: "中等",
+    qs_liq_healthy: "健康",
+    qs_overall_high: "高风险",
+    qs_overall_good: "良好",
+    qs_overall_mixed: "信号混合",
+    deep_micro: "10 层受保护智能分析",
     fw_hero_tagline: "实时钱包扫描器 — 检查授权、标记高风险合约并发送<em>实时警报</em>。钱包护照 · 权限守卫 · 一键撤销。您的私钥，始终安全。",
     hub_title: "高级安全工具",
     hub_subtitle: "快速扫描代币、验证 RPC 健康、解码交易并使用开发工具 — 无需连接钱包。",
@@ -4757,7 +4959,7 @@ const translations = {
     p_quick_sub: "粘贴代币地址，扫描。缓存10分钟 · 可分享报告。",
     deep_kicker: "受保护分析",
     deep_title: "CycleX 深度智能",
-    deep_sub: "历史记录 · 部署者资金 · 早期买家 · 钱包集群 · 流动性所有权 · 动态模拟。",
+    deep_sub: "超越合约本身，分析行为、历史与地址关系。",
     deep_current_label: "深度扫描状态",
     deep_ready: "有效的快速扫描后会自动运行。",
     deep_rerun: "重新运行深度扫描",
@@ -5125,6 +5327,48 @@ const translations = {
     fw_hero_btn_mobile: "🛡️ CycleX Firewall",
     hero_actions_hint: "افحص توكن فورًا · راجع صلاحيات المحفظة عبر Firewall · تحقق من إشارات البلوكتشين.",
     quick_start_here: "افتح الفحص",
+    qs_auto_detect: "اكتشاف تلقائي",
+    qs_token_placeholder: "ألصق 0x… أو عنوان Mint على Solana",
+    qs_token_intelligence: "تحليل التوكن",
+    qs_auto_idle: "ألصق عقد توكن EVM أو عنوان Mint على Solana. سيكتشف CycleX الشبكة تلقائيًا عندما يمكن التحقق منها، وإذا كان العنوان موجودًا على عدة شبكات فستختار الشبكة المقصودة.",
+    qs_auto_partial: "ألصق عقد 0x كاملًا أو عنوان Mint على Solana لبدء الاكتشاف التلقائي.",
+    qs_auto_checking_evm: "جارٍ فحص شبكات EVM المدعومة…",
+    qs_auto_verifying_evm: "جارٍ التحقق من شبكة EVM على السلسلة…",
+    qs_auto_detected: "✓ تم اكتشاف {network}{evidence}",
+    qs_auto_seen_multi: "تم العثور عليه على {networks} · اضغط “فحص” للتحقق على السلسلة، أو اختر الشبكة المقصودة يدويًا.",
+    qs_auto_no_market: "لا توجد مطابقة سوقية بعد. يتم التعرف على عناوين Mint في Solana فورًا؛ لهذا التوكن 0x اضغط “فحص” وسيقوم CycleX بالتحقق على السلسلة عبر شبكات EVM المدعومة.",
+    qs_auto_verified_multi: "تم التحقق على عدة شبكات ({networks}) · اختر الشبكة المقصودة أعلاه.",
+    qs_auto_not_found: "تعذر على CycleX التحقق من شبكة EVM مدعومة لهذا العقد · اختر الشبكة يدويًا إذا كنت تعرفها.",
+    qs_auto_manual: "شبكة مختارة يدويًا · {network}",
+    qs_ev_mint_format: "تم التحقق من صيغة Mint",
+    qs_ev_market_match: "مطابقة سوقية",
+    qs_ev_market_strong: "أقوى مطابقة سوقية",
+    qs_ev_erc20: "تم التحقق من ERC-20 على السلسلة",
+    qs_ev_contract: "تم التحقق من العقد على السلسلة",
+    qs_ev_verified_market: "أقوى مطابقة سوقية موثقة",
+    qs_report_label: "تقرير CycleX الذكي",
+    qs_new_scan: "↻ فحص جديد",
+    qs_share: "مشاركة ▾",
+    qs_scanning: "جارٍ الفحص",
+    qs_err_invalid_address: "ألصق عنوان عقد EVM أو عنوان Mint صالحًا على Solana.",
+    qs_err_selected_evm: "الشبكة المحددة تتطلب عقد توكن بصيغة 0x.",
+    qs_share_score: "درجة CycleX",
+    qs_share_liquidity: "السيولة",
+    qs_share_pool_one: "مجمّع واحد",
+    qs_share_pool_many: "{count} مجمّعات",
+    qs_share_strong: "إشارة قوية",
+    qs_share_review: "للمراجعة",
+    qs_share_no_strong: "لم يتم إبراز إشارة إيجابية رئيسية",
+    qs_share_no_review: "لم يظهر في هذا الفحص تحذير سلبي رئيسي",
+    qs_liq_none: "غير متوفر/غير معروف",
+    qs_liq_very_low: "منخفضة جدًا (رقيقة)",
+    qs_liq_low: "منخفضة",
+    qs_liq_medium: "متوسطة",
+    qs_liq_healthy: "جيدة",
+    qs_overall_high: "مخاطر مرتفعة",
+    qs_overall_good: "جيد",
+    qs_overall_mixed: "إشارات مختلطة",
+    deep_micro: "10 طبقات تحليل ذكي محمية",
     fw_hero_tagline: "ماسح محفظة فوري — يفحص الموافقات، يُحذّر من العقود الخطرة ويُرسل <em>تنبيهات حية</em>. جواز المحفظة · حارس الصلاحيات · إلغاء بنقرة واحدة. مفاتيحك، آمنة دائمًا.",
     hub_title: "أدوات الأمان المتقدمة",
     hub_subtitle: "فحص سريع للتوكنات، التحقق من صحة RPC، فك تشفير المعاملات وأدوات التطوير — بدون الحاجة لربط محفظة.",
@@ -5189,7 +5433,7 @@ const translations = {
     p_quick_sub: "ألصق عنوان التوكن وشغّل الفحص. كاش 10 دقائق · تقرير قابل للمشاركة.",
     deep_kicker: "تحليل محمي",
     deep_title: "CycleX Deep Intelligence",
-    deep_sub: "السجل · تمويل المطوّر · المشترون الأوائل · عناقيد المحافظ · ملكية السيولة · محاكاة ديناميكية.",
+    deep_sub: "السلوك والتاريخ والعلاقات — أبعد من مجرد العقد.",
     deep_current_label: "حالة الفحص العميق",
     deep_ready: "يعمل تلقائيًا بعد فحص سريع صالح.",
     deep_rerun: "إعادة الفحص العميق",
@@ -5557,6 +5801,48 @@ const translations = {
     fw_hero_btn_mobile: "🛡️ CycleX Firewall",
     hero_actions_hint: "Мгновенно проверьте токен · Проверьте разрешения кошелька в Firewall · Сверьте ончейн-сигналы.",
     quick_start_here: "Открыть скан",
+    qs_auto_detect: "Автоопределение",
+    qs_token_placeholder: "Вставьте 0x… или Solana mint",
+    qs_token_intelligence: "Анализ токена",
+    qs_auto_idle: "Вставьте контракт токена EVM или Solana mint. CycleX автоматически определит сеть, когда сможет её подтвердить. Если адрес существует в нескольких сетях, вы выберете нужную.",
+    qs_auto_partial: "Вставьте полный 0x-контракт токена или Solana mint, чтобы начать автоопределение.",
+    qs_auto_checking_evm: "Проверяем поддерживаемые EVM-сети…",
+    qs_auto_verifying_evm: "Подтверждаем EVM-сеть ончейн…",
+    qs_auto_detected: "✓ Обнаружена сеть {network}{evidence}",
+    qs_auto_seen_multi: "Адрес найден в {networks} · нажмите «Сканировать» для ончейн-проверки или выберите нужную сеть вручную.",
+    qs_auto_no_market: "Рыночного совпадения пока нет. Solana mint определяется сразу; для этого 0x-токена нажмите «Сканировать», и CycleX проверит его ончейн в поддерживаемых EVM-сетях.",
+    qs_auto_verified_multi: "Подтверждено в нескольких сетях ({networks}) · выберите нужную сеть выше.",
+    qs_auto_not_found: "CycleX не смог подтвердить поддерживаемую EVM-сеть для этого контракта · выберите сеть вручную, если она вам известна.",
+    qs_auto_manual: "Сеть выбрана вручную · {network}",
+    qs_ev_mint_format: "формат mint подтверждён",
+    qs_ev_market_match: "рыночное совпадение",
+    qs_ev_market_strong: "сильнейшее рыночное совпадение",
+    qs_ev_erc20: "ERC-20 подтверждён ончейн",
+    qs_ev_contract: "контракт подтверждён ончейн",
+    qs_ev_verified_market: "сильнейшее подтверждённое рыночное совпадение",
+    qs_report_label: "Отчёт CycleX Intelligence",
+    qs_new_scan: "↻ Новый скан",
+    qs_share: "Поделиться ▾",
+    qs_scanning: "СКАНИРОВАНИЕ",
+    qs_err_invalid_address: "Вставьте корректный EVM-контракт или Solana mint.",
+    qs_err_selected_evm: "Для выбранной сети требуется 0x-контракт токена.",
+    qs_share_score: "Оценка CycleX",
+    qs_share_liquidity: "Ликвидность",
+    qs_share_pool_one: "1 пул",
+    qs_share_pool_many: "{count} пулов",
+    qs_share_strong: "Сильная сторона",
+    qs_share_review: "Проверить",
+    qs_share_no_strong: "Значимый положительный сигнал не выделен",
+    qs_share_no_review: "В этом скане не выявлен значимый негативный сигнал",
+    qs_liq_none: "Нет/неизвестно",
+    qs_liq_very_low: "Очень низкая (тонкая)",
+    qs_liq_low: "Низкая",
+    qs_liq_medium: "Средняя",
+    qs_liq_healthy: "Здоровая",
+    qs_overall_high: "Высокий риск",
+    qs_overall_good: "Хорошо",
+    qs_overall_mixed: "Смешанные сигналы",
+    deep_micro: "10 защищённых уровней анализа",
     fw_hero_tagline: "Сканер кошелька в реальном времени — проверяет апрувы, выявляет опасные контракты и отправляет <em>живые оповещения</em>. Паспорт кошелька · Защита прав · Отзыв в один клик. Ваши ключи — всегда в безопасности.",
     hub_title: "Продвинутые инструменты безопасности",
     hub_subtitle: "Быстрый скан токенов, проверка RPC, декодирование транзакций и dev-инструменты — подключение кошелька не требуется.",
@@ -5621,7 +5907,7 @@ const translations = {
     p_quick_sub: "Вставьте адрес токена и запустите скан. Кэш 10 минут · шаринг отчёта.",
     deep_kicker: "Защищённый анализ",
     deep_title: "CycleX Deep Intelligence",
-    deep_sub: "История · финансирование деплоера · ранние покупатели · кластеры кошельков · владение ликвидностью · динамическая симуляция.",
+    deep_sub: "Поведение, история и связи — за пределами самого контракта.",
     deep_current_label: "Статус глубокого сканирования",
     deep_ready: "Запускается автоматически после корректного Quick Scan.",
     deep_rerun: "Запустить Deep Scan снова",
@@ -6036,6 +6322,7 @@ function applyI18n(lang) {
 
   try { renderWalletLabels && renderWalletLabels(); } catch {}
   try { if (typeof cxDeepRefreshLocale === "function") cxDeepRefreshLocale(); } catch {}
+  try { if (typeof cxQsRefreshLocale === "function") cxQsRefreshLocale(); } catch {}
 
   try {
     const solOpt = document.querySelector('#qs-net option[value="solana"]');
@@ -6862,15 +7149,35 @@ function initPanels() {
 
   // Premium Quick Scan UI state + conservative network auto-detection.
   // Detection runs in the visitor's browser. It does not call CycleX Workers.
-  const CX_QS_DETECT_NETS = ["bsc","eth","polygon","base","arbitrum","optimism","avalanche","linea","scroll","opbnb","robinhood"];
+  // v1.8: bounded multi-RPC verification improves BSC / Robinhood reliability
+  // without creating Cloudflare load. Market lookup remains only a fast hint.
+  const CX_QS_DETECT_NETS = ["bsc","robinhood","eth","polygon","base","arbitrum","optimism","avalanche","linea","scroll","opbnb"];
   const CX_QS_DEX_CHAIN_MAP = {
     bsc:"bsc", ethereum:"eth", eth:"eth", polygon:"polygon", base:"base",
     arbitrum:"arbitrum", optimism:"optimism", avalanche:"avalanche",
     linea:"linea", scroll:"scroll", opbnb:"opbnb", robinhood:"robinhood"
   };
+  const CX_QS_DETECT_RPC_HINTS = {
+    bsc:["https://bsc-rpc.publicnode.com","https://bsc-dataseed.binance.org","https://bsc.drpc.org"],
+    robinhood:["https://robinhood-rpc.publicnode.com","https://rpc.mainnet.chain.robinhood.com"],
+    eth:["https://ethereum-rpc.publicnode.com","https://eth.drpc.org"],
+    polygon:["https://polygon-bor-rpc.publicnode.com","https://polygon.drpc.org"],
+    base:["https://base-rpc.publicnode.com","https://base.drpc.org"],
+    arbitrum:["https://arbitrum-one-rpc.publicnode.com","https://arb1.arbitrum.io/rpc"],
+    optimism:["https://optimism-rpc.publicnode.com","https://mainnet.optimism.io"],
+    avalanche:["https://avalanche-c-chain-rpc.publicnode.com","https://api.avax.network/ext/bc/C/rpc"],
+    linea:["https://linea-rpc.publicnode.com","https://rpc.linea.build"],
+    scroll:["https://scroll-rpc.publicnode.com","https://rpc.scroll.io"],
+    opbnb:["https://opbnb-rpc.publicnode.com","https://opbnb-mainnet-rpc.bnbchain.org"]
+  };
   const _cxQsDetectCache = new Map();
   let _cxQsDetectSeq = 0;
 
+  function cxQsTr(key, vars={}){
+    let s = String(t(currentLang,key) || t("en",key) || key || "");
+    for (const [k,v] of Object.entries(vars||{})) s=s.replaceAll(`{${k}}`, String(v ?? ""));
+    return s;
+  }
   function cxQsSetMode(mode){
     const panel = document.querySelector("#panel-quick");
     if (panel) panel.dataset.qsMode = mode === "report" ? "report" : "input";
@@ -6880,23 +7187,43 @@ function initPanels() {
     if (!btn) return;
     btn.dataset.scanning = on ? "1" : "0";
     btn.disabled = !!on;
-    const base = t(currentLang,"btn_scan") || "Scan";
-    btn.textContent = on ? ((currentLang === "en") ? "SCANNING" : base) : base;
+    btn.textContent = on ? cxQsTr("qs_scanning") : (t(currentLang,"btn_scan") || "Scan");
   }
-  function cxQsDetectMessage(state, text){
+  function cxQsDetectMessage(state, key, vars={}){
     const el = document.querySelector("#qs-detect-status");
     if (!el) return;
     el.dataset.state = state || "idle";
+    el.dataset.messageKey = key || "qs_auto_idle";
+    try { el.dataset.messageVars = JSON.stringify(vars||{}); } catch { el.dataset.messageVars="{}"; }
     const copy = el.querySelector(".qs-detect-copy");
-    if (copy) copy.textContent = text || "";
+    if (copy) copy.textContent = cxQsTr(el.dataset.messageKey, vars);
   }
-  function cxQsSelectDetectedNetwork(net, evidence){
+  function cxQsRefreshLocale(){
+    const consoleEl=document.querySelector("#panel-quick .qs-scan-console");
+    if (consoleEl) consoleEl.dataset.intelLabel=cxQsTr("qs_token_intelligence");
+    const el=document.querySelector("#qs-detect-status");
+    if (el) {
+      let vars={}; try{vars=JSON.parse(el.dataset.messageVars||"{}");}catch{}
+      cxQsDetectMessage(el.dataset.state||"idle", el.dataset.messageKey||"qs_auto_idle", vars);
+    }
+    const btn=document.querySelector("#qs-run");
+    if (btn?.dataset.scanning === "1") btn.textContent=cxQsTr("qs_scanning");
+  }
+  function cxQsEvidenceLabel(code){
+    const map={mint:"qs_ev_mint_format",market:"qs_ev_market_match",marketStrong:"qs_ev_market_strong",erc20:"qs_ev_erc20",contract:"qs_ev_contract",verifiedMarket:"qs_ev_verified_market"};
+    return map[code] ? cxQsTr(map[code]) : String(code||"");
+  }
+  function cxQsSelectDetectedNetwork(net, evidenceCode){
     const sel = document.querySelector("#qs-net");
     if (!sel || !net) return;
+    // Mark this choice as auto-generated. If the user pastes a different token,
+    // the selector automatically returns to Auto Detect instead of getting stuck.
+    sel.dataset.cxAutoSelected="1";
     sel.value = net;
-    sel.dispatchEvent(new Event("change", { bubbles:true }));
+    sel.dispatchEvent(new CustomEvent("change", { bubbles:true, detail:{ cxAuto:true } }));
     const label = net === "solana" ? "Solana" : (QS_NET?.[net]?.name || CHAINS?.[net]?.name || net.toUpperCase());
-    cxQsDetectMessage("ok", `✓ ${label} detected${evidence ? ` · ${evidence}` : ""}`);
+    const ev = evidenceCode ? ` · ${cxQsEvidenceLabel(evidenceCode)}` : "";
+    cxQsDetectMessage("ok","qs_auto_detected",{network:label,evidence:ev});
   }
   async function cxQsDexDetect(token){
     const ctrl = new AbortController();
@@ -6918,9 +7245,7 @@ function initPanels() {
         cur.pairs += 1;
         byNet.set(mapped, cur);
       }
-      return [...byNet.values()].sort((a,b)=>
-        (b.liquidityUsd-a.liquidityUsd) || (b.bestLiquidityUsd-a.bestLiquidityUsd) || (b.volume24h-a.volume24h) || (b.pairs-a.pairs)
-      );
+      return [...byNet.values()].sort((a,b)=>(b.liquidityUsd-a.liquidityUsd)||(b.bestLiquidityUsd-a.bestLiquidityUsd)||(b.volume24h-a.volume24h)||(b.pairs-a.pairs));
     }catch{return [];}finally{clearTimeout(timer);}
   }
   function cxQsDominantMarket(entries){
@@ -6930,139 +7255,118 @@ function initPanels() {
     const total = entries.reduce((s,x)=>s + Math.max(0,Number(x?.liquidityUsd||0)),0);
     const share = total > 0 ? Number(top.liquidityUsd||0) / total : 0;
     const ratio = Number(top.liquidityUsd||0) / Math.max(1,Number(second.liquidityUsd||0));
-    // High-confidence market tie-break only. Otherwise we keep the result ambiguous.
     return Number(top.liquidityUsd||0) >= 5000 && share >= 0.72 && ratio >= 3 ? top : null;
   }
+  function cxQsDetectionRpcCandidates(net){
+    const hints=CX_QS_DETECT_RPC_HINTS[net]||[];
+    const normal=(typeof buildRpcCandidates === "function" ? buildRpcCandidates(net) : (CHAINS?.[net]?.publicRpcs || []));
+    const out=[];
+    for(const u of [...hints,...normal]) { const s=String(u||"").trim(); if(s && !out.includes(s)) out.push(s); }
+    // Two RPCs normally; BSC gets a third because public browser CORS/rate
+    // behavior varies more often there. Robinhood already has only two.
+    return out.slice(0, net==="bsc" ? 3 : 2);
+  }
   async function cxQsProbeOneNetwork(net, token){
-    const url = (typeof buildRpcCandidates === "function" ? buildRpcCandidates(net) : (CHAINS?.[net]?.publicRpcs || []))[0];
-    if (!url) return null;
-    const to = qsNormAddr(token);
-    try{
-      const code = await rpcRequest(url, "eth_getCode", [to, "latest"], 1900);
-      if (!(typeof code === "string" && code !== "0x" && code !== "0x0")) return null;
-      // totalSupply() is a cheap ERC-20 sanity read and helps avoid treating any
-      // arbitrary contract deployed at the same address as the token network.
-      let tokenLike = false;
+    const urls=cxQsDetectionRpcCandidates(net);
+    if (!urls.length) return null;
+    const to=qsNormAddr(token);
+    for(let i=0;i<urls.length;i++){
+      const url=urls[i];
       try{
-        const supply = await rpcRequest(url, "eth_call", [{to, data:"0x18160ddd"}, "latest"], 1600);
-        tokenLike = typeof supply === "string" && /^0x[0-9a-fA-F]{64,}$/.test(supply);
+        const code=await rpcRequest(url,"eth_getCode",[to,"latest"],1750);
+        // A successful 0x is normally authoritative. BSC and Robinhood get one
+        // extra independent confirmation because these are the two networks we
+        // observed most often being missed by browser-side RPC detection.
+        if (typeof code === "string" && (code === "0x" || code === "0x0")) {
+          if ((net === "bsc" || net === "robinhood") && i === 0 && urls.length > 1) continue;
+          return null;
+        }
+        if (!(typeof code === "string" && code)) continue;
+        let tokenLike=false;
+        try{
+          const supply=await rpcRequest(url,"eth_call",[{to,data:"0x18160ddd"},"latest"],1450);
+          tokenLike=typeof supply === "string" && /^0x[0-9a-fA-F]{64,}$/.test(supply);
+        }catch{}
+        return {net,tokenLike,code:true,url};
       }catch{}
-      return { net, tokenLike, code:true };
-    }catch{return null;}
+    }
+    return null;
   }
   async function cxQsProbeNetworks(token, nets=CX_QS_DETECT_NETS){
-    const list = [...new Set((Array.isArray(nets) ? nets : CX_QS_DETECT_NETS).filter(n=>CX_QS_DETECT_NETS.includes(n)))];
-    const found = [];
-    let cursor = 0;
-    const concurrency = Math.min(4, Math.max(1,list.length));
-    const workers = Array.from({length:concurrency}, async()=>{
-      while (cursor < list.length) {
-        const i = cursor++;
-        const hit = await cxQsProbeOneNetwork(list[i], token);
-        if (hit) found.push(hit);
-      }
+    const list=[...new Set((Array.isArray(nets)?nets:CX_QS_DETECT_NETS).filter(n=>CX_QS_DETECT_NETS.includes(n)))];
+    const found=[]; let cursor=0;
+    const concurrency=Math.min(5,Math.max(1,list.length));
+    const workers=Array.from({length:concurrency},async()=>{
+      while(cursor<list.length){ const i=cursor++; const hit=await cxQsProbeOneNetwork(list[i],token); if(hit) found.push(hit); }
     });
-    await Promise.all(workers);
-    return found;
+    await Promise.all(workers); return found;
   }
-  function cxQsNetListLabel(nets){
-    return nets.map(n=>QS_NET?.[n]?.name || CHAINS?.[n]?.name || n).join(", ");
-  }
-  async function cxDetectQuickNetwork(tokenRaw, { deep=false }={}){
-    const raw = String(tokenRaw || "").trim();
-    const seq = ++_cxQsDetectSeq;
-    if (qsIsSolanaAddr(raw)) {
-      const out = { net:"solana", evidence:"address format" };
-      _cxQsDetectCache.set(raw, out);
-      if (seq === _cxQsDetectSeq) cxQsSelectDetectedNetwork(out.net,out.evidence);
-      return out;
+  function cxQsNetListLabel(nets){ return nets.map(n=>QS_NET?.[n]?.name || CHAINS?.[n]?.name || n).join(", "); }
+  async function cxDetectQuickNetwork(tokenRaw,{deep=false}={}){
+    const raw=String(tokenRaw||"").trim(); const seq=++_cxQsDetectSeq;
+    if(qsIsSolanaAddr(raw)){
+      const out={net:"solana",evidenceCode:"mint"}; _cxQsDetectCache.set(raw,out);
+      if(seq===_cxQsDetectSeq) cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
     }
-    if (!qsIsAddr(raw)) return { error:"invalid" };
-    const key = qsLower(raw);
-    const cached = _cxQsDetectCache.get(key);
-    if (cached?.net) {
-      if (seq === _cxQsDetectSeq) cxQsSelectDetectedNetwork(cached.net,cached.evidence || "verified");
-      return cached;
+    if(!qsIsAddr(raw)) return {error:"invalid"};
+    const key=qsLower(raw); const cached=_cxQsDetectCache.get(key);
+    if(cached?.net){ if(seq===_cxQsDetectSeq) cxQsSelectDetectedNetwork(cached.net,cached.evidenceCode||"contract"); return cached; }
+
+    cxQsDetectMessage("detecting",deep?"qs_auto_verifying_evm":"qs_auto_checking_evm");
+    const dexEntries=await cxQsDexDetect(raw);
+    if(seq!==_cxQsDetectSeq) return {cancelled:true};
+    const dexNets=dexEntries.map(x=>x.net);
+
+    if(dexEntries.length===1){
+      const out={net:dexEntries[0].net,evidenceCode:"market"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
     }
-
-    cxQsDetectMessage("detecting", deep ? "Verifying the EVM network on-chain…" : "Checking supported EVM networks…");
-    const dexEntries = await cxQsDexDetect(raw);
-    if (seq !== _cxQsDetectSeq) return { cancelled:true };
-    const dexNets = dexEntries.map(x=>x.net);
-
-    if (dexEntries.length === 1) {
-      const out = { net:dexEntries[0].net, evidence:"market match" };
-      _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidence); return out;
+    const dominant=cxQsDominantMarket(dexEntries);
+    if(!deep && dominant){
+      const out={net:dominant.net,evidenceCode:"marketStrong"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
+    }
+    if(!deep){
+      if(dexNets.length>1){ cxQsDetectMessage("warn","qs_auto_seen_multi",{networks:cxQsNetListLabel(dexNets)}); return {ambiguous:dexNets,market:dexEntries}; }
+      cxQsDetectMessage("idle","qs_auto_no_market"); return {pending:true,market:[]};
     }
 
-    const dominant = cxQsDominantMarket(dexEntries);
-    if (!deep && dominant) {
-      const out = { net:dominant.net, evidence:"strongest market match" };
-      _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidence); return out;
-    }
-
-    if (!deep) {
-      if (dexNets.length > 1) {
-        cxQsDetectMessage("warn", `Seen on ${cxQsNetListLabel(dexNets)} · press Scan to verify on-chain, or choose the intended network manually.`);
-        return { ambiguous:dexNets, market:dexEntries };
-      }
-      cxQsDetectMessage("idle", "No market match yet · press Scan and CycleX will verify the contract on supported EVM networks.");
-      return { pending:true, market:[] };
-    }
-
-    // On explicit Scan, verify candidates on-chain. If market data found no
-    // candidates, probe all supported EVM networks. If it found several,
-    // verify those candidates first and also include BSC because BSC market
-    // indexing can occasionally lag while the contract is already live.
-    const probeSet = dexNets.length
-      ? [...new Set([...dexNets, ...(dexNets.includes("bsc") ? [] : ["bsc"])])]
+    // On Scan: market candidates first, but always include BSC and Robinhood
+    // because those two are the most likely to be missed by market indexing.
+    const probeSet=dexNets.length
+      ? [...new Set([...dexNets,"bsc","robinhood"])]
       : CX_QS_DETECT_NETS;
-    let probes = await cxQsProbeNetworks(raw, probeSet);
-    if (seq !== _cxQsDetectSeq) return { cancelled:true };
+    let probes=await cxQsProbeNetworks(raw,probeSet);
+    if(seq!==_cxQsDetectSeq) return {cancelled:true};
+    let tokenNets=probes.filter(x=>x.tokenLike).map(x=>x.net);
+    let codeNets=probes.map(x=>x.net);
 
-    let tokenNets = probes.filter(x=>x.tokenLike).map(x=>x.net);
-    let codeNets = probes.map(x=>x.net);
-
-    // If the narrowed candidate set produced no token-like match, do one
-    // bounded full supported-network pass before giving up. This is the
-    // fallback that materially improves BSC detection without touching any
-    // CycleX Worker or server-side quota.
-    if (!tokenNets.length && probeSet.length < CX_QS_DETECT_NETS.length) {
-      probes = await cxQsProbeNetworks(raw, CX_QS_DETECT_NETS);
-      if (seq !== _cxQsDetectSeq) return { cancelled:true };
-      tokenNets = probes.filter(x=>x.tokenLike).map(x=>x.net);
-      codeNets = probes.map(x=>x.net);
+    if(!tokenNets.length && probeSet.length<CX_QS_DETECT_NETS.length){
+      probes=await cxQsProbeNetworks(raw,CX_QS_DETECT_NETS);
+      if(seq!==_cxQsDetectSeq) return {cancelled:true};
+      tokenNets=probes.filter(x=>x.tokenLike).map(x=>x.net); codeNets=probes.map(x=>x.net);
     }
-
-    const verifiedNets = tokenNets.length ? tokenNets : codeNets;
-    if (verifiedNets.length === 1) {
-      const out = { net:verifiedNets[0], evidence:tokenNets.length ? "ERC-20 verified on-chain" : "contract verified on-chain" };
-      _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidence); return out;
+    const verifiedNets=tokenNets.length?tokenNets:codeNets;
+    if(verifiedNets.length===1){
+      const out={net:verifiedNets[0],evidenceCode:tokenNets.length?"erc20":"contract"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
     }
-
-    if (verifiedNets.length > 1) {
-      const verifiedMarket = dexEntries.filter(x=>verifiedNets.includes(x.net));
-      const verifiedDominant = cxQsDominantMarket(verifiedMarket);
-      if (verifiedDominant) {
-        const out = { net:verifiedDominant.net, evidence:"strongest verified market match" };
-        _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidence); return out;
+    if(verifiedNets.length>1){
+      const verifiedMarket=dexEntries.filter(x=>verifiedNets.includes(x.net));
+      const verifiedDominant=cxQsDominantMarket(verifiedMarket);
+      if(verifiedDominant){
+        const out={net:verifiedDominant.net,evidenceCode:"verifiedMarket"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
       }
-      cxQsDetectMessage("warn", `Verified on multiple networks (${cxQsNetListLabel(verifiedNets)}) · choose the intended network above.`);
-      return { ambiguous:verifiedNets, market:dexEntries };
+      cxQsDetectMessage("warn","qs_auto_verified_multi",{networks:cxQsNetListLabel(verifiedNets)}); return {ambiguous:verifiedNets,market:dexEntries};
     }
-
-    cxQsDetectMessage("warn", "CycleX could not verify a supported EVM network for this contract · choose a network manually if you know it.");
-    return { error:"not_found" };
+    cxQsDetectMessage("warn","qs_auto_not_found"); return {error:"not_found"};
   }
   async function cxQsResolveNetwork(tokenRaw){
-    const sel = document.querySelector("#qs-net");
-    const requested = String(sel?.value || "auto").toLowerCase();
-    if (requested !== "auto") return requested === "solana" ? "solana" : (QS_NET?.[requested] ? requested : null);
-    const result = await cxDetectQuickNetwork(tokenRaw,{deep:true});
-    if (result?.net) return result.net;
-    // Auto-detect guidance already lives in #qs-detect-status. Keep the
-    // generic status rail reserved for real scan/runtime failures.
-    return null;
+    const sel=document.querySelector("#qs-net"); const requested=String(sel?.value||"auto").toLowerCase();
+    // An auto-generated selection remains auto-detect behavior for the current
+    // token; a genuinely manual selection bypasses detection.
+    const autoGenerated=sel?.dataset?.cxAutoSelected==="1";
+    if(requested!=="auto" && !autoGenerated) return requested==="solana"?"solana":(QS_NET?.[requested]?requested:null);
+    if(autoGenerated && requested!=="auto") return requested;
+    const result=await cxDetectQuickNetwork(tokenRaw,{deep:true});
+    return result?.net || null;
   }
 
 
@@ -7839,35 +8143,53 @@ async function qsLiqCheckBasic(net, token, provider) {
     }
     return null;
   }
-  function qsBuildXText(rep,{includeLink=true}={}){
-    const sym = String(rep?.meta?.symbol || "").trim();
-    const nm  = String(rep?.meta?.name || "").trim();
-    const ticker = /^[A-Za-z0-9]{2,10}$/.test(sym) ? `$${sym}` : sym;
-    const chainLabel = rep.chainName || (rep.net || "").toUpperCase();
-    const showName = nm && nm !== sym && nm.toLowerCase() !== String(chainLabel).toLowerCase();
-    const rawNameStr = ticker
-      ? (showName ? `${ticker} — ${nm}` : ticker)
-      : qsShortAddr(rep.token);
-    const nameStr = qsShareCleanValue(rawNameStr, 40);
-    const net = rep.net || "";
-    const hashNetMap = { bsc:"#BNBChain", eth:"#Ethereum", polygon:"#Polygon", solana:"#Solana", base:"#Base", arbitrum:"#Arbitrum", optimism:"#Optimism", avalanche:"#Avalanche", linea:"#Linea", scroll:"#Scroll", opbnb:"#opBNB", robinhood:"#Robinhood" };
-    const good = qsSharePickPoint(rep,"good");
-    const review = qsSharePickPoint(rep,"review");
-    const lines = [
-      `🔍 ${nameStr} · ${chainLabel}`,
-      `CycleX Score: ${rep.score}/100 · ${rep.overallText}`,
-      ``,
-      good ? `✅ Strong: ${good.title} — ${good.value}` : `✅ Strong: No major positive signal highlighted`,
-      review ? `⚠️ Review: ${review.title} — ${review.value}` : `⚠️ Review: No major negative signal surfaced in this scan`,
-      ``,
-      `#CycleXNetwork #OnChainSecurity${hashNetMap[net] ? " " + hashNetMap[net] : ""}`
-    ];
-    const link = rep.shareLink || "";
-    const body = lines.join("\n").trim();
-    // X counts web links at a fixed shortened length; keep the branded lines
-    // intact rather than truncating the hashtags to compensate for raw URL length.
-    return `${body}${includeLink && link ? "\n" + link : ""}`.trim();
+  function qsShareOverallLabel(v){
+    const s=String(v||"").toLowerCase();
+    if(s.includes("high")) return cxQsTr("qs_overall_high");
+    if(s.includes("mixed") || s.includes("review")) return cxQsTr("qs_overall_mixed");
+    if(s.includes("good") || s.includes("low risk")) return cxQsTr("qs_overall_good");
+    return String(v||"");
   }
+  function qsShareLiquidity(rep){
+    const usd=Number(rep?.meta?.liquidityUsdEst);
+    const pools=Number(rep?.meta?.liqActivePools ?? rep?.liq?.rows?.length ?? 0);
+    const q=String(rep?.meta?.liqQuality||"unknown");
+    const qKey=q==="tiny"?"qs_liq_very_low":q==="low"?"qs_liq_low":q==="medium"?"qs_liq_medium":q==="healthy"?"qs_liq_healthy":null;
+    const parts=[];
+    if(qKey) parts.push(cxQsTr(qKey));
+    if(Number.isFinite(usd) && usd>0) parts.push(`~$${Math.round(usd).toLocaleString("en-US")}`);
+    if(pools>0) parts.push(pools===1 ? cxQsTr("qs_share_pool_one") : cxQsTr("qs_share_pool_many",{count:pools}));
+    return parts.length ? parts.join(" · ") : cxQsTr("qs_liq_none");
+  }
+  function qsBuildXText(rep,{includeLink=true}={}){
+    const sym=String(rep?.meta?.symbol||"").trim();
+    const nm=String(rep?.meta?.name||"").trim();
+    const ticker=/^[A-Za-z0-9]{2,10}$/.test(sym)?`$${sym}`:sym;
+    const chainLabel=rep.chainName || (rep.net||"").toUpperCase();
+    const showName=nm && nm!==sym && nm.toLowerCase()!==String(chainLabel).toLowerCase();
+    const rawNameStr=ticker ? (showName?`${ticker} — ${nm}`:ticker) : qsShortAddr(rep.token);
+    const nameStr=qsShareCleanValue(rawNameStr,36);
+    const net=rep.net||"";
+    const hashNetMap={bsc:"#BNBChain",eth:"#Ethereum",polygon:"#Polygon",solana:"#Solana",base:"#Base",arbitrum:"#Arbitrum",optimism:"#Optimism",avalanche:"#Avalanche",linea:"#Linea",scroll:"#Scroll",opbnb:"#opBNB",robinhood:"#Robinhood"};
+    const good=qsSharePickPoint(rep,"good");
+    const review=qsSharePickPoint(rep,"review");
+    const compactValue=(value,max=32)=>qsShareCleanValue(String(value??"").replace(/\s*\((?:verified\s+on-chain|on-chain)\)\s*/gi," ").replace(/\s+verified\s+on-chain/gi,"").trim(),max);
+    const liqText=qsShareLiquidity(rep);
+    const reviewValue=(review && String(review.title||"").toLowerCase()==="liquidity")
+      ? (String(rep?.meta?.liqQuality||"")==="tiny"?cxQsTr("qs_liq_very_low"):String(rep?.meta?.liqQuality||"")==="low"?cxQsTr("qs_liq_low"):String(rep?.meta?.liqQuality||"")==="medium"?cxQsTr("qs_liq_medium"):compactValue(review.value,26))
+      : (review?compactValue(review.value,30):"");
+    const lines=[
+      `🔍 ${nameStr} · ${chainLabel}`,
+      `CycleX ${rep.score}/100 · ${qsShareOverallLabel(rep.overallText)}`,
+      `💧 ${cxQsTr("qs_share_liquidity")}: ${liqText}`,
+      good ? `✅ ${cxQsTr("qs_share_strong")}: ${qsShareCleanValue(good.title,24)} · ${compactValue(good.value,28)}` : `✅ ${cxQsTr("qs_share_strong")}: ${cxQsTr("qs_share_no_strong")}`,
+      review ? `⚠️ ${cxQsTr("qs_share_review")}: ${qsShareCleanValue(review.title,24)}${reviewValue?` · ${reviewValue}`:""}` : `⚠️ ${cxQsTr("qs_share_review")}: ${cxQsTr("qs_share_no_review")}`,
+      `#CycleXNetwork #OnChainSecurity${hashNetMap[net]?" "+hashNetMap[net]:""}`
+    ];
+    const link=rep.shareLink||"";
+    return `${lines.join("\n").trim()}${includeLink&&link?"\n"+link:""}`.trim();
+  }
+
 
   async function cxReadWithFallback(net, runner) {
     const base = getReadProvider(net);
@@ -9635,7 +9957,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const useApis = !!$("#api-use")?.checked;
 
     if (!tokenRaw || (!qsIsAddr(tokenRaw) && !qsIsSolanaAddr(tokenRaw))) {
-      setStatus(st, "warn", "Please paste a valid EVM contract or Solana mint address.");
+      setStatus(st, "warn", cxQsTr("qs_err_invalid_address"));
       return;
     }
 
@@ -9648,7 +9970,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     }
 
     if (!qsIsAddr(tokenRaw)) {
-      setStatus(st, "warn", "The selected network expects a 0x token contract.");
+      setStatus(st, "warn", cxQsTr("qs_err_selected_evm"));
       return;
     }
     const token = qsNormAddr(tokenRaw);
@@ -11267,12 +11589,20 @@ async function qsLiqCheckBasic(net, token, provider) {
       // into rep.liq.rows from GoPlus's dex array above) — was previously
       // just a single $ figure or "Found" with no indication of how many
       // pools/DEXes back that number, unlike the EVM chip's pool count.
-      { type: rep.liq.any?"ok":(cex?.listed?"warn":"bad"), title: "Liquidity",
+      { type: (() => {
+          const q=String(rep?.meta?.liqQuality||"unknown");
+          if (!rep.liq.any) return cex?.listed ? "warn" : "bad";
+          if (q === "tiny" || q === "low") return "bad";
+          if (q === "medium" || q === "unknown") return "warn";
+          return "ok";
+        })(), title: "Liquidity",
         value: (() => {
+          const q=String(rep?.meta?.liqQuality||"unknown");
           const poolCount = rep.liq?.rows?.length || 0;
           const poolsTxt = poolCount > 0 ? ` • ${poolCount} pool${poolCount > 1 ? "s" : ""}` : "";
-          if (liqUsd) return `~$${Number(liqUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${poolsTxt}`;
-          if (rep.liq.any) return `Found${poolsTxt}`;
+          const prefix = q === "tiny" ? "Very low (thin)" : q === "low" ? "Low" : q === "medium" ? "Medium" : q === "healthy" ? "Healthy" : "";
+          if (liqUsd) return `${prefix ? prefix + " • " : ""}~$${Number(liqUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${poolsTxt}`;
+          if (rep.liq.any) return `${prefix || "Found"}${poolsTxt}`;
           return "No/Unknown";
         })() },
       {
@@ -11786,27 +12116,36 @@ async function qsLiqCheckBasic(net, token, provider) {
     // Network auto-detection: one lightweight market lookup after a complete paste.
     // Full on-chain fallback probing runs only after the user explicitly presses Scan.
     (function qsBindAutoDetect(){
-      const input = $("#qs-token"), netEl = $("#qs-net");
-      if (!input || !netEl) return;
-      let timer = null;
-      const queue = () => {
+      const input=$("#qs-token"), netEl=$("#qs-net");
+      if(!input||!netEl) return;
+      let timer=null;
+      const queue=()=>{
         clearTimeout(timer);
-        const raw = String(input.value || "").trim();
-        if (netEl.value !== "auto") return;
-        if (!raw) { cxQsDetectMessage("idle","Auto Detect is on — paste a token contract. CycleX will verify the network when possible; if several chains match, you’ll choose one."); return; }
-        if (qsIsSolanaAddr(raw)) { timer=setTimeout(()=>cxDetectQuickNetwork(raw,{deep:false}),80); return; }
-        if (qsIsAddr(raw)) { timer=setTimeout(()=>cxDetectQuickNetwork(raw,{deep:false}),420); return; }
-        cxQsDetectMessage("idle","Paste a full 0x token contract or Solana mint address to start Auto Detect.");
+        const raw=String(input.value||"").trim();
+        // A network chosen by Auto Detect belongs only to the previous token.
+        // New input returns to Auto Detect; a user-selected network is preserved.
+        if(netEl.dataset.cxAutoSelected==="1"){
+          netEl.dataset.cxAutoSelected="0";
+          netEl.value="auto";
+        }
+        if(netEl.value!=="auto") return;
+        if(!raw){ cxQsDetectMessage("idle","qs_auto_idle"); return; }
+        if(qsIsSolanaAddr(raw)){ timer=setTimeout(()=>cxDetectQuickNetwork(raw,{deep:false}),80); return; }
+        if(qsIsAddr(raw)){ timer=setTimeout(()=>cxDetectQuickNetwork(raw,{deep:false}),420); return; }
+        cxQsDetectMessage("idle","qs_auto_partial");
       };
-      input.addEventListener("input", queue);
-      input.addEventListener("paste", ()=>setTimeout(queue,0));
-      netEl.addEventListener("change", () => {
-        if (netEl.value === "auto") queue();
+      input.addEventListener("input",queue);
+      input.addEventListener("paste",()=>setTimeout(queue,0));
+      netEl.addEventListener("change",(ev)=>{
+        if(ev?.detail?.cxAuto) return;
+        netEl.dataset.cxAutoSelected="0";
+        if(netEl.value==="auto") queue();
         else {
-          const label = netEl.options[netEl.selectedIndex]?.textContent || netEl.value;
-          cxQsDetectMessage("ok", `Manual network · ${label}`);
+          const label=netEl.options[netEl.selectedIndex]?.textContent||netEl.value;
+          cxQsDetectMessage("ok","qs_auto_manual",{network:label});
         }
       });
+      cxQsRefreshLocale();
     })();
 
     $("#qs-new-scan")?.addEventListener("click", () => {
@@ -11814,10 +12153,10 @@ async function qsLiqCheckBasic(net, token, provider) {
       cxQsSetScanning(false); cxQsSetMode("input"); clearStatus($("#qs-status"));
       const tokenEl=$("#qs-token"), netEl=$("#qs-net"), share=$("#qs-share-menu");
       if (tokenEl) tokenEl.value="";
-      if (netEl) { netEl.value="auto"; netEl.dispatchEvent(new Event("change",{bubbles:true})); }
+      if (netEl) { netEl.dataset.cxAutoSelected="0"; netEl.value="auto"; netEl.dispatchEvent(new Event("change",{bubbles:true})); }
       if (share) share.open=false;
       const out=$("#qs-out"), risk=$("#qs-risk"), pairs=$("#qs-pairsWrap"), flags=$("#qs-redflagsWrap");
-      if (out) { out.className="status info"; out.style.display="block"; out.innerHTML="<strong>Ready.</strong><br>Paste a token address and click <b>Scan</b>."; }
+      if (out) { out.className="status info"; out.style.display="block"; out.innerHTML=t(currentLang,"qs_ready_html") || "<strong>Ready.</strong><br>Paste a token address and click <b>Scan</b>."; }
       if (risk) risk.innerHTML=""; if (pairs) pairs.innerHTML=""; if (flags) flags.innerHTML="";
       try { cxDeepStopClock(); cxDeepClearStages(); cxDeepHideError(); cxDeepSetState("idle"); cxDeepBadge(cxDeepTr("deep_badge_ready")); cxDeepCurrent(cxDeepTr("deep_ready")); } catch {}
       setTimeout(()=>tokenEl?.focus(),40);
