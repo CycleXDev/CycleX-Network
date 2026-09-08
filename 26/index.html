@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- CycleX Security Hub Premium Scanner UX v1.6 · Archive bridge preserved -->
     <!-- Google tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXDFXJWCNQ"></script>
   <script>
@@ -3150,6 +3151,172 @@
     .qs-intel-column .cx-deep-stage-reason{font-size:11px!important}
   }
 
+
+
+  /* ================================================================
+     CYCLEX QUICK / DEEP SCAN — PREMIUM TWO-STATE UX v1.6
+     Input mode -> Intelligence report. Additive UI-only layer.
+     ================================================================ */
+  #panel-quick{
+    transition:max-width .28s cubic-bezier(.2,.75,.2,1),padding .28s ease;
+  }
+  #panel-quick[data-qs-mode="input"]{
+    max-width:760px!important;
+    padding:24px!important;
+  }
+  #panel-quick[data-qs-mode="input"] .panel-head{
+    margin-bottom:18px!important;
+    padding-bottom:15px!important;
+  }
+  #panel-quick[data-qs-mode="input"] .panel-title{font-size:22px!important}
+  #panel-quick[data-qs-mode="input"] .panel-sub{max-width:66ch;font-size:11px!important}
+  #panel-quick[data-qs-mode="input"] .qs-summary-wrap,
+  #panel-quick[data-qs-mode="input"] .qs-analysis-layout,
+  #panel-quick[data-qs-mode="input"] .qs-report-toolbar{display:none!important}
+
+  #panel-quick[data-qs-mode="report"]{max-width:1320px!important}
+  #panel-quick[data-qs-mode="report"] .qs-scan-console{display:none!important}
+  #panel-quick[data-qs-mode="report"] .panel-head{
+    margin-bottom:10px!important;padding-bottom:10px!important;
+  }
+  #panel-quick[data-qs-mode="report"] .panel-sub{display:none}
+  #panel-quick[data-qs-mode="report"] .panel-title{font-size:16px!important;color:rgba(244,246,255,.82)}
+
+  .qs-scan-console{
+    position:relative;
+    border:1px solid rgba(91,217,255,.16)!important;
+    border-radius:20px!important;
+    padding:17px!important;
+    background:
+      radial-gradient(520px 240px at 0% 0%,rgba(0,229,255,.08),transparent 68%),
+      radial-gradient(480px 220px at 100% 100%,rgba(124,92,255,.075),transparent 70%),
+      linear-gradient(155deg,rgba(9,15,25,.97),rgba(7,10,20,.98))!important;
+    box-shadow:0 24px 70px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.04)!important;
+    overflow:visible!important;
+  }
+  .qs-scan-console::before{
+    content:"TOKEN INTELLIGENCE";
+    display:block;margin:0 0 11px 2px;
+    font-family:var(--mono);font-size:8px;font-weight:850;letter-spacing:.22em;
+    color:rgba(100,235,255,.62);
+  }
+  #panel-quick .qs-scan-row{
+    grid-template-columns:minmax(145px,175px) minmax(300px,1fr) 132px!important;
+    gap:9px!important;
+  }
+  #panel-quick .qs-scan-row select,#panel-quick .qs-scan-row input{
+    height:44px!important;border-radius:12px!important;
+    background:rgba(4,10,18,.88)!important;
+    border-color:rgba(139,170,199,.19)!important;
+    font-size:11.5px!important;
+  }
+  #panel-quick #qs-token:focus,#panel-quick #qs-net:focus{
+    border-color:rgba(0,229,255,.52)!important;
+    box-shadow:0 0 0 3px rgba(0,229,255,.055),0 0 24px rgba(0,229,255,.06)!important;
+  }
+  #panel-quick #qs-run{
+    height:44px!important;border-radius:12px!important;
+    background:linear-gradient(135deg,#57e6ff 0%,#79f1ff 54%,#8fdcff 100%)!important;
+    color:#031017!important;font-weight:950!important;letter-spacing:.15em!important;
+    box-shadow:0 12px 32px rgba(0,229,255,.18)!important;
+  }
+  #panel-quick #qs-run[data-scanning="1"]{
+    pointer-events:none;filter:saturate(.75);opacity:.86;
+  }
+  #panel-quick #qs-run[data-scanning="1"]::after{
+    content:"";width:10px;height:10px;border:2px solid rgba(3,16,23,.28);border-top-color:#031017;
+    border-radius:50%;display:inline-block;margin-left:7px;vertical-align:-1px;animation:cxQsSpin .72s linear infinite;
+  }
+  @keyframes cxQsSpin{to{transform:rotate(360deg)}}
+
+  .qs-detect-status{
+    display:flex;align-items:center;gap:7px;margin:9px 2px 0;
+    min-height:18px;font-size:9.5px;color:rgba(244,246,255,.40);
+  }
+  .qs-detect-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.22);flex:0 0 auto}
+  .qs-detect-status[data-state="detecting"]{color:rgba(111,232,255,.72)}
+  .qs-detect-status[data-state="detecting"] .qs-detect-dot{background:#55e8ff;box-shadow:0 0 10px rgba(0,229,255,.55);animation:cxDeepDot 1s ease-in-out infinite}
+  .qs-detect-status[data-state="ok"]{color:rgba(105,255,191,.76)}
+  .qs-detect-status[data-state="ok"] .qs-detect-dot{background:#5dffb2;box-shadow:0 0 9px rgba(93,255,178,.42)}
+  .qs-detect-status[data-state="warn"]{color:rgba(255,211,112,.82)}
+  .qs-detect-status[data-state="warn"] .qs-detect-dot{background:#ffd166}
+
+  .qs-input-advanced-wrap{margin-top:5px}
+  #panel-quick .qs-advanced{margin-top:3px!important}
+
+  /* Status rail is now reserved for actual problems only. */
+  #panel-quick #qs-status{display:none!important;margin-top:10px!important}
+  #panel-quick #qs-status.warn,#panel-quick #qs-status.bad{display:block!important}
+  #panel-quick #qs-status.info,#panel-quick #qs-status.ok{display:none!important}
+
+  .qs-report-toolbar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin:2px 0 11px;padding:8px 10px;
+    border:1px solid rgba(255,255,255,.065);border-radius:12px;
+    background:linear-gradient(180deg,rgba(255,255,255,.026),rgba(255,255,255,.012));
+  }
+  .qs-report-toolbar-left,.qs-report-toolbar-actions{display:flex;align-items:center;gap:8px}
+  .qs-report-live-dot{width:6px;height:6px;border-radius:50%;background:#5dffb2;box-shadow:0 0 9px rgba(93,255,178,.4)}
+  .qs-report-toolbar-label{font-family:var(--mono);font-size:8.5px;font-weight:850;letter-spacing:.13em;text-transform:uppercase;color:rgba(244,246,255,.45)}
+  .qs-report-action{
+    border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(244,246,255,.68);
+    border-radius:8px;padding:6px 9px;font-size:8.8px;font-weight:820;cursor:pointer;list-style:none;white-space:nowrap;
+  }
+  .qs-report-action:hover{color:#c7f8ff;border-color:rgba(0,229,255,.2);background:rgba(0,229,255,.045)}
+  .qs-share-menu{position:relative}
+  .qs-share-menu summary::-webkit-details-marker{display:none}
+  .qs-share-popover{
+    position:absolute;z-index:25;right:0;top:calc(100% + 7px);width:390px;max-width:min(390px,80vw);
+    padding:8px;border-radius:12px;border:1px solid rgba(98,213,255,.16);
+    background:rgba(7,11,20,.97);backdrop-filter:blur(18px);box-shadow:0 20px 55px rgba(0,0,0,.55);
+  }
+  .qs-share-menu:not([open]) .qs-share-popover{display:none}
+  .qs-share-popover .qs-share-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px!important;margin:0!important;padding:0!important;border:0!important}
+  .qs-share-popover .qs-share-row .btn{
+    width:100%!important;padding:7px 8px!important;border:1px solid rgba(255,255,255,.065)!important;
+    background:rgba(255,255,255,.02)!important;color:rgba(244,246,255,.62)!important;font-size:8.2px!important;
+  }
+
+  /* Signature CycleX Deep Intelligence surface: cyan/purple brand, status colors only when meaningful. */
+  .qs-intel-column .cx-deep-shell{
+    position:relative!important;
+    border:1px solid rgba(69,222,255,.28)!important;
+    background:
+      radial-gradient(620px 320px at -10% -8%,rgba(0,229,255,.12),transparent 64%),
+      radial-gradient(560px 340px at 112% 110%,rgba(124,92,255,.14),transparent 65%),
+      linear-gradient(155deg,rgba(5,16,27,.98),rgba(9,9,24,.98))!important;
+    box-shadow:0 26px 72px rgba(0,0,0,.42),0 0 0 1px rgba(124,92,255,.035),inset 0 1px 0 rgba(255,255,255,.05)!important;
+  }
+  .qs-intel-column .cx-deep-shell::before{opacity:.12!important;background-size:30px 30px!important}
+  .qs-intel-column .cx-deep-title{
+    font-size:19px!important;letter-spacing:-.02em!important;
+    background:linear-gradient(100deg,#f7fbff 0%,#86efff 52%,#b6a8ff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent!important;
+  }
+  .qs-intel-column .cx-deep-sub{font-size:11px!important;color:rgba(244,246,255,.52)!important;margin-top:4px!important}
+  .cx-deep-micro{margin-top:6px;font-family:var(--mono);font-size:7.8px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:rgba(143,118,255,.70)}
+  .qs-intel-column .cx-deep-stages{gap:6px 7px!important}
+  .qs-intel-column .cx-deep-stage{
+    min-height:54px!important;padding:8px 9px!important;
+    background:rgba(255,255,255,.018)!important;border-color:rgba(255,255,255,.055)!important;
+    box-shadow:none!important;
+  }
+  .qs-intel-column .cx-deep-stage.running{background:rgba(0,229,255,.035)!important;border-color:rgba(0,229,255,.15)!important}
+  .qs-intel-column .cx-deep-stage.done{background:rgba(93,255,178,.018)!important;border-color:rgba(93,255,178,.09)!important}
+  .qs-intel-column .cx-deep-stage.partial{background:rgba(255,209,102,.018)!important;border-color:rgba(255,209,102,.11)!important}
+  .qs-intel-column .cx-deep-badge{border-color:rgba(116,229,255,.16)!important;background:rgba(0,229,255,.035)!important}
+  .qs-intel-column .cx-deep-progress-bar{background:linear-gradient(90deg,#00e5ff,#7c5cff,#5dffb2)!important}
+
+  @media(max-width:760px){
+    #panel-quick[data-qs-mode="input"],#panel-quick[data-qs-mode="report"]{max-width:100%!important;padding:18px 14px!important}
+    #panel-quick .qs-scan-row{grid-template-columns:1fr!important}
+    .qs-detect-status{font-size:9px;line-height:1.35}
+    .qs-report-toolbar{align-items:flex-start}
+    .qs-report-toolbar-label{display:none}
+    .qs-share-popover{position:fixed;left:12px;right:12px;top:auto;bottom:12px;width:auto;max-width:none}
+    .qs-share-popover .qs-share-row{grid-template-columns:1fr 1fr!important}
+  }
+
 </style>
 </head>
 <body>
@@ -3276,7 +3443,7 @@
     <div class="modal-backdrop" id="modalBackdrop">
 
     <!-- Quick Scan Panel -->
-    <section class="panel-shell hidden" id="panel-quick">
+    <section class="panel-shell hidden" id="panel-quick" data-qs-mode="input">
       <div class="panel-head">
         <div>
           <div class="panel-kicker" data-i18n="p_quick_kicker">Quick / Deep Scan</div>
@@ -3294,6 +3461,7 @@
           <div class="field qs-scan-field">
             <div class="label" data-i18n="net_label">Network</div>
             <select id="qs-net">
+              <option value="auto" selected>Auto Detect</option>
               <option value="bsc">BSC (BNB Chain)</option>
               <option value="eth">Ethereum</option>
               <option value="polygon">Polygon</option>
@@ -3310,23 +3478,17 @@
           </div>
           <div class="field qs-scan-field">
             <div class="label" data-i18n="addr_label">Token address</div>
-            <input id="qs-token" class="mono" placeholder="0x..." />
+            <input id="qs-token" class="mono" placeholder="Paste 0x… or Solana mint" autocomplete="off" spellcheck="false" />
           </div>
           <div class="qs-scan-btn-wrap">
             <button class="btn btn-primary" id="qs-run" data-i18n="btn_scan">Scan</button>
           </div>
         </div>
-
-        <div class="qs-actions-strip">
-        <div class="qs-share-row">
-          <button class="btn btn-ghost" id="qs-copy-link" data-i18n="btn_copy_link">🔗 Share Link</button>
-          <button class="btn btn-ghost" id="qs-copy-json" data-i18n="btn_copy_json">📦 JSON</button>
-          <button class="btn btn-ghost" id="qs-copy-md" data-i18n="btn_copy_md">📝 Markdown</button>
-          <button class="btn btn-ghost" id="qs-share-x" data-i18n="btn_share_x">𝕏 Share</button>
-          <button class="btn btn-ghost" id="qs-share-tg" data-i18n="btn_share_tg">✈️ Telegram</button>
-          <button class="btn btn-ghost" id="qs-copy-xtext" data-i18n="btn_copy_xtext">✍️ X Text</button>
+        <div class="qs-detect-status" id="qs-detect-status" data-state="idle" aria-live="polite">
+          <span class="qs-detect-dot"></span><span class="qs-detect-copy">Paste a contract — CycleX will identify the network when it can verify it.</span>
         </div>
 
+        <div class="qs-input-advanced-wrap">
         <details class="qs-advanced">
           <summary><span data-i18n="quick_advanced">⚙ Advanced</span></summary>
           <div class="qs-advanced-body">
@@ -3370,6 +3532,29 @@
         <div id="qs-status" class="status"></div>
       </div>
 
+      <div class="qs-report-toolbar" id="qs-report-toolbar">
+        <div class="qs-report-toolbar-left">
+          <span class="qs-report-live-dot"></span>
+          <span class="qs-report-toolbar-label">CycleX Intelligence Report</span>
+        </div>
+        <div class="qs-report-toolbar-actions">
+          <button type="button" class="qs-report-action" id="qs-new-scan">↻ New Scan</button>
+          <details class="qs-share-menu" id="qs-share-menu">
+            <summary class="qs-report-action">Share ▾</summary>
+            <div class="qs-share-popover">
+              <div class="qs-share-row">
+          <button class="btn btn-ghost" id="qs-copy-link" data-i18n="btn_copy_link">🔗 Share Link</button>
+          <button class="btn btn-ghost" id="qs-copy-json" data-i18n="btn_copy_json">📦 JSON</button>
+          <button class="btn btn-ghost" id="qs-copy-md" data-i18n="btn_copy_md">📝 Markdown</button>
+          <button class="btn btn-ghost" id="qs-share-x" data-i18n="btn_share_x">𝕏 Share</button>
+          <button class="btn btn-ghost" id="qs-share-tg" data-i18n="btn_share_tg">✈️ Telegram</button>
+          <button class="btn btn-ghost" id="qs-copy-xtext" data-i18n="btn_copy_xtext">✍️ X Text</button>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+
       <!-- Full-width fast result summary -->
       <div class="qs-summary-wrap">
         <div id="qs-out" class="status info" style="display:block;" data-i18n="qs_ready_html">
@@ -3385,7 +3570,8 @@
               <div class="cx-deep-title-wrap">
                 <div class="cx-deep-kicker" data-i18n="deep_kicker">Protected Analysis</div>
                 <div class="cx-deep-title" data-i18n="deep_title">CycleX Deep Intelligence</div>
-                <div class="cx-deep-sub" data-i18n="deep_sub">History · deployer funding · early buyers · wallet clusters · liquidity ownership · dynamic simulation.</div>
+                <div class="cx-deep-sub" data-i18n="deep_sub">Behavior, history and relationships beyond the contract.</div>
+                <div class="cx-deep-micro">10 protected intelligence layers</div>
               </div>
               <div class="cx-deep-badge" id="cx-deep-badge" data-i18n="deep_badge_ready">Ready</div>
             </div>
@@ -3792,7 +3978,7 @@ const translations = {
     p_quick_sub: "Paste a token address, run Quick Scan, and get Deep Intelligence context automatically. Cached 10 min · shareable report · no wallet connection.",
     deep_kicker: "Protected Analysis",
     deep_title: "CycleX Deep Intelligence",
-    deep_sub: "History · deployer funding · early buyers · wallet clusters · liquidity ownership · dynamic simulation.",
+    deep_sub: "Behavior, history and relationships beyond the contract.",
     deep_current_label: "Deep scan status",
     deep_ready: "Runs automatically after a valid Quick Scan.",
     deep_rerun: "Re-run Deep Scan",
@@ -6083,6 +6269,7 @@ function initPanels() {
     Object.entries(panels).forEach(([k, el]) => { if (el) el.classList.toggle("hidden", k !== key); });
     toolCards.forEach((c) => c.classList.toggle("active", c.dataset.tool === key));
     if (backdrop) backdrop.classList.toggle("open", !!key);
+    if (key === "quick" && panels.quick) panels.quick.dataset.qsMode = "input";
     if (key) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
   }
@@ -6325,6 +6512,137 @@ function initPanels() {
     const s = String(a || "").trim();
     return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(s);
   }
+
+  // Premium Quick Scan UI state + conservative network auto-detection.
+  // Detection runs in the visitor's browser. It does not call CycleX Workers.
+  const CX_QS_DETECT_NETS = ["bsc","eth","polygon","base","arbitrum","optimism","avalanche","linea","scroll","opbnb","robinhood"];
+  const CX_QS_DEX_CHAIN_MAP = {
+    bsc:"bsc", ethereum:"eth", eth:"eth", polygon:"polygon", base:"base",
+    arbitrum:"arbitrum", optimism:"optimism", avalanche:"avalanche",
+    linea:"linea", scroll:"scroll", opbnb:"opbnb", robinhood:"robinhood"
+  };
+  const _cxQsDetectCache = new Map();
+  let _cxQsDetectSeq = 0;
+
+  function cxQsSetMode(mode){
+    const panel = document.querySelector("#panel-quick");
+    if (panel) panel.dataset.qsMode = mode === "report" ? "report" : "input";
+  }
+  function cxQsSetScanning(on){
+    const btn = document.querySelector("#qs-run");
+    if (!btn) return;
+    btn.dataset.scanning = on ? "1" : "0";
+    btn.disabled = !!on;
+    const base = t(currentLang,"btn_scan") || "Scan";
+    btn.textContent = on ? ((currentLang === "en") ? "SCANNING" : base) : base;
+  }
+  function cxQsDetectMessage(state, text){
+    const el = document.querySelector("#qs-detect-status");
+    if (!el) return;
+    el.dataset.state = state || "idle";
+    const copy = el.querySelector(".qs-detect-copy");
+    if (copy) copy.textContent = text || "";
+  }
+  function cxQsSelectDetectedNetwork(net, evidence){
+    const sel = document.querySelector("#qs-net");
+    if (!sel || !net) return;
+    sel.value = net;
+    sel.dispatchEvent(new Event("change", { bubbles:true }));
+    const label = net === "solana" ? "Solana" : (QS_NET?.[net]?.name || CHAINS?.[net]?.name || net.toUpperCase());
+    cxQsDetectMessage("ok", `✓ ${label} detected${evidence ? ` · ${evidence}` : ""}`);
+  }
+  async function cxQsDexDetect(token){
+    const ctrl = new AbortController();
+    const timer = setTimeout(()=>ctrl.abort(), 2600);
+    try{
+      const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${encodeURIComponent(token)}`, { signal:ctrl.signal, cache:"no-store" });
+      if (!res.ok) return [];
+      const j = await res.json();
+      const nets = [];
+      for (const p of (Array.isArray(j?.pairs) ? j.pairs : [])) {
+        const mapped = CX_QS_DEX_CHAIN_MAP[String(p?.chainId || "").toLowerCase()];
+        if (mapped && !nets.includes(mapped)) nets.push(mapped);
+      }
+      return nets;
+    }catch{return [];}finally{clearTimeout(timer);}
+  }
+  async function cxQsProbeOneNetwork(net, token){
+    const url = (typeof buildRpcCandidates === "function" ? buildRpcCandidates(net) : (CHAINS?.[net]?.publicRpcs || []))[0];
+    if (!url) return false;
+    try{
+      const code = await rpcRequest(url, "eth_getCode", [qsNormAddr(token), "latest"], 1900);
+      return typeof code === "string" && code !== "0x" && code !== "0x0";
+    }catch{return false;}
+  }
+  async function cxQsProbeNetworks(token){
+    const found = [];
+    let cursor = 0;
+    const workers = Array.from({length:3}, async()=>{
+      while (cursor < CX_QS_DETECT_NETS.length) {
+        const i = cursor++;
+        const net = CX_QS_DETECT_NETS[i];
+        if (await cxQsProbeOneNetwork(net, token)) found.push(net);
+      }
+    });
+    await Promise.all(workers);
+    return found;
+  }
+  async function cxDetectQuickNetwork(tokenRaw, { deep=false }={}){
+    const raw = String(tokenRaw || "").trim();
+    const seq = ++_cxQsDetectSeq;
+    if (qsIsSolanaAddr(raw)) {
+      const out = { net:"solana", evidence:"address format" };
+      _cxQsDetectCache.set(raw, out);
+      if (seq === _cxQsDetectSeq) cxQsSelectDetectedNetwork(out.net,out.evidence);
+      return out;
+    }
+    if (!qsIsAddr(raw)) return { error:"invalid" };
+    const key = qsLower(raw);
+    const cached = _cxQsDetectCache.get(key);
+    if (cached?.net) {
+      if (seq === _cxQsDetectSeq) cxQsSelectDetectedNetwork(cached.net,cached.evidence || "verified");
+      return cached;
+    }
+    cxQsDetectMessage("detecting", deep ? "Verifying network…" : "Detecting network…");
+    const dexNets = await cxQsDexDetect(raw);
+    if (seq !== _cxQsDetectSeq) return { cancelled:true };
+    if (dexNets.length === 1) {
+      const out = { net:dexNets[0], evidence:"market match" };
+      _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidence); return out;
+    }
+    if (dexNets.length > 1) {
+      const out = { ambiguous:dexNets };
+      cxQsDetectMessage("warn", `Multiple networks found (${dexNets.map(n=>QS_NET?.[n]?.name || n).join(", ")}) · choose one.`);
+      return out;
+    }
+    if (!deep) {
+      cxQsDetectMessage("idle", "No market match yet · press Scan and CycleX will verify on-chain.");
+      return { pending:true };
+    }
+    const codeNets = await cxQsProbeNetworks(raw);
+    if (seq !== _cxQsDetectSeq) return { cancelled:true };
+    if (codeNets.length === 1) {
+      const out = { net:codeNets[0], evidence:"on-chain code" };
+      _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidence); return out;
+    }
+    if (codeNets.length > 1) {
+      cxQsDetectMessage("warn", `Contract exists on multiple networks (${codeNets.map(n=>QS_NET?.[n]?.name || n).join(", ")}) · choose one.`);
+      return { ambiguous:codeNets };
+    }
+    cxQsDetectMessage("warn", "Network could not be verified automatically · choose a network manually.");
+    return { error:"not_found" };
+  }
+  async function cxQsResolveNetwork(tokenRaw){
+    const sel = document.querySelector("#qs-net");
+    const requested = String(sel?.value || "auto").toLowerCase();
+    if (requested !== "auto") return requested === "solana" ? "solana" : (QS_NET?.[requested] ? requested : null);
+    const result = await cxDetectQuickNetwork(tokenRaw,{deep:true});
+    if (result?.net) return result.net;
+    if (result?.ambiguous?.length) setStatus(document.querySelector("#qs-status"),"warn","Multiple supported networks match this address. Choose the intended network and scan again.");
+    else setStatus(document.querySelector("#qs-status"),"warn","CycleX could not verify the network automatically. Choose a network and scan again.");
+    return null;
+  }
+
 
   function qsShortAddr(a){
     try { if (typeof shortAddr === "function") return shortAddr(a); } catch {}
@@ -8857,18 +9175,25 @@ async function qsLiqCheckBasic(net, token, provider) {
 
     clearStatus(st);
 
-    const net = netFromSelect("#qs-net");
     const tokenRaw = ($("#qs-token")?.value || "").trim();
     const uiKey = ($("#api-unified")?.value || "").trim();
     const useApis = !!$("#api-use")?.checked;
+
+    if (!tokenRaw || (!qsIsAddr(tokenRaw) && !qsIsSolanaAddr(tokenRaw))) {
+      setStatus(st, "warn", "Please paste a valid EVM contract or Solana mint address.");
+      return;
+    }
+
+    const net = await cxQsResolveNetwork(tokenRaw);
+    if (!net) return;
 
     if (net === "solana") {
       await runQuickScanSolanaInner(tokenRaw);
       return;
     }
 
-    if (!tokenRaw || !qsIsAddr(tokenRaw)) {
-      setStatus(st, "warn", "Please paste a valid token address.");
+    if (!qsIsAddr(tokenRaw)) {
+      setStatus(st, "warn", "The selected network expects a 0x token contract.");
       return;
     }
     const token = qsNormAddr(tokenRaw);
@@ -8888,7 +9213,8 @@ async function qsLiqCheckBasic(net, token, provider) {
       return;
     }
 
-    setStatus(st, "info", "Scanning…");
+    clearStatus(st);
+    cxQsSetScanning(true);
     if (out) {
       out.className = "status info";
       out.innerHTML = "<strong>Scanning…</strong><br>Checking contract, liquidity, and market data — usually a few seconds.";
@@ -8910,7 +9236,7 @@ async function qsLiqCheckBasic(net, token, provider) {
 
     if (cached?.rep && cached?.ts && (qsNowTs() - cached.ts) < 600) {
       if (qsLower(cached.rep.token) === qsLower(token) && cached.rep.net === net) {
-        setStatus(st, "ok", "Loaded cached result (≤10 min).");
+        clearStatus(st);
         render(cached.rep);
         cxDeepPrime(net, token);
         void cxRunDeepScan(cached.rep);
@@ -9947,7 +10273,8 @@ async function qsLiqCheckBasic(net, token, provider) {
       return;
     }
 
-    setStatus(st, "info", "Scanning (Solana)…");
+    clearStatus(st);
+    cxQsSetScanning(true);
     if (out) {
       out.className = "status info";
       out.innerHTML = "<strong>Scanning…</strong><br>Checking contract, liquidity, and market data — usually a few seconds.";
@@ -9960,7 +10287,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const ckey = qsCacheKey("solana", token, false);
     const cached = cache?.[ckey];
     if (cached?.rep && cached?.ts && (qsNowTs() - cached.ts) < 600) {
-      setStatus(st, "ok", "Loaded cached result (≤10 min).");
+      clearStatus(st);
       render(cached.rep);
       cxDeepPrime("solana", token);
       void cxRunDeepScan(cached.rep);
@@ -10532,7 +10859,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     saveQsCache(cache);
     addQsHistory("solana", token);
 
-    setStatus(st, score>=70?"ok":score>=50?"warn":"bad", `Done. Score: <b>${score}/100</b> (${overallText}).`);
+    clearStatus(st);
     render(rep);
     void cxRunDeepScan(rep);
   }
@@ -10725,6 +11052,9 @@ async function qsLiqCheckBasic(net, token, provider) {
   }
 
   function render(rep){
+    cxQsSetScanning(false);
+    const reportReady = rep && rep.score != null && !["Invalid","Not a token"].includes(String(rep.overallText || ""));
+    if (reportReady) cxQsSetMode("report");
     const out = $("#qs-out");
     const chipsWrap = $("#qs-risk");
     const pairsWrap = $("#qs-pairsWrap");
@@ -10996,6 +11326,47 @@ async function qsLiqCheckBasic(net, token, provider) {
         }
       });
     })();
+
+
+    // Network auto-detection: one lightweight market lookup after a complete paste.
+    // Full on-chain fallback probing runs only after the user explicitly presses Scan.
+    (function qsBindAutoDetect(){
+      const input = $("#qs-token"), netEl = $("#qs-net");
+      if (!input || !netEl) return;
+      let timer = null;
+      const queue = () => {
+        clearTimeout(timer);
+        const raw = String(input.value || "").trim();
+        if (netEl.value !== "auto") return;
+        if (!raw) { cxQsDetectMessage("idle","Paste a contract — CycleX will identify the network when it can verify it."); return; }
+        if (qsIsSolanaAddr(raw)) { timer=setTimeout(()=>cxDetectQuickNetwork(raw,{deep:false}),80); return; }
+        if (qsIsAddr(raw)) { timer=setTimeout(()=>cxDetectQuickNetwork(raw,{deep:false}),420); return; }
+        cxQsDetectMessage("idle","Paste a full 0x contract or Solana mint address.");
+      };
+      input.addEventListener("input", queue);
+      input.addEventListener("paste", ()=>setTimeout(queue,0));
+      netEl.addEventListener("change", () => {
+        if (netEl.value === "auto") queue();
+        else {
+          const label = netEl.options[netEl.selectedIndex]?.textContent || netEl.value;
+          cxQsDetectMessage("ok", `Manual network · ${label}`);
+        }
+      });
+    })();
+
+    $("#qs-new-scan")?.addEventListener("click", () => {
+      try { if (_cxDeepController) _cxDeepController.abort(); } catch {}
+      cxQsSetScanning(false); cxQsSetMode("input"); clearStatus($("#qs-status"));
+      const tokenEl=$("#qs-token"), netEl=$("#qs-net"), share=$("#qs-share-menu");
+      if (tokenEl) tokenEl.value="";
+      if (netEl) { netEl.value="auto"; netEl.dispatchEvent(new Event("change",{bubbles:true})); }
+      if (share) share.open=false;
+      const out=$("#qs-out"), risk=$("#qs-risk"), pairs=$("#qs-pairsWrap"), flags=$("#qs-redflagsWrap");
+      if (out) { out.className="status info"; out.style.display="block"; out.innerHTML="<strong>Ready.</strong><br>Paste a token address and click <b>Scan</b>."; }
+      if (risk) risk.innerHTML=""; if (pairs) pairs.innerHTML=""; if (flags) flags.innerHTML="";
+      try { cxDeepStopClock(); cxDeepClearStages(); cxDeepHideError(); cxDeepSetState("idle"); cxDeepBadge(cxDeepTr("deep_badge_ready")); cxDeepCurrent(cxDeepTr("deep_ready")); } catch {}
+      setTimeout(()=>tokenEl?.focus(),40);
+    });
 
     $("#qs-run")?.addEventListener("click", () => {
       runQuickScan();
