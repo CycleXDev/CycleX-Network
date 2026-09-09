@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4019,23 +4015,43 @@ twq('config','r4v6v');
 
 
   /* ================================================================
-     v1.8.4 MOBILE REPORT POLISH — 2026-09-09
-     Mobile only: close-button alignment, clearer score/age row,
-     tighter token metadata, collapsible Deep Intelligence and compact header.
+     v1.8.5 MOBILE REPORT FINAL POLISH — 2026-09-09
+     Mobile only: persistent close control, Trading Age clarity,
+     cyan Deep toggle bar and tighter report presentation.
      Desktop/web layout is intentionally untouched.
      ================================================================ */
   .cx-deep-mobile-toggle{display:none}
   .qs-age-mobile{display:none}
 
   @media(max-width:760px){
-    /* Modal close sits at the true top-right of the Quick / Deep header. */
+    /* Keep the Quick / Deep header visible while scrolling so mobile users
+       always retain a clear way to close the modal after a scan. */
     #panel-quick .panel-head{
-      position:relative!important;
-      padding-right:34px!important;
+      position:sticky!important;
+      top:0!important;
+      z-index:14!important;
+      margin:-2px -2px 10px!important;
+      padding:8px 42px 10px 0!important;
+      border-bottom:1px solid rgba(255,255,255,.07)!important;
+      background:linear-gradient(180deg,rgba(7,11,19,.98),rgba(7,11,19,.92));
+      backdrop-filter:blur(14px)!important;
+      -webkit-backdrop-filter:blur(14px)!important;
     }
     #panel-quick .panel-actions{
-      top:0!important;
+      position:absolute!important;
+      top:8px!important;
       right:0!important;
+      z-index:16!important;
+    }
+    #panel-quick .btn-close-modal{
+      width:28px!important;
+      height:28px!important;
+      min-width:28px!important;
+      border-radius:999px!important;
+      background:rgba(255,255,255,.075)!important;
+      border-color:rgba(255,255,255,.17)!important;
+      color:rgba(244,246,255,.84)!important;
+      box-shadow:0 8px 24px rgba(0,0,0,.20)!important;
     }
 
     /* Result title + two primary badges: score and readable age on one clean row. */
@@ -4096,43 +4112,61 @@ twq('config','r4v6v');
     /* One-line mobile Deep Intelligence gateway. The full report remains unchanged when expanded. */
     .cx-deep-mobile-toggle{
       width:100%;
-      min-height:44px;
-      display:flex;
+      min-height:48px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
       align-items:center;
-      justify-content:space-between;
       gap:10px;
       margin:0 0 9px;
-      padding:10px 12px;
-      border:1px solid rgba(70,220,245,.22);
+      padding:11px 12px;
+      border:1px solid rgba(72,229,255,.52);
       border-radius:12px;
-      background:
-        radial-gradient(130% 160% at 0% 0%,rgba(0,229,255,.07),transparent 55%),
-        linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.012));
-      color:rgba(218,248,255,.90);
+      background:linear-gradient(135deg,#42dff7,#7ce7fa);
+      color:#031019;
       font-family:var(--sans);
-      font-size:10.8px;
-      font-weight:820;
-      line-height:1.25;
+      font-size:12.2px;
+      font-weight:930;
+      line-height:1.18;
       text-align:left;
       cursor:pointer;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+      box-shadow:0 8px 24px rgba(0,229,255,.16), inset 0 1px 0 rgba(255,255,255,.28);
     }
     html[dir="rtl"] .cx-deep-mobile-toggle{text-align:right}
-    .cx-deep-mobile-toggle-copy{min-width:0}
+    .cx-deep-mobile-toggle-copy{
+      min-width:0;
+      flex:1 1 auto;
+      display:block;
+    }
+    .cx-deep-mobile-open-label,
+    .cx-deep-mobile-close-label{
+      display:block;
+      width:100%;
+    }
     .cx-deep-mobile-close-label{display:none}
     .cx-deep-mobile-chevron{
       flex:0 0 auto;
-      font-size:16px;
+      width:24px;
+      height:24px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      background:rgba(4,22,29,.12);
+      color:#062632;
+      font-size:17px;
+      font-weight:900;
       line-height:1;
-      color:#6eeeff;
-      transform:translateY(-1px);
-      transition:transform .18s ease;
+      transform:translateY(0);
+      transition:transform .18s ease,background .18s ease;
     }
     .qs-intel-column:not(.deep-mobile-open) .cx-deep-shell{display:none!important}
     .qs-intel-column.deep-mobile-open .cx-deep-shell{display:block!important}
     .qs-intel-column.deep-mobile-open .cx-deep-mobile-open-label{display:none}
-    .qs-intel-column.deep-mobile-open .cx-deep-mobile-close-label{display:inline}
-    .qs-intel-column.deep-mobile-open .cx-deep-mobile-chevron{transform:rotate(180deg) translateY(1px)}
+    .qs-intel-column.deep-mobile-open .cx-deep-mobile-close-label{display:block}
+    .qs-intel-column.deep-mobile-open .cx-deep-mobile-chevron{
+      transform:rotate(180deg);
+      background:rgba(4,22,29,.18);
+    }
 
     /* Expanded Deep header: fewer lines, smaller state chip, same underlying report. */
     .qs-intel-column.deep-mobile-open .cx-deep-shell{
@@ -4170,10 +4204,10 @@ twq('config','r4v6v');
       letter-spacing:.11em!important;
     }
     .qs-intel-column .cx-deep-badge{
-      min-height:24px!important;
-      padding:5px 7px!important;
-      font-size:7.2px!important;
-      letter-spacing:.055em!important;
+      min-height:22px!important;
+      padding:4px 7px!important;
+      font-size:6.8px!important;
+      letter-spacing:.05em!important;
       border-radius:7px!important;
     }
     .qs-intel-column .cx-deep-badge::before{
@@ -4186,18 +4220,19 @@ twq('config','r4v6v');
   }
 
   @media(max-width:420px){
-    #panel-quick .panel-head{padding-right:31px!important}
-    #panel-quick .panel-actions{top:0!important}
+    #panel-quick .panel-head{padding:8px 39px 9px 0!important}
+    #panel-quick .panel-actions{top:8px!important}
     .qs-summary-wrap .qs-result-badges{gap:5px!important}
     .qs-summary-wrap .qs-score-badge,
     .qs-summary-wrap .qs-age-badge{
       padding-inline:8px!important;
       font-size:10px!important;
     }
-    .cx-deep-mobile-toggle{font-size:10.3px;padding:9px 10px}
+    .cx-deep-mobile-toggle{font-size:11.6px;padding:10px 11px}
+    .cx-deep-mobile-chevron{width:22px;height:22px;font-size:16px}
     .qs-intel-column .cx-deep-title{font-size:13.8px!important}
     .qs-intel-column .cx-deep-sub{font-size:9.4px!important}
-    .qs-intel-column .cx-deep-badge{font-size:6.9px!important;padding:5px 6px!important}
+    .qs-intel-column .cx-deep-badge{font-size:6.6px!important;padding:4px 6px!important}
   }
 
 </style>
@@ -4451,7 +4486,7 @@ twq('config','r4v6v');
               <span class="cx-deep-mobile-open-label" data-i18n="deep_mobile_open">Full Deep Intelligence report — tap to open</span>
               <span class="cx-deep-mobile-close-label" data-i18n="deep_mobile_close">Hide Deep Intelligence report</span>
             </span>
-            <span class="cx-deep-mobile-chevron" aria-hidden="true">⌄</span>
+            <span class="cx-deep-mobile-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="cx-deep-shell" id="cx-deep-shell" data-state="idle">
             <div class="cx-deep-head">
@@ -12336,7 +12371,12 @@ async function qsLiqCheckBasic(net, token, provider) {
       try {
         ageLong = new Intl.NumberFormat(localeMap[currentLang] || "en-US", { style:"unit", unit:unitName, unitDisplay:"long" }).format(unitValue);
       } catch {}
-      return `<span class="qs-age-badge"><span class="qs-age-desktop">◷ ${qsEscapeHtml(ageStr)} <span class="qs-age-kind">${qsEscapeHtml(ageType)}</span></span><span class="qs-age-mobile">◷ ${qsEscapeHtml(ageLong)}</span></span>`;
+      const mobileAgeType = (() => {
+        if (ageIsOnChain) return ageType;
+        const mobileType = t(currentLang, "quick_age_trading") || t("en", "quick_age_trading") || ageType;
+        return currentLang === "en" ? "Trading Age" : mobileType;
+      })();
+      return `<span class="qs-age-badge"><span class="qs-age-desktop">◷ ${qsEscapeHtml(ageStr)} <span class="qs-age-kind">${qsEscapeHtml(ageType)}</span></span><span class="qs-age-mobile">◷ ${qsEscapeHtml(mobileAgeType)} · ${qsEscapeHtml(ageLong)}</span></span>`;
     })() : "";
 
     const qMeta=(key,fallback)=>qsEscapeHtml(t(currentLang,key)||t("en",key)||fallback);
