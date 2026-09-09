@@ -4017,6 +4017,189 @@ twq('config','r4v6v');
     #panel-quick .btn-close-modal{width:25px!important;height:25px!important;min-width:25px!important;font-size:12px!important}
   }
 
+
+  /* ================================================================
+     v1.8.4 MOBILE REPORT POLISH — 2026-09-09
+     Mobile only: close-button alignment, clearer score/age row,
+     tighter token metadata, collapsible Deep Intelligence and compact header.
+     Desktop/web layout is intentionally untouched.
+     ================================================================ */
+  .cx-deep-mobile-toggle{display:none}
+  .qs-age-mobile{display:none}
+
+  @media(max-width:760px){
+    /* Modal close sits at the true top-right of the Quick / Deep header. */
+    #panel-quick .panel-head{
+      position:relative!important;
+      padding-right:34px!important;
+    }
+    #panel-quick .panel-actions{
+      top:0!important;
+      right:0!important;
+    }
+
+    /* Result title + two primary badges: score and readable age on one clean row. */
+    .qs-summary-wrap .qs-result-card{
+      padding:12px 12px 11px!important;
+    }
+    .qs-summary-wrap .qs-result-name{
+      display:block!important;
+      margin-bottom:8px!important;
+      font-size:20px!important;
+      line-height:1.14!important;
+    }
+    .qs-summary-wrap .qs-result-badges{
+      display:grid!important;
+      grid-template-columns:max-content max-content!important;
+      align-items:center!important;
+      justify-content:start!important;
+      gap:6px!important;
+      margin-top:7px!important;
+      width:max-content!important;
+      max-width:100%!important;
+    }
+    .qs-summary-wrap .qs-score-badge,
+    .qs-summary-wrap .qs-age-badge{
+      min-height:26px!important;
+      padding:5px 9px!important;
+      font-size:10.4px!important;
+      white-space:nowrap!important;
+    }
+    .qs-summary-wrap .qs-age-desktop{display:none!important}
+    .qs-summary-wrap .qs-age-mobile{display:inline!important}
+
+    /* Compact metadata stack: preserve clarity while removing excess vertical air. */
+    .qs-summary-wrap .qs-result-meta{
+      display:grid!important;
+      grid-template-columns:1fr!important;
+      gap:1px!important;
+      margin-top:2px!important;
+      font-size:11.2px!important;
+      line-height:1.34!important;
+    }
+    .qs-summary-wrap .qs-meta-item{
+      display:grid!important;
+      grid-template-columns:84px minmax(0,1fr)!important;
+      align-items:start!important;
+      gap:7px!important;
+      min-height:0!important;
+      padding:3px 0!important;
+      line-height:1.34!important;
+    }
+    .qs-summary-wrap .qs-meta-label{line-height:1.34!important}
+    .qs-summary-wrap .qs-meta-value,
+    .qs-summary-wrap .qs-meta-item b,
+    .qs-summary-wrap .qs-meta-item a{
+      line-height:1.34!important;
+    }
+
+    /* One-line mobile Deep Intelligence gateway. The full report remains unchanged when expanded. */
+    .cx-deep-mobile-toggle{
+      width:100%;
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin:0 0 9px;
+      padding:10px 12px;
+      border:1px solid rgba(70,220,245,.22);
+      border-radius:12px;
+      background:
+        radial-gradient(130% 160% at 0% 0%,rgba(0,229,255,.07),transparent 55%),
+        linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.012));
+      color:rgba(218,248,255,.90);
+      font-family:var(--sans);
+      font-size:10.8px;
+      font-weight:820;
+      line-height:1.25;
+      text-align:left;
+      cursor:pointer;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+    }
+    html[dir="rtl"] .cx-deep-mobile-toggle{text-align:right}
+    .cx-deep-mobile-toggle-copy{min-width:0}
+    .cx-deep-mobile-close-label{display:none}
+    .cx-deep-mobile-chevron{
+      flex:0 0 auto;
+      font-size:16px;
+      line-height:1;
+      color:#6eeeff;
+      transform:translateY(-1px);
+      transition:transform .18s ease;
+    }
+    .qs-intel-column:not(.deep-mobile-open) .cx-deep-shell{display:none!important}
+    .qs-intel-column.deep-mobile-open .cx-deep-shell{display:block!important}
+    .qs-intel-column.deep-mobile-open .cx-deep-mobile-open-label{display:none}
+    .qs-intel-column.deep-mobile-open .cx-deep-mobile-close-label{display:inline}
+    .qs-intel-column.deep-mobile-open .cx-deep-mobile-chevron{transform:rotate(180deg) translateY(1px)}
+
+    /* Expanded Deep header: fewer lines, smaller state chip, same underlying report. */
+    .qs-intel-column.deep-mobile-open .cx-deep-shell{
+      padding:13px 12px 12px!important;
+      margin-top:0!important;
+    }
+    .qs-intel-column .cx-deep-head{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) auto!important;
+      align-items:start!important;
+      gap:7px!important;
+      padding-bottom:8px!important;
+    }
+    .qs-intel-column .cx-deep-kicker{
+      font-size:7.6px!important;
+      letter-spacing:.17em!important;
+      margin-bottom:2px!important;
+    }
+    .qs-intel-column .cx-deep-title{
+      font-size:14.4px!important;
+      line-height:1.12!important;
+      white-space:nowrap!important;
+      letter-spacing:-.015em!important;
+    }
+    .qs-intel-column .cx-deep-sub{
+      margin-top:3px!important;
+      max-width:100%!important;
+      font-size:9.7px!important;
+      line-height:1.35!important;
+      font-weight:590!important;
+    }
+    .qs-intel-column .cx-deep-micro{
+      margin-top:4px!important;
+      font-size:6.9px!important;
+      letter-spacing:.11em!important;
+    }
+    .qs-intel-column .cx-deep-badge{
+      min-height:24px!important;
+      padding:5px 7px!important;
+      font-size:7.2px!important;
+      letter-spacing:.055em!important;
+      border-radius:7px!important;
+    }
+    .qs-intel-column .cx-deep-badge::before{
+      width:4px!important;
+      height:4px!important;
+    }
+    .qs-intel-column .cx-deep-radar-row{
+      margin-top:8px!important;
+    }
+  }
+
+  @media(max-width:420px){
+    #panel-quick .panel-head{padding-right:31px!important}
+    #panel-quick .panel-actions{top:0!important}
+    .qs-summary-wrap .qs-result-badges{gap:5px!important}
+    .qs-summary-wrap .qs-score-badge,
+    .qs-summary-wrap .qs-age-badge{
+      padding-inline:8px!important;
+      font-size:10px!important;
+    }
+    .cx-deep-mobile-toggle{font-size:10.3px;padding:9px 10px}
+    .qs-intel-column .cx-deep-title{font-size:13.8px!important}
+    .qs-intel-column .cx-deep-sub{font-size:9.4px!important}
+    .qs-intel-column .cx-deep-badge{font-size:6.9px!important;padding:5px 6px!important}
+  }
+
 </style>
 </head>
 <body>
@@ -4263,6 +4446,13 @@ twq('config','r4v6v');
       <!-- Deep Intelligence + fast risk evidence -->
       <div class="qs-analysis-layout">
         <div class="qs-intel-column">
+          <button type="button" class="cx-deep-mobile-toggle" id="cx-deep-mobile-toggle" aria-expanded="false" aria-controls="cx-deep-shell">
+            <span class="cx-deep-mobile-toggle-copy">
+              <span class="cx-deep-mobile-open-label" data-i18n="deep_mobile_open">Full Deep Intelligence report — tap to open</span>
+              <span class="cx-deep-mobile-close-label" data-i18n="deep_mobile_close">Hide Deep Intelligence report</span>
+            </span>
+            <span class="cx-deep-mobile-chevron" aria-hidden="true">⌄</span>
+          </button>
           <div class="cx-deep-shell" id="cx-deep-shell" data-state="idle">
             <div class="cx-deep-head">
               <div class="cx-deep-title-wrap">
@@ -4723,6 +4913,8 @@ const translations = {
     deep_ready: "Runs automatically after a valid Quick Scan.",
     deep_rerun: "Re-run Deep Scan",
     deep_note: "Deep Intelligence is an evidence layer. It does not change the existing CycleX Overall Score.",
+    deep_mobile_open: "Full Deep Intelligence report — tap to open",
+    deep_mobile_close: "Hide Deep Intelligence report",
     quick_advanced: "⚙ Advanced",
     quick_solana_rpc_label: 'Solana RPC <span class="label-muted">(optional — improves reliability)</span>',
     quick_explorer_api: "🔑 Explorer API",
@@ -5197,6 +5389,8 @@ const translations = {
     deep_ready: "有效的快速扫描后会自动运行。",
     deep_rerun: "重新运行深度扫描",
     deep_note: "深度智能是独立的证据层，不会改变现有的 CycleX 总体评分。",
+    deep_mobile_open: "完整 Deep Intelligence 报告 — 点击展开",
+    deep_mobile_close: "收起 Deep Intelligence 报告",
     quick_advanced: "⚙ 高级设置",
     quick_solana_rpc_label: 'Solana RPC <span class="label-muted">（可选 — 提升可靠性）</span>',
     quick_explorer_api: "🔑 浏览器 API",
@@ -5671,6 +5865,8 @@ const translations = {
     deep_ready: "يعمل تلقائيًا بعد فحص سريع صالح.",
     deep_rerun: "إعادة الفحص العميق",
     deep_note: "التحليل العميق طبقة أدلة مستقلة ولا يغيّر تقييم CycleX الإجمالي الحالي.",
+    deep_mobile_open: "تقرير Deep Intelligence الكامل — اضغط للفتح",
+    deep_mobile_close: "إخفاء تقرير Deep Intelligence",
     quick_advanced: "⚙ إعدادات متقدمة",
     quick_solana_rpc_label: 'Solana RPC <span class="label-muted">(اختياري — لتحسين الموثوقية)</span>',
     quick_explorer_api: "🔑 واجهة مستكشف الشبكة",
@@ -6145,6 +6341,8 @@ const translations = {
     deep_ready: "Запускается автоматически после корректного Quick Scan.",
     deep_rerun: "Запустить Deep Scan снова",
     deep_note: "Deep Intelligence — отдельный слой доказательств и не меняет текущий общий балл CycleX.",
+    deep_mobile_open: "Полный отчёт Deep Intelligence — нажмите, чтобы открыть",
+    deep_mobile_close: "Скрыть отчёт Deep Intelligence",
     quick_advanced: "⚙ Настройки",
     quick_solana_rpc_label: 'Solana RPC <span class="label-muted">(необязательно — повышает надёжность)</span>',
     quick_explorer_api: "🔑 API обозревателя",
@@ -12125,7 +12323,20 @@ async function qsLiqCheckBasic(net, token, provider) {
         : d < 1 ? `${Math.max(0, Math.round(d*24))}h`
         : `${Math.floor(d)}d`;
       const ageType=t(currentLang,ageIsOnChain?"quick_age_contract":"quick_age_trading")||t("en",ageIsOnChain?"quick_age_contract":"quick_age_trading");
-      return `<span class="qs-age-badge">◷ ${qsEscapeHtml(ageStr)} <span class="qs-age-kind">${qsEscapeHtml(ageType)}</span></span>`;
+
+      // Mobile gets a human-readable localized unit (e.g. “2 days”) while
+      // desktop keeps the approved compact form (e.g. “2d contract age”).
+      const unitValue = d >= 365 ? Math.max(1, Math.floor(d/365))
+        : d >= 30 ? Math.max(1, Math.floor(d/30))
+        : d < 1 ? Math.max(0, Math.round(d*24))
+        : Math.max(0, Math.floor(d));
+      const unitName = d >= 365 ? "year" : d >= 30 ? "month" : d < 1 ? "hour" : "day";
+      const localeMap = { en:"en-US", zh:"zh-CN", ar:"ar", ru:"ru-RU" };
+      let ageLong = ageStr;
+      try {
+        ageLong = new Intl.NumberFormat(localeMap[currentLang] || "en-US", { style:"unit", unit:unitName, unitDisplay:"long" }).format(unitValue);
+      } catch {}
+      return `<span class="qs-age-badge"><span class="qs-age-desktop">◷ ${qsEscapeHtml(ageStr)} <span class="qs-age-kind">${qsEscapeHtml(ageType)}</span></span><span class="qs-age-mobile">◷ ${qsEscapeHtml(ageLong)}</span></span>`;
     })() : "";
 
     const qMeta=(key,fallback)=>qsEscapeHtml(t(currentLang,key)||t("en",key)||fallback);
@@ -13501,6 +13712,20 @@ window.applyI18n = (typeof applyI18n !== 'undefined') ? applyI18n : undefined;
 window.buildRpcCandidates = (typeof buildRpcCandidates !== 'undefined') ? buildRpcCandidates : undefined;
 window.explorerApiBase = (typeof explorerApiBase !== 'undefined') ? explorerApiBase : undefined;
 
+function initDeepMobileToggle(){
+  const btn = document.getElementById("cx-deep-mobile-toggle");
+  if (!btn) return;
+  const col = btn.closest(".qs-intel-column");
+  const setOpen = (open) => {
+    if (!col) return;
+    col.classList.toggle("deep-mobile-open", !!open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+  btn.addEventListener("click", () => setOpen(!col?.classList.contains("deep-mobile-open")));
+  document.getElementById("qs-new-scan")?.addEventListener("click", () => setOpen(false));
+  document.getElementById("btnCloseQuick")?.addEventListener("click", () => setOpen(false));
+}
+
 function boot() {
   if (!window.E && window.ethers) { window.E = window.ethers; }
   setTimeout(() => { if (!window.E && window.ethers) window.E = window.ethers; }, 500);
@@ -13509,6 +13734,7 @@ function boot() {
   initPanels();
   initApiKeysUi();
   initQuickScanUi();
+  initDeepMobileToggle();
   initRpcUi();
   if (window.CX && typeof window.CX.initTxUi === "function") window.CX.initTxUi();
   initDevUi();
