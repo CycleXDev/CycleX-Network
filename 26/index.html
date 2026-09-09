@@ -10,7 +10,7 @@
     gtag('js', new Date());
     gtag('config', 'G-BXDFXJWCNQ');
   </script>
-    <!-- X conversion tracking base code -->
+   <!-- X conversion tracking base code -->
 <script>
 !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
 },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
@@ -4341,6 +4341,53 @@ twq('config','r4v6v');
     .cx-deep-mobile-chevron{width:23px!important;height:23px!important;font-size:15px!important}
   }
 
+
+
+  /* ================================================================
+     v1.8.7 MOBILE CLOSE REACHABILITY — 2026-09-09
+     Mobile only. The close control lives at modal-backdrop level so it is
+     not affected by the report panel's internal scroll/transform context.
+     ================================================================ */
+  .mobile-quick-close{display:none}
+  @media(max-width:760px){
+    /* The old in-header X remains part of the desktop/native header, but on
+       mobile the independent viewport-level control is the reliable close. */
+    #panel-quick .panel-actions{display:none!important}
+    #modalBackdrop[data-panel="quick"].open .mobile-quick-close{
+      position:fixed!important;
+      top:max(10px,env(safe-area-inset-top))!important;
+      right:10px!important;
+      z-index:2147483000!important;
+      width:30px!important;
+      height:30px!important;
+      min-width:30px!important;
+      min-height:30px!important;
+      display:flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      padding:0!important;
+      margin:0!important;
+      border-radius:999px!important;
+      border:1px solid rgba(255,255,255,.24)!important;
+      background:rgba(12,16,25,.94)!important;
+      color:rgba(248,250,255,.98)!important;
+      font-family:var(--sans)!important;
+      font-size:14px!important;
+      font-weight:700!important;
+      line-height:1!important;
+      box-shadow:0 8px 28px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.08)!important;
+      backdrop-filter:blur(12px)!important;
+      -webkit-backdrop-filter:blur(12px)!important;
+      cursor:pointer!important;
+      pointer-events:auto!important;
+    }
+    /* Make sure report mode can return to its real top rather than preserving
+       an internal scroll offset from the scan/input state. */
+    #panel-quick{
+      scroll-padding-top:8px!important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -4463,6 +4510,7 @@ twq('config','r4v6v');
 
     <!-- MODAL BACKDROP (shared) -->
     <div class="modal-backdrop" id="modalBackdrop">
+      <button type="button" class="mobile-quick-close" id="mobileQuickClose" aria-label="Close">✕</button>
 
     <!-- Quick Scan Panel -->
     <section class="panel-shell hidden" id="panel-quick" data-qs-mode="input">
@@ -7474,8 +7522,15 @@ function initPanels() {
   function showPanel(key) {
     Object.entries(panels).forEach(([k, el]) => { if (el) el.classList.toggle("hidden", k !== key); });
     toolCards.forEach((c) => c.classList.toggle("active", c.dataset.tool === key));
-    if (backdrop) backdrop.classList.toggle("open", !!key);
-    if (key === "quick" && panels.quick) panels.quick.dataset.qsMode = "input";
+    if (backdrop) {
+      backdrop.classList.toggle("open", !!key);
+      backdrop.dataset.panel = key || "";
+      if (!key) backdrop.scrollTop = 0;
+    }
+    if (key === "quick" && panels.quick) {
+      panels.quick.dataset.qsMode = "input";
+      panels.quick.scrollTop = 0;
+    }
     if (key) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
   }
@@ -7484,7 +7539,7 @@ function initPanels() {
   toolCards.forEach((card) => card.addEventListener("click", () => showPanel(card.dataset.tool)));
   document.querySelector("#heroQuickScanBtn")?.addEventListener("click", () => showPanel("quick"));
 
-  ["btnCloseQuick","btnCloseRpc","btnCloseTx","btnCloseDev"].forEach(id => {
+  ["btnCloseQuick","btnCloseRpc","btnCloseTx","btnCloseDev","mobileQuickClose"].forEach(id => {
     document.querySelector("#" + id)?.addEventListener("click", () => showPanel(null));
   });
 
@@ -12411,7 +12466,17 @@ async function qsLiqCheckBasic(net, token, provider) {
   function render(rep){
     cxQsSetScanning(false);
     const reportReady = rep && rep.score != null && !["Invalid","Not a token"].includes(String(rep.overallText || ""));
-    if (reportReady) cxQsSetMode("report");
+    if (reportReady) {
+      cxQsSetMode("report");
+      if (window.matchMedia?.("(max-width:760px)")?.matches) {
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          const quickPanel = document.querySelector("#panel-quick");
+          const quickBackdrop = document.querySelector("#modalBackdrop");
+          if (quickPanel) quickPanel.scrollTop = 0;
+          if (quickBackdrop) quickBackdrop.scrollTop = 0;
+        }));
+      }
+    }
     const out = $("#qs-out");
     const chipsWrap = $("#qs-risk");
     const pairsWrap = $("#qs-pairsWrap");
