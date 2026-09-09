@@ -1111,24 +1111,32 @@ body::after{
     text-align: center;
     padding: 22px 18px;
     gap: 14px;
+    height: 100%;            /* equal height across the row */
   }
 
   .social-meta{
     align-items: center;
     text-align: center;
+    width: 100%;
+    flex: 1 1 auto;          /* meta absorbs the leftover height... */
   }
 
   .social-desc{
     max-width: 34ch;
+    flex: 1 1 auto;          /* ...and the description takes the slack, */
+    margin-bottom: 12px;     /*     so 1-line and 2-line cards match    */
   }
 
   .social-cta{
     width: 100%;
     display:flex;
     justify-content:center;
+    align-items:center;
+    margin-top: auto;        /* pins every CTA to the same baseline */
     padding: 14px 16px;
     font-size: 12px;
     letter-spacing: .14em;
+    white-space: normal;
   }
 }
 
