@@ -988,6 +988,7 @@ body::after{
   display:flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: stretch;   /* every card in a row gets the same height */
   gap: 14px;
   margin-top: 18px;
 }
@@ -1111,7 +1112,8 @@ body::after{
     text-align: center;
     padding: 22px 18px;
     gap: 14px;
-    height: 100%;            /* equal height across the row */
+    height: auto;            /* must stay auto — a fixed height cancels flex stretch */
+    align-self: stretch;
   }
 
   .social-meta{
