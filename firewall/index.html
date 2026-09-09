@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1097,6 +1098,424 @@ twq('config','r4v6v');
     display: none;
   }
 
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CYCLEX FIREWALL — PREMIUM UI REFRESH 2026-09
+   Visual/responsive overrides only. Core scanner/revoke/access logic untouched.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --fw-surface:rgba(7,13,23,.78);
+  --fw-surface-2:rgba(255,255,255,.038);
+  --fw-line:rgba(142,202,230,.16);
+  --fw-line-strong:rgba(0,229,255,.26);
+  --fw-shadow:0 24px 70px rgba(0,0,0,.42);
+}
+
+html{scroll-behavior:smooth}
+@media (min-width:901px){html{zoom:1!important}}
+body{background:#05060a!important}
+.fw-bg-layer{
+  background:
+    radial-gradient(1000px 620px at 12% 5%,rgba(65,86,255,.15),transparent 60%),
+    radial-gradient(1080px 650px at 88% 8%,rgba(0,229,255,.13),transparent 60%),
+    radial-gradient(900px 700px at 52% 105%,rgba(0,76,96,.22),transparent 66%),
+    linear-gradient(160deg,#05060a 0%,#07101a 48%,#03141b 100%);
+}
+.fw-bg-layer::after{opacity:.07}
+.page-shell{max-width:1240px;padding:24px 24px 72px}
+
+/* Header: product-first, compact, consistent with homepage */
+.top-bar{
+  top:12px;width:100%;max-width:1200px;margin:0 auto 46px;padding:10px 14px;
+  min-height:68px;border-radius:24px;
+  background:rgba(5,10,18,.94);
+  border-color:rgba(174,211,235,.20);
+  box-shadow:0 16px 46px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.045);
+}
+.top-bar::before{opacity:.34;background:linear-gradient(110deg,rgba(0,229,255,.24),rgba(89,111,255,.13),rgba(255,255,255,.06))}
+.brand{gap:11px;min-width:0}
+.brand-logo{width:40px;height:40px;border-radius:12px;background:rgba(0,229,255,.025);border-color:rgba(0,229,255,.10);box-shadow:none}
+.brand-title{font-size:13px;font-weight:900;letter-spacing:.12em}
+.brand-sub{display:block!important;font-size:9.5px;letter-spacing:.19em;color:rgba(220,235,248,.52)}
+.top-right{gap:8px}
+.firewall-badge{display:none!important}
+.lang-switch{padding:3px;background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.11)}
+.lang-btn{font-size:11px;padding:6px 9px}
+.lang-btn.active{background:rgba(0,229,255,.13);color:#71efff}
+.btn-full-access-top{
+  background:rgba(124,92,255,.10);border-color:rgba(150,126,255,.25);color:#b9a9ff;
+  padding:9px 14px;font-size:10px;box-shadow:none
+}
+.btn-full-access-top:hover{background:rgba(124,92,255,.18);color:#d2c8ff}
+.back-link{
+  padding:9px 14px;font-size:10px;letter-spacing:.13em;color:#75efff;
+  border-color:rgba(0,229,255,.24);background:rgba(0,229,255,.045)
+}
+.back-link:hover{background:rgba(0,229,255,.10);color:#baf7ff}
+
+/* Hero */
+.hero{max-width:1060px;margin:0 auto 38px;padding:16px 0 28px}
+.hero-kicker{
+  padding:0;border:0;background:none;border-radius:0;
+  font-size:11px;letter-spacing:.25em;color:rgba(83,231,255,.94);margin-bottom:18px;font-weight:750
+}
+.hero-title{
+  max-width:940px;margin:0 auto 18px;
+  font-size:clamp(52px,6.2vw,76px);line-height:1.02;letter-spacing:-.052em;
+  background:linear-gradient(105deg,#f7fbff 0%,#8decff 38%,#5ec8ff 62%,#9b8cff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:none;text-wrap:balance
+}
+.hero-sub{max-width:760px;margin:0 auto 26px;font-size:16px;line-height:1.7;color:rgba(223,233,244,.68);text-wrap:balance}
+.scan-bar{
+  max-width:820px;padding:7px 7px 7px 20px;gap:9px;
+  background:rgba(7,16,27,.82);border-color:rgba(133,198,226,.22);
+  box-shadow:0 20px 64px rgba(0,0,0,.36),0 0 0 1px rgba(0,229,255,.02),inset 0 1px 0 rgba(255,255,255,.045)
+}
+.scan-bar:focus-within{border-color:rgba(0,229,255,.42);box-shadow:0 20px 64px rgba(0,0,0,.40),0 0 0 3px rgba(0,229,255,.08)}
+.scan-bar input{font-size:13.5px;min-width:0}
+.scan-net{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.12);min-height:40px}
+.btn-scan{
+  min-height:44px;padding:12px 24px;
+  background:linear-gradient(135deg,#38dff5,#78f1ff);color:#031017;
+  box-shadow:0 12px 36px rgba(0,229,255,.22);letter-spacing:.10em
+}
+.btn-scan:hover{box-shadow:0 18px 46px rgba(0,229,255,.34)}
+.demo-hint{margin-top:13px;text-decoration:none;color:rgba(121,231,248,.66);font-size:11px;letter-spacing:.02em}
+.demo-hint:hover{color:#8ef2ff}
+.hero-micro{margin-top:17px;gap:9px;font-size:11px;color:rgba(223,233,244,.50)}
+.hero-micro span:not(.micro-dot){white-space:nowrap}
+
+/* Loading */
+#loadWrap{max-width:820px;margin-top:30px}
+.load-step{background:rgba(255,255,255,.025);border-color:rgba(255,255,255,.075)}
+.load-step.active{border-color:rgba(0,229,255,.26)}
+.load-step.active .step-icon{border-color:rgba(0,229,255,.48)}
+.load-bar-fill{background:linear-gradient(90deg,#3adff4,#58c9ff,#8f83ff)}
+
+/* Dashboard shell and section rhythm */
+#dashboard{max-width:1180px;margin:0 auto}
+.section-title{
+  margin-top:38px;margin-bottom:14px;font-size:10px;letter-spacing:.22em;font-weight:800;
+  color:rgba(210,226,240,.48)
+}
+.section-title::after{background:linear-gradient(90deg,rgba(0,229,255,.16),rgba(255,255,255,.045),transparent)}
+.notice{max-width:none;border-radius:14px;margin-bottom:16px;padding:11px 15px;text-align:left;background:rgba(0,229,255,.045);border-color:rgba(0,229,255,.16)}
+#demoNotice{background:rgba(255,193,7,.05);border-color:rgba(255,193,7,.16)}
+
+/* Full access: one calm, premium upsell instead of an alert banner */
+#accessGateOverlay{margin-bottom:22px!important}
+#accessGateOverlay>div{
+  background:linear-gradient(135deg,rgba(124,92,255,.075),rgba(0,229,255,.045))!important;
+  border-color:rgba(140,126,255,.22)!important;border-radius:20px!important;padding:22px!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.30)!important
+}
+#accessGateOverlay>div>div:first-child{font-size:22px!important;margin-bottom:7px!important;opacity:.72}
+.btn-full-access{box-shadow:0 10px 30px rgba(124,92,255,.20);padding:11px 20px}
+
+/* Current wallet toolbar */
+#walletBadge{max-width:min(66vw,520px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#fwHistoryBanner{border-radius:16px}
+
+/* Security Snapshot */
+.top3{grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-bottom:22px}
+.score-card{
+  min-height:190px;padding:22px;border-radius:20px;
+  background:linear-gradient(145deg,rgba(255,255,255,.050),rgba(255,255,255,.025));
+  border-color:rgba(143,198,224,.14);box-shadow:0 18px 52px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.035)
+}
+.score-card:hover{transform:translateY(-1px);border-color:rgba(0,229,255,.20)}
+.score-card::before{opacity:.08}
+.score-card.card-score::before{background:radial-gradient(circle at 50% -15%,rgba(0,229,255,.55),transparent 64%)}
+.score-card.card-blast::before{background:radial-gradient(circle at 50% -15%,rgba(255,193,7,.34),transparent 64%)}
+.score-card.card-drain::before{background:radial-gradient(circle at 50% -15%,rgba(255,71,87,.34),transparent 64%)}
+.sc-kicker{font-size:9px;letter-spacing:.19em;margin-bottom:14px}
+.gauge-wrap{width:100px;height:100px;margin-bottom:8px}
+.gauge-svg{width:100px;height:100px}
+.gauge-num{font-size:25px}
+.blast-amount,.drain-time{font-size:clamp(32px,3.5vw,48px)}
+
+/* Threats are action-first; map remains visual context */
+.main-grid{grid-template-columns:minmax(0,1.15fr) minmax(340px,.85fr);gap:16px;align-items:stretch}
+.exp-card,.threats-card,.fix-card,.passport-wrap,.rel-section-wrap,.fw-export-card,
+#fwWatchSection>div:not(.section-title),#fwThreatFeedSection>div:not(.section-title),
+#dashboard>div[style*="background:var(--card)"]{
+  border-radius:20px!important;border-color:rgba(143,198,224,.14)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.024))!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)!important
+}
+.exp-title{font-size:15px;letter-spacing:-.01em}
+#exposureMap{height:300px;background:rgba(0,8,14,.28);border-color:rgba(0,229,255,.07)}
+.threat-item{background:rgba(255,255,255,.022);border-color:rgba(255,255,255,.065);border-radius:13px}
+.threat-item.t-critical{background:rgba(255,71,87,.045)}
+
+/* Fix Mode */
+.fix-card{padding:22px}
+.fix-header{margin-bottom:16px}
+.fix-step{border-radius:14px;background:rgba(255,255,255,.028);border-color:rgba(255,255,255,.075);padding:15px}
+.fix-step-num{background:rgba(0,229,255,.075);border-color:rgba(0,229,255,.19);color:#76efff}
+.btn-action{border-color:rgba(0,229,255,.22);background:rgba(0,229,255,.065);color:#79efff}
+.btn-action:hover{background:rgba(0,229,255,.11)}
+.locked-section .lock-overlay{background:linear-gradient(180deg,rgba(5,10,18,.08),rgba(5,10,18,.90) 58%,rgba(5,10,18,.96));padding-bottom:18px}
+.lock-overlay-inner p{color:rgba(221,230,240,.62)!important}
+
+/* Passport: certificate first, sharing second */
+.passport-wrap{padding:22px}
+.passport-card-preview{border-color:rgba(0,229,255,.16);box-shadow:0 20px 60px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.045)}
+.pp-logo-shield{font-size:0;position:relative}
+.pp-logo-shield::before{content:"";width:9px;height:11px;border:1.5px solid #72efff;border-radius:5px 5px 6px 6px;display:block;transform:translateY(-1px)}
+.passport-actions p{color:rgba(223,233,244,.58)}
+
+/* Advanced sections */
+.rel-section-wrap,.fw-export-card{padding:20px}
+.fw-export-btn{border-radius:10px;padding:10px 16px}
+.fw-watch-input,.fw-watch-submit,.fw-notif-btn{min-height:40px}
+.fw-notif-row{border-radius:12px}
+.coming-soon-badge{opacity:.72}
+
+/* Coming-soon API is intentionally hidden until there is a live destination. */
+#fwApiSection{display:none!important}
+
+/* Footer */
+.footer{margin-top:54px;padding-top:18px;border-color:rgba(143,198,224,.10);font-size:11px;color:rgba(220,233,244,.48)}
+.footer-brand{color:#65eafa}
+
+/* Tablet */
+@media (max-width:900px){
+  .page-shell{padding:18px 18px 64px}
+  .top-bar{margin-bottom:34px}
+  .hero-title{font-size:clamp(46px,8vw,64px)}
+  .top3{grid-template-columns:1fr 1fr}
+  .top3 .score-card.card-score{grid-column:1/-1;min-height:175px}
+  .main-grid{grid-template-columns:1fr}
+  .threats-card{order:1}.exp-card{order:2}
+  #exposureMap{height:280px}
+}
+
+/* Mobile */
+@media (max-width:600px){
+  html{zoom:1!important}
+  body{font-size:14px}
+  .page-shell{padding:10px 10px 48px}
+
+  .top-bar{
+    position:sticky;top:6px;display:flex;flex-direction:column;align-items:stretch;
+    gap:8px;padding:9px 10px;margin-bottom:24px;border-radius:18px;min-height:0
+  }
+  .brand{justify-content:flex-start;gap:9px}
+  .brand-logo{width:36px;height:36px;border-radius:10px}
+  .brand-title{font-size:12px}.brand-sub{font-size:8.5px!important;letter-spacing:.16em}
+  .top-right{display:flex;flex-direction:row;align-items:center;gap:5px;flex-wrap:nowrap;width:100%}
+  .lang-switch{flex:1 1 auto;min-width:0;justify-content:space-between;padding:2px}
+  .lang-btn{flex:1 1 0;padding:6px 2px;font-size:9.5px;min-width:0}
+  .btn-full-access-top{flex:0 0 auto;padding:7px 9px;font-size:8.5px;letter-spacing:.07em}
+  .back-link{display:inline-flex!important;flex:0 0 auto;padding:7px 8px;font-size:8.5px;letter-spacing:.07em}
+  #tierBadge{font-size:8px!important;padding:5px 7px!important}
+
+  .hero{padding:8px 2px 22px;margin-bottom:28px}
+  .hero-kicker{font-size:9px;letter-spacing:.18em;margin-bottom:14px;line-height:1.55}
+  .hero-title{font-size:clamp(34px,10.8vw,44px)!important;line-height:1.04;letter-spacing:-.045em;margin-bottom:14px}
+  .hero-sub{font-size:13px;line-height:1.62;margin-bottom:20px;padding:0 5px}
+  .scan-bar{max-width:100%;display:grid;grid-template-columns:minmax(92px,.35fr) minmax(0,.65fr);gap:8px;border-radius:18px;padding:10px}
+  .scan-bar input{grid-column:1/-1;width:100%;min-height:38px;padding:0 5px;font-size:12px}
+  .scan-net{grid-column:1;min-width:0;width:100%;padding:8px 8px;font-size:11px}
+  .btn-scan{grid-column:2;width:100%;min-height:42px;padding:10px 12px;font-size:11px}
+  .demo-hint{font-size:10.5px;margin-top:11px}
+  .hero-micro{gap:6px 8px;margin-top:14px;font-size:9.5px;line-height:1.5}
+  .hero-micro .micro-dot{display:none}
+  .hero-micro span:not(.micro-dot){padding:4px 7px;border:1px solid rgba(255,255,255,.07);border-radius:999px;background:rgba(255,255,255,.025);white-space:normal}
+
+  #dashboard{padding:0!important}
+  .notice{font-size:11px;padding:10px 12px}
+  #accessGateOverlay>div{padding:18px 13px!important}
+  #accessGateOverlay>div>div[style*="display:flex"]{gap:8px!important}
+  #accessGateOverlay .btn{flex:1 1 130px;min-height:42px;padding:10px 11px;font-size:10px}
+
+  .section-title{font-size:9.5px!important;letter-spacing:.15em!important;margin-top:31px;margin-bottom:11px}
+  .top3{grid-template-columns:1fr 1fr!important;gap:10px}
+  .top3 .score-card.card-score{grid-column:1/-1!important}
+  .score-card{min-height:0;padding:16px 14px!important;border-radius:16px}
+  .card-score{padding:18px!important}
+  .gauge-wrap{width:92px;height:92px}.gauge-svg{width:92px;height:92px}
+  .blast-amount,.drain-time{font-size:27px;line-height:1.05;word-break:break-word}
+  .sc-kicker{font-size:8px;letter-spacing:.13em;margin-bottom:10px}
+  .sc-label{font-size:11px}.card-meta{gap:5px}.meta-chip{font-size:9px;padding:4px 7px}
+
+  .main-grid{display:flex!important;flex-direction:column;gap:10px}
+  .threats-card{order:1;padding:16px!important}.exp-card{order:2;padding:16px!important}
+  #exposureMap{height:238px;border-radius:13px}
+  .threat-item{padding:11px}.threat-name{font-size:11px}.threat-why{font-size:10.5px}
+
+  .fix-card,.passport-wrap,.rel-section-wrap,.fw-export-card,
+  #fwWatchSection>div:not(.section-title),#fwThreatFeedSection>div:not(.section-title){padding:16px!important;border-radius:16px!important}
+  .fix-header{flex-direction:column;gap:8px}.fix-score-gain{width:100%;margin-top:0}
+  .fix-steps{grid-template-columns:1fr!important;gap:9px}
+  .fix-step{padding:13px}
+
+  .passport-header-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+  .passport-inner{grid-template-columns:1fr!important;gap:14px}
+  .pp-inner{padding:15px 14px 12px}.pp-score-big{font-size:50px}
+  .passport-actions{gap:8px}
+
+  #ruleTemplates{grid-template-columns:1fr!important;gap:9px!important}
+  .rel-grid,.fw-watch-grid{grid-template-columns:1fr!important}
+  .fw-export-btns-wrap>div{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important}
+  .fw-export-btn{width:100%;justify-content:center;font-size:10px;padding:10px 8px}
+
+  .fw-watch-top{flex-direction:column!important;align-items:stretch!important}
+  .fw-watch-header-actions{order:2!important;width:100%;display:flex;gap:8px}
+  .fw-watch-header-text{order:1!important}
+  .fw-watch-header-actions .fw-watch-submit{flex:1}
+  .fw-watch-add{display:grid!important;grid-template-columns:1fr 90px;gap:8px!important}
+  .fw-watch-add .fw-watch-input:first-child{grid-column:1/-1}
+  .fw-watch-add .fw-watch-submit{width:100%}
+  .fw-notif-row{align-items:flex-start;gap:8px;padding:10px!important}
+
+  #walletBadge{max-width:62vw}
+  .footer{flex-direction:column;align-items:flex-start;gap:8px;margin-top:40px;padding:16px 2px 0}
+  .footer-note{font-size:10px}
+}
+
+@media (max-width:360px){
+  .top-right{gap:4px}.lang-btn{font-size:8.5px}.btn-full-access-top,.back-link{font-size:7.8px;padding:7px 6px}
+  .hero-title{font-size:33px!important}
+  .top3{grid-template-columns:1fr!important}.top3 .score-card.card-score{grid-column:auto!important}
+  .fw-export-btns-wrap>div{grid-template-columns:1fr!important}
+}
+
+</style>
+
+<style id="fw-size-polish-v2">
+/* ═══ FIREWALL V2 — original scale restored + hero/header polish ═══ */
+/* Desktop scale exactly matches the pre-refresh page. */
+@media (min-width:901px){html{zoom:1.10!important}}
+
+/* Restore original canvas/header dimensions and typography. */
+.page-shell{width:100%;max-width:1160px;margin:0 auto;padding:32px 20px 80px}
+.top-bar{
+  top:14px;width:min(1160px,calc(100% - 24px));max-width:none;
+  min-height:0;margin:0 auto 36px;padding:12px 16px;border-radius:999px;
+}
+.brand{gap:10px}
+.brand-logo{width:42px;height:42px;border-radius:14px}
+.brand-title{font-size:13px;letter-spacing:.10em}
+.brand-sub{display:block!important;font-size:10px;letter-spacing:.16em;line-height:1.25}
+.top-right{gap:10px}
+.lang-switch{padding:4px;gap:2px}
+.lang-btn{font-size:11px;padding:5px 9px}
+.btn-full-access-top{padding:8px 14px;font-size:11px;letter-spacing:.10em}
+.back-link{padding:8px 14px;font-size:11px;letter-spacing:.16em}
+
+/* Restore the premium firewall pill — no emoji. */
+.hero-kicker{
+  display:inline-flex;align-items:center;justify-content:center;gap:0;
+  padding:8px 18px;border-radius:999px;
+  border:1px solid rgba(0,229,255,.34);
+  background:linear-gradient(180deg,rgba(7,18,30,.92),rgba(7,18,30,.78));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 0 0 1px rgba(0,229,255,.03);
+  color:#79efff;font-size:11px;font-weight:800;letter-spacing:.26em;
+  margin-bottom:18px;
+}
+
+/* Main title: intentionally a little larger than the original, with cleaner proportions. */
+.hero{max-width:1100px;margin:10px auto 32px;padding:10px 0 24px}
+.hero-title{
+  max-width:1020px;margin:0 auto 16px;
+  font-size:clamp(56px,6.25vw,84px);line-height:1.01;letter-spacing:-.05em;
+  text-wrap:balance;
+}
+.hero-sub{max-width:68ch;margin:0 auto 28px;font-size:16px;line-height:1.75}
+
+/* Scanner dimensions/text sizes match the original page. */
+.scan-bar{max-width:760px;padding:7px 7px 7px 22px;gap:10px}
+.scan-bar input{font-size:14px}
+.scan-net{font-size:12px;padding:8px 12px;min-height:0}
+.btn-scan{padding:12px 22px;min-height:0;font-size:13px}
+.demo-hint{margin-top:14px;font-size:12px}
+.hero-micro{margin-top:14px;gap:10px;font-size:12px}
+#loadWrap{max-width:760px;margin-top:28px}
+
+/* Restore original text scale through the dashboard while keeping refreshed colors/cards. */
+.section-title{font-size:11px;letter-spacing:.20em;margin-top:28px;margin-bottom:14px}
+.sc-kicker{font-size:10px;letter-spacing:.18em;margin-bottom:10px}
+.score-card{padding:22px 20px;min-height:0;border-radius:22px}
+.top3{grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.gauge-wrap{width:90px;height:90px;margin-bottom:6px}.gauge-svg{width:90px;height:90px}.gauge-num{font-size:22px}
+.blast-amount,.drain-time{font-size:clamp(30px,3.5vw,46px)}
+.main-grid{grid-template-columns:1.3fr 1fr;gap:16px}
+#exposureMap{height:280px}
+.fix-card,.passport-wrap{padding:22px}
+.fix-step{padding:16px 14px;border-radius:16px}
+.rel-section-wrap{padding:22px 22px 18px}.fw-export-card{padding:22px}
+.btn-full-access{padding:13px 24px;font-size:13px}
+.notice{max-width:760px;margin:0 auto 24px;padding:12px 18px;text-align:center;font-size:12px}
+.footer{margin-top:44px;padding-top:18px;font-size:12px}.footer-note{font-size:11px}
+
+/* Tablet: retain readable title and original-scale controls. */
+@media (max-width:900px) and (min-width:601px){
+  html{zoom:1!important}
+  .page-shell{padding:24px 20px 64px}
+  .top-bar{width:min(1160px,calc(100% - 24px));margin-bottom:32px}
+  .hero-title{font-size:clamp(48px,7.8vw,68px)}
+  .top3{grid-template-columns:1fr 1fr}
+  .top3 .score-card.card-score{grid-column:1/-1}
+  .main-grid{grid-template-columns:1fr}
+  .threats-card{order:1}.exp-card{order:2}
+}
+
+/* Mobile: keep brand subtitle + flags, larger hero, no horizontal overflow. */
+@media (max-width:600px){
+  html{zoom:1!important}
+  .page-shell{padding:12px 10px 48px}
+  .top-bar{
+    top:8px;width:100%;max-width:none;margin:0 auto 20px;padding:10px 12px;
+    border-radius:18px;display:flex;flex-direction:column;align-items:stretch;gap:8px;
+  }
+  .brand{justify-content:flex-start;gap:9px;min-width:0}
+  .brand-logo{width:38px;height:38px;border-radius:11px}
+  .brand-text{min-width:0}
+  .brand-title{font-size:12px}
+  .brand-sub{display:block!important;font-size:8px!important;letter-spacing:.10em;white-space:normal;line-height:1.25}
+  .top-right{width:100%;display:flex;flex-direction:row;align-items:center;gap:5px;flex-wrap:nowrap;min-width:0}
+  .lang-switch{flex:1 1 auto;min-width:0;padding:3px;justify-content:space-between}
+  .lang-btn{flex:1 1 0;min-width:0;font-size:9px;padding:6px 2px}
+  .btn-full-access-top{flex:0 0 auto;font-size:8.5px;padding:7px 8px;letter-spacing:.06em}
+  .back-link{display:inline-flex!important;flex:0 0 auto;font-size:8px;padding:7px 7px;letter-spacing:.05em}
+  #tierBadge{font-size:8px!important;padding:5px 7px!important}
+
+  .hero{padding:8px 2px 20px;margin:0 auto 26px}
+  .hero-kicker{font-size:9px;letter-spacing:.18em;padding:7px 14px;margin-bottom:14px}
+  .hero-title{font-size:clamp(38px,11.5vw,48px)!important;line-height:1.02;letter-spacing:-.045em;margin-bottom:14px;max-width:100%}
+  .hero-sub{font-size:13px;line-height:1.62;margin-bottom:20px;padding:0 4px}
+
+  .scan-bar{max-width:100%;display:grid;grid-template-columns:minmax(92px,.35fr) minmax(0,.65fr);gap:8px;border-radius:18px;padding:10px}
+  .scan-bar input{grid-column:1/-1;width:100%;min-width:0;min-height:40px;padding:0 5px;font-size:12px}
+  .scan-net{grid-column:1;width:100%;min-width:0;padding:9px 8px;font-size:11px}
+  .btn-scan{grid-column:2;width:100%;min-height:44px;padding:10px 12px;font-size:11px}
+  .demo-hint{font-size:10.5px;margin-top:11px}
+  .hero-micro{gap:6px 8px;margin-top:14px;font-size:9.5px;line-height:1.5}
+  .hero-micro .micro-dot{display:none}
+  .hero-micro span:not(.micro-dot){padding:4px 7px;border:1px solid rgba(255,255,255,.07);border-radius:999px;background:rgba(255,255,255,.025);white-space:normal}
+
+  .section-title{font-size:12px!important;letter-spacing:.14em!important}
+  .top3{grid-template-columns:1fr 1fr!important;gap:10px}
+  .top3 .score-card.card-score{grid-column:1/-1!important}
+  .score-card{padding:18px!important;border-radius:18px}
+  .sc-kicker{font-size:9px}
+  .main-grid{display:flex!important;flex-direction:column;gap:10px}.threats-card{order:1}.exp-card{order:2}
+  #exposureMap{height:240px}
+  .fix-card,.passport-wrap,.rel-section-wrap,.fw-export-card,
+  #fwWatchSection>div:not(.section-title),#fwThreatFeedSection>div:not(.section-title){padding:16px!important;border-radius:18px!important}
+  .footer{font-size:11px}.footer-note{font-size:10px}
+}
+
+@media (max-width:360px){
+  .brand-sub{font-size:7.5px!important}
+  .lang-btn{font-size:8.2px}.btn-full-access-top,.back-link{font-size:7.5px;padding:7px 5px}
+  .hero-title{font-size:36px!important}
+  .top3{grid-template-columns:1fr!important}.top3 .score-card.card-score{grid-column:auto!important}
+}
 </style>
 </head>
 <body>
@@ -1112,7 +1531,7 @@ twq('config','r4v6v');
       </picture>
       <div class="brand-text">
         <div class="brand-title">CYCLEX</div>
-        <div class="brand-sub">Wallet Firewall</div>
+        <div class="brand-sub" data-i18n="brand_sub">On-Chain Security &amp; Rewards</div>
       </div>
     </a>
     <div class="top-right">
@@ -1134,7 +1553,7 @@ twq('config','r4v6v');
 
     <!-- ── HERO / LANDING ── -->
     <section class="hero" id="heroSection">
-      <div class="hero-kicker" data-i18n="hero_kicker">🔥 Wallet Firewall</div>
+      <div class="hero-kicker" data-i18n="hero_kicker">WALLET FIREWALL</div>
       <h1 class="hero-title" data-i18n="hero_title">Turn any wallet into<br>a protected wallet.</h1>
       <p class="hero-sub" data-i18n="hero_sub">
         Scan your approvals, reveal your Blast Radius, get a guided Fix Plan —
@@ -1151,16 +1570,16 @@ twq('config','r4v6v');
         <button class="btn-scan" id="btnRunFirewall" data-i18n="btn_run">Run Firewall</button>
       </div>
 
-      <span class="demo-hint" id="demoHint">↗ Try with demo wallet</span>
+      <span class="demo-hint" id="demoHint" data-i18n="demo_try">Try with demo wallet</span>
 
       <div class="hero-micro">
-        <span>No signature required</span>
+        <span data-i18n="micro_readonly">Read-only scan</span>
         <span class="micro-dot">·</span>
-        <span>No transactions</span>
+        <span data-i18n="micro_noconnect">No wallet connection required</span>
         <span class="micro-dot">·</span>
-        <span>Read-only scan</span>
+        <span data-i18n="micro_revoke">Connect only to revoke</span>
         <span class="micro-dot">·</span>
-        <span>BSC + ETH + Polygon</span>
+        <span data-i18n="micro_chains">BSC + ETH + Polygon</span>
       </div>
     </section>
 
@@ -1220,11 +1639,11 @@ twq('config','r4v6v');
           <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
             <!-- Connect & Check — triggers AppKit modal -->
             <button class="btn btn-full-access" id="btnCheckAccess">
-              🔑 Connect &amp; Check Access
+              Connect &amp; Check Access
             </button>
             <!-- PASS: opens purchase popup -->
             <button class="btn btn-ghost" id="btnBuyPass" style="font-size:12px">
-              🎫 Get PASS ↗
+              Get PASS
             </button>
           </div>
           <div id="gateStatus" style="margin-top:14px;font-size:12px;color:var(--muted);min-height:18px"></div>
@@ -1240,7 +1659,7 @@ twq('config','r4v6v');
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn btn-ghost" id="btnRescan" style="padding:9px 16px;font-size:12px">↺ Rescan</button>
           <button class="btn btn-ghost" id="btnNewScan" style="padding:9px 16px;font-size:12px">New wallet</button>
-          <button class="btn btn-ghost" id="btnQuickShare" style="padding:9px 16px;font-size:12px;border-color:rgba(0,229,255,.25);color:var(--cyan)" title="Share scan result">📤 Share</button>
+          <button class="btn btn-ghost" id="btnQuickShare" style="padding:9px 16px;font-size:12px;border-color:rgba(0,229,255,.25);color:var(--cyan)" title="Share scan result">Share</button>
         </div>
       </div>
 
@@ -1389,12 +1808,12 @@ twq('config','r4v6v');
         <!-- Two-column header row: card title left, actions title right — aligned -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:14px" class="passport-header-row">
           <div>
-            <div style="font-size:16px;font-weight:800;margin-bottom:4px">🪪 Proof Passport</div>
-            <div style="font-size:13px;color:var(--muted)">A shareable, verifiable snapshot of your wallet's security state. Tweet it, share it, flex it.</div>
+            <div style="font-size:16px;font-weight:800;margin-bottom:4px" data-i18n="passport_proof_title">Proof Passport</div>
+            <div style="font-size:13px;color:var(--muted)" data-i18n="passport_proof_sub">A shareable, verifiable snapshot of your wallet's security state.</div>
           </div>
           <div>
             <h3 style="font-size:16px;font-weight:800;margin:0 0 4px" data-i18n="passport_share_title">Share your Wallet Passport</h3>
-            <p style="font-size:13px;color:var(--muted);line-height:1.6;margin:0">Sign a cryptographic proof of your wallet's security state — verifiable by anyone, no KYC, no gas.</p>
+            <p style="font-size:13px;color:var(--muted);line-height:1.6;margin:0" data-i18n="passport_verify_sub">Sign a cryptographic proof of your wallet's security state — verifiable by anyone, no KYC, no gas.</p>
           </div>
         </div>
         <div class="passport-inner">
@@ -1629,7 +2048,7 @@ twq('config','r4v6v');
               <div style="font-size:16px;font-weight:800;margin-bottom:4px">Recent Exploits & Threats</div>
               <div style="font-size:13px;color:var(--muted)">Known hacks, rug pulls and suspicious contracts across BSC, ETH & Polygon. <span id="fwThreatAffectedBadge" style="display:none;color:#ff7a8a;font-weight:800"></span></div>
             </div>
-            <div style="font-size:11px;color:var(--muted);text-align:right">Updated Feb 2026</div>
+            <!-- Threat feed timestamp hidden until a dynamic source timestamp is available. -->
           </div>
           <div id="fwThreatList"></div>
         </div>
@@ -6202,38 +6621,40 @@ window.fwApiCopy             = fwApiCopy;
 const FW_TRANSLATIONS = {
   en: {
     // topbar
-    fw_badge:"FIREWALL", btn_full_access:"🔑 Full Access", btn_back:"← Back to Hub",
+    brand_sub:"On-Chain Security & Rewards", fw_badge:"FIREWALL", btn_full_access:"Full Access", btn_back:"Security Hub",
     // hero
-    hero_kicker:"🔥 Wallet Firewall",
+    hero_kicker:"WALLET FIREWALL",
     hero_title:"Turn any wallet into<br>a protected wallet.",
-    hero_sub:"Scan your approvals, reveal your Blast Radius, get a guided Fix Plan — and generate a shareable Proof Passport. In 60 seconds.",
-    scan_placeholder:"0x... wallet address", btn_run:"Run Firewall",
+    hero_sub:"Scan wallet approvals, reveal your Blast Radius, identify risky spenders and get a guided Fix Plan — without connecting your wallet.",
+    scan_placeholder:"0x... wallet address", btn_run:"Scan Wallet",
+    demo_try:"Try with demo wallet", micro_readonly:"Read-only scan", micro_noconnect:"No wallet connection required", micro_revoke:"Connect only to revoke", micro_chains:"BSC + ETH + Polygon",
     // loading
     step1:"Fetching approval logs", step2:"Analyzing spender risk",
     step3:"Calculating Blast Radius", step4:"Building Fix Plan",
     // notices
     notice_live_title:"Live scan.", notice_live_body:"Read-only on-chain data. No transactions made.",
-    notice_demo_title:"Demo mode:", notice_demo_body:'Showing sample data. Enter a real wallet address and click "Run Firewall" to scan live.',
+    notice_demo_title:"Demo mode:", notice_demo_body:'Showing sample data. Enter a real wallet address and click "Scan Wallet" to scan live.',
     // section titles
-    sec_status:"Firewall Status", sec_fix:"Fix Mode", sec_passport:"Wallet Passport",
-    sec_rules:"Firewall Rules", sec_relations:"🔗 Wallet Relations", sec_export:"📊 Export Report",
-    sec_watch:"👁 Wallet Watch", sec_threats:"🚨 Threat Feed", sec_api:"🔌 Developer API",
+    sec_status:"Security Snapshot", sec_fix:"Fix Mode", sec_passport:"Wallet Passport",
+    sec_rules:"Firewall Rules", sec_relations:"Wallet Relations", sec_export:"Export Report",
+    sec_watch:"Wallet Watch", sec_threats:"Threat Feed", sec_api:"Developer API",
     // status cards
-    kicker_score:"Firewall Score", kicker_blast:"💥 Blast Radius", kicker_drain:"⏱ Time-to-Drain",
+    kicker_score:"Firewall Score", kicker_blast:"Blast Radius", kicker_drain:"Time-to-Drain",
     blast_sub:"max drainable if top spender exploited",
     drain_sub:"estimated drain time for exposed assets",
     // map / threats
-    title_map:"🗺 Exposure Map", map_sub:"Wallet → Spenders → Tokens. Node size = risk weight.",
-    title_threats:"🎯 Top Threats",
+    title_map:"Exposure Map", map_sub:"Wallet → Spenders → Tokens. Node size = risk weight.",
+    title_threats:"Top Threats",
     // fix mode
     fix_lock_msg:"Bulk revoke &amp; full cleanup require Full Access<br>(hold 1 PASS or at least 100 CYCX)",
     btn_unlock_fix:"Unlock Full Cleanup",
-    fix_title:"🛠 Fix Mode",
+    fix_title:"3-Step Fix Plan",
     fix_sub:"Complete these actions to improve your Firewall Score.",
     fix1_title:"Revoke Top Spender", fix2_title:"Revoke All Unlimited", fix3_title:"Lock Risky dApp",
     // passport
     passport_lock_msg:"Verified Wallet Passport requires Full Access (1 PASS or at least 100 CYCX)",
     passport_share_title:"Share your Wallet Passport",
+    passport_proof_title:"Proof Passport", passport_proof_sub:"A shareable, verifiable snapshot of your wallet's security state.", passport_verify_sub:"Sign a cryptographic proof of your wallet's security state — verifiable by anyone, no KYC, no gas.",
     // watch
     watch_title:"Track Multiple Wallets",
     // Score labels
@@ -6252,29 +6673,31 @@ const FW_TRANSLATIONS = {
     tier_badge:"✓ FULL ACCESS",
   },
   zh: {
-    fw_badge:"防火墙", btn_full_access:"🔑 完整访问", btn_back:"← 返回主页",
-    hero_kicker:"🔥 钱包防火墙", hero_title:"让每个钱包都安全。",
-    hero_sub:"扫描您的授权、揭示爆炸半径、获得修复计划，60秒内生成可分享的安全护照。",
-    scan_placeholder:"0x... 钱包地址", btn_run:"运行防火墙",
+    brand_sub:"链上安全与奖励", fw_badge:"防火墙", btn_full_access:"完整访问", btn_back:"安全中心",
+    hero_kicker:"钱包防火墙", hero_title:"让每个钱包都安全。",
+    hero_sub:"扫描钱包授权、查看风险暴露、识别高风险授权方并获得修复计划 — 扫描无需连接钱包。",
+    scan_placeholder:"0x... 钱包地址", btn_run:"扫描钱包",
+    demo_try:"使用演示钱包", micro_readonly:"只读扫描", micro_noconnect:"扫描无需连接钱包", micro_revoke:"仅撤销时连接", micro_chains:"BSC + ETH + Polygon",
     step1:"获取授权日志", step2:"分析风险合约", step3:"计算爆炸半径", step4:"生成修复计划",
     notice_live_title:"实时扫描。", notice_live_body:"只读链上数据，不产生任何交易。",
     notice_demo_title:"演示模式：", notice_demo_body:"显示示例数据。输入真实钱包地址并点击「运行防火墙」进行实时扫描。",
     scan_running:"正在扫描钱包…",
-    sec_status:"防火墙状态", sec_fix:"修复模式", sec_passport:"钱包护照",
-    sec_rules:"防火墙规则", sec_relations:"🔗 钱包关联", sec_export:"📊 导出报告",
-    sec_watch:"👁 钱包监控", sec_threats:"🚨 威胁动态", sec_api:"🔌 开发者API",
-    kicker_score:"防火墙评分", kicker_blast:"💥 爆炸半径", kicker_drain:"⏱ 清空时间",
+    sec_status:"安全概览", sec_fix:"修复模式", sec_passport:"钱包护照",
+    sec_rules:"防火墙规则", sec_relations:"钱包关联", sec_export:"导出报告",
+    sec_watch:"钱包监控", sec_threats:"威胁动态", sec_api:"开发者API",
+    kicker_score:"防火墙评分", kicker_blast:"爆炸半径", kicker_drain:"清空时间",
     blast_sub:"顶级授权方被利用时的最大可清空金额",
     drain_sub:"暴露资产的预估清空时间",
-    title_map:"🗺 风险地图", map_sub:"钱包 → 授权方 → 代币。节点大小 = 风险权重。",
-    title_threats:"🎯 主要威胁",
+    title_map:"风险地图", map_sub:"钱包 → 授权方 → 代币。节点大小 = 风险权重。",
+    title_threats:"主要威胁",
     fix_lock_msg:"批量撤销和完整清理需要完整访问权限<br>（持有1个PASS或至少100个CYCX）",
     btn_unlock_fix:"解锁完整清理",
-    fix_title:"🛠 修复模式",
+    fix_title:"三步修复计划",
     fix_sub:"完成以下操作以提升您的防火墙评分。",
     fix1_title:"撤销顶级授权方", fix2_title:"撤销所有无限授权", fix3_title:"锁定高风险DApp",
     passport_lock_msg:"验证钱包护照需要完整访问权限（持有1个 PASS 或至少100个 CYCX）",
     passport_share_title:"分享您的钱包护照",
+    passport_proof_title:"安全护照", passport_proof_sub:"可分享、可验证的钱包安全状态快照。", passport_verify_sub:"为钱包安全状态签署加密证明 — 任何人都可验证，无需KYC，无需Gas。",
     watch_title:"追踪多个钱包",
     score_protected:"受保护", score_exposed:"已暴露", score_vulnerable:"存在漏洞", score_critical:"危急",
     gate_msg:'免费：撤销最高风险授权。<strong style="color:var(--cyan)">完整访问：</strong>批量撤销、完整爆炸半径、验证钱包护照、导出及高级保护工具。<strong style="color:var(--green)">持有1个 PASS 或至少100个 CYCX 即可解锁。</strong>',
@@ -6287,29 +6710,31 @@ const FW_TRANSLATIONS = {
     tier_badge:"✓ 完整访问",
   },
   ar: {
-    fw_badge:"جدار الحماية", btn_full_access:"🔑 وصول كامل", btn_back:"→ العودة للرئيسية",
-    hero_kicker:"🔥 جدار حماية المحفظة", hero_title:"حوّل أي محفظة إلى محفظة محمية.",
-    hero_sub:"افحص الموافقات، اكشف نطاق الضرر، واحصل على خطة إصلاح موجّهة خلال 60 ثانية.",
-    scan_placeholder:"عنوان المحفظة 0x...", btn_run:"تشغيل الجدار",
+    brand_sub:"الأمان والمكافآت على السلسلة", fw_badge:"جدار الحماية", btn_full_access:"وصول كامل", btn_back:"مركز الأمان",
+    hero_kicker:"جدار حماية المحفظة", hero_title:"حوّل أي محفظة إلى محفظة محمية.",
+    hero_sub:"افحص موافقات المحفظة، اكشف نطاق الضرر، حدّد الجهات عالية المخاطر واحصل على خطة إصلاح — من دون ربط المحفظة للفحص.",
+    scan_placeholder:"عنوان المحفظة 0x...", btn_run:"فحص المحفظة",
+    demo_try:"جرّب محفظة تجريبية", micro_readonly:"فحص للقراءة فقط", micro_noconnect:"لا يلزم ربط المحفظة للفحص", micro_revoke:"الربط مطلوب فقط للإلغاء", micro_chains:"BSC + ETH + Polygon",
     step1:"جلب سجلات الموافقات", step2:"تحليل مخاطر العقود", step3:"حساب نطاق الضرر", step4:"بناء خطة الإصلاح",
     notice_live_title:"فحص مباشر.", notice_live_body:"بيانات للقراءة فقط. لا معاملات.",
     notice_demo_title:"وضع العرض التجريبي:", notice_demo_body:'بيانات نموذجية. أدخل عنوان محفظة حقيقية واضغط "تشغيل الجدار" للفحص الفعلي.',
     scan_running:"جارٍ فحص المحفظة…",
-    sec_status:"حالة الجدار", sec_fix:"وضع الإصلاح", sec_passport:"جواز المحفظة",
-    sec_rules:"قواعد الجدار", sec_relations:"🔗 علاقات المحفظة", sec_export:"📊 تصدير التقرير",
-    sec_watch:"👁 مراقبة المحافظ", sec_threats:"🚨 خلاصة التهديدات", sec_api:"🔌 واجهة المطورين",
-    kicker_score:"نقاط الجدار", kicker_blast:"💥 نطاق الضرر", kicker_drain:"⏱ وقت التصفية",
+    sec_status:"ملخص الأمان", sec_fix:"وضع الإصلاح", sec_passport:"جواز المحفظة",
+    sec_rules:"قواعد الجدار", sec_relations:"علاقات المحفظة", sec_export:"تصدير التقرير",
+    sec_watch:"مراقبة المحافظ", sec_threats:"خلاصة التهديدات", sec_api:"واجهة المطورين",
+    kicker_score:"نقاط الجدار", kicker_blast:"نطاق الضرر", kicker_drain:"وقت التصفية",
     blast_sub:"أقصى مبلغ قابل للسحب عند استغلال أكبر مفوَّض",
     drain_sub:"الوقت المقدر لتصفية الأصول المكشوفة",
-    title_map:"🗺 خريطة التعرض", map_sub:"المحفظة ← المفوَّضون ← الرموز. حجم العقدة = وزن المخاطر.",
-    title_threats:"🎯 أبرز التهديدات",
+    title_map:"خريطة التعرض", map_sub:"المحفظة ← المفوَّضون ← الرموز. حجم العقدة = وزن المخاطر.",
+    title_threats:"أبرز التهديدات",
     fix_lock_msg:"الإلغاء الجماعي والتنظيف الكامل يتطلبان وصولاً كاملاً<br>(امتلك PASS واحداً أو 100 CYCX على الأقل)",
     btn_unlock_fix:"فتح التنظيف الكامل",
-    fix_title:"🛠 وضع الإصلاح",
+    fix_title:"خطة إصلاح من 3 خطوات",
     fix_sub:"أكمل هذه الإجراءات لتحسين نقاط الجدار.",
     fix1_title:"إلغاء أكبر مفوَّض", fix2_title:"إلغاء كل الموافقات غير المحدودة", fix3_title:"حظر DApp عالي الخطورة",
     passport_lock_msg:"جواز المحفظة الموثق يتطلب وصولاً كاملاً (PASS واحد أو 100 CYCX على الأقل)",
     passport_share_title:"شارك جواز محفظتك",
+    passport_proof_title:"جواز الأمان", passport_proof_sub:"لقطة قابلة للمشاركة والتحقق من حالة أمان محفظتك.", passport_verify_sub:"وقّع إثباتاً تشفيرياً لحالة أمان المحفظة — قابل للتحقق من أي شخص، بلا KYC وبلا رسوم Gas.",
     watch_title:"تتبع محافظ متعددة",
     score_protected:"محمي", score_exposed:"مكشوف", score_vulnerable:"ضعيف", score_critical:"حرج",
     gate_msg:'مجاناً: إلغاء أكبر تهديد. <strong style="color:var(--cyan)">الوصول الكامل:</strong> التنظيف الشامل — الإلغاء الجماعي ونطاق الضرر الكامل وجواز المحفظة الموثق والتصدير وأدوات الحماية المتقدمة. <strong style="color:var(--green)">يُفتح بامتلاك PASS واحد أو 100 CYCX على الأقل.</strong>',
@@ -6322,30 +6747,32 @@ const FW_TRANSLATIONS = {
     tier_badge:"✓ وصول كامل",
   },
   ru: {
-    fw_badge:"ФАЙРВОЛ", btn_full_access:"🔑 Полный Доступ", btn_back:"← Назад",
-    hero_kicker:"🔥 Файрвол Кошелька", hero_title:"Защити любой кошелёк за секунды.",
-    hero_sub:"Сканируй одобрения, узнай зону риска, получи план исправления — и сгенерируй паспорт безопасности. За 60 секунд.",
-    scan_placeholder:"0x... адрес кошелька", btn_run:"Запустить",
+    brand_sub:"Ончейн-безопасность и награды", fw_badge:"ФАЙРВОЛ", btn_full_access:"Полный Доступ", btn_back:"Security Hub",
+    hero_kicker:"ФАЙРВОЛ КОШЕЛЬКА", hero_title:"Защити любой кошелёк за секунды.",
+    hero_sub:"Проверь разрешения кошелька, оцени зону риска, найди опасных получателей и получи план исправления — без подключения кошелька для сканирования.",
+    scan_placeholder:"0x... адрес кошелька", btn_run:"Сканировать",
+    demo_try:"Попробовать демо-кошелёк", micro_readonly:"Сканирование только для чтения", micro_noconnect:"Подключение для сканирования не требуется", micro_revoke:"Подключение только для отзыва", micro_chains:"BSC + ETH + Polygon",
     step1:"Загрузка данных об одобрениях", step2:"Анализ рисков контрактов",
     step3:"Расчёт зоны поражения", step4:"Формирование плана защиты",
     notice_live_title:"Живое сканирование.", notice_live_body:"Только чтение. Транзакции не создаются.",
     notice_demo_title:"Демо-режим:", notice_demo_body:'Тестовые данные. Введи адрес кошелька и нажми "Запустить" для реального сканирования.',
     scan_running:"Сканирование кошелька…",
-    sec_status:"Статус Файрвола", sec_fix:"Режим Исправления", sec_passport:"Паспорт Кошелька",
-    sec_rules:"Правила Файрвола", sec_relations:"🔗 Связи Кошелька", sec_export:"📊 Экспорт Отчёта",
-    sec_watch:"👁 Слежение", sec_threats:"🚨 Лента Угроз", sec_api:"🔌 API Разработчика",
-    kicker_score:"Оценка Файрвола", kicker_blast:"💥 Зона Поражения", kicker_drain:"⏱ Время Опустошения",
+    sec_status:"Сводка Безопасности", sec_fix:"Режим Исправления", sec_passport:"Паспорт Кошелька",
+    sec_rules:"Правила Файрвола", sec_relations:"Связи Кошелька", sec_export:"Экспорт Отчёта",
+    sec_watch:"Слежение", sec_threats:"Лента Угроз", sec_api:"API Разработчика",
+    kicker_score:"Оценка Файрвола", kicker_blast:"Зона Поражения", kicker_drain:"Время Опустошения",
     blast_sub:"максимум потерь при атаке главного получателя одобрения",
     drain_sub:"расчётное время опустошения открытых активов",
-    title_map:"🗺 Карта Рисков", map_sub:"Кошелёк → Получатели → Токены. Размер узла = вес риска.",
-    title_threats:"🎯 Топ Угроз",
+    title_map:"Карта Рисков", map_sub:"Кошелёк → Получатели → Токены. Размер узла = вес риска.",
+    title_threats:"Топ Угроз",
     fix_lock_msg:"Массовый отзыв и полная очистка требуют полного доступа<br>(нужен 1 PASS или минимум 100 CYCX)",
     btn_unlock_fix:"Полная очистка",
-    fix_title:"🛠 3-шаговый план защиты",
+    fix_title:"3-шаговый план защиты",
     fix_sub:"Выполни эти действия, чтобы улучшить оценку файрвола.",
     fix1_title:"Отозвать главный доступ", fix2_title:"Отозвать все безлимитные доступы", fix3_title:"Заблокировать опасный dApp",
     passport_lock_msg:"Верифицированный Паспорт кошелька требует полного доступа (1 PASS или минимум 100 CYCX)",
     passport_share_title:"Поделиться паспортом кошелька",
+    passport_proof_title:"Паспорт Безопасности", passport_proof_sub:"Проверяемый снимок состояния безопасности кошелька, которым можно поделиться.", passport_verify_sub:"Подпиши криптографическое подтверждение состояния безопасности — проверяемое любым пользователем, без KYC и без газа.",
     watch_title:"Отслеживать несколько кошельков",
     score_protected:"Защищён", score_exposed:"Уязвим", score_vulnerable:"Критический", score_critical:"Опасность",
     gate_msg:'Бесплатно: удали главную угрозу. <strong style="color:var(--cyan)">Полный доступ:</strong> полная очистка — массовый отзыв, полная зона риска, Верифицированный Паспорт, экспорт и расширенные инструменты защиты. <strong style="color:var(--green)">Открывается при наличии 1 PASS или минимум 100 CYCX.</strong>',
