@@ -374,8 +374,8 @@ body::after{
   }
 
   .hero-title{
-  font-size: clamp(32px, 4.4vw, 64px);
-  line-height: 1.10;
+  font-size: clamp(32px, 6.4vw, 64px);
+  line-height: 1.07;
   font-weight: 950;
   letter-spacing: -0.035em;
   margin: 0 auto 12px;
@@ -409,8 +409,9 @@ body::after{
 
   @media (min-width: 980px){
   .hero-title{
-    letter-spacing: -0.04em;
-    font-size: clamp(42px, 4.6vw, 66px);
+    letter-spacing: -0.045em;
+    font-size: clamp(42px, 5.8vw, 66px);
+    line-height: 1.03;
   }
   .hero-title br{ display:none; }
 }
@@ -537,35 +538,6 @@ body::after{
     font-size: 13px;
     color: rgba(244,246,255,.62);
     letter-spacing: .02em;
-    max-width: 46ch;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    line-height: 1.45;
-  }
-
-  /* --- Hero: mobile safety for chips + CTA labels (long RU/AR strings) --- */
-  @media (max-width: 560px){
-    .hero-chips{ gap: 8px; margin: 12px 0 16px; }
-    .chip{
-      font-size: 10px;
-      letter-spacing: .10em;
-      padding: 8px 10px;
-      white-space: normal;   /* was nowrap — prevents horizontal overflow */
-      text-align: center;
-    }
-    .chip b{ letter-spacing: .12em; }
-
-    .hero-primary-cta .btn{
-      white-space: normal;
-      text-align: center;
-      line-height: 1.25;
-      font-size: 12px;
-      letter-spacing: .06em;
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-    .hero-primary-sub{ font-size: 12px; margin-top: 8px; }
   }
 
   /* --- FIX: keep the 2 CTA buttons in one row on desktop --- */
@@ -955,56 +927,21 @@ body::after{
   }
   @media (max-width: 560px){ .stats-grid{ grid-template-columns: 1fr; } }
 
-  /* On-chain transparency block, now living inside the CYCX section */
-  .transparency-inline{
-    max-width: 820px;
-    margin: 22px auto 0;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255,255,255,.10);
-    text-align: center;
-  }
-  .transparency-inline-title{
-    font-size: 15px;
-    letter-spacing: .10em;
-    text-transform: uppercase;
-    color: rgba(244,246,255,.86);
-    margin: 0 0 8px;
-  }
-  .transparency-inline p{
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(244,246,255,.66);
-  }
-  @media (max-width: 560px){
-    .transparency-inline{ margin-top: 18px; padding-top: 14px; }
-    .transparency-inline p{ font-size: 13px; }
-  }
-
   /* =========================
      SOCIAL
      ========================= */
   .social-grid{
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;   /* every card in a row gets the same height */
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); 
   gap: 14px;
   margin-top: 18px;
 }
-/* 5 cards in one row on wide screens, then 3 / 2 / 1 as it narrows */
-.social-grid > .social-card{
-  flex: 0 1 calc(20% - 11.2px);
-  min-width: 0;
+@media (max-width: 1100px){
+  .social-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
-@media (max-width: 1240px){
-  .social-grid > .social-card{ flex: 0 1 calc(33.333% - 10px); }
-}
-@media (max-width: 900px){
-  .social-grid > .social-card{ flex: 0 1 calc(50% - 7px); }
-}
-@media (max-width: 640px){
-  .social-grid > .social-card{ flex: 1 1 100%; }
+
+@media (max-width: 700px){
+  .social-grid{ grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px){
@@ -1092,17 +1029,9 @@ body::after{
     border-color: rgba(0,229,255,.34);
   }
   @media (max-width: 900px){
-    /* width is handled by the .social-grid breakpoints above */
+    .social-grid{ grid-template-columns: 1fr; }
     .social-cta{ align-self:flex-start; }
   }
-
-  /* 5-across row: slightly tighter so the copy stays on 2 lines */
-@media (min-width: 1241px){
-  .social-card{ padding: 20px 12px; gap: 12px; }
-  .social-title{ font-size: 14px; }
-  .social-desc{ font-size: 12px; max-width: 24ch; }
-  .social-cta{ padding: 9px 12px; font-size: 10px; letter-spacing: .06em; }
-}
 
   /* --- Desktop: make social cards vertical like screenshot 8 --- */
 @media (min-width: 980px){
@@ -1112,33 +1041,24 @@ body::after{
     text-align: center;
     padding: 22px 18px;
     gap: 14px;
-    height: auto;            /* must stay auto — a fixed height cancels flex stretch */
-    align-self: stretch;
   }
 
   .social-meta{
     align-items: center;
     text-align: center;
-    width: 100%;
-    flex: 1 1 auto;          /* meta absorbs the leftover height... */
   }
 
   .social-desc{
     max-width: 34ch;
-    flex: 1 1 auto;          /* ...and the description takes the slack, */
-    margin-bottom: 12px;     /*     so 1-line and 2-line cards match    */
   }
 
   .social-cta{
     width: 100%;
     display:flex;
     justify-content:center;
-    align-items:center;
-    margin-top: auto;        /* pins every CTA to the same baseline */
     padding: 14px 16px;
     font-size: 12px;
     letter-spacing: .14em;
-    white-space: normal;
   }
 }
 
@@ -1263,6 +1183,36 @@ body::after{
     color: var(--dim);
   }
   .footer-tagline{ color: rgba(0,229,255,.90); font-weight: 650; }
+  .footer-links{
+    flex: 1 0 100%;
+    margin-top: 10px;
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    flex-wrap:wrap;
+    opacity:.9;
+  }
+  .footer-links a{
+    transition: color .2s var(--ease), opacity .2s var(--ease);
+  }
+  .footer-links a:hover{
+    color: rgba(0,229,255,.95);
+    opacity:1;
+  }
+  @media (max-width: 700px){
+    .footer{
+      align-items:flex-start;
+      gap:12px;
+    }
+    .footer-tagline{
+      line-height:1.5;
+    }
+    .footer-links{
+      margin-top:2px;
+      gap:10px 14px;
+      line-height:1.5;
+    }
+  }
 
   /* =========================
      MODALS
@@ -1814,6 +1764,146 @@ html, body { overflow-x: hidden; }
     filter: saturate(1.08);
   }
 
+
+
+/* =========================
+   2026 HOME REFRESH — SAFE OVERRIDES
+   ========================= */
+.btn-firewall{
+  background: linear-gradient(135deg, rgba(0,229,255,1), rgba(125,242,255,1));
+  color:#03040a;
+  border-color: rgba(0,229,255,.22);
+  box-shadow: 0 22px 90px rgba(0,229,255,.34);
+  font-weight:950;
+  letter-spacing:.10em;
+}
+.btn-firewall:hover{
+  box-shadow: 0 30px 120px rgba(0,229,255,.46);
+  filter:saturate(1.04);
+}
+
+.hero-primary-cta .btn-secondary{
+  background: rgba(255,255,255,.025);
+  border-color: rgba(255,255,255,.18);
+}
+
+.soc-icon{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  margin-bottom:14px;
+  opacity:.88;
+  font-size:0;
+}
+.soc-icon svg{
+  width:28px;
+  height:28px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.75;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.soc-card.cyan .soc-icon{color:#00e5ff}
+.soc-card.red .soc-icon{color:#ff4757}
+.soc-card.purple .soc-icon{color:#a78bfa}
+
+.soc-grid[hidden]{display:none !important;}
+.soc-insight{
+  margin:18px auto 0;
+  max-width:760px;
+  text-align:center;
+  font-size:13px;
+  line-height:1.6;
+  color:rgba(244,246,255,.72);
+  letter-spacing:.01em;
+}
+.soc-insight strong{color:rgba(0,229,255,.96)}
+
+.rewards-intro strong{
+  color:var(--text);
+  font-weight:900;
+}
+.rewards-transparency{
+  width:min(820px,100%);
+  margin:24px auto 0;
+  padding:18px 20px;
+  border-top:1px solid rgba(255,255,255,.10);
+  text-align:center;
+}
+.rewards-transparency-title{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(0,229,255,.92);
+  margin-bottom:8px;
+}
+.rewards-transparency p{
+  font-size:13px;
+  line-height:1.7;
+  color:var(--muted);
+}
+.token-metrics-hidden,
+.presale-section-hidden{display:none !important;}
+
+/* Community: five compact cards in one row on wide desktop, fluid below. */
+#social .section-title{
+  font-size:clamp(32px,3.4vw,48px);
+}
+.social-grid{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+}
+.social-card{flex:0 1 calc(33.333% - 10px);}
+#social .social-meta{width:100%;}
+#social .social-cta{margin-top:auto;}
+.social-icon.x-brand svg{fill:currentColor;stroke:none;}
+
+@media (min-width:1180px){
+  #social .social-grid{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:12px;
+  }
+  #social .social-card{
+    min-width:0;
+    min-height:214px;
+    padding:18px 12px;
+  }
+  #social .social-icon{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+  }
+  #social .social-title{font-size:14px;}
+  #social .social-desc{font-size:12px;line-height:1.4;}
+  #social .social-cta{padding:12px 10px;font-size:10px;letter-spacing:.13em;}
+}
+@media (max-width:1100px){
+  .social-card{flex-basis:calc(50% - 7px);}
+}
+@media (max-width:700px){
+  .social-card{flex-basis:100%;}
+  #social .section-title{font-size:clamp(30px,9vw,38px);}
+}
+
+@media (max-width:600px){
+  .hero{margin-top:10px;}
+  .hero-title{font-size:clamp(32px,11.8vw,64px);line-height:1.03;letter-spacing:-.04em;margin-bottom:14px;}
+  .hero-kicker{font-size:10px;letter-spacing:.16em;line-height:1.55;}
+  .hero-subtitle{font-size:14px;line-height:1.65;}
+  .hero-chips{gap:8px;margin:12px 0 16px;}
+  .chip{font-size:10px;letter-spacing:.12em;padding:8px 10px;}
+  .hero-primary-cta .btn{width:100% !important;min-height:48px;padding:12px 16px;font-size:12px;}
+  .hero-primary-sub{font-size:12px;line-height:1.5;max-width:92%;}
+  .soc-insight{font-size:12px;padding:0 8px;}
+  .rewards-transparency{padding:16px 4px 0;}
+}
+
 </style>
  
 </head>
@@ -1876,43 +1966,35 @@ html, body { overflow-x: hidden; }
       <p class="hero-subtitle" data-i18n="hero_subtitle">
         Scan wallets and contracts across 12 chains. Detect dangerous approvals, contract risks and on-chain exposure before they become losses.
       </p>
-      <div class="hero-chips">
-     <span class="chip" data-i18n="chip_scan"><b>INSTANT</b> RISK SCANS</span>
-     <span class="chip" data-i18n="chip_revoke"><b>ONE-CLICK</b> REVOKE</span>
-     <span class="chip" data-i18n="chip_chains"><b>12-CHAIN</b> COVERAGE</span>
-     <span class="chip" data-i18n="chip_telegram"><b>TELEGRAM</b> SCANNER</span>
-   </div>
 
-      <!-- PRIMARY CTA (security-first) -->
+      <div class="hero-chips" aria-label="Core security capabilities">
+        <span class="chip" data-i18n="hero_chip_1"><b>INSTANT</b> RISK SCANS</span>
+        <span class="chip" data-i18n="hero_chip_2"><b>ONE-CLICK</b> REVOKE</span>
+        <span class="chip" data-i18n="hero_chip_3"><b>12-CHAIN</b> COVERAGE</span>
+        <span class="chip" data-i18n="hero_chip_4"><b>TELEGRAM</b> SCANNER</span>
+      </div>
+
       <div class="hero-primary-cta">
-        <a class="btn btn-primary" href="/firewall" id="btn-firewall-tools" data-i18n="btn_firewall_tools" style="width:min(560px,100%);">
-          Scan My Wallet — Free
+        <a class="btn btn-firewall" href="/firewall" id="btn-firewall-tools" data-i18n="btn_firewall_tools" style="width:min(560px,100%);">
+          SCAN MY WALLET — FREE
         </a>
-        <div class="hero-primary-sub" data-i18n="cta_scan_note">
+        <div class="hero-primary-sub" data-i18n="btn_firewall_tools_note">
           Scan without connecting. Connect only to revoke.
         </div>
-        <a class="btn btn-secondary" href="/security" id="btn-security-tools" data-i18n="btn_security_tools" style="margin-top:14px; width:min(560px,100%);">
-          Check a Token or Contract
+
+        <a class="btn btn-secondary" href="/security" id="btn-security-tools" data-i18n="btn_security_tools" style="margin-top:6px; width:min(560px,100%);">
+          CHECK A TOKEN OR CONTRACT
         </a>
-        <div class="hero-primary-sub" data-i18n="cta_check_note">
+        <div class="hero-primary-sub" data-i18n="btn_security_tools_note">
           Honeypot, liquidity &amp; holder checks across 12 chains.
         </div>
       </div>
 
-      <!-- Secondary actions (kept in DOM for JS, hidden from hero) -->
+      <!-- Utility actions kept in the DOM for existing reward/calculator logic. -->
       <div class="hero-actions hero-actions-secondary" style="display:none">
-        <button class="btn btn-secondary" id="btn-claim" data-i18n="btn_claim">
-          Claim rewards
-        </button>
-
-        <button class="btn btn-secondary" id="openCalculator" data-i18n="calc_title">
-          Reward Calculator
-        </button>
-
-        <!-- keep id="presale-link" for your existing logic/scripts -->
-        <a class="btn btn-secondary" href="#" id="presale-link" data-i18n="btn_presale" role="button">
-          Pre-Sale (PinkSale)
-        </a>
+        <button class="btn btn-secondary" id="btn-claim" data-i18n="btn_claim">Claim rewards</button>
+        <button class="btn btn-secondary" id="openCalculator" data-i18n="calc_title">Reward Calculator</button>
+        <a class="btn btn-secondary" href="#" id="presale-link" data-i18n="btn_presale" role="button">Pre-Sale Access</a>
       </div>
 
       <p class="hero-note" data-i18n="hero_note" style="display:none">
@@ -1920,7 +2002,7 @@ html, body { overflow-x: hidden; }
       </p>
     </section>
 
-    <!-- NEW: Live Security Activity (Above the fold, right under Hero) -->
+    <!-- Live Security Activity -->
     <section class="section section-centered" id="security-activity">
       <div class="section-kicker" data-i18n="security_activity_kicker">Live Security Activity</div>
 
@@ -1932,101 +2014,91 @@ html, body { overflow-x: hidden; }
         Every number below reflects real CycleX security scan activity.
       </p>
 
-      <!-- API status pill — health dot injected here by JS -->
       <div class="soc-header">
         <div class="soc-api-status" id="soc-api-pill">
-          <!-- #cx-activity-dot injected by ensureHealthDot() -->
-          NETWORK STATUS
+          <span data-i18n="security_network_status">NETWORK STATUS</span>
         </div>
       </div>
 
-      <div class="soc-grid">
-
+      <div class="soc-grid" id="soc-grid">
         <div class="soc-card cyan">
-          <span class="soc-icon">🔍</span>
+          <span class="soc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M7 10h5"/><path d="M7 14h3"/><path d="M16 14h1"/></svg>
+          </span>
           <div class="soc-value" id="wallets-scanned">—</div>
           <div class="soc-label" data-i18n="security_wallets_scanned">Wallets Scanned</div>
-          <div class="soc-live"><span class="soc-live-dot"></span>Live counter</div>
+          <div class="soc-live"><span class="soc-live-dot"></span><span data-i18n="security_live_counter">Live counter</span></div>
         </div>
 
         <div class="soc-card red">
-          <span class="soc-icon">🚨</span>
+          <span class="soc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8-7 10-4-2-7-5.4-7-10V6l7-3z"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>
+          </span>
           <div class="soc-value" id="risky-approvals">—</div>
           <div class="soc-label" data-i18n="security_risky_approvals">Risky Approvals Detected</div>
-          <div class="soc-live"><span class="soc-live-dot"></span>Live counter</div>
+          <div class="soc-live"><span class="soc-live-dot"></span><span data-i18n="security_live_counter">Live counter</span></div>
         </div>
 
         <div class="soc-card purple">
-          <span class="soc-icon">🧬</span>
+          <span class="soc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 3h6l4 4v14H8z"/><path d="M14 3v5h4"/><path d="m12 12-2 2 2 2"/><path d="m15 12 2 2-2 2"/></svg>
+          </span>
           <div class="soc-value" id="high-risk-contracts">—</div>
           <div class="soc-label" data-i18n="security_high_risk_contracts">High-Risk Contracts Identified</div>
-          <div class="soc-live"><span class="soc-live-dot"></span>Live counter</div>
+          <div class="soc-live"><span class="soc-live-dot"></span><span data-i18n="security_live_counter">Live counter</span></div>
         </div>
+      </div>
 
+      <p class="soc-insight" id="activity-ratio" data-i18n="security_activity_ratio" hidden>
+        Average: {value} risky approvals per wallet scanned.
+      </p>
+    </section>
+
+    <!-- The Problem -->
+    <section class="section" id="why-cyclex">
+      <div class="section-head">
+        <div class="section-kicker" data-i18n="why_kicker">The Problem</div>
+        <h2 class="section-title" data-i18n="why_title">You aren't getting hacked. You're leaving doors open.</h2>
+      </div>
+
+      <div class="section-body">
+        <p data-i18n="why_p1">
+          Most wallet losses don't begin with a brute-force hack. They begin with forgotten approvals, risky signatures, hidden permissions, and exposure users never mapped.
+        </p>
+        <ul style="margin: 14px 0 0 18px; line-height: 1.6;">
+          <li data-i18n="why_li1"><strong>Invisible Permissions:</strong> forgotten approvals can leave assets exposed long after a transaction is complete.</li>
+          <li data-i18n="why_li2"><strong>No Real-Time Awareness:</strong> most wallets don't tell users when risk is building.</li>
+          <li data-i18n="why_li3"><strong>Unknown Blast Radius:</strong> users rarely know how much a malicious spender can actually reach.</li>
+        </ul>
+        <p style="margin-top: 12px;" data-i18n="why_p2">
+          CycleX Firewall was built to close these gaps before they become losses. Advanced monitoring and deeper ecosystem capabilities expand through the CycleX access layer.
+        </p>
       </div>
     </section>
 
-   <!-- NEW: Short “Why CycleX” bridge (security-first, not salesy) -->
-<section class="section" id="why-cyclex">
-  <div class="section-head">
-    <div class="section-kicker" data-i18n="why_kicker">The Problem</div>
-    <h2 class="section-title" data-i18n="why_title">You aren't getting hacked. You're leaving doors open.</h2>
-  </div>
-
-  <div class="section-body">
-    <p data-i18n="why_p1">
-      Most crypto wallets are silently vulnerable. Forgotten approvals, unlimited spenders, and malicious contracts sit undetected — until it’s too late. You don’t get hacked. You get drained through doors you left open.
-    </p>
-
-    <ul style="margin: 14px 0 0 18px; line-height: 1.6;">
-      <li data-i18n="why_li1"><strong>Invisible Permissions:</strong> forgotten approvals can leave assets exposed long after a transaction is complete.</li>
-      <li data-i18n="why_li2"><strong>No Real-Time Awareness:</strong> most wallets don't tell users when risk is building.</li>
-      <li data-i18n="why_li3"><strong>Unknown Blast Radius:</strong> users rarely know how much a malicious spender can actually reach.</li>
-    </ul>
-
-    <p style="margin-top: 12px;" data-i18n="why_p2">
-      CycleX Firewall was built to close these gaps before they become losses. Advanced monitoring and deeper ecosystem capabilities expand through the CycleX access layer.
-    </p>
-  </div>
-</section>
-
-
-    <!-- 2. Vision & AI Security -->
+    <!-- Security Infrastructure -->
     <section class="section">
       <div class="section-head">
-      <div class="section-kicker" data-i18n="vision_kicker">
-        Security Infrastructure
-      </div>
-      <h2 class="section-title" style="font-size: 38px;" data-i18n="vision_title">
-        Built Like a Security Company, Not a Token
-      </h2>
+        <div class="section-kicker" data-i18n="vision_kicker">Security Infrastructure</div>
+        <h2 class="section-title" style="font-size: 38px;" data-i18n="vision_title">Built Like a Security Company, Not a Token</h2>
       </div>
       <div class="section-body">
         <p data-i18n="vision_p1">
           CycleX is built on one principle: let code, cryptography, and math enforce the rules — not human promises.
         </p>
         <p data-i18n="vision_p2">
-          Security analysis — including approval scanning, threat detection, and exposure mapping — is built from
-          verifiable on-chain data and CycleX security logic. Protocol reward, treasury, and claim mechanics are enforced
-          by code and smart contracts. No hidden discretionary control over user funds.
+          Security analysis — including approval scanning, threat detection, and exposure mapping — is built from verifiable on-chain data and CycleX security logic. Protocol reward, treasury, and claim mechanics are enforced by code and smart contracts. No hidden discretionary control over user funds.
         </p>
         <p data-i18n="vision_p3">
-          Treasury funds are permanently locked inside the smart contract. The developer cannot withdraw, redirect, or
-          override the treasury. Only reward distributions, burns, and Development &amp; Operations allocations are
-          permitted by code.
+          Treasury funds are permanently locked inside the smart contract. The developer cannot withdraw, redirect, or override the treasury. Only reward distributions, burns, and Development &amp; Operations allocations are permitted by code.
         </p>
       </div>
     </section>
 
-    <!-- 3. Rewards Model -->
+    <!-- CYCX Access + Rewards -->
     <section class="section rewards-section section-centered" id="rewards">
-      <div class="section-kicker" data-i18n="rewards_kicker">
-        CYCX: THE ACCESS LAYER
-      </div>
-
-      <h2 class="section-title" data-i18n="rewards_title">
-        CYCX: The Access Layer to Web3 Security.
-      </h2>
+      <div class="section-kicker" data-i18n="rewards_kicker">CYCX: THE ACCESS LAYER</div>
+      <h2 class="section-title" data-i18n="rewards_title">CYCX: The Access Layer to Web3 Security.</h2>
 
       <p class="rewards-intro" data-i18n="rewards_intro">
         <strong>Security is the product. CYCX is the key.</strong><br>
@@ -2034,190 +2106,101 @@ html, body { overflow-x: hidden; }
       </p>
 
       <div class="rewards-grid">
-        <!-- MAIN CARD (LEFT) -->
         <div class="reward-card highlight">
           <h3 data-i18n="rewards_dist_title">Distribution Logic</h3>
-
           <ul>
-            <li data-i18n="rewards_dist_li1">
-              Eligible holders receive a <strong>target 9%</strong> cycle distribution.
-            </li>
-
-            <li data-i18n="rewards_dist_li2">
-              For each completed distribution, the treasury burns an equal amount on a
-              <strong>1:1 basis</strong>.
-            </li>
-
-            <li data-i18n="rewards_dist_li3">
-              An additional <strong>20%</strong> of the distributed amount is allocated to
-              <strong>Development &amp; Operations</strong>, sourced exclusively from the treasury.
-            </li>
+            <li data-i18n="rewards_dist_li1">Eligible holders receive a <strong>target 9%</strong> cycle distribution.</li>
+            <li data-i18n="rewards_dist_li2">For each completed distribution, the treasury burns an equal amount on a <strong>1:1 basis</strong>.</li>
+            <li data-i18n="rewards_dist_li3">An additional <strong>20%</strong> of the distributed amount is allocated to <strong>Development &amp; Operations</strong>, sourced exclusively from the treasury.</li>
           </ul>
 
           <div class="reward-example" data-i18n="rewards_example">
             Example:<br>
-            For every <strong>1 CYCX</strong> distributed as rewards,
-            <strong>0.2 CYCX</strong> is allocated to Development &amp; Operations.<br>
+            For every <strong>1 CYCX</strong> distributed as rewards, <strong>0.2 CYCX</strong> is allocated to Development &amp; Operations.<br>
             <strong>Holders receive the full target reward for each cycle.</strong>
           </div>
 
-          <div class="reward-footer" data-i18n="rewards_footer">
-            Fully automated • On-chain enforced • Publicly verifiable
-          </div>
+          <div class="reward-footer" data-i18n="rewards_footer">Fully automated • On-chain enforced • Publicly verifiable</div>
 
-          <div class="reward-buttons-row" style="display:flex; gap:7px; width:100%; margin-top:14px;">
-            <button class="btn btn-primary" type="button"
-              onclick="document.getElementById('btn-claim').click()"
-              data-i18n="btn_claim"
-              style="flex:1.2; font-size:11px; padding:12px 8px; white-space:nowrap;">
-              Claim rewards
-            </button>
-            <button class="btn btn-secondary" type="button"
-              id="openCalculatorRewards"
-              data-i18n="btn_calculator"
-              style="flex:1; font-size:11px; padding:12px 8px; white-space:nowrap;">
-              Calculator
-            </button>
-            <!-- Pre-Sale button hidden together with the Pre-Sale section (no live destination yet) -->
-            <button class="btn btn-secondary" type="button"
-              onclick="document.getElementById('presale-link').click()"
-              data-i18n="btn_presale"
-              style="display:none; flex:1; font-size:11px; padding:12px 8px; white-space:nowrap;">
-              Pre-Sale
-            </button>
+          <div class="reward-buttons-row" style="display:flex; gap:8px; width:100%; margin-top:14px;">
+            <button class="btn btn-primary" type="button" onclick="document.getElementById('btn-claim').click()" data-i18n="btn_claim" style="flex:1; font-size:11px; padding:12px 8px; white-space:nowrap;">Claim rewards</button>
+            <button class="btn btn-secondary" type="button" id="openCalculatorRewards" data-i18n="btn_calculator" style="flex:1; font-size:11px; padding:12px 8px; white-space:nowrap;">Calculator</button>
+            <button class="btn btn-secondary" type="button" onclick="document.getElementById('presale-link').click()" data-i18n="btn_presale" hidden>Pre-Sale</button>
           </div>
         </div>
 
-        <!-- SIDE COLUMN (RIGHT) -->
         <div class="rewards-side">
-          <!-- Eligibility -->
           <div class="reward-card">
-            <h3 data-i18n="rewards_rules_title">
-              Eligibility &amp; Claim Rules
-            </h3>
-
+            <h3 data-i18n="rewards_rules_title">Eligibility &amp; Claim Rules</h3>
             <ul>
-              <li data-i18n="rewards_rules_li1">
-                Tokens must be held for at least <strong>60 days</strong> in a self-custody Web3 wallet.
-              </li>
-              <li data-i18n="rewards_rules_li2">
-                Exchange balances do not qualify.
-              </li>
-              <li data-i18n="rewards_rules_li3">
-                Rewards must be claimed every cycle.<br>
-                <strong>Unclaimed rewards do not roll over.</strong>
-              </li>
+              <li data-i18n="rewards_rules_li1">Tokens must be held for at least <strong>60 days</strong> in a self-custody Web3 wallet.</li>
+              <li data-i18n="rewards_rules_li2">Exchange balances do not qualify.</li>
+              <li data-i18n="rewards_rules_li3">Rewards must be claimed every cycle.<br><strong>Unclaimed rewards do not roll over.</strong></li>
             </ul>
           </div>
 
-          <!-- On-chain enforcement -->
           <div class="reward-card enforcement">
-            <h3 data-i18n="rewards_chain_title">
-              On-Chain Enforcement
-            </h3>
-
-            <p data-i18n="rewards_chain_p1">
-              Rewards are claimed directly by users via a secure Merkle-proof system.
-              There is <strong>no admin, no middleman, and no manual intervention</strong>.
-            </p>
-
-            <p data-i18n="rewards_chain_p2">
-              Each holder triggers their own on-chain claim using their own wallet and pays their own gas.
-            </p>
+            <h3 data-i18n="rewards_chain_title">On-Chain Enforcement</h3>
+            <p data-i18n="rewards_chain_p1">Rewards are claimed directly by users via a secure Merkle-proof system. There is <strong>no admin, no middleman, and no manual intervention</strong>.</p>
+            <p data-i18n="rewards_chain_p2">Each holder triggers their own on-chain claim using their own wallet and pays their own gas.</p>
           </div>
         </div>
       </div>
 
       <div class="reward-policy" data-i18n="rewards_policy">
         <strong>Policy:</strong><br>
-        Reward cycles are executed quarterly —
-        <strong>end of March, June, September, and December</strong>,
-        at <strong>20:00 UK time</strong>.
+        Reward cycles are executed quarterly — <strong>end of March, June, September, and December</strong>, at <strong>20:00 UK time</strong>.
       </div>
 
-      <!-- On-chain transparency: moved here from its own section (security story first) -->
-      <div class="transparency-inline">
-        <h3 class="transparency-inline-title" data-i18n="transparency_title">On-Chain Transparency</h3>
-        <p class="section-body" data-i18n="transparency_p1">
-          All core flows — rewards, burns, and treasury movements — are executed directly by the smart contract. The counters below reflect live, verifiable on-chain data.
-        </p>
+      <div class="rewards-transparency">
+        <div class="rewards-transparency-title" data-i18n="transparency_title">On-Chain Transparency</div>
+        <p data-i18n="transparency_p1">All core flows — rewards, burns, and treasury movements — are executed directly by the smart contract and remain publicly verifiable on-chain.</p>
       </div>
 
-      <!-- Live token metrics: hidden until the token is publicly launched and these
-           counters hold real values. IDs kept in the DOM so the existing JS keeps working —
-           remove the style="display:none" below to bring them back. -->
-      <div style="display:none">
-      <div class="stats-grid">
+      <!-- Keep live on-chain metric nodes in the DOM, but hidden until there is meaningful distribution history. -->
+      <div class="stats-grid token-metrics-hidden" aria-hidden="true">
         <div class="stat-card">
           <div class="stat-label" data-i18n="stat_rewards_label">Total rewards distributed</div>
           <div class="stat-value" id="stat-rewards">0 CYCX</div>
           <div class="stat-tag" data-i18n="stat_onchain_tag">Live on-chain metric</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label" data-i18n="stat_burn_label">Total tokens burned</div>
           <div class="stat-value" id="stat-burned">0 CYCX</div>
           <div class="stat-tag" data-i18n="stat_onchain_tag2">Live on-chain metric</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label" data-i18n="stat_last_cycle_label">Last distribution</div>
           <div class="stat-value" id="stat-last-cycle">—</div>
-          <div class="stat-caption" data-i18n="stat_last_cycle_caption">
-            Updates after the first reward cycle is executed.
-          </div>
+          <div class="stat-caption" data-i18n="stat_last_cycle_caption">Updates after the first reward cycle is executed.</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label" data-i18n="stat_next_cycle_label">Next scheduled distribution</div>
           <div class="stat-value" id="stat-next-cycle" style="display:none">31 March 2026</div>
-          <div class="stat-caption" style="display:none" id="countdown-text">
-            Days remaining: —
-          </div>
+          <div class="stat-caption" style="display:none" id="countdown-text">Days remaining: —</div>
         </div>
       </div>
-      </div>
     </section>
 
-    <!-- What's Next (product direction, not treasury mechanics) -->
+    <!-- Product Future -->
     <section class="section">
       <div class="section-head">
-      <div class="section-kicker" data-i18n="future_kicker">
-        What's Next
+        <div class="section-kicker" data-i18n="future_kicker">What's Next</div>
+        <h2 class="section-title" data-i18n="future_title">Security That Keeps Expanding.</h2>
       </div>
-
-      <h2 class="section-title" data-i18n="future_title">
-        Security That Keeps Expanding.
-      </h2>
-</div>
       <div class="section-body">
-        <p data-i18n="future_p1">
-          12 chains today. Expanding coverage, deeper threat intelligence and smarter monitoring as CycleX grows.
-        </p>
+        <p data-i18n="future_p1">12 chains today. CycleX is built to expand coverage, deepen threat intelligence, and strengthen monitoring and alerts as on-chain risk evolves.</p>
       </div>
     </section>
 
-    <!-- 4. Pre-Sale & Liquidity Plan
-         HIDDEN until the sale is actually live (real page, date, price, terms, platform
-         and a working CTA). Until then it pulls the visitor away from Security and the
-         Pre-Sale button has no destination. Remove the inline style below to restore. -->
-    <section class="section" style="display:none">
+    <!-- Pre-Sale section intentionally hidden until an official live destination exists. -->
+    <section class="section presale-section-hidden" aria-hidden="true">
       <div class="section-head">
-      <div class="section-kicker" data-i18n="presale_kicker">
-        Pre-Sale &amp; Liquidity Plan
+        <div class="section-kicker" data-i18n="presale_kicker">Pre-Sale &amp; Liquidity Plan</div>
+        <h2 class="section-title" data-i18n="presale_title">Pre-Sale &amp; Liquidity Strategy</h2>
       </div>
-
-      <h2 class="section-title" data-i18n="presale_title">
-        Pre-Sale &amp; Liquidity Strategy
-      </h2>
-</div>
       <div class="section-body">
-        <p data-i18n="presale_p1">
-          Funds raised during the pre-sale are allocated by predefined rules toward liquidity creation,
-          ecosystem expansion, and long-term protocol stability.
-          The objective is to establish deep, resilient market liquidity from day one —
-          without discretionary control over user funds.
-        </p>
+        <p data-i18n="presale_p1">Funds raised during the pre-sale are allocated by predefined rules toward liquidity creation, ecosystem expansion, and long-term protocol stability.</p>
       </div>
     </section>
 
@@ -2232,100 +2215,66 @@ html, body { overflow-x: hidden; }
     </p>
 
     <div class="social-grid">
-      <!-- Telegram Scanner (bot) -->
-      <a class="social-card" id="social-bot"
-        href="https://t.me/CyclexScannerBot"
-        target="_blank" rel="noopener"
-        aria-label="Open the CycleX Telegram scanner bot">
+      <!-- Telegram Scanner -->
+      <a class="social-card" id="social-bot" href="https://t.me/CyclexScannerBot" target="_blank" rel="noopener" aria-label="Open CycleX Telegram Scanner">
         <div class="social-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="7"></circle>
-            <path d="M20 20l-3.5-3.5"></path>
-            <path d="M8.5 11h5M11 8.5v5"></path>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M5 8V5h3M16 5h3v3M19 16v3h-3M8 19H5v-3"/><rect x="8" y="8" width="8" height="8" rx="2"/><path d="M10 12h4"/></svg>
         </div>
         <div class="social-meta">
           <div class="social-title" data-i18n="social_bot_title">Telegram Scanner</div>
-          <div class="social-desc" data-i18n="social_bot_desc">Scan tokens directly from Telegram.</div>
+          <div class="social-desc" data-i18n="social_bot_desc">Scan tokens directly from Telegram</div>
           <div class="social-cta" data-i18n="social_bot_btn">Open Bot</div>
         </div>
       </a>
 
-      <!-- X / Twitter -->
-      <a class="social-card" id="social-x"
-        href="https://x.com/CyclexNetwork"
-        target="_blank" rel="noopener"
-        aria-label="Open X / Twitter">
-        <div class="social-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M3 3h4.6l4.3 6 5-6H20l-6.7 7.9L21 21h-4.6l-4.7-6.6L6.3 21H4l7.1-8.4L3 3Z"
-                  fill="currentColor" stroke="none"></path>
-          </svg>
+      <!-- X -->
+      <a class="social-card" id="social-x" href="https://x.com/CyclexNetwork" target="_blank" rel="noopener" aria-label="Open X">
+        <div class="social-icon x-brand" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </div>
         <div class="social-meta">
           <div class="social-title" data-i18n="social_x_title">X / Twitter</div>
-          <div class="social-desc" data-i18n="social_x_desc">Security findings & product updates</div>
+          <div class="social-desc" data-i18n="social_x_desc">Security findings &amp; product updates</div>
           <div class="social-cta" data-i18n="social_x_btn">Follow</div>
         </div>
       </a>
 
       <!-- Whitepaper -->
-      <a class="social-card" id="social-wp"
-        href="https://cyclex.network/whitepaper.pdf"
-        target="_blank" rel="noopener"
-        aria-label="Open Whitepaper">
+      <a class="social-card" id="social-wp" href="https://cyclex.network/whitepaper.pdf" target="_blank" rel="noopener" aria-label="Open Whitepaper">
         <div class="social-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M7 3h7l3 3v15H7V3Z"></path>
-            <path d="M14 3v4h4"></path>
-            <path d="M9 12h6M9 16h6"></path>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M7 3h7l3 3v15H7V3Z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg>
         </div>
         <div class="social-meta">
           <div class="social-title" data-i18n="social_wp_title">Whitepaper</div>
-          <div class="social-desc" data-i18n="social_wp_desc">Full system design & rules</div>
+          <div class="social-desc" data-i18n="social_wp_desc">Full system design &amp; protocol rules</div>
           <div class="social-cta" data-i18n="social_wp_btn">Read</div>
         </div>
       </a>
 
-      <!-- Telegram community -->
-      <a class="social-card" id="social-tg"
-        href="https://t.me/cyclex_official"
-        target="_blank" rel="noopener"
-        aria-label="Open Telegram">
+      <!-- Telegram Community -->
+      <a class="social-card" id="social-tg" href="https://t.me/cyclexcommunity" target="_blank" rel="noopener" aria-label="Open Telegram Community">
         <div class="social-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M22 3L2 11l8 3 2 7 4-5 4 3 2-16Z"></path>
-            <path d="M10 14l12-11"></path>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M22 3L2 11l8 3 2 7 4-5 4 3 2-16Z"/><path d="M10 14l12-11"/></svg>
         </div>
         <div class="social-meta">
           <div class="social-title" data-i18n="social_tg_title">Telegram Community</div>
-          <div class="social-desc" data-i18n="social_tg_desc">Join the CycleX community.</div>
+          <div class="social-desc" data-i18n="social_tg_desc">Join the CycleX community</div>
           <div class="social-cta" data-i18n="social_tg_btn">Join</div>
         </div>
       </a>
 
-      <!-- FAQ (PDF) -->
-      <a class="social-card" id="social-faq"
-        href="https://cyclex.network/FAQ.pdf"
-        target="_blank" rel="noopener"
-        aria-label="Open FAQ PDF">
+      <!-- FAQ -->
+      <a class="social-card" id="social-faq" href="https://cyclex.network/FAQ.pdf" target="_blank" rel="noopener" aria-label="Open FAQ PDF">
         <div class="social-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 18h.01"></path>
-            <path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-.9.5-1.7 1.1-1.7 2.2v.5"></path>
-            <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"></path>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M12 18h.01"/><path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-.9.5-1.7 1.1-1.7 2.2v.5"/><path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/></svg>
         </div>
         <div class="social-meta">
           <div class="social-title" data-i18n="social_faq_title">FAQ</div>
-          <div class="social-desc" data-i18n="social_faq_desc">Quick answers about CycleX.</div>
+          <div class="social-desc" data-i18n="social_faq_desc">Quick answers about CycleX</div>
           <div class="social-cta" data-i18n="social_faq_btn">Open</div>
         </div>
       </a>
     </div>
-
   </section>
 
   <!-- footer -->
@@ -2337,13 +2286,14 @@ html, body { overflow-x: hidden; }
       Security is the product. CYCX is the key. The ecosystem does the rest.
     </div>
 
-    <!-- Optional quick links (styling later in CSS) -->
-    <div class="footer-links" style="margin-top: 14px; display:flex; gap:12px; flex-wrap:wrap; opacity:.9;">
-      <a href="/security">Security Hub</a>
-      <a href="https://t.me/CyclexScannerBot" target="_blank" rel="noopener">Bot</a>
-      <a href="https://x.com/CyclexNetwork" target="_blank" rel="noopener">X</a>
-      <a href="https://t.me/cyclex_official" target="_blank" rel="noopener">Telegram</a>
-      <a href="https://cyclex.network/whitepaper.pdf" target="_blank" rel="noopener">Docs</a>
+    <!-- Quick links -->
+    <div class="footer-links">
+      <a href="/security" data-i18n="footer_security">Security Hub</a>
+      <a href="/firewall" data-i18n="footer_firewall">Firewall</a>
+      <a href="https://t.me/CyclexScannerBot" target="_blank" rel="noopener" data-i18n="footer_bot">Bot</a>
+      <a href="https://x.com/CyclexNetwork" target="_blank" rel="noopener" data-i18n="footer_x">X</a>
+      <a href="https://t.me/cyclex_official" target="_blank" rel="noopener" data-i18n="footer_telegram">Telegram</a>
+      <a href="https://cyclex.network/whitepaper.pdf" target="_blank" rel="noopener" data-i18n="footer_docs">Docs</a>
     </div>
   </footer>
 </div>
@@ -2468,23 +2418,24 @@ html, body { overflow-x: hidden; }
     hero_kicker: "WALLET APPROVALS • CONTRACT RISK • MULTI-CHAIN",
     hero_title: "The Security Layer for Web3.",
     hero_subtitle: "Scan wallets and contracts across 12 chains. Detect dangerous approvals, contract risks and on-chain exposure before they become losses.",
-
-    // ===== Hero chips =====
-    chip_scan: "<b>INSTANT</b> RISK SCANS",
-    chip_revoke: "<b>ONE-CLICK</b> REVOKE",
-    chip_chains: "<b>12-CHAIN</b> COVERAGE",
-    chip_telegram: "<b>TELEGRAM</b> SCANNER",
+    hero_chip_1: "<b>INSTANT</b> RISK SCANS",
+    hero_chip_2: "<b>ONE-CLICK</b> REVOKE",
+    hero_chip_3: "<b>12-CHAIN</b> COVERAGE",
+    hero_chip_4: "<b>TELEGRAM</b> SCANNER",
 
     // ===== Primary Security CTA =====
-    btn_firewall_tools: "Scan My Wallet — Free",
-    cta_scan_note: "Scan without connecting. Connect only to revoke.",
-    btn_security_tools: "Check a Token or Contract",
-    cta_check_note: "Honeypot, liquidity &amp; holder checks across 12 chains.",
+    btn_security_tools: "CHECK A TOKEN OR CONTRACT",
+    btn_security_tools_note: "Honeypot, liquidity & holder checks across 12 chains.",
+    btn_firewall_tools: "SCAN MY WALLET — FREE",
+    btn_firewall_tools_note: "Scan without connecting. Connect only to revoke.",
 
     // ===== Live Security Activity (updated DIV keys) =====
     security_activity_kicker: "Live Security Activity",
     security_activity_title: "CycleX Security Network — Live Activity",
     security_activity_desc: "Every number below reflects real CycleX security scan activity.",
+    security_network_status: "NETWORK STATUS",
+    security_live_counter: "Live counter",
+    security_activity_ratio: "Average: {value} risky approvals per wallet scanned.",
     security_wallets_scanned: "Wallets Scanned",
     security_risky_approvals: "Risky Approvals Detected",
     security_high_risk_contracts: "High-Risk Contracts Identified",
@@ -2508,7 +2459,7 @@ html, body { overflow-x: hidden; }
     transparency_kicker: "Transparency",
     transparency_title: "On-Chain Transparency",
     transparency_p1:
-      "All core flows — rewards, burns, and treasury movements — are executed directly by the smart contract. The counters below reflect live, verifiable on-chain data.",
+      "All core flows — rewards, burns, and treasury movements — are executed directly by the smart contract and remain publicly verifiable on-chain.",
 
     stat_rewards_label: "Total rewards distributed",
     stat_burn_label: "Total tokens burned",
@@ -2578,7 +2529,11 @@ html, body { overflow-x: hidden; }
     future_kicker: "What's Next",
     future_title: "Security That Keeps Expanding.",
     future_p1:
-      "12 chains today. Expanding coverage, deeper threat intelligence and smarter monitoring as CycleX grows.",
+      "12 chains today. CycleX is built to expand coverage, deepen threat intelligence, and strengthen monitoring and alerts as on-chain risk evolves.",
+    future_p2:
+      "If the main treasury is ever reduced over many reward cycles after many years of reward cycles, the protocol may evolve only through a community-approved upgrade or a successor contract that preserves the same core principles: transparent execution, no surprise minting, and no hidden control over user funds.",
+    future_p3:
+      "Any future evolution will be structured to avoid unfair dilution and to maintain the long-term integrity, scarcity, and transparency upon which CycleX is built.",
 
     // ===== Presale =====
     presale_kicker: "Pre-Sale & Liquidity Plan",
@@ -2590,6 +2545,12 @@ html, body { overflow-x: hidden; }
     footer_left:
       "CycleX is a Web3 security platform. CYCX token powers access and quarterly on-chain rewards.",
     footer_tagline: "Security is the product. CYCX is the key. The ecosystem does the rest.",
+    footer_security: "Security Hub",
+    footer_firewall: "Firewall",
+    footer_bot: "Bot",
+    footer_x: "X",
+    footer_telegram: "Telegram",
+    footer_docs: "Docs",
 
     // ===== Claim Modal =====
     claim_badge: "Claim Portal",
@@ -2631,19 +2592,19 @@ html, body { overflow-x: hidden; }
     social_subtitle:
       "Scan from Telegram, follow security findings on X, and explore the full CycleX system.",
     social_bot_title: "Telegram Scanner",
-    social_bot_desc: "Scan tokens directly from Telegram.",
+    social_bot_desc: "Scan tokens directly from Telegram",
     social_bot_btn: "Open Bot",
     social_x_title: "X / Twitter",
     social_x_desc: "Security findings & product updates",
     social_x_btn: "Follow",
     social_tg_title: "Telegram Community",
-    social_tg_desc: "Join the CycleX community.",
+    social_tg_desc: "Join the CycleX community",
     social_tg_btn: "Join",
     social_wp_title: "Whitepaper",
-    social_wp_desc: "Full system design & rules",
+    social_wp_desc: "Full system design & protocol rules",
     social_wp_btn: "Read",
     social_faq_title: "FAQ",
-    social_faq_desc: "Quick answers about CycleX.",
+    social_faq_desc: "Quick answers about CycleX",
     social_faq_btn: "Open",
 
     // ===== Eligibility popup =====
@@ -2688,23 +2649,25 @@ html, body { overflow-x: hidden; }
     brand_sub: "Web3 安全平台",
 
     // backward + new keys
-    hero_kicker: "钱包授权 • 合约风险 • 多链覆盖",
-    hero_title: "Web3 的安全防护层。",
-    hero_subtitle: "跨 12 条链扫描钱包与合约。在损失发生之前，发现危险授权、合约风险和链上风险敞口。",
+    hero_kicker: "钱包授权 • 合约风险 • 多链",
+    hero_title: "Web3 的安全层。",
+    hero_subtitle: "跨 12 条链扫描钱包和合约。在危险授权、合约风险和链上暴露造成损失之前识别它们。",
+    hero_chip_1: "<b>即时</b> 风险扫描",
+    hero_chip_2: "<b>一键</b> 撤销授权",
+    hero_chip_3: "<b>12 链</b> 覆盖",
+    hero_chip_4: "<b>TELEGRAM</b> 扫描器",
 
-    chip_scan: "<b>即时</b> 风险扫描",
-    chip_revoke: "<b>一键</b> 撤销授权",
-    chip_chains: "<b>12 条链</b> 覆盖",
-    chip_telegram: "<b>TELEGRAM</b> 扫描器",
-
+    btn_security_tools: "检查代币或合约",
+    btn_security_tools_note: "在 12 条链上检查蜜罐、流动性和持币集中度。",
     btn_firewall_tools: "免费扫描我的钱包",
-    cta_scan_note: "扫描无需连接钱包。仅在撤销授权时才需连接。",
-    btn_security_tools: "检测代币或合约",
-    cta_check_note: "跨 12 条链检测貔貅盘、流动性与持币分布。",
+    btn_firewall_tools_note: "无需连接即可扫描。仅在撤销授权时连接钱包。",
 
     security_activity_kicker: "实时安全活动",
     security_activity_title: "CycleX 安全网络 — 实时活动",
-    security_activity_desc: "以下每一个数字都来自真实的 CycleX 安全扫描活动。",
+    security_activity_desc: "下方每个数字都反映真实的 CycleX 安全扫描活动。",
+    security_network_status: "网络状态",
+    security_live_counter: "实时计数",
+    security_activity_ratio: "平均每个已扫描钱包检测到 {value} 个高风险授权。",
     security_wallets_scanned: "已扫描钱包",
     security_risky_approvals: "检测到高风险授权",
     security_high_risk_contracts: "识别到高风险合约",
@@ -2725,7 +2688,7 @@ html, body { overflow-x: hidden; }
     transparency_kicker: "透明性",
     transparency_title: "链上透明",
     transparency_p1:
-      "所有核心流程——奖励、销毁以及金库资金流动——均由智能合约直接执行。下方计数器反映的是实时、可验证的链上数据。",
+      "所有核心流程——奖励、销毁以及金库资金流动——均由智能合约直接执行，并可在链上公开验证。",
 
     stat_rewards_label: "累计发放奖励总量",
     stat_burn_label: "累计销毁代币总量",
@@ -2758,7 +2721,7 @@ html, body { overflow-x: hidden; }
     rewards_kicker: "CYCX：访问层",
     rewards_title: "CYCX：Web3 安全的访问层。",
     rewards_intro:
-      "<strong>安全是产品，CYCX 是钥匙。</strong><br>CYCX 可解锁更深层的产品访问权限、进阶监控能力，以及季度链上奖励的领取资格。",
+      "<strong>安全是产品，CYCX 是钥匙。</strong><br>CYCX 可解锁更深层的产品访问、高级监控能力，以及季度链上奖励资格。",
 
     rewards_dist_title: "分配逻辑",
     rewards_dist_li1: "符合条件的持有者将获得 <strong>目标 9%</strong> 的周期分配。",
@@ -2787,9 +2750,13 @@ html, body { overflow-x: hidden; }
       "<strong>政策：</strong><br>奖励周期按季度执行 — <strong>3 月、6 月、9 月和 12 月末</strong>，时间为 <strong>英国时间 20:00</strong>。",
 
     future_kicker: "下一步",
-    future_title: "持续扩展的安全能力。",
+    future_title: "不断扩展的安全能力。",
     future_p1:
-      "目前支持 12 条链。随着 CycleX 的发展，覆盖范围、威胁情报深度与监控能力将持续扩展。",
+      "目前覆盖 12 条链。随着链上风险演变，CycleX 将持续扩展覆盖范围、深化威胁情报，并增强监控与告警能力。",
+    future_p2:
+      "如果在多年奖励周期之后主金库最终被耗尽，协议仅可通过社区批准的升级或继任合约进行演进，且必须保持相同的核心原则：执行透明、无意外增发、无对用户资金的隐藏控制。",
+    future_p3:
+      "任何未来的演进都将被结构化设计，以避免对早期持有者造成不公平的稀释，并维护 CycleX 所建立的长期完整性、稀缺性与透明性。",
 
     presale_kicker: "预售与流动性计划",
     presale_title: "预售与流动性策略",
@@ -2799,6 +2766,12 @@ html, body { overflow-x: hidden; }
     footer_left:
       "CycleX 是 Web3 安全平台。CYCX 代币驱动访问权限与季度链上奖励。",
     footer_tagline: "安全是产品，CYCX 是密鑰，生态系统完成剩下的一切。",
+    footer_security: "安全中心",
+    footer_firewall: "防火墙",
+    footer_bot: "机器人",
+    footer_x: "X",
+    footer_telegram: "Telegram",
+    footer_docs: "文档",
 
     claim_badge: "奖励领取入口",
     claim_title: "领取你的奖励",
@@ -2835,22 +2808,21 @@ html, body { overflow-x: hidden; }
 
     social_kicker: "社区",
     social_title: "探索网络",
-    social_subtitle:
-      "从 Telegram 直接扫描，在 X 上关注安全发现，并探索完整的 CycleX 系统。",
+    social_subtitle: "在 Telegram 中直接扫描，在 X 上关注安全发现，并探索完整的 CycleX 系统。",
     social_bot_title: "Telegram 扫描器",
-    social_bot_desc: "直接从 Telegram 扫描代币。",
+    social_bot_desc: "直接在 Telegram 中扫描代币",
     social_bot_btn: "打开机器人",
     social_x_title: "X / Twitter",
     social_x_desc: "安全发现与产品更新",
     social_x_btn: "关注",
     social_tg_title: "Telegram 社区",
-    social_tg_desc: "加入 CycleX 社区。",
+    social_tg_desc: "加入 CycleX 社区",
     social_tg_btn: "加入",
     social_wp_title: "白皮书",
-    social_wp_desc: "完整系统设计与规则",
+    social_wp_desc: "完整系统设计与协议规则",
     social_wp_btn: "阅读",
     social_faq_title: "常见问题",
-    social_faq_desc: "关于 CycleX 的快速解答。",
+    social_faq_desc: "关于 CycleX 的快速解答",
     social_faq_btn: "打开",
 
     elig_title: "资格与持有规则",
@@ -2893,26 +2865,28 @@ html, body { overflow-x: hidden; }
   ar: {
     brand_sub: "منصة أمان Web3",
 
-    hero_kicker: "أذونات المحفظة • مخاطر العقود • تعدد الشبكات",
+    hero_kicker: "أذونات المحافظ • مخاطر العقود • متعدد السلاسل",
     hero_title: "طبقة الأمان لـ Web3.",
-    hero_subtitle: "افحص المحافظ والعقود عبر 12 شبكة. اكتشف الأذونات الخطرة ومخاطر العقود والتعرض على السلسلة قبل أن تتحول إلى خسائر.",
+    hero_subtitle: "افحص المحافظ والعقود عبر 12 شبكة. اكتشف الموافقات الخطرة ومخاطر العقود والتعرّض على السلسلة قبل أن تتحول إلى خسائر.",
+    hero_chip_1: "<b>فوري</b> فحص المخاطر",
+    hero_chip_2: "<b>بنقرة واحدة</b> إلغاء الموافقات",
+    hero_chip_3: "<b>12 شبكة</b> تغطية",
+    hero_chip_4: "<b>TELEGRAM</b> ماسح",
 
-    chip_scan: "<b>فحص</b> فوري للمخاطر",
-    chip_revoke: "<b>إلغاء</b> بنقرة واحدة",
-    chip_chains: "<b>12 شبكة</b> مدعومة",
-    chip_telegram: "<b>TELEGRAM</b> ماسح",
-
+    btn_security_tools: "افحص رمزًا أو عقدًا",
+    btn_security_tools_note: "فحوصات honeypot والسيولة وتوزيع الحيازة عبر 12 شبكة.",
     btn_firewall_tools: "افحص محفظتي — مجانًا",
-    cta_scan_note: "الفحص بدون ربط المحفظة. الربط مطلوب فقط لإلغاء الأذونات.",
-    btn_security_tools: "افحص عملة أو عقدًا",
-    cta_check_note: "فحص الهانيبوت والسيولة وتوزيع المالكين عبر 12 شبكة.",
+    btn_firewall_tools_note: "افحص دون اتصال. اتصل بالمحفظة فقط لإلغاء الموافقات.",
 
     security_activity_kicker: "نشاط أمان مباشر",
     security_activity_title: "شبكة أمان CycleX — نشاط مباشر",
-    security_activity_desc: "كل رقم أدناه يعكس نشاط فحص أمني حقيقي في CycleX.",
-    security_wallets_scanned: "محافظ تم فحصها",
-    security_risky_approvals: "موافقات محفوفة بالمخاطر",
-    security_high_risk_contracts: "عقود عالية الخطورة",
+    security_activity_desc: "كل رقم أدناه يعكس نشاط فحص أمني حقيقي داخل CycleX.",
+    security_network_status: "حالة الشبكة",
+    security_live_counter: "عداد مباشر",
+    security_activity_ratio: "المتوسط: {value} موافقة عالية المخاطر لكل محفظة تم فحصها.",
+    security_wallets_scanned: "المحافظ التي تم فحصها",
+    security_risky_approvals: "الموافقات عالية المخاطر المكتشفة",
+    security_high_risk_contracts: "العقود عالية المخاطر التي تم تحديدها",
     security_activity_tag: "عداد نشاط",
     security_activity_updated: "يتم تحديث الأرقام يوميًا",
 
@@ -2923,14 +2897,14 @@ html, body { overflow-x: hidden; }
     nav_firewall: "الجدار الناري",
     nav_security: "مركز الأمان",
     nav_community: "المجتمع",
-    nav_open_tools: "افحص المحفظة",
+    nav_open_tools: "فحص المحفظة",
     hero_note:
       "أول دورة مكافآت: <span>31 مارس 2026</span>. الأهلية: يجب البدء في الاحتفاظ قبل موعد الدورة بـ 60 يومًا على الأقل.",
 
     transparency_kicker: "الشفافية",
     transparency_title: "شفافية على السلسلة",
     transparency_p1:
-      "يتم تنفيذ جميع التدفقات الأساسية — المكافآت، الحرق، وحركات الخزينة — مباشرة بواسطة العقد الذكي. العدادات أدناه تعكس بيانات حية وقابلة للتحقق على السلسلة.",
+      "تُنفَّذ جميع التدفقات الأساسية — المكافآت والحرق وحركات الخزينة — مباشرة بواسطة العقد الذكي وتظل قابلة للتحقق علنًا على السلسلة.",
 
     stat_rewards_label: "إجمالي المكافآت الموزعة",
     stat_burn_label: "إجمالي الرموز المحروقة",
@@ -2951,7 +2925,7 @@ html, body { overflow-x: hidden; }
     vision_kicker: "بنية تحتية أمنية",
     vision_title: "مبني كشركة أمنية، ليس كعملة فحسب",
     vision_p1:
-      "CycleX مبني على مبدأ واحد: دع الكود والتشفير والرياضيات تفرض القواعد — ليس الوعود البشرية.",
+      "تم بناء CycleX على مبدأ واحد: دع الكود والتشفير والرياضيات تفرض القواعد — لا الوعود البشرية.",
     vision_p2:
       "يعتمد التحليل الأمني — بما في ذلك فحص الموافقات، وكشف التهديدات، ورسم خريطة التعرض — على بيانات قابلة للتحقق على السلسلة ومنطق أمان CycleX. يتم تنفيذ آليات المكافآت والخزينة والمطالبات في البروتوكول عبر الكود والعقود الذكية. لا توجد سيطرة تقديرية خفية على أموال المستخدمين.",
     vision_p3:
@@ -2962,7 +2936,7 @@ html, body { overflow-x: hidden; }
     rewards_kicker: "CYCX: طبقة الوصول",
     rewards_title: "CYCX: طبقة الوصول إلى أمان Web3.",
     rewards_intro:
-      "<strong>الأمان هو المنتج. CYCX هو المفتاح.</strong><br>يفتح CYCX وصولاً أعمق للمنتج، وإمكانيات مراقبة متقدمة، وأهلية للمكافآت الفصلية على السلسلة.",
+      "<strong>الأمان هو المنتج. CYCX هو المفتاح.</strong><br>يفتح CYCX وصولًا أعمق للمنتج، وقدرات مراقبة متقدمة، وأهلية للمكافآت الفصلية على السلسلة.",
 
     rewards_dist_title: "منطق التوزيع",
     rewards_dist_li1: "يحصل الحاملون المؤهلون على توزيع دوري بنسبة مستهدفة تبلغ <strong>9٪</strong>.",
@@ -2991,10 +2965,14 @@ html, body { overflow-x: hidden; }
     rewards_policy:
       "<strong>السياسة:</strong><br>تُنفذ دورات المكافآت ربع سنويًا — <strong>نهاية مارس ويونيو وسبتمبر وديسمبر</strong>، في <strong>الساعة 20:00 بتوقيت المملكة المتحدة</strong>.",
 
-    future_kicker: "ما هو القادم",
-    future_title: "أمان يتوسّع باستمرار.",
+    future_kicker: "ما القادم",
+    future_title: "أمان يواصل التوسع.",
     future_p1:
-      "12 شبكة اليوم. توسّع في التغطية، واستخبارات تهديدات أعمق، ومراقبة أذكى مع نمو CycleX.",
+      "12 شبكة اليوم. تم تصميم CycleX لتوسيع التغطية، وتعميق معلومات التهديدات، وتعزيز المراقبة والتنبيهات مع تطور مخاطر السلسلة.",
+    future_p2:
+      "في حال استنفاد الخزينة الرئيسية بعد سنوات طويلة من دورات المكافآت، لا يمكن أن يتطور البروتوكول إلا من خلال ترقية يوافق عليها المجتمع أو عقد بديل يحافظ على نفس المبادئ الأساسية: تنفيذ شفاف، عدم وجود سك مفاجئ، وعدم وجود سيطرة خفية على أموال المستخدمين.",
+    future_p3:
+      "سيتم تنظيم أي تطور مستقبلي بطريقة تمنع التخفيف غير العادل لحصص الحاملين الأوائل، وتحافظ على النزاهة طويلة الأمد والندرة والشفافية التي بُني عليها CycleX.",
 
     presale_kicker: "الطرح المسبق وخطة السيولة",
     presale_title: "استراتيجية الطرح المسبق والسيولة",
@@ -3004,6 +2982,12 @@ html, body { overflow-x: hidden; }
     footer_left:
       "CycleX منصة أمان Web3. رمز CYCX يمنح الوصول والمكافآت الربع سنوية على السلسلة.",
     footer_tagline: "الأمان هو المنتج. CYCX هو المفتاح. النظام البيئي يتولى الباقي.",
+    footer_security: "مركز الأمان",
+    footer_firewall: "الجدار الناري",
+    footer_bot: "البوت",
+    footer_x: "X",
+    footer_telegram: "Telegram",
+    footer_docs: "المستندات",
 
     claim_badge: "بوابة المطالبة",
     claim_title: "اطلب مكافآتك",
@@ -3041,21 +3025,21 @@ html, body { overflow-x: hidden; }
     social_kicker: "المجتمع",
     social_title: "استكشف الشبكة",
     social_subtitle:
-      "افحص من Telegram، وتابع النتائج الأمنية على X، واستكشف نظام CycleX الكامل.",
+      "افحص من Telegram، وتابع نتائج الأمان على X، واستكشف نظام CycleX الكامل.",
     social_bot_title: "ماسح Telegram",
-    social_bot_desc: "افحص العملات مباشرة من Telegram.",
-    social_bot_btn: "افتح البوت",
+    social_bot_desc: "افحص الرموز مباشرة من Telegram",
+    social_bot_btn: "فتح البوت",
     social_x_title: "X / Twitter",
-    social_x_desc: "نتائج أمنية وتحديثات المنتج",
+    social_x_desc: "نتائج الأمان وتحديثات المنتج",
     social_x_btn: "متابعة",
     social_tg_title: "مجتمع Telegram",
-    social_tg_desc: "انضم إلى مجتمع CycleX.",
+    social_tg_desc: "انضم إلى مجتمع CycleX",
     social_tg_btn: "انضم",
     social_wp_title: "الورقة البيضاء",
-    social_wp_desc: "تصميم النظام الكامل والقواعد",
+    social_wp_desc: "تصميم النظام الكامل وقواعد البروتوكول",
     social_wp_btn: "اقرأ",
     social_faq_title: "الأسئلة الشائعة",
-    social_faq_desc: "إجابات سريعة عن CycleX.",
+    social_faq_desc: "إجابات سريعة حول CycleX",
     social_faq_btn: "افتح",
 
     elig_title: "قواعد الأهلية والاحتفاظ",
@@ -3098,23 +3082,25 @@ html, body { overflow-x: hidden; }
   ru: {
     brand_sub: "Web3-платформа безопасности",
 
-    hero_kicker: "РАЗРЕШЕНИЯ КОШЕЛЬКА • РИСКИ КОНТРАКТОВ • МУЛЬТИЧЕЙН",
+    hero_kicker: "РАЗРЕШЕНИЯ КОШЕЛЬКА • РИСК КОНТРАКТА • МУЛЬТИСЕТЬ",
     hero_title: "Уровень безопасности для Web3.",
-    hero_subtitle: "Сканируйте кошельки и контракты в 12 сетях. Находите опасные разрешения, риски контрактов и ончейн-уязвимости до того, как они станут убытками.",
+    hero_subtitle: "Сканируйте кошельки и контракты в 12 сетях. Выявляйте опасные разрешения, риски контрактов и ончейн-экспозицию до того, как они приведут к потерям.",
+    hero_chip_1: "<b>МГНОВЕННЫЕ</b> ПРОВЕРКИ РИСКА",
+    hero_chip_2: "<b>ОДИН КЛИК</b> ОТЗЫВ",
+    hero_chip_3: "<b>12 СЕТЕЙ</b> ПОКРЫТИЕ",
+    hero_chip_4: "<b>TELEGRAM</b> СКАНЕР",
 
-    chip_scan: "<b>МГНОВЕННОЕ</b> СКАНИРОВАНИЕ",
-    chip_revoke: "<b>ОТЗЫВ</b> В ОДИН КЛИК",
-    chip_chains: "<b>12 СЕТЕЙ</b> ПОДДЕРЖКИ",
-    chip_telegram: "<b>TELEGRAM</b> СКАНЕР",
-
-    btn_firewall_tools: "Сканировать кошелёк — бесплатно",
-    cta_scan_note: "Сканирование без подключения. Подключение нужно только для отзыва.",
-    btn_security_tools: "Проверить токен или контракт",
-    cta_check_note: "Проверка ханипотов, ликвидности и держателей в 12 сетях.",
+    btn_security_tools: "ПРОВЕРИТЬ ТОКЕН ИЛИ КОНТРАКТ",
+    btn_security_tools_note: "Проверка honeypot, ликвидности и держателей в 12 сетях.",
+    btn_firewall_tools: "ПРОВЕРИТЬ МОЙ КОШЕЛЁК — БЕСПЛАТНО",
+    btn_firewall_tools_note: "Сканирование без подключения. Подключайте кошелёк только для отзыва разрешений.",
 
     security_activity_kicker: "Активность безопасности",
     security_activity_title: "Сеть безопасности CycleX — активность в реальном времени",
-    security_activity_desc: "Каждое число ниже отражает реальную активность сканирований CycleX.",
+    security_activity_desc: "Каждое число ниже отражает реальную активность сканирования безопасности CycleX.",
+    security_network_status: "СТАТУС СЕТИ",
+    security_live_counter: "Живой счётчик",
+    security_activity_ratio: "В среднем: {value} рискованных разрешений на просканированный кошелёк.",
     security_wallets_scanned: "Кошельков просканировано",
     security_risky_approvals: "Рискованных разрешений обнаружено",
     security_high_risk_contracts: "Рискованных контрактов выявлено",
@@ -3135,7 +3121,7 @@ html, body { overflow-x: hidden; }
     transparency_kicker: "Прозрачность",
     transparency_title: "Прозрачность на блокчейне",
     transparency_p1:
-      "Все ключевые процессы — вознаграждения, сжигания и движения казны — выполняются напрямую смарт-контрактом. Счётчики ниже отображают актуальные и проверяемые ончейн-данные.",
+      "Все ключевые процессы — награды, сжигания и движения казны — выполняются напрямую смарт-контрактом и остаются публично проверяемыми ончейн.",
 
     stat_rewards_label: "Всего распределено наград",
     stat_burn_label: "Всего токенов сожжено",
@@ -3157,7 +3143,7 @@ html, body { overflow-x: hidden; }
     vision_kicker: "Безопасная инфраструктура",
     vision_title: "Построен как безопасная компания, а не просто токен",
     vision_p1:
-      "CycleX создан на одном принципе: пусть код, криптография и математика устанавливают правила — не человеческие обещания.",
+      "CycleX построен на одном принципе: правила должны обеспечиваться кодом, криптографией и математикой, а не человеческими обещаниями.",
     vision_p2:
       "Анализ безопасности — включая сканирование approvals, обнаружение угроз и карту экспозиции — основан на проверяемых ончейн-данных и логике безопасности CycleX. Механики наград, казны и claim протокола исполняются кодом и смарт-контрактами. Скрытого дискреционного контроля над средствами пользователей нет.",
     vision_p3:
@@ -3168,7 +3154,7 @@ html, body { overflow-x: hidden; }
     rewards_kicker: "CYCX: УРОВЕНЬ ДОСТУПА",
     rewards_title: "CYCX: уровень доступа к безопасности Web3.",
     rewards_intro:
-      "<strong>Безопасность — это продукт. CYCX — это ключ.</strong><br>CYCX открывает более глубокий доступ к продукту, расширенный мониторинг и право на ежеквартальные ончейн-награды.",
+      "<strong>Безопасность — это продукт. CYCX — это ключ.</strong><br>CYCX открывает более глубокий доступ к продукту, расширенные возможности мониторинга и право на ежеквартальные ончейн-награды.",
 
     rewards_dist_title: "Логика распределения",
     rewards_dist_li1: "Квалифицированные держатели получают цикловое распределение в размере целевых <strong>9%</strong>.",
@@ -3200,7 +3186,11 @@ html, body { overflow-x: hidden; }
     future_kicker: "Что дальше",
     future_title: "Безопасность, которая продолжает расширяться.",
     future_p1:
-      "12 сетей сегодня. Расширение покрытия, более глубокая аналитика угроз и умный мониторинг по мере роста CycleX.",
+      "Сегодня — 12 сетей. CycleX создан для расширения покрытия, углубления аналитики угроз и усиления мониторинга и оповещений по мере развития ончейн-рисков.",
+    future_p2:
+      "Если после многих лет наградных циклов основная казна в конечном итоге будет исчерпана, протокол может эволюционировать только через обновление, одобренное сообществом, или через контракт-преемник, сохраняющий те же ключевые принципы: прозрачное исполнение, отсутствие неожиданной эмиссии и отсутствие скрытого контроля над средствами пользователей.",
+    future_p3:
+      "Любая будущая эволюция будет структурирована таким образом, чтобы избежать несправедливого размывания долей и сохранить долгосрочную целостность, дефицит и прозрачность, на которых построен CycleX.",
 
     presale_kicker: "Pre-Sale и план ликвидности",
     presale_title: "Стратегия Pre-Sale и ликвидности",
@@ -3210,6 +3200,12 @@ html, body { overflow-x: hidden; }
     footer_left:
       "CycleX — Web3-платформа безопасности. Токен CYCX обеспечивает доступ и квартальные ончейн-вознаграждения.",
     footer_tagline: "Безопасность — это продукт. CYCX — это ключ. Экосистема делает всё остальное.",
+    footer_security: "Security Hub",
+    footer_firewall: "Файервол",
+    footer_bot: "Бот",
+    footer_x: "X",
+    footer_telegram: "Telegram",
+    footer_docs: "Документация",
 
     claim_badge: "Портал начислений",
     claim_title: "Получите свои награды",
@@ -3248,21 +3244,21 @@ html, body { overflow-x: hidden; }
     social_kicker: "Сообщество",
     social_title: "Исследуйте сеть",
     social_subtitle:
-      "Сканируйте из Telegram, следите за находками по безопасности в X и изучайте систему CycleX.",
+      "Сканируйте через Telegram, следите за находками безопасности в X и изучайте всю систему CycleX.",
     social_bot_title: "Telegram-сканер",
-    social_bot_desc: "Сканируйте токены прямо из Telegram.",
+    social_bot_desc: "Сканируйте токены прямо из Telegram",
     social_bot_btn: "Открыть бота",
     social_x_title: "X / Twitter",
-    social_x_desc: "Находки по безопасности и обновления",
+    social_x_desc: "Находки безопасности и обновления продукта",
     social_x_btn: "Подписаться",
     social_tg_title: "Telegram-сообщество",
-    social_tg_desc: "Присоединяйтесь к сообществу CycleX.",
+    social_tg_desc: "Присоединяйтесь к сообществу CycleX",
     social_tg_btn: "Вступить",
     social_wp_title: "Whitepaper",
-    social_wp_desc: "Полный дизайн системы и правила",
+    social_wp_desc: "Полная архитектура системы и правила протокола",
     social_wp_btn: "Читать",
     social_faq_title: "FAQ",
-    social_faq_desc: "Быстрые ответы о CycleX.",
+    social_faq_desc: "Короткие ответы о CycleX",
     social_faq_btn: "Открыть",
 
     elig_title: "Правила участия и удержания",
@@ -3306,8 +3302,27 @@ html, body { overflow-x: hidden; }
 
 
     // -------- LANGUAGE SWITCH --------
+    let cxCurrentLang = "en";
+    let cxActivityRatioValue = null;
+
+    function cxRenderActivityRatio() {
+      const el = document.getElementById("activity-ratio");
+      if (!el) return;
+      if (cxActivityRatioValue == null || !Number.isFinite(cxActivityRatioValue)) {
+        el.hidden = true;
+        return;
+      }
+      const dict = translations[cxCurrentLang] || translations.en;
+      const template = dict.security_activity_ratio || translations.en.security_activity_ratio;
+      const localeMap = { en: "en-US", zh: "zh-CN", ar: "ar", ru: "ru-RU" };
+      const value = cxActivityRatioValue.toLocaleString(localeMap[cxCurrentLang] || "en-US", { maximumFractionDigits: 1 });
+      el.textContent = template.replace("{value}", value);
+      el.hidden = false;
+    }
+
     function setLanguage(lang) {
-      const dict = translations[lang] || translations.en;
+      cxCurrentLang = translations[lang] ? lang : "en";
+      const dict = translations[cxCurrentLang] || translations.en;
 
       document.body.classList.add("lang-switching");
 
@@ -3322,7 +3337,8 @@ html, body { overflow-x: hidden; }
         btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
       });
 
-      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      document.documentElement.dir = cxCurrentLang === "ar" ? "rtl" : "ltr";
+      cxRenderActivityRatio();
 
       setTimeout(() => {
         document.body.classList.remove("lang-switching");
@@ -3718,21 +3734,22 @@ function cxSetClaimUI(state, message) {
     const modalBackdrop = document.getElementById("claim-modal-backdrop");
     const closeModalBtn = document.getElementById("btn-close-modal");
     const closeX = document.getElementById("modal-close-x");
+    let cxEligibilityPendingAction = null;
 
-   claimBtn.addEventListener("click", () => {
-  // Always show the eligibility rules before the claim flow.
-  // (Not gated by localStorage: a disclaimer that appears once and never again
-  //  is not a disclaimer, and stale keys from the old auto-popup would skip it.)
-  if (!window.__cxRulesAcknowledged && typeof window.cxOpenEligibilityModal === "function") {
-    window.__cxOpenClaimAfterRules = true;
-    window.cxOpenEligibilityModal();
-    return;
-  }
-  window.__cxRulesAcknowledged = false;
-  modalBackdrop.classList.add("active");
-  modalBackdrop.setAttribute("aria-hidden", "false");
-  cxUpdateModalState(); 
-});
+    function openClaimModal() {
+      if (!modalBackdrop) return;
+      modalBackdrop.classList.add("active");
+      modalBackdrop.setAttribute("aria-hidden", "false");
+      cxUpdateModalState();
+    }
+
+    // Token disclaimer gate: show it every time before entering the Claim flow.
+    if (claimBtn) {
+      claimBtn.addEventListener("click", () => {
+        cxEligibilityPendingAction = { type: "claim" };
+        openEligibilityModal();
+      });
+    }
 
 
     function closeModal() {
@@ -3758,23 +3775,18 @@ function cxSetClaimUI(state, message) {
       //  cxConnectAndCheck();
      // });
     
-    // Presale link placeholder – replace with real PinkSale URL
-    document.getElementById("presale-link").addEventListener("click", (e) => {
-      // Same rule as Claim: the rules are shown before every token-related action,
-      // but never automatically on page load.
-      if (!window.__cxRulesAcknowledged && typeof window.cxOpenEligibilityModal === "function") {
+    // Token disclaimer gate: also show it every time before a Pre-Sale action.
+    const presaleLink = document.getElementById("presale-link");
+    if (presaleLink) {
+      presaleLink.addEventListener("click", (e) => {
         e.preventDefault();
-        window.__cxOpenPresaleAfterRules = true;
-        window.cxOpenEligibilityModal();
-        return;
-      }
-      window.__cxRulesAcknowledged = false;
-      const href = e.currentTarget.getAttribute("href");
-      if (!href || href === "#") {
-        e.preventDefault();
-        alert("Pre-Sale link will point to your official PinkSale page once it is live.");
-      }
-    });
+        cxEligibilityPendingAction = {
+          type: "presale",
+          href: e.currentTarget.getAttribute("href") || "#"
+        };
+        openEligibilityModal();
+      });
+    }
 
     // -------- COUNTDOWN TO 31 MAR 2026 --------
     const countdownEl = document.getElementById("countdown-text");
@@ -3795,17 +3807,17 @@ function cxSetClaimUI(state, message) {
     updateCountdown();
     setInterval(updateCountdown, 60_000);
 
-    // -------- ELIGIBILITY MODAL (FIRST VISIT + LANGUAGE CHANGE) --------
+    // -------- TOKEN / ELIGIBILITY DISCLAIMER GATE --------
     const eligibilityBackdrop = document.getElementById("eligibility-modal-backdrop");
     const eligibilityContinueBtn = document.getElementById("eligibility-continue-btn");
 
     function openEligibilityModal() {
-  if (!eligibilityBackdrop) return;
-  eligibilityBackdrop.classList.add("active");
-  eligibilityBackdrop.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-  cxUpdateModalState(); 
-}
+      if (!eligibilityBackdrop) return;
+      eligibilityBackdrop.classList.add("active");
+      eligibilityBackdrop.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      cxUpdateModalState();
+    }
 
     function closeEligibilityModal() {
       if (!eligibilityBackdrop) return;
@@ -3817,17 +3829,24 @@ function cxSetClaimUI(state, message) {
 
     if (eligibilityContinueBtn) {
       eligibilityContinueBtn.addEventListener("click", () => {
+        const pendingAction = cxEligibilityPendingAction;
+        cxEligibilityPendingAction = null;
         closeEligibilityModal();
-        // let the original action through exactly once
-        window.__cxRulesAcknowledged = true;
-        if (window.__cxOpenClaimAfterRules) {
-          window.__cxOpenClaimAfterRules = false;
-          const cb = document.getElementById("btn-claim");
-          if (cb) cb.click();
-        } else if (window.__cxOpenPresaleAfterRules) {
-          window.__cxOpenPresaleAfterRules = false;
-          const pl = document.getElementById("presale-link");
-          if (pl) pl.click();
+
+        if (!pendingAction) return;
+
+        if (pendingAction.type === "claim") {
+          openClaimModal();
+          return;
+        }
+
+        if (pendingAction.type === "presale") {
+          const href = pendingAction.href;
+          if (!href || href === "#") {
+            alert("Pre-Sale link will point to your official PinkSale page once it is live.");
+            return;
+          }
+          window.location.assign(href);
         }
       });
     }
@@ -3835,18 +3854,13 @@ function cxSetClaimUI(state, message) {
     if (eligibilityBackdrop) {
       eligibilityBackdrop.addEventListener("click", (e) => {
         if (e.target === eligibilityBackdrop) {
-          window.__cxOpenClaimAfterRules = false;
-          window.__cxOpenPresaleAfterRules = false;
-          window.__cxRulesAcknowledged = false;
+          cxEligibilityPendingAction = null;
           closeEligibilityModal();
         }
       });
     }
 
-    // NOTE: the eligibility modal is intentionally NOT opened on page load.
-    // CycleX is a security product first — a new visitor should never be greeted
-    // by a token/rewards dialog. It now opens only on a rewards-related action.
-    window.cxOpenEligibilityModal = openEligibilityModal;
+    // The disclaimer no longer opens on page load. It opens on every Claim / Pre-Sale attempt.
 
         // -------- REWARD CALCULATOR LOGIC --------
     const calcModal = document.getElementById("calculatorModal");
@@ -4392,6 +4406,14 @@ function setHealthDot(ok){
       socCountUp(document.getElementById("wallets-scanned"),   w, 1400);
       socCountUp(document.getElementById("risky-approvals"),   a, 1600);
       socCountUp(document.getElementById("high-risk-contracts"),h, 1800);
+
+      if (w > 0 && a >= 0) {
+        cxActivityRatioValue = a / w;
+        cxRenderActivityRatio();
+      } else {
+        cxActivityRatioValue = null;
+        cxRenderActivityRatio();
+      }
 
     } catch(e){
       setHealthDot(false);
