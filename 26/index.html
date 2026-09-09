@@ -10,14 +10,6 @@
     gtag('js', new Date());
     gtag('config', 'G-BXDFXJWCNQ');
   </script>
-  <!-- X conversion tracking base code -->
-<script>
-!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-twq('config','r4v6v');
-</script>
-<!-- End X conversion tracking base code -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>CycleX Security Hub — On-Chain Tools</title>
@@ -4233,6 +4225,112 @@ twq('config','r4v6v');
     .qs-intel-column .cx-deep-title{font-size:13.8px!important}
     .qs-intel-column .cx-deep-sub{font-size:9.4px!important}
     .qs-intel-column .cx-deep-badge{font-size:6.6px!important;padding:4px 6px!important}
+  }
+
+
+  /* ================================================================
+     v1.8.6 MOBILE POPUP + DEEP BAR POLISH — 2026-09-09
+     Mobile only. Restores the natural panel header, keeps the close
+     control permanently reachable, and gives the Deep gateway stronger
+     typography without changing desktop or scanner logic.
+     ================================================================ */
+  @media(max-width:760px){
+    /* Restore the native panel look: no separate black/sticky header slab. */
+    #panel-quick .panel-head{
+      position:relative!important;
+      top:auto!important;
+      z-index:auto!important;
+      margin:0 0 11px!important;
+      padding:0 38px 11px 0!important;
+      border-bottom:1px solid rgba(255,255,255,.055)!important;
+      background:transparent!important;
+      backdrop-filter:none!important;
+      -webkit-backdrop-filter:none!important;
+      box-shadow:none!important;
+    }
+
+    /* The close control is pinned to the visible viewport while this modal
+       is open, so it remains reachable after a long scan/report scroll. */
+    #panel-quick .panel-actions{
+      position:fixed!important;
+      top:10px!important;
+      right:10px!important;
+      width:auto!important;
+      height:auto!important;
+      z-index:1008!important;
+      pointer-events:auto!important;
+    }
+    #panel-quick .btn-close-modal{
+      width:28px!important;
+      height:28px!important;
+      min-width:28px!important;
+      min-height:28px!important;
+      display:flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      border-radius:999px!important;
+      background:rgba(12,16,25,.90)!important;
+      border:1px solid rgba(255,255,255,.24)!important;
+      color:rgba(248,250,255,.96)!important;
+      font-size:13px!important;
+      line-height:1!important;
+      box-shadow:0 8px 26px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.07)!important;
+      backdrop-filter:blur(10px)!important;
+      -webkit-backdrop-filter:blur(10px)!important;
+    }
+
+    /* Stronger Deep Intelligence gateway: larger copy fills the cyan bar,
+       while the arrow keeps a compact, intentional position at the edge. */
+    .cx-deep-mobile-toggle{
+      min-height:52px!important;
+      grid-template-columns:minmax(0,1fr) 26px!important;
+      gap:8px!important;
+      padding:11px 10px 11px 14px!important;
+      font-size:13.4px!important;
+      font-weight:950!important;
+      line-height:1.16!important;
+      letter-spacing:-.012em!important;
+    }
+    html[dir="rtl"] .cx-deep-mobile-toggle{
+      padding:11px 14px 11px 10px!important;
+    }
+    .cx-deep-mobile-toggle-copy{
+      width:100%!important;
+      min-width:0!important;
+      display:block!important;
+    }
+    .cx-deep-mobile-open-label,
+    .cx-deep-mobile-close-label{
+      width:100%!important;
+      max-width:none!important;
+      white-space:normal!important;
+      overflow:visible!important;
+      text-overflow:clip!important;
+    }
+    .cx-deep-mobile-chevron{
+      width:24px!important;
+      height:24px!important;
+      justify-self:end!important;
+      align-self:center!important;
+      font-size:16px!important;
+      transform:none!important;
+    }
+    .qs-intel-column.deep-mobile-open .cx-deep-mobile-chevron{
+      transform:rotate(180deg)!important;
+    }
+  }
+
+  @media(max-width:420px){
+    #panel-quick .panel-head{padding:0 36px 10px 0!important}
+    #panel-quick .panel-actions{top:9px!important;right:9px!important}
+    .cx-deep-mobile-toggle{
+      min-height:50px!important;
+      padding:10px 9px 10px 12px!important;
+      font-size:13px!important;
+      gap:7px!important;
+    }
+    html[dir="rtl"] .cx-deep-mobile-toggle{padding:10px 12px 10px 9px!important}
+    .cx-deep-mobile-chevron{width:23px!important;height:23px!important;font-size:15px!important}
   }
 
 </style>
