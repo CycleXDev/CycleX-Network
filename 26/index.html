@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8157,7 +8158,7 @@ function initPanels() {
   // CycleX Scan Archive — website bridge.
   // Fire-and-forget only: never blocks Quick Scan, Deep Intelligence, or UI.
   // The browser sends ONLY {chain, token}; all scoring/tracking remains server-side.
-  const CX_ARCHIVE_INGEST_URL = "https://cyclex-ingest.cyclexdev.workers.dev/ingest/web";
+  const CX_ARCHIVE_INGEST_URL = "https://ingest.cyclex.network/ingest/web";
   function cxArchiveWebPing(net, token){
     try {
       const chain = String(net || "").toLowerCase();
