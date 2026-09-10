@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- CycleX Security Hub Premium Scanner UX v1.6 · Archive bridge preserved -->
+  <!-- CycleX Security Hub Premium Scanner UX v1.6 · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
     <!-- Google tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXDFXJWCNQ"></script>
   <script>
@@ -4679,7 +4679,7 @@ twq('config','r4v6v');
               <div class="cx-deep-stage" data-deep-stage="clusters"><i class="cx-deep-stage-dot"></i><span class="cx-deep-stage-copy"><span data-i18n="deep_stage_clusters">Wallet clusters</span><small class="cx-deep-stage-reason"></small></span></div>
               <div class="cx-deep-stage" data-deep-stage="liquidity"><i class="cx-deep-stage-dot"></i><span class="cx-deep-stage-copy"><span data-i18n="deep_stage_liquidity">LP ownership</span><small class="cx-deep-stage-reason"></small></span></div>
               <div class="cx-deep-stage" data-deep-stage="changes"><i class="cx-deep-stage-dot"></i><span class="cx-deep-stage-copy"><span data-i18n="deep_stage_changes">Control changes</span><small class="cx-deep-stage-reason"></small></span></div>
-              <div class="cx-deep-stage" data-deep-stage="simulation"><i class="cx-deep-stage-dot"></i><span class="cx-deep-stage-copy"><span data-i18n="deep_stage_simulation">Simulation</span><small class="cx-deep-stage-reason"></small></span></div>
+              <div class="cx-deep-stage" data-deep-stage="entity"><i class="cx-deep-stage-dot"></i><span class="cx-deep-stage-copy"><span data-i18n="deep_stage_entity">Entity intelligence</span><small class="cx-deep-stage-reason"></small></span></div>
               <div class="cx-deep-stage" data-deep-stage="finalize"><i class="cx-deep-stage-dot"></i><span class="cx-deep-stage-copy"><span data-i18n="deep_stage_finalize">Intelligence report</span><small class="cx-deep-stage-reason"></small></span></div>
             </div>
 
@@ -5119,6 +5119,52 @@ const translations = {
     deep_stage_liquidity: "LP ownership",
     deep_stage_changes: "Control changes",
     deep_stage_simulation: "Simulation",
+    deep_stage_entity: "Entity intelligence",
+    deep_section_entity: "Entity Intelligence",
+    deep_reason_entity_partial: "Some key addresses could not be classified",
+    deep_found_entity: "Classified {classified}/{checked} key addresses; {labeled} had known service or protocol labels.",
+    deep_found_entity_partial: "Classified {classified}/{checked} key addresses; some entity context remains unavailable.",
+    deep_why_entity: "Entity context reduces false positives by distinguishing ordinary wallets from exchanges, bridges, routers, protocols, liquidity infrastructure and other known services.",
+    deep_k_entity_checked: "Key addresses checked",
+    deep_k_entity_classified: "Addresses classified",
+    deep_k_entity_coverage: "Classification coverage",
+    deep_k_entity_labels: "Known labels",
+    deep_k_entity_semantic: "Known-label coverage",
+    deep_k_entity_service: "Service / protocol entities",
+    deep_entity_role_deployer: "Deployer",
+    deep_entity_role_creator: "Creator",
+    deep_entity_role_deployer_funder: "Deployer funder",
+    deep_entity_role_creator_funder: "Creator funder",
+    deep_entity_role_current_owner: "Current owner",
+    deep_entity_role_proxy_implementation: "Proxy implementation",
+    deep_entity_role_top_holder: "Top holder",
+    deep_entity_role_cluster_funder: "Cluster funder",
+    deep_entity_role_mint_authority: "Mint authority",
+    deep_entity_role_freeze_authority: "Freeze authority",
+    deep_entity_role_permanent_delegate: "Permanent delegate",
+    deep_entity_role_transfer_hook_program: "Transfer-hook program",
+    deep_entity_role_pause_authority: "Pause authority",
+    deep_entity_role_liquidity_pool: "Liquidity pool",
+    deep_entity_role_unknown: "Address",
+    deep_entity_kind_exchange: "Exchange",
+    deep_entity_kind_bridge: "Bridge",
+    deep_entity_kind_market_maker: "Market maker",
+    deep_entity_kind_liquidity_locker: "Liquidity locker",
+    deep_entity_kind_dex_router: "DEX / router",
+    deep_entity_kind_launchpad: "Launchpad",
+    deep_entity_kind_treasury: "Treasury",
+    deep_entity_kind_multisig: "Multisig",
+    deep_entity_kind_protocol: "Protocol",
+    deep_entity_kind_wallet: "Wallet",
+    deep_entity_kind_contract: "Contract",
+    deep_entity_kind_program: "Program",
+    deep_entity_kind_token_account: "Token account",
+    deep_entity_kind_associated_token_account: "Associated token account",
+    deep_entity_kind_program_owned_account: "Program-owned account",
+    deep_entity_kind_liquidity_pool: "Liquidity pool",
+    deep_entity_kind_burn: "Burn address",
+    deep_entity_kind_uninitialized: "Uninitialized account",
+    deep_entity_kind_unknown: "Unknown",
     deep_stage_finalize: "Intelligence report",
     deep_badge_core_scan: "Core scan",
     deep_badge_waiting: "Waiting",
@@ -5658,6 +5704,52 @@ const translations = {
     deep_stage_liquidity: "LP 所有权",
     deep_stage_changes: "控制权变更",
     deep_stage_simulation: "模拟",
+    deep_stage_entity: "实体情报",
+    deep_section_entity: "实体情报",
+    deep_reason_entity_partial: "部分关键地址无法完成分类",
+    deep_found_entity: "已分类 {classified}/{checked} 个关键地址；其中 {labeled} 个具有已知服务或协议标签。",
+    deep_found_entity_partial: "已分类 {classified}/{checked} 个关键地址；部分实体背景仍不可用。",
+    deep_why_entity: "实体背景可区分普通钱包、交易所、跨链桥、路由器、协议、流动性基础设施和其他已知服务，从而减少误报。",
+    deep_k_entity_checked: "已检查关键地址",
+    deep_k_entity_classified: "已分类地址",
+    deep_k_entity_coverage: "分类覆盖率",
+    deep_k_entity_labels: "已知标签",
+    deep_k_entity_semantic: "已知标签覆盖率",
+    deep_k_entity_service: "服务 / 协议实体",
+    deep_entity_role_deployer: "部署者",
+    deep_entity_role_creator: "创建者",
+    deep_entity_role_deployer_funder: "部署者资金来源",
+    deep_entity_role_creator_funder: "创建者资金来源",
+    deep_entity_role_current_owner: "当前所有者",
+    deep_entity_role_proxy_implementation: "代理实现合约",
+    deep_entity_role_top_holder: "最大持币者",
+    deep_entity_role_cluster_funder: "集群资金来源",
+    deep_entity_role_mint_authority: "铸币权限",
+    deep_entity_role_freeze_authority: "冻结权限",
+    deep_entity_role_permanent_delegate: "永久委托者",
+    deep_entity_role_transfer_hook_program: "转账钩子程序",
+    deep_entity_role_pause_authority: "暂停权限",
+    deep_entity_role_liquidity_pool: "流动性池",
+    deep_entity_role_unknown: "地址",
+    deep_entity_kind_exchange: "交易所",
+    deep_entity_kind_bridge: "跨链桥",
+    deep_entity_kind_market_maker: "做市商",
+    deep_entity_kind_liquidity_locker: "流动性锁仓",
+    deep_entity_kind_dex_router: "DEX / 路由器",
+    deep_entity_kind_launchpad: "发行平台",
+    deep_entity_kind_treasury: "资金库",
+    deep_entity_kind_multisig: "多签",
+    deep_entity_kind_protocol: "协议",
+    deep_entity_kind_wallet: "钱包",
+    deep_entity_kind_contract: "合约",
+    deep_entity_kind_program: "程序",
+    deep_entity_kind_token_account: "代币账户",
+    deep_entity_kind_associated_token_account: "关联代币账户",
+    deep_entity_kind_program_owned_account: "程序拥有账户",
+    deep_entity_kind_liquidity_pool: "流动性池",
+    deep_entity_kind_burn: "销毁地址",
+    deep_entity_kind_uninitialized: "未初始化账户",
+    deep_entity_kind_unknown: "未知",
     deep_stage_finalize: "智能报告",
     deep_badge_core_scan: "核心扫描",
     deep_badge_waiting: "等待中",
@@ -6197,6 +6289,52 @@ const translations = {
     deep_stage_liquidity: "ملكية LP",
     deep_stage_changes: "تغيّرات التحكم",
     deep_stage_simulation: "المحاكاة",
+    deep_stage_entity: "ذكاء الكيانات",
+    deep_section_entity: "ذكاء الكيانات",
+    deep_reason_entity_partial: "تعذّر تصنيف بعض العناوين الرئيسية",
+    deep_found_entity: "تم تصنيف {classified} من أصل {checked} عناوين رئيسية؛ وكان لدى {labeled} منها تصنيفات معروفة لخدمات أو بروتوكولات.",
+    deep_found_entity_partial: "تم تصنيف {classified} من أصل {checked} عناوين رئيسية؛ وما زال بعض سياق الكيانات غير متاح.",
+    deep_why_entity: "يساعد سياق الكيانات على تقليل الإشارات الخاطئة عبر التمييز بين المحافظ العادية والمنصات والجسور والموجّهات والبروتوكولات وبنية السيولة والخدمات المعروفة الأخرى.",
+    deep_k_entity_checked: "العناوين الرئيسية المفحوصة",
+    deep_k_entity_classified: "العناوين المصنفة",
+    deep_k_entity_coverage: "تغطية التصنيف",
+    deep_k_entity_labels: "التصنيفات المعروفة",
+    deep_k_entity_semantic: "تغطية التصنيفات المعروفة",
+    deep_k_entity_service: "كيانات خدمات / بروتوكولات",
+    deep_entity_role_deployer: "الناشر",
+    deep_entity_role_creator: "المنشئ",
+    deep_entity_role_deployer_funder: "مموّل الناشر",
+    deep_entity_role_creator_funder: "مموّل المنشئ",
+    deep_entity_role_current_owner: "المالك الحالي",
+    deep_entity_role_proxy_implementation: "تنفيذ البروكسي",
+    deep_entity_role_top_holder: "أكبر حامل",
+    deep_entity_role_cluster_funder: "مموّل المجموعة",
+    deep_entity_role_mint_authority: "صلاحية السك",
+    deep_entity_role_freeze_authority: "صلاحية التجميد",
+    deep_entity_role_permanent_delegate: "المفوّض الدائم",
+    deep_entity_role_transfer_hook_program: "برنامج خطاف التحويل",
+    deep_entity_role_pause_authority: "صلاحية الإيقاف",
+    deep_entity_role_liquidity_pool: "مجمع السيولة",
+    deep_entity_role_unknown: "عنوان",
+    deep_entity_kind_exchange: "منصة تداول",
+    deep_entity_kind_bridge: "جسر",
+    deep_entity_kind_market_maker: "صانع سوق",
+    deep_entity_kind_liquidity_locker: "قفل سيولة",
+    deep_entity_kind_dex_router: "DEX / موجّه",
+    deep_entity_kind_launchpad: "منصة إطلاق",
+    deep_entity_kind_treasury: "خزانة",
+    deep_entity_kind_multisig: "متعدد التوقيع",
+    deep_entity_kind_protocol: "بروتوكول",
+    deep_entity_kind_wallet: "محفظة",
+    deep_entity_kind_contract: "عقد",
+    deep_entity_kind_program: "برنامج",
+    deep_entity_kind_token_account: "حساب توكن",
+    deep_entity_kind_associated_token_account: "حساب توكن مرتبط",
+    deep_entity_kind_program_owned_account: "حساب مملوك لبرنامج",
+    deep_entity_kind_liquidity_pool: "مجمع سيولة",
+    deep_entity_kind_burn: "عنوان حرق",
+    deep_entity_kind_uninitialized: "حساب غير مهيأ",
+    deep_entity_kind_unknown: "غير معروف",
     deep_stage_finalize: "تقرير الذكاء",
     deep_badge_core_scan: "الفحص الأساسي",
     deep_badge_waiting: "بانتظار",
@@ -6736,6 +6874,52 @@ const translations = {
     deep_stage_liquidity: "Владение LP",
     deep_stage_changes: "Изменения контроля",
     deep_stage_simulation: "Симуляция",
+    deep_stage_entity: "Аналитика сущностей",
+    deep_section_entity: "Аналитика сущностей",
+    deep_reason_entity_partial: "Некоторые ключевые адреса не удалось классифицировать",
+    deep_found_entity: "Классифицировано {classified} из {checked} ключевых адресов; у {labeled} есть известные метки сервисов или протоколов.",
+    deep_found_entity_partial: "Классифицировано {classified} из {checked} ключевых адресов; часть контекста сущностей недоступна.",
+    deep_why_entity: "Контекст сущностей снижает ложные срабатывания, отличая обычные кошельки от бирж, мостов, роутеров, протоколов, инфраструктуры ликвидности и других известных сервисов.",
+    deep_k_entity_checked: "Проверено ключевых адресов",
+    deep_k_entity_classified: "Классифицировано адресов",
+    deep_k_entity_coverage: "Покрытие классификации",
+    deep_k_entity_labels: "Известные метки",
+    deep_k_entity_semantic: "Покрытие известных меток",
+    deep_k_entity_service: "Сервисные / протокольные сущности",
+    deep_entity_role_deployer: "Деплоер",
+    deep_entity_role_creator: "Создатель",
+    deep_entity_role_deployer_funder: "Источник средств деплоера",
+    deep_entity_role_creator_funder: "Источник средств создателя",
+    deep_entity_role_current_owner: "Текущий владелец",
+    deep_entity_role_proxy_implementation: "Реализация прокси",
+    deep_entity_role_top_holder: "Крупнейший держатель",
+    deep_entity_role_cluster_funder: "Источник средств кластера",
+    deep_entity_role_mint_authority: "Право минта",
+    deep_entity_role_freeze_authority: "Право заморозки",
+    deep_entity_role_permanent_delegate: "Постоянный делегат",
+    deep_entity_role_transfer_hook_program: "Программа transfer hook",
+    deep_entity_role_pause_authority: "Право паузы",
+    deep_entity_role_liquidity_pool: "Пул ликвидности",
+    deep_entity_role_unknown: "Адрес",
+    deep_entity_kind_exchange: "Биржа",
+    deep_entity_kind_bridge: "Мост",
+    deep_entity_kind_market_maker: "Маркет-мейкер",
+    deep_entity_kind_liquidity_locker: "Локер ликвидности",
+    deep_entity_kind_dex_router: "DEX / роутер",
+    deep_entity_kind_launchpad: "Лаунчпад",
+    deep_entity_kind_treasury: "Казначейство",
+    deep_entity_kind_multisig: "Мультисиг",
+    deep_entity_kind_protocol: "Протокол",
+    deep_entity_kind_wallet: "Кошелёк",
+    deep_entity_kind_contract: "Контракт",
+    deep_entity_kind_program: "Программа",
+    deep_entity_kind_token_account: "Токен-аккаунт",
+    deep_entity_kind_associated_token_account: "Associated token account",
+    deep_entity_kind_program_owned_account: "Аккаунт программы",
+    deep_entity_kind_liquidity_pool: "Пул ликвидности",
+    deep_entity_kind_burn: "Адрес сжигания",
+    deep_entity_kind_uninitialized: "Неинициализированный аккаунт",
+    deep_entity_kind_unknown: "Неизвестно",
     deep_stage_finalize: "Отчёт Intelligence",
     deep_badge_core_scan: "Базовый скан",
     deep_badge_waiting: "Ожидание",
@@ -7806,7 +7990,7 @@ function initPanels() {
 (function () {
   "use strict";
 
-  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v3_deep4";
+  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v4_entity6";
   const QS_LS_HISTORY  = "cx_sec_qs_history_safe_v6";
   const QS_LS_API_KEYS = "cx_sec_explorer_keys";
 
@@ -9098,71 +9282,33 @@ async function qsLiqCheckBasic(net, token, provider) {
     linea: "linea", scroll: "scroll", opbnb: "opbnb", robinhood: "robinhood"
   };
 
-  // ✅ FIX: added console.error logging on failure (was completely silent
-  // before) and CEX volume extraction (data was already in the response,
-  // just never used) — matching the same fixes applied to the bot after a
-  // real discrepancy was found (ASTER showed CEX-listed on the website but
-  // not the bot, traced to a silent, unlogged CoinGecko failure).
+  // CoinGecko lookup is proxied through the same-origin Deep worker. This keeps
+  // expected CoinGecko 404s out of the browser console and centralizes timeout/cache behavior.
   async function qsFetchCexListing(net, token) {
     try {
-      const platform = QS_CEX_PLATFORM[net];
-      if (!platform) return { listed: false, exchanges: [] };
       const rawAddr = String(token || "").trim();
       const addr = (net === "solana") ? rawAddr : qsLower(rawAddr);
       if (!addr) return { listed: false, exchanges: [] };
-
-      const url = `https://api.coingecko.com/api/v3/coins/${platform}/contract/${addr}`;
       const ctrl = new AbortController();
-      const tmr = setTimeout(() => ctrl.abort(), 7000);
-      let j = null;
+      const tmr = setTimeout(() => ctrl.abort(), 8000);
       try {
-        const res = await fetch(url, { signal: ctrl.signal });
-        if (res.ok) {
-          j = await res.json();
-        } else if (res.status !== 404) {
-          console.warn("CoinGecko CEX lookup failed, status:", res.status);
+        const res = await fetch(`/api/deep-scan/market-meta?net=${encodeURIComponent(net)}&token=${encodeURIComponent(addr)}`, { signal: ctrl.signal, cache:"no-store", credentials:"same-origin" });
+        if (!res.ok) {
+          if (res.status >= 500) console.warn("CycleX market-meta lookup failed, status:", res.status);
+          return { listed: false, exchanges: [] };
         }
-      } finally {
-        clearTimeout(tmr);
-      }
-      if (!j || j.error) return { listed: false, exchanges: [] };
-
-      const tickers = Array.isArray(j.tickers) ? j.tickers : [];
-      const matched = tickers.filter(t => QS_CEX_TOP8.has(qsLower(String(t?.market?.name || ""))));
-      const found = [];
-      for (const t of matched) {
-        const name = qsLower(String(t?.market?.name || ""));
-        if (!found.includes(name)) found.push(name);
-      }
-      const display = found.map(n =>
-        n === "okx" ? "OKX" :
-        n === "gate.io" ? "Gate.io" :
-        n.charAt(0).toUpperCase() + n.slice(1)
-      );
-      // ✅ NEW: real circulating supply, when CoinGecko tracks this token's
-      // market data (requires it to be a recognized/listed coin there, not
-      // just any contract — most small/new tokens won't have this, same
-      // caveat as everywhere else in this codebase: use real data when
-      // available, fall back to the on-chain estimate otherwise, never
-      // invent a number). This is the actual "how much is trading in the
-      // market right now" concept (e.g. what a CoinGecko/CMC coin page
-      // shows for XRP) — different from, and more accurate than, the
-      // on-chain "total supply minus the current owner wallet balance"
-      // approximation used as a fallback.
-      const md = j.market_data || null;
-      const circulatingSupplyReal = (md && Number.isFinite(Number(md.circulating_supply))) ? Number(md.circulating_supply) : null;
-      const totalSupplyFromCg = (md && Number.isFinite(Number(md.total_supply))) ? Number(md.total_supply) : null;
-      // ✅ NEW: total 24h volume across matched top-tier exchanges.
-      const totalVolume24hUsd = matched.reduce((acc, t) => acc + (Number(t?.converted_volume?.usd) || 0), 0);
-      return {
-        listed: display.length > 0,
-        exchanges: display,
-        totalVolume24hUsd: totalVolume24hUsd > 0 ? totalVolume24hUsd : null,
-        circulatingSupplyReal,
-        totalSupplyFromCg
-      };
+        const j = await res.json().catch(()=>null);
+        if (!j || j.error) return { listed: false, exchanges: [] };
+        return {
+          listed: j.listed === true,
+          exchanges: Array.isArray(j.exchanges) ? j.exchanges : [],
+          totalVolume24hUsd: Number.isFinite(Number(j.totalVolume24hUsd)) ? Number(j.totalVolume24hUsd) : null,
+          circulatingSupplyReal: Number.isFinite(Number(j.circulatingSupplyReal)) ? Number(j.circulatingSupplyReal) : null,
+          totalSupplyFromCg: Number.isFinite(Number(j.totalSupplyFromCg)) ? Number(j.totalSupplyFromCg) : null
+        };
+      } finally { clearTimeout(tmr); }
     } catch (e) {
-      console.error("qsFetchCexListing threw:", e?.message || e);
+      if (e?.name !== "AbortError") console.warn("CycleX market-meta lookup unavailable:", e?.message || e);
       return { listed: false, exchanges: [] };
     }
   }
@@ -10529,9 +10675,11 @@ async function qsLiqCheckBasic(net, token, provider) {
   // suppresses the existing score/report.
   // =======================================================================
   const CX_DEEP_URL = "/api/deep-scan";
-  const CX_DEEP_STAGE_IDS = ["market","identity","history","deployer","buyers","clusters","liquidity","changes","simulation","finalize"];
-  const CX_DEEP_STAGE_I18N = Object.freeze({market:"deep_stage_market",identity:"deep_stage_identity",history:"deep_stage_history",deployer:"deep_stage_deployer",buyers:"deep_stage_buyers",clusters:"deep_stage_clusters",liquidity:"deep_stage_liquidity",changes:"deep_stage_changes",simulation:"deep_stage_simulation",finalize:"deep_stage_finalize"});
+  const CX_DEEP_STAGE_IDS = ["market","identity","history","deployer","buyers","clusters","liquidity","changes","entity","finalize"];
+  const CX_DEEP_STAGE_I18N = Object.freeze({market:"deep_stage_market",identity:"deep_stage_identity",history:"deep_stage_history",deployer:"deep_stage_deployer",buyers:"deep_stage_buyers",clusters:"deep_stage_clusters",liquidity:"deep_stage_liquidity",changes:"deep_stage_changes",entity:"deep_stage_entity",finalize:"deep_stage_finalize"});
   let _cxDeepController = null;
+  let _cxDeepReader = null;
+  let _cxDeepRunSeq = 0;
   let _cxDeepLastRep = null;
   let _cxDeepLastResult = null;
   let _cxDeepStartedAt = 0;
@@ -10592,23 +10740,33 @@ async function qsLiqCheckBasic(net, token, provider) {
   function cxDeepHideError(){ const el=cxDeepEl("cx-deep-error"); if(el){el.classList.remove("show");el.textContent="";} }
   function cxDeepShowError(msg){ const el=cxDeepEl("cx-deep-error"); if(el){el.textContent=String(msg||cxDeepTr("deep_error_unavailable"));el.classList.add("show");} }
 
+  function cxDeepInvalidateActive(){
+    // Do not abort an in-flight Response body here. Chrome can surface an expected
+    // AbortError/BodyStreamBuffer rejection in DevTools and, more importantly, an
+    // old run's finally block used to be able to clear the controller of a newer run.
+    // A monotonically increasing run id makes old streams harmless without UI races.
+    _cxDeepRunSeq++;
+    _cxDeepController=null;
+    _cxDeepReader=null;
+  }
   function cxDeepPrime(net, token){
-    if(_cxDeepController){ try{_cxDeepController.abort();}catch{} _cxDeepController=null; }
+    cxDeepInvalidateActive();
     if(_cxDeepPrimeTimeout){ clearTimeout(_cxDeepPrimeTimeout); _cxDeepPrimeTimeout=null; }
     _cxDeepLastResult=null; cxDeepStopClock(); cxDeepStartClock(); cxDeepClearStages(); cxDeepHideError();
     const out=cxDeepEl("cx-deep-results"); if(out){out.classList.remove("show");out.innerHTML="";}
     cxDeepSetState("running"); cxDeepBadge(cxDeepTr("deep_badge_core_scan")); cxDeepCurrent(cxDeepTr("deep_status_validating",{network:String(net||"").toUpperCase()}));
     const bar=cxDeepEl("cx-deep-progress-bar"); if(bar) bar.style.width="3%";
-    _cxDeepPrimeTimeout=setTimeout(()=>{ if(!_cxDeepController && cxDeepEl("cx-deep-shell")?.dataset.state==="running"){ cxDeepSetState("idle"); cxDeepBadge(cxDeepTr("deep_badge_waiting")); cxDeepCurrent(cxDeepTr("deep_status_waits_quick")); cxDeepStopClock(); } },45000);
+    const primeSeq=_cxDeepRunSeq;
+    _cxDeepPrimeTimeout=setTimeout(()=>{ if(primeSeq===_cxDeepRunSeq&&!_cxDeepController&&cxDeepEl("cx-deep-shell")?.dataset.state==="running"){ cxDeepSetState("idle"); cxDeepBadge(cxDeepTr("deep_badge_waiting")); cxDeepCurrent(cxDeepTr("deep_status_waits_quick")); cxDeepStopClock(); } },45000);
   }
-  function cxDeepCoreRejected(reason){ if(_cxDeepPrimeTimeout){clearTimeout(_cxDeepPrimeTimeout);_cxDeepPrimeTimeout=null;} if(_cxDeepController){try{_cxDeepController.abort();}catch{} _cxDeepController=null;} cxDeepStopClock(); cxDeepSetState("idle"); cxDeepBadge(cxDeepTr("deep_badge_not_started")); cxDeepCurrent(reason||cxDeepTr("deep_status_quick_invalid")); cxDeepSetProgress(0); }
+  function cxDeepCoreRejected(reason){ if(_cxDeepPrimeTimeout){clearTimeout(_cxDeepPrimeTimeout);_cxDeepPrimeTimeout=null;} cxDeepInvalidateActive(); cxDeepStopClock(); cxDeepSetState("idle"); cxDeepBadge(cxDeepTr("deep_badge_not_started")); cxDeepCurrent(reason||cxDeepTr("deep_status_quick_invalid")); cxDeepSetProgress(0); }
   function cxDeepHandleStage(evt){
     const id=String(evt?.id||""); const el=document.querySelector(`#cx-deep-stages [data-deep-stage="${CSS.escape(id)}"]`);
     if(evt?.state==="running"){ if(el){el.classList.remove("done","partial");el.classList.add("running");} cxDeepCurrent(cxDeepStageName(id)||cxDeepTr("deep_status_running")); cxDeepBadge(cxDeepTr("deep_badge_analyzing")); }
     else if(evt?.state==="done" || evt?.state==="partial"){ if(el){el.classList.remove("running");el.classList.add(evt.state==="done"?"done":"partial");} if(CX_DEEP_STAGE_IDS.includes(id)) _cxDeepCompleted.add(id); cxDeepSetProgress(_cxDeepCompleted.size); if(evt?.state==="partial") cxDeepCurrent(cxDeepTr("deep_status_partial",{stage:cxDeepStageName(id)})); }
   }
   function cxDeepApplyCoverage(result){
-    const map={market:"market",identity:"identity",history:"history",deployer:"deployer",earlyActivity:"buyers",clusters:"clusters",liquidity:"liquidity",controlHistory:"changes",simulation:"simulation"};
+    const map={market:"market",identity:"identity",history:"history",deployer:"deployer",earlyActivity:"buyers",clusters:"clusters",liquidity:"liquidity",controlHistory:"changes",entityIntelligence:"entity"};
     const coverage=result?.coverage||{}, signals=Array.isArray(result?.signals)?result.signals:[], signalCodes=new Set(signals.map(s=>s?.code).filter(Boolean));
     for(const [k,id] of Object.entries(map)){
       const v=coverage[k]; if(!v) continue;
@@ -10624,7 +10782,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       clusters:(signalCodes.has("shared_funding_risk")||signalCodes.has("shared_funding_context"))?"deep_reason_shared_clusters":coverage.clusters==="partial"?"deep_reason_clusters_partial":null,
       liquidity:coverage.liquidity==="partial"?"deep_reason_liquidity_partial":null,
       changes:signalCodes.has("proxy_upgrade_history")?"deep_reason_proxy_history":coverage.controlHistory==="partial"?"deep_reason_control_partial":null,
-      simulation:signalCodes.has("simulation_reverted")?"deep_reason_sim_reverted":coverage.simulation==="partial"?"deep_reason_simulation_partial":null
+      entity:coverage.entityIntelligence==="partial"?"deep_reason_entity_partial":null
     };
     for(const [id,key] of Object.entries(reasons)) cxDeepSetStageReason(id,key?cxDeepTr(key):"");
     const fin=document.querySelector('#cx-deep-stages [data-deep-stage="finalize"]');
@@ -10649,11 +10807,20 @@ async function qsLiqCheckBasic(net, token, provider) {
   }
   function cxDeepVerdictLabel(v){ const code=v?.code; if(code==="deep_review_recommended") return cxDeepTr("deep_verdict_review"); if(code==="additional_context_found") return cxDeepTr("deep_verdict_context"); if(code==="deep_intelligence_partial") return cxDeepTr("deep_verdict_partial"); if(code==="deep_intelligence_complete") return cxDeepTr("deep_verdict_complete"); return v?.label||cxDeepTr("deep_verdict_complete"); }
 
+  function cxDeepEntityRole(role){
+    const key="deep_entity_role_"+String(role||"unknown").replace(/[^a-z0-9_]/gi,"_").toLowerCase();
+    const v=cxDeepTr(key); return v===key?String(role||"unknown").replaceAll("_"," "):v;
+  }
+  function cxDeepEntityKind(kind){
+    const key="deep_entity_kind_"+String(kind||"unknown").replace(/[^a-z0-9_]/gi,"_").toLowerCase();
+    const v=cxDeepTr(key); return v===key?String(kind||"unknown").replaceAll("_"," "):v;
+  }
+
   function cxDeepRenderResult(r){
     const host=cxDeepEl("cx-deep-results"); if(!host||!r) return; _cxDeepLastResult=r;
     const rawLevel=String(r?.verdict?.level||"partial"), coverage=cxDeepFinite(r?.verdict?.coveragePct);
     const level=rawLevel==="attention"?"elevated":rawLevel==="review"?"review":coverage!=null&&coverage<100?"partial":"clear";
-    const signals=Array.isArray(r?.signals)?r.signals:[]; const market=r?.market||{}, hist=r?.history||{}, dep=r?.deployer||{}, early=r?.earlyActivity||{}, clusters=r?.clusters||{}, liq=r?.liquidity||{}, changes=r?.controlHistory||{}, sim=r?.simulation||{};
+    const signals=Array.isArray(r?.signals)?r.signals:[]; const market=r?.market||{}, hist=r?.history||{}, dep=r?.deployer||{}, early=r?.earlyActivity||{}, clusters=r?.clusters||{}, liq=r?.liquidity||{}, changes=r?.controlHistory||{}, ent=r?.entityIntelligence||{}, sim=r?.simulation||{};
     const clusterList=Array.isArray(clusters?.sharedFundingClusters)?clusters.sharedFundingClusters:[]; const topCluster=clusters?.topCluster||clusterList[0]||null; const clusterCount=clusters?.sharedFundingClusterCount ?? clusterList.length;
     const signalHtml=signals.length ? signals.slice(0,7).map(s=>{ const st=cxDeepSignalText(s); return `<div class="cx-deep-signal" data-severity="${cxDeepEsc(s?.severity||"context")}"><div class="cx-deep-signal-title"><i class="cx-deep-signal-dot"></i>${cxDeepEsc(st.title)}</div><div class="cx-deep-signal-detail">${cxDeepEsc(st.detail)}</div></div>`; }).join("") : `<div class="cx-deep-signal" data-severity="context"><div class="cx-deep-signal-title"><i class="cx-deep-signal-dot"></i>${cxDeepEsc(cxDeepTr("deep_signal_none_title"))}</div><div class="cx-deep-signal-detail">${cxDeepEsc(cxDeepTr("deep_signal_none_detail"))}</div></div>`;
 
@@ -10765,13 +10932,20 @@ async function qsLiqCheckBasic(net, token, provider) {
       r.net==="solana"&&changes.latestAuthorityChange?.tx?cxDeepKV(cxDeepTr("deep_k_latest_authority_tx"),cxDeepValueLink(r.net,changes.latestAuthorityChange.tx)):null,
       changes.observedCount!=null?cxDeepKV(cxDeepTr("deep_k_authority_events"),cxDeepEsc(changes.observedCount)):null
     ];
-    const simRows=[
-      sim.provider?cxDeepKV(cxDeepTr("deep_k_sim_provider"),cxDeepEsc(sim.provider)):null,
-      sim.buyPath?cxDeepKV(cxDeepTr("deep_k_buy_path"),cxDeepEsc(cxDeepStatusWord(sim.buyPath))):null,
-      sim.sellPath?cxDeepKV(cxDeepTr("deep_k_sell_path"),cxDeepEsc(cxDeepStatusWord(sim.sellPath))):null,
-      sim.walletTransfer?cxDeepKV(cxDeepTr("deep_k_wallet_path"),cxDeepEsc(cxDeepStatusWord(sim.walletTransfer))):null,
-      sim.fullSwapSimulation===false?cxDeepKV(cxDeepTr("deep_k_scope"),cxDeepTr("deep_v_sim_scope")):null,
-      sim.reasonCode?cxDeepKV(cxDeepTr("deep_k_sim_coverage"),cxDeepTr(String(sim.reasonCode||"").startsWith("evm_")?"deep_sim_reason_evm":"deep_sim_reason_solana")):sim.reason?cxDeepKV(cxDeepTr("deep_k_sim_coverage"),cxDeepEsc(sim.reason)):null
+    const entityRows=[
+      ent.checkedCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_checked"),cxDeepEsc(ent.checkedCount)):null,
+      ent.classifiedCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_classified"),cxDeepEsc(ent.classifiedCount)):null,
+      ent.classificationCoveragePct!=null?cxDeepKV(cxDeepTr("deep_k_entity_coverage"),cxDeepPct(ent.classificationCoveragePct,0)):null,
+      ent.labeledCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_labels"),cxDeepEsc(ent.labeledCount)):null,
+      ent.semanticLabelCoveragePct!=null?cxDeepKV(cxDeepTr("deep_k_entity_semantic"),cxDeepPct(ent.semanticLabelCoveragePct,0)):null,
+      ent.serviceLikeCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_service"),cxDeepEsc(ent.serviceLikeCount)):null,
+      ...(Array.isArray(ent.entities)?ent.entities.slice(0,8).map(e=>{
+        const role=cxDeepEntityRole(Array.isArray(e?.roles)&&e.roles.length?e.roles[0]:"unknown");
+        const kind=cxDeepEntityKind(e?.kind||"unknown");
+        const addr=cxDeepEsc(cxDeepShort(e?.address,8,6));
+        const label=e?.label?` · ${cxDeepEsc(e.label)}`:"";
+        return cxDeepKV(`${role} · ${kind}`,`${addr}${label}`,true);
+      }):[])
     ];
     const signalCodes=new Set(signals.map(s=>s?.code).filter(Boolean));
     const cov=r?.coverage||{};
@@ -10784,7 +10958,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const walletStatus=sectionStatus("clusters",{review:signalCodes.has("shared_funding_risk"),context:signalCodes.has("shared_funding_context")&&!signalCodes.has("shared_funding_risk")});
     const liqStatus=sectionStatus("liquidity");
     const controlStatus=sectionStatus("controlHistory",{review:signalCodes.has("proxy_upgrade_history")});
-    const simStatus=sectionStatus("simulation",{review:signalCodes.has("simulation_reverted")});
+    const entityStatus=sectionStatus("entityIntelligence");
 
     const marketFound=cov.market==="partial"
       ?cxDeepTr("deep_found_market_partial")
@@ -10812,9 +10986,9 @@ async function qsLiqCheckBasic(net, token, provider) {
       :r.net==="solana"
         ?cxDeepTr("deep_found_control_solana",{authority:changes.authorityChangeCount??changes.adminChangeCount??0})
         :cxDeepTr("deep_found_control",{ownership:changes.ownershipTransferCount??0,upgrades:changes.proxyUpgradeCount??0,admin:changes.adminChangeCount??0});
-    const simFound=cov.simulation==="partial"
-      ?cxDeepTr("deep_found_simulation_partial")
-      :cxDeepTr("deep_found_simulation",{buy:cxDeepStatusWord(sim.buyPath),sell:cxDeepStatusWord(sim.sellPath),wallet:cxDeepStatusWord(sim.walletTransfer)});
+    const entityFound=cov.entityIntelligence==="partial"
+      ?cxDeepTr("deep_found_entity_partial",{classified:ent.classifiedCount??0,checked:ent.checkedCount??0})
+      :cxDeepTr("deep_found_entity",{classified:ent.classifiedCount??0,checked:ent.checkedCount??0,labeled:ent.labeledCount??0});
 
     const previewFor=(status,partialKey,reviewKey=null)=>{
       if(status==="review"&&reviewKey) return cxDeepTr(reviewKey);
@@ -10841,12 +11015,12 @@ async function qsLiqCheckBasic(net, token, provider) {
         ${cxDeepDetail("wallets",cxDeepTr("deep_section_wallets"),clusterRows,{status:walletStatus,preview:walletStatus==="review"||walletStatus==="context"?cxDeepTr("deep_reason_shared_clusters"):walletStatus==="partial"?cxDeepTr("deep_reason_clusters_partial"):"",found:walletFound,why:cxDeepTr("deep_why_wallets"),open:walletStatus==="review"})}
         ${cxDeepDetail("liquidity",cxDeepTr("deep_section_liquidity"),liqRows,{status:liqStatus,preview:previewFor(liqStatus,"deep_reason_liquidity_partial"),found:liqFound,why:cxDeepTr("deep_why_liquidity")})}
         ${cxDeepDetail("control",cxDeepTr("deep_section_control"),changeRows,{status:controlStatus,preview:previewFor(controlStatus,"deep_reason_control_partial","deep_reason_proxy_history"),found:controlFound,why:cxDeepTr("deep_why_control"),open:controlStatus==="review"})}
-        ${cxDeepDetail("simulation",cxDeepTr("deep_section_simulation"),simRows,{status:simStatus,preview:previewFor(simStatus,"deep_reason_simulation_partial","deep_reason_sim_reverted"),found:simFound,why:cxDeepTr("deep_why_simulation"),open:simStatus==="review"})}
+        ${cxDeepDetail("entity",cxDeepTr("deep_section_entity"),entityRows,{status:entityStatus,preview:previewFor(entityStatus,"deep_reason_entity_partial"),found:entityFound,why:cxDeepTr("deep_why_entity")})}
       </div>`;
     host.classList.add("show"); cxDeepApplyCoverage(r);
   }
 
-  const CX_DEEP_STAGE_DETAIL_MAP=Object.freeze({market:"market",identity:"deployer",deployer:"deployer",history:"history",buyers:"launch",clusters:"wallets",liquidity:"liquidity",changes:"control",simulation:"simulation",finalize:"__report"});
+  const CX_DEEP_STAGE_DETAIL_MAP=Object.freeze({market:"market",identity:"deployer",deployer:"deployer",history:"history",buyers:"launch",clusters:"wallets",liquidity:"liquidity",changes:"control",entity:"entity",finalize:"__report"});
   cxDeepEl("cx-deep-stages")?.addEventListener("click",(e)=>{
     const stage=e.target.closest("[data-deep-stage]"); if(!stage) return;
     const key=CX_DEEP_STAGE_DETAIL_MAP[stage.dataset.deepStage]; if(!key) return;
@@ -10949,18 +11123,24 @@ async function qsLiqCheckBasic(net, token, provider) {
 
   async function cxRunDeepScan(rep,{force=false}={}){
     const net=String(rep?.net||"").toLowerCase(), token=String(rep?.token||"").trim(); const valid=net==="solana" ? /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token) : /^0x[a-fA-F0-9]{40}$/.test(token); if(!valid) return;
-    _cxDeepLastRep=rep; if(_cxDeepPrimeTimeout){clearTimeout(_cxDeepPrimeTimeout);_cxDeepPrimeTimeout=null;} if(_cxDeepController){try{_cxDeepController.abort();}catch{}} _cxDeepController=new AbortController();
+    _cxDeepLastRep=rep; if(_cxDeepPrimeTimeout){clearTimeout(_cxDeepPrimeTimeout);_cxDeepPrimeTimeout=null;}
+    const runId=++_cxDeepRunSeq;
+    const controller=new AbortController(); _cxDeepController=controller;
+    let reader=null;
     cxDeepStartClock(); cxDeepClearStages(); cxDeepHideError(); cxDeepSetState("running"); cxDeepBadge(cxDeepTr("deep_badge_analyzing")); cxDeepCurrent(cxDeepTr("deep_status_connecting")); const host=cxDeepEl("cx-deep-results"); if(host){host.classList.remove("show");host.innerHTML="";}
+    const isCurrent=()=>runId===_cxDeepRunSeq;
     try{
-      const res=await fetch(CX_DEEP_URL,{method:"POST",cache:"no-store",credentials:"same-origin",signal:_cxDeepController.signal,headers:{"content-type":"application/json"},body:JSON.stringify({net,token,force,snapshot:cxDeepSnapshot(rep)})});
+      const res=await fetch(CX_DEEP_URL,{method:"POST",cache:"no-store",credentials:"same-origin",signal:controller.signal,headers:{"content-type":"application/json"},body:JSON.stringify({net,token,force,snapshot:cxDeepSnapshot(rep)})});
+      if(!isCurrent()) return null;
       if(!res.ok){ let errCode=""; try{errCode=(await res.json())?.error||"";}catch{} throw new Error(errCode==="rate_limited"?cxDeepTr("deep_error_rate_limited"):cxDeepTr("deep_error_unavailable")); }
       if(!res.body) throw new Error("Streaming response unavailable");
-      const reader=res.body.getReader(), dec=new TextDecoder(); let buf="", finalResult=null;
-      const consume=(line)=>{ if(!line.trim()) return; let evt; try{evt=JSON.parse(line);}catch{return;} if(evt.type==="stage"){ if(evt.id==="cache") cxDeepCurrent(cxDeepTr("deep_status_cache")); else cxDeepHandleStage(evt); } else if(evt.type==="result"&&evt.result){ finalResult=evt.result; cxDeepRenderResult(finalResult); } else if(evt.type==="error") throw new Error(evt.error||cxDeepTr("deep_error_unavailable")); };
-      while(true){ const {value,done}=await reader.read(); if(done) break; buf+=dec.decode(value,{stream:true}); const lines=buf.split("\n"); buf=lines.pop()||""; for(const line of lines) consume(line); }
+      reader=res.body.getReader(); _cxDeepReader=reader; const dec=new TextDecoder(); let buf="", finalResult=null;
+      const consume=(line)=>{ if(!isCurrent()||!line.trim()) return; let evt; try{evt=JSON.parse(line);}catch{return;} if(evt.type==="stage"){ if(evt.id==="cache") cxDeepCurrent(cxDeepTr("deep_status_cache")); else cxDeepHandleStage(evt); } else if(evt.type==="result"&&evt.result){ finalResult=evt.result; cxDeepRenderResult(finalResult); } else if(evt.type==="error") throw new Error(evt.error||cxDeepTr("deep_error_unavailable")); };
+      while(isCurrent()){ const {value,done}=await reader.read(); if(done) break; if(!isCurrent()) return null; buf+=dec.decode(value,{stream:true}); const lines=buf.split("\n"); buf=lines.pop()||""; for(const line of lines) consume(line); }
+      if(!isCurrent()) return null;
       if(buf.trim()) consume(buf); if(!finalResult) throw new Error(cxDeepTr("deep_error_unavailable")); cxDeepStopClock(); cxDeepSetState("done"); cxDeepBadge(cxDeepTr("deep_badge_complete")); cxDeepCurrent(cxDeepVerdictLabel(finalResult?.verdict)); const elapsed=cxDeepEl("cx-deep-elapsed"); if(elapsed) elapsed.textContent=`${(Number(finalResult?.durationMs||0)/1000).toFixed(1)}s`; return finalResult;
-    }catch(e){ if(e?.name==="AbortError") return null; cxDeepStopClock(); cxDeepSetState("error"); cxDeepBadge(cxDeepTr("deep_badge_unavailable")); cxDeepCurrent(cxDeepTr("deep_status_quick_complete_deep_failed")); const msg=String(e?.message||cxDeepTr("deep_error_unavailable")).slice(0,180); cxDeepShowError(`${msg} ${cxDeepTr("deep_error_quick_unaffected")}`); return null; }
-    finally{ _cxDeepController=null; }
+    }catch(e){ if(!isCurrent()||e?.name==="AbortError") return null; cxDeepStopClock(); cxDeepSetState("error"); cxDeepBadge(cxDeepTr("deep_badge_unavailable")); cxDeepCurrent(cxDeepTr("deep_status_quick_complete_deep_failed")); const msg=String(e?.message||cxDeepTr("deep_error_unavailable")).slice(0,180); cxDeepShowError(`${msg} ${cxDeepTr("deep_error_quick_unaffected")}`); return null; }
+    finally{ if(_cxDeepController===controller)_cxDeepController=null; if(_cxDeepReader===reader)_cxDeepReader=null; }
   }
 
   cxDeepEl("cx-deep-rerun")?.addEventListener("click",()=>{ if(_cxDeepLastRep) cxRunDeepScan(_cxDeepLastRep,{force:true}); else { const net=netFromSelect("#qs-net"), token=(cxDeepEl("qs-token")?.value||"").trim(); const valid=net==="solana"?qsIsSolanaAddr(token):qsIsAddr(token); if(valid) cxRunDeepScan({net,token,score:null,meta:{}},{force:true}); else cxDeepShowError(cxDeepTr("deep_error_run_quick_first")); } });
@@ -13273,7 +13453,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     })();
 
     $("#qs-new-scan")?.addEventListener("click", () => {
-      try { if (_cxDeepController) _cxDeepController.abort(); } catch {}
+      try { cxDeepInvalidateActive(); } catch {}
       cxQsSetScanning(false); cxQsSetMode("input"); clearStatus($("#qs-status"));
       const tokenEl=$("#qs-token"), netEl=$("#qs-net"), share=$("#qs-share-menu");
       if (tokenEl) tokenEl.value="";
