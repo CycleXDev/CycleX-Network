@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5122,16 +5121,25 @@ const translations = {
     deep_stage_simulation: "Simulation",
     deep_stage_entity: "Entity intelligence",
     deep_section_entity: "Entity Intelligence",
-    deep_reason_entity_partial: "Some key addresses could not be classified",
+    deep_reason_entity_partial: "Some addresses have structural classification only; semantic identity remains unverified",
     deep_found_entity: "Classified {classified}/{checked} key addresses; {labeled} had known service or protocol labels.",
-    deep_found_entity_partial: "Classified {classified}/{checked} key addresses; some entity context remains unavailable.",
+    deep_found_entity_partial: "Structurally classified {classified}/{checked} key addresses; some semantic entity identity remains unavailable.",
     deep_why_entity: "Entity context reduces false positives by distinguishing ordinary wallets from exchanges, bridges, routers, protocols, liquidity infrastructure and other known services.",
+    deep_why_entity_issuer: "Known issuer context helps interpret administrative powers: regulated tokens can intentionally retain strong controls, but those controls remain real and are still disclosed.",
+    deep_why_entity_incident: "Historical incident context is matched to the exact token address and is kept separate from the token's current on-chain state.",
     deep_k_entity_checked: "Key addresses checked",
     deep_k_entity_classified: "Addresses classified",
     deep_k_entity_coverage: "Classification coverage",
     deep_k_entity_labels: "Known labels",
     deep_k_entity_semantic: "Known-label coverage",
     deep_k_entity_service: "Service / protocol entities",
+    deep_k_entity_semantic_count: "Semantically identified entities",
+    deep_k_incident: "Historical incident context",
+    deep_k_issuer_context: "Known issuer context",
+    deep_possible_unconfirmed: "Possible (not independently confirmed)",
+    deep_v_incident_known: "Known exact-address incident found",
+    deep_sig_incident_title: "Known historical incident",
+    deep_sig_incident_detail: "This exact token address has curated historical incident context. Review the intelligence details before relying on current-state signals alone.",
     deep_entity_role_deployer: "Deployer",
     deep_entity_role_creator: "Creator",
     deep_entity_role_deployer_funder: "Deployer funder",
@@ -5707,16 +5715,25 @@ const translations = {
     deep_stage_simulation: "模拟",
     deep_stage_entity: "实体情报",
     deep_section_entity: "实体情报",
-    deep_reason_entity_partial: "部分关键地址无法完成分类",
+    deep_reason_entity_partial: "部分地址仅完成结构分类；语义实体身份仍未验证",
     deep_found_entity: "已分类 {classified}/{checked} 个关键地址；其中 {labeled} 个具有已知服务或协议标签。",
-    deep_found_entity_partial: "已分类 {classified}/{checked} 个关键地址；部分实体背景仍不可用。",
+    deep_found_entity_partial: "已对 {classified}/{checked} 个关键地址完成结构分类；部分语义实体身份仍不可用。",
     deep_why_entity: "实体背景可区分普通钱包、交易所、跨链桥、路由器、协议、流动性基础设施和其他已知服务，从而减少误报。",
+    deep_why_entity_issuer: "已知发行方背景有助于解释管理权限：受监管代币可能会有意保留较强控制权，但这些权限仍然真实存在并会继续披露。",
+    deep_why_entity_incident: "历史事件背景按精确代币地址匹配，并与代币当前链上状态分开呈现。",
     deep_k_entity_checked: "已检查关键地址",
     deep_k_entity_classified: "已分类地址",
     deep_k_entity_coverage: "分类覆盖率",
     deep_k_entity_labels: "已知标签",
     deep_k_entity_semantic: "已知标签覆盖率",
     deep_k_entity_service: "服务 / 协议实体",
+    deep_k_entity_semantic_count: "已识别语义实体",
+    deep_k_incident: "历史事件背景",
+    deep_k_issuer_context: "已知发行方背景",
+    deep_possible_unconfirmed: "可能存在（尚未独立确认）",
+    deep_v_incident_known: "发现与该精确地址相关的已知事件",
+    deep_sig_incident_title: "已知历史事件",
+    deep_sig_incident_detail: "该精确代币地址存在经过整理的历史事件背景。请结合情报详情，不要只依赖当前状态信号。",
     deep_entity_role_deployer: "部署者",
     deep_entity_role_creator: "创建者",
     deep_entity_role_deployer_funder: "部署者资金来源",
@@ -6292,16 +6309,25 @@ const translations = {
     deep_stage_simulation: "المحاكاة",
     deep_stage_entity: "ذكاء الكيانات",
     deep_section_entity: "ذكاء الكيانات",
-    deep_reason_entity_partial: "تعذّر تصنيف بعض العناوين الرئيسية",
+    deep_reason_entity_partial: "تم تصنيف بعض العناوين هيكلياً فقط؛ ولا تزال الهوية الدلالية غير مؤكدة",
     deep_found_entity: "تم تصنيف {classified} من أصل {checked} عناوين رئيسية؛ وكان لدى {labeled} منها تصنيفات معروفة لخدمات أو بروتوكولات.",
-    deep_found_entity_partial: "تم تصنيف {classified} من أصل {checked} عناوين رئيسية؛ وما زال بعض سياق الكيانات غير متاح.",
+    deep_found_entity_partial: "تم التصنيف الهيكلي لـ {classified} من أصل {checked} عناوين رئيسية؛ ولا تزال بعض هويات الكيانات الدلالية غير متاحة.",
     deep_why_entity: "يساعد سياق الكيانات على تقليل الإشارات الخاطئة عبر التمييز بين المحافظ العادية والمنصات والجسور والموجّهات والبروتوكولات وبنية السيولة والخدمات المعروفة الأخرى.",
+    deep_why_entity_issuer: "يساعد سياق الجهة المُصدرة المعروفة على تفسير الصلاحيات الإدارية: قد تحتفظ الرموز المنظمة عمداً بضوابط قوية، لكن هذه الصلاحيات حقيقية وتظل معروضة بوضوح.",
+    deep_why_entity_incident: "تتم مطابقة سياق الحوادث التاريخية مع عنوان الرمز نفسه، ويُعرض منفصلاً عن حالته الحالية على السلسلة.",
     deep_k_entity_checked: "العناوين الرئيسية المفحوصة",
     deep_k_entity_classified: "العناوين المصنفة",
     deep_k_entity_coverage: "تغطية التصنيف",
     deep_k_entity_labels: "التصنيفات المعروفة",
     deep_k_entity_semantic: "تغطية التصنيفات المعروفة",
     deep_k_entity_service: "كيانات خدمات / بروتوكولات",
+    deep_k_entity_semantic_count: "كيانات تم التعرف عليها دلالياً",
+    deep_k_incident: "سياق حادثة تاريخية",
+    deep_k_issuer_context: "سياق جهة الإصدار المعروفة",
+    deep_possible_unconfirmed: "محتمل (غير مؤكد بشكل مستقل)",
+    deep_v_incident_known: "تم العثور على حادثة معروفة مرتبطة بالعنوان نفسه",
+    deep_sig_incident_title: "حادثة تاريخية معروفة",
+    deep_sig_incident_detail: "يرتبط عنوان هذا الرمز نفسه بسياق حادثة تاريخية موثقة. راجع تفاصيل الاستخبارات ولا تعتمد على إشارات الحالة الحالية وحدها.",
     deep_entity_role_deployer: "الناشر",
     deep_entity_role_creator: "المنشئ",
     deep_entity_role_deployer_funder: "مموّل الناشر",
@@ -6877,16 +6903,25 @@ const translations = {
     deep_stage_simulation: "Симуляция",
     deep_stage_entity: "Аналитика сущностей",
     deep_section_entity: "Аналитика сущностей",
-    deep_reason_entity_partial: "Некоторые ключевые адреса не удалось классифицировать",
+    deep_reason_entity_partial: "Для части адресов определён только структурный тип; семантическая сущность не подтверждена",
     deep_found_entity: "Классифицировано {classified} из {checked} ключевых адресов; у {labeled} есть известные метки сервисов или протоколов.",
-    deep_found_entity_partial: "Классифицировано {classified} из {checked} ключевых адресов; часть контекста сущностей недоступна.",
+    deep_found_entity_partial: "Структурно классифицировано {classified} из {checked} ключевых адресов; часть семантической идентификации сущностей недоступна.",
     deep_why_entity: "Контекст сущностей снижает ложные срабатывания, отличая обычные кошельки от бирж, мостов, роутеров, протоколов, инфраструктуры ликвидности и других известных сервисов.",
+    deep_why_entity_issuer: "Контекст известного эмитента помогает интерпретировать административные полномочия: регулируемые токены могут намеренно сохранять сильные права управления, но эти права реальны и всё равно раскрываются.",
+    deep_why_entity_incident: "Контекст исторического инцидента сопоставляется с точным адресом токена и показывается отдельно от его текущего ончейн-состояния.",
     deep_k_entity_checked: "Проверено ключевых адресов",
     deep_k_entity_classified: "Классифицировано адресов",
     deep_k_entity_coverage: "Покрытие классификации",
     deep_k_entity_labels: "Известные метки",
     deep_k_entity_semantic: "Покрытие известных меток",
     deep_k_entity_service: "Сервисные / протокольные сущности",
+    deep_k_entity_semantic_count: "Семантически идентифицированные сущности",
+    deep_k_incident: "Контекст исторического инцидента",
+    deep_k_issuer_context: "Контекст известного эмитента",
+    deep_possible_unconfirmed: "Возможно (не подтверждено независимо)",
+    deep_v_incident_known: "Найден известный инцидент для точного адреса",
+    deep_sig_incident_title: "Известный исторический инцидент",
+    deep_sig_incident_detail: "Для этого точного адреса токена найден проверяемый исторический контекст инцидента. Учитывайте детали отчета, а не только текущее состояние.",
     deep_entity_role_deployer: "Деплоер",
     deep_entity_role_creator: "Создатель",
     deep_entity_role_deployer_funder: "Источник средств деплоера",
@@ -7991,7 +8026,7 @@ function initPanels() {
 (function () {
   "use strict";
 
-  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v4_entity6";
+  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v5_precision7";
   const QS_LS_HISTORY  = "cx_sec_qs_history_safe_v6";
   const QS_LS_API_KEYS = "cx_sec_explorer_keys";
 
@@ -8158,7 +8193,7 @@ function initPanels() {
   // CycleX Scan Archive — website bridge.
   // Fire-and-forget only: never blocks Quick Scan, Deep Intelligence, or UI.
   // The browser sends ONLY {chain, token}; all scoring/tracking remains server-side.
-  const CX_ARCHIVE_INGEST_URL = "https://ingest.cyclex.network/ingest/web";
+  const CX_ARCHIVE_INGEST_URL = "https://cyclex-ingest.cyclexdev.workers.dev/ingest/web";
   function cxArchiveWebPing(net, token){
     try {
       const chain = String(net || "").toLowerCase();
@@ -8550,7 +8585,7 @@ function initPanels() {
   function qsCacheKey(net, token, useApis){
     // Keep Solana's existing holder schema. EVM gets a new suffix so a cached
     // pre-wallet-classification report cannot hide the holder upgrade for 10m.
-    const holderSchema = net === "solana" ? ":holders-v3" : ":evm-holders-v31-wrapfix1";
+    const holderSchema = net === "solana" ? ":holders-v4-deep7" : ":evm-holders-v32-precision";
     return `${net}:${qsLower(token)}:${useApis ? 1 : 0}${holderSchema}`;
   }
   function addQsHistory(net, token){
@@ -9289,19 +9324,20 @@ async function qsLiqCheckBasic(net, token, provider) {
     try {
       const rawAddr = String(token || "").trim();
       const addr = (net === "solana") ? rawAddr : qsLower(rawAddr);
-      if (!addr) return { listed: false, exchanges: [] };
+      if (!addr) return { status:"unavailable", listed:false, exchanges:[] };
       const ctrl = new AbortController();
       const tmr = setTimeout(() => ctrl.abort(), 8000);
       try {
-        const res = await fetch(`/api/deep-scan/market-meta?net=${encodeURIComponent(net)}&token=${encodeURIComponent(addr)}`, { signal: ctrl.signal, cache:"no-store", credentials:"same-origin" });
+        const res = await fetch(`/api/deep-scan/market-meta?net=${encodeURIComponent(net)}&token=${encodeURIComponent(addr)}`, { signal:ctrl.signal, cache:"no-store", credentials:"same-origin" });
         if (!res.ok) {
           if (res.status >= 500) console.warn("CycleX market-meta lookup failed, status:", res.status);
-          return { listed: false, exchanges: [] };
+          return { status:"unavailable", listed:false, exchanges:[] };
         }
         const j = await res.json().catch(()=>null);
-        if (!j || j.error) return { listed: false, exchanges: [] };
+        if (!j || j.error) return { status:"unavailable", listed:false, exchanges:[] };
+        const status = ["listed","not_found","unavailable"].includes(String(j.status||"")) ? String(j.status) : (j.listed===true?"listed":j.notFound===true?"not_found":"unavailable");
         return {
-          listed: j.listed === true,
+          status, listed: status === "listed",
           exchanges: Array.isArray(j.exchanges) ? j.exchanges : [],
           totalVolume24hUsd: Number.isFinite(Number(j.totalVolume24hUsd)) ? Number(j.totalVolume24hUsd) : null,
           circulatingSupplyReal: Number.isFinite(Number(j.circulatingSupplyReal)) ? Number(j.circulatingSupplyReal) : null,
@@ -9310,8 +9346,21 @@ async function qsLiqCheckBasic(net, token, provider) {
       } finally { clearTimeout(tmr); }
     } catch (e) {
       if (e?.name !== "AbortError") console.warn("CycleX market-meta lookup unavailable:", e?.message || e);
-      return { listed: false, exchanges: [] };
+      return { status:"unavailable", listed:false, exchanges:[] };
     }
+  }
+
+  // Server-side verified-source/ABI check. Runs in parallel with the normal Quick
+  // providers and is cached by the Deep worker, so the subsequent Deep Scan reuses it.
+  async function qsFetchEvmControlMeta(net, token) {
+    if (net === "solana") return null;
+    try {
+      const ctrl=new AbortController(),tmr=setTimeout(()=>ctrl.abort(),8500);
+      try{
+        const res=await fetch(`/api/deep-scan/control-meta?net=${encodeURIComponent(net)}&token=${encodeURIComponent(token)}`,{signal:ctrl.signal,cache:"no-store",credentials:"same-origin"});
+        if(!res.ok)return null;const j=await res.json().catch(()=>null);return j&&!j.error?j:null;
+      }finally{clearTimeout(tmr);}
+    }catch{return null;}
   }
 
   const QS_CGK_IDS = {
@@ -10801,7 +10850,8 @@ async function qsLiqCheckBasic(net, token, provider) {
       lp_burn_strong:["deep_sig_lp_burn_title","deep_sig_lp_burn_detail",{pct:p.pct}],
       lp_lock_high:["deep_sig_lp_lock_title","deep_sig_lp_lock_detail",{pct:p.pct}],
       proxy_upgrade_history:["deep_sig_proxy_title","deep_sig_proxy_detail",{count:p.count}],
-      simulation_reverted:["deep_sig_sim_revert_title","deep_sig_sim_revert_detail",{path}]
+      simulation_reverted:["deep_sig_sim_revert_title","deep_sig_sim_revert_detail",{path}],
+      known_historical_incident:["deep_sig_incident_title","deep_sig_incident_detail",{}]
     };
     const x=map[s?.code]; if(x) return {title:cxDeepTr(x[0],x[2]),detail:cxDeepTr(x[1],x[2])};
     return {title:s?.title||cxDeepTr("deep_signal_default"),detail:s?.detail||""};
@@ -10911,7 +10961,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       r.net!=="solana"&&cc?.ownerAddress?cxDeepKV(cxDeepTr("deep_k_owner_current"),`${cc.ownerRenounced?cxDeepTr("deep_none"):cxDeepEsc(cxDeepShort(cc.ownerAddress,8,6))}`):null,
       r.net!=="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_proxy_current"),boolValue(cc.proxyDetected)):null,
       r.net!=="solana"&&cc?.implementationAddress?cxDeepKV(cxDeepTr("deep_k_implementation"),cxDeepEsc(cxDeepShort(cc.implementationAddress,8,6)),true):null,
-      r.net!=="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_mint_current"),boolValue(cc.mintDetected)):null,
+      r.net!=="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_mint_current"),cc.mintConfirmed===true?boolValue(true):cc.mintPossible===true?cxDeepTr("deep_possible_unconfirmed"):boolValue(cc.mintDetected)):null,
       r.net!=="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_pause_current"),cc.pauseActive===true?cxDeepTr("deep_active"):cc.pauseDetected===true?cxDeepTr("deep_available"):cc.pauseDetected===false?cxDeepTr("deep_none"):cxDeepTr("deep_unknown")):null,
       r.net!=="solana"&&cc?.sourceVerified!=null?cxDeepKV(cxDeepTr("deep_k_source_verified"),boolValue(cc.sourceVerified)):null,
       r.net==="solana"&&cc?.tokenProgram?cxDeepKV(cxDeepTr("deep_k_token_program"),cxDeepEsc(cc.tokenProgram)):null,
@@ -10935,14 +10985,16 @@ async function qsLiqCheckBasic(net, token, provider) {
     ];
     const entityRows=[
       ent.checkedCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_checked"),cxDeepEsc(ent.checkedCount)):null,
-      ent.classifiedCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_classified"),cxDeepEsc(ent.classifiedCount)):null,
+      (ent.structuralClassifiedCount??ent.classifiedCount)!=null?cxDeepKV(cxDeepTr("deep_k_entity_classified"),cxDeepEsc(ent.structuralClassifiedCount??ent.classifiedCount)):null,
       ent.classificationCoveragePct!=null?cxDeepKV(cxDeepTr("deep_k_entity_coverage"),cxDeepPct(ent.classificationCoveragePct,0)):null,
-      ent.labeledCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_labels"),cxDeepEsc(ent.labeledCount)):null,
+      ent.semanticIdentifiedCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_semantic_count"),cxDeepEsc(ent.semanticIdentifiedCount)):null,
       ent.semanticLabelCoveragePct!=null?cxDeepKV(cxDeepTr("deep_k_entity_semantic"),cxDeepPct(ent.semanticLabelCoveragePct,0)):null,
       ent.serviceLikeCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_service"),cxDeepEsc(ent.serviceLikeCount)):null,
+      reputation?.knownIncident?cxDeepKV(cxDeepTr("deep_k_incident"),cxDeepTr("deep_v_incident_known")):null,
+      reputation?.knownIssuer?cxDeepKV(cxDeepTr("deep_k_issuer_context"),`${cxDeepEsc(reputation.issuer||cxDeepTr("deep_unknown"))}${reputation.category?` · ${cxDeepEsc(reputation.category)}`:""}`):null,
       ...(Array.isArray(ent.entities)?ent.entities.slice(0,8).map(e=>{
         const role=cxDeepEntityRole(Array.isArray(e?.roles)&&e.roles.length?e.roles[0]:"unknown");
-        const kind=cxDeepEntityKind(e?.kind||"unknown");
+        const kind=cxDeepEntityKind(e?.semanticIdentified ? (e?.semanticKind||e?.kind||"unknown") : (e?.structuralKind||e?.kind||"unknown"));
         const addr=cxDeepEsc(cxDeepShort(e?.address,8,6));
         const label=e?.label?` · ${cxDeepEsc(e.label)}`:"";
         return cxDeepKV(`${role} · ${kind}`,`${addr}${label}`,true);
@@ -10959,7 +11011,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const walletStatus=sectionStatus("clusters",{review:signalCodes.has("shared_funding_risk"),context:signalCodes.has("shared_funding_context")&&!signalCodes.has("shared_funding_risk")});
     const liqStatus=sectionStatus("liquidity");
     const controlStatus=sectionStatus("controlHistory",{review:signalCodes.has("proxy_upgrade_history")});
-    const entityStatus=sectionStatus("entityIntelligence");
+    const entityStatus=sectionStatus("entityIntelligence",{review:signalCodes.has("known_historical_incident")});
 
     const marketFound=cov.market==="partial"
       ?cxDeepTr("deep_found_market_partial")
@@ -10990,6 +11042,11 @@ async function qsLiqCheckBasic(net, token, provider) {
     const entityFound=cov.entityIntelligence==="partial"
       ?cxDeepTr("deep_found_entity_partial",{classified:ent.classifiedCount??0,checked:ent.checkedCount??0})
       :cxDeepTr("deep_found_entity",{classified:ent.classifiedCount??0,checked:ent.checkedCount??0,labeled:ent.labeledCount??0});
+    const entityWhy=reputation?.knownIncident
+      ?cxDeepTr("deep_why_entity_incident")
+      :reputation?.knownIssuer
+        ?cxDeepTr("deep_why_entity_issuer")
+        :cxDeepTr("deep_why_entity");
 
     const previewFor=(status,partialKey,reviewKey=null)=>{
       if(status==="review"&&reviewKey) return cxDeepTr(reviewKey);
@@ -11016,7 +11073,7 @@ async function qsLiqCheckBasic(net, token, provider) {
         ${cxDeepDetail("wallets",cxDeepTr("deep_section_wallets"),clusterRows,{status:walletStatus,preview:walletStatus==="review"||walletStatus==="context"?cxDeepTr("deep_reason_shared_clusters"):walletStatus==="partial"?cxDeepTr("deep_reason_clusters_partial"):"",found:walletFound,why:cxDeepTr("deep_why_wallets"),open:walletStatus==="review"})}
         ${cxDeepDetail("liquidity",cxDeepTr("deep_section_liquidity"),liqRows,{status:liqStatus,preview:previewFor(liqStatus,"deep_reason_liquidity_partial"),found:liqFound,why:cxDeepTr("deep_why_liquidity")})}
         ${cxDeepDetail("control",cxDeepTr("deep_section_control"),changeRows,{status:controlStatus,preview:previewFor(controlStatus,"deep_reason_control_partial","deep_reason_proxy_history"),found:controlFound,why:cxDeepTr("deep_why_control"),open:controlStatus==="review"})}
-        ${cxDeepDetail("entity",cxDeepTr("deep_section_entity"),entityRows,{status:entityStatus,preview:previewFor(entityStatus,"deep_reason_entity_partial"),found:entityFound,why:cxDeepTr("deep_why_entity")})}
+        ${cxDeepDetail("entity",cxDeepTr("deep_section_entity"),entityRows,{status:entityStatus,preview:previewFor(entityStatus,"deep_reason_entity_partial"),found:entityFound,why:entityWhy})}
       </div>`;
     host.classList.add("show"); cxDeepApplyCoverage(r);
   }
@@ -11450,7 +11507,7 @@ async function qsLiqCheckBasic(net, token, provider) {
 
     const explorerKey = (typeof qsExplorerKeyFor === "function") ? qsExplorerKeyFor(net)?.key : null;
     const [
-      cexSettled, priceSettled, ageSettled, holderSettled, goplusSettled, dexscreenerSettled, geckoterminalSettled, gtInfoSettled
+      cexSettled, priceSettled, ageSettled, holderSettled, goplusSettled, dexscreenerSettled, geckoterminalSettled, gtInfoSettled, controlSettled
     ] = await Promise.allSettled([
       qsFetchCexListing(net, token),
       qsFetchNativePrice(net),
@@ -11459,11 +11516,11 @@ async function qsLiqCheckBasic(net, token, provider) {
       qsFetchGoPlus(net, token),
       qsFetchDexScreener(net, token),
       qsFetchGeckoTerminal(net, token),
-      // ✅ NEW: real circulating supply, wider coverage than CoinGecko alone.
-      qsFetchGeckoTerminalTokenInfo(net, token)
+      qsFetchGeckoTerminalTokenInfo(net, token),
+      qsFetchEvmControlMeta(net, token)
     ]);
 
-    const cexResult         = cexSettled.status         === "fulfilled" ? (cexSettled.value         || { listed: false, exchanges: [] }) : { listed: false, exchanges: [] };
+    const cexResult         = cexSettled.status         === "fulfilled" ? (cexSettled.value         || { status:"unavailable", listed:false, exchanges:[] }) : { status:"unavailable", listed:false, exchanges:[] };
     const livePrice         = priceSettled.status       === "fulfilled" ? priceSettled.value         : null;
     const contractAge       = ageSettled.status         === "fulfilled" ? ageSettled.value           : null;
     const explorerHolderCount = holderSettled.status    === "fulfilled" ? holderSettled.value        : null;
@@ -11471,6 +11528,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const dexscreener       = dexscreenerSettled.status === "fulfilled" ? dexscreenerSettled.value   : null;
     const geckoterminal     = geckoterminalSettled.status === "fulfilled" ? geckoterminalSettled.value : null;
     const gtInfo            = gtInfoSettled.status      === "fulfilled" ? gtInfoSettled.value        : null;
+    const controlMeta       = controlSettled.status     === "fulfilled" ? controlSettled.value       : null;
 
     let newEvmMarketAgg = null;
     if (QS_NEW_EVM_MARKET_NETS.has(net)) {
@@ -11629,6 +11687,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       }
     } catch {}
 
+    rep.meta.cexStatus      = cexResult.status || (cexResult.listed ? "listed" : "unavailable");
     rep.meta.cexListed      = cexResult.listed;
     rep.meta.cexExchanges   = cexResult.exchanges;
     rep.meta.cexVolume24hUsd = cexResult.totalVolume24hUsd ?? null;
@@ -11656,8 +11715,8 @@ async function qsLiqCheckBasic(net, token, provider) {
     // key isn't configured, so downstream "holders" checks can use it.
     if (rep.meta.holderCount == null && goplus?.holderCount != null) rep.meta.holderCount = goplus.holderCount;
 
-    let impl = await tryEip1967Impl(net, token);
-    let isProxy = !!impl;
+    let impl = (controlMeta?.implementationAddress && /^0x[a-fA-F0-9]{40}$/.test(controlMeta.implementationAddress)) ? controlMeta.implementationAddress : await tryEip1967Impl(net, token);
+    let isProxy = controlMeta?.proxyDetected === true || !!impl;
 
     const owner = await tryReadOwner(net, token);
     const ownerIsRenounced = owner && DEAD_ADDRESSES.has(qsLower(owner));
@@ -11709,47 +11768,54 @@ async function qsLiqCheckBasic(net, token, provider) {
       } catch {}
     }
 
-    const pausedState = await tryReadPaused(net, token);
+    const pausedStateLocal = await tryReadPaused(net, token);
+    const pausedState = typeof controlMeta?.pauseActive === "boolean" ? controlMeta.pauseActive : pausedStateLocal;
     const pauseProxyDetected = anySelector(code, SEL.pause) || anySelector(code, SEL.unpause) || anySelector(code, SEL.paused);
     const pauseImplementationDetected = !!impl && implementationCode && implementationCode !== "0x" &&
       (anySelector(implementationCode, SEL.pause) || anySelector(implementationCode, SEL.unpause) || anySelector(implementationCode, SEL.paused));
-    const pauseDetected = (pausedState !== null) || pauseProxyDetected || pauseImplementationDetected;
+    const pauseBytecodePossible = pauseProxyDetected || pauseImplementationDetected;
+    const pauseConfirmed = controlMeta?.pauseConfirmed === true;
+    const pauseAbi = typeof controlMeta?.pauseAbi === "boolean" ? controlMeta.pauseAbi : null;
+    const pausePossible = !pauseConfirmed && (controlMeta?.pausePossible === true || pauseBytecodePossible);
+    const pauseDetected = pausedState !== null || pauseConfirmed || pausePossible;
     const pauseText = pausedState === true
       ? "⚠️ Currently paused"
-      : pauseDetected
-        ? (pauseImplementationDetected && !pauseProxyDetected ? "Pausable via implementation (not active now)" : "Pausable (not active now)")
-        : "No pause function found";
+      : pauseConfirmed
+        ? "Pausable — confirmed by verified source/ABI (not active now)"
+        : (controlMeta?.abiVerified === true && pauseAbi === false && pausePossible)
+          ? "Possible selector match; not exposed in verified ABI"
+          : pausePossible
+            ? "Possibly pausable (selector/source not fully verified)"
+            : "No pause function found";
+    const pauseType = pausedState === true ? "bad" : pauseConfirmed ? "warn" : pausePossible ? "warn" : "ok";
 
     const mintProxyBytecodeDetected = anySelector(code, SEL.mint);
     const mintImplementationBytecodeDetected = !!impl && implementationCode && implementationCode !== "0x" && anySelector(implementationCode, SEL.mint);
     const mintBytecodeDetected = mintProxyBytecodeDetected || mintImplementationBytecodeDetected;
-    const mintDetected = mintBytecodeDetected || goplus?.isMintableFlag === true;
+    const mintAbi = typeof controlMeta?.mintAbi === "boolean" ? controlMeta.mintAbi : null;
+    const mintConfirmed = controlMeta?.mintConfirmed === true;
+    const mintPossible = !mintConfirmed && (controlMeta?.mintPossible === true || mintBytecodeDetected);
+    const mintProviderOnly = !mintConfirmed && !mintPossible && goplus?.isMintableFlag === true;
+    const mintDetected = mintConfirmed || mintPossible || mintProviderOnly;
 
-    // Canonical wrapped-native tokens (WETH/WBNB/WAVAX/etc.) legitimately
-    // create wrapped supply when native coins are deposited. A provider-only
-    // "mintable" flag is therefore not equivalent to an arbitrary admin mint.
-    // We suppress ONLY provider-only mint warnings for the exact canonical
-    // wrapped address configured for this chain. Real bytecode/implementation
-    // mint selectors are never suppressed. The protected engine independently
-    // verifies the same address rule before changing scoring.
     const isCanonicalWrappedNative = qsLower(token) === qsLower(QS_NET?.[net]?.wrapped || "");
-    const wrappedNativeProviderMintExpected = !!(
-      isCanonicalWrappedNative &&
-      !mintBytecodeDetected &&
-      goplus?.isMintableFlag === true
-    );
+    const wrappedNativeProviderMintExpected = !!(isCanonicalWrappedNative && mintProviderOnly);
     const mintRiskDetected = mintDetected && !wrappedNativeProviderMintExpected;
-
+    const mintConfidence = mintConfirmed ? "confirmed" : mintPossible ? "possible" : mintProviderOnly ? "provider" : "none";
     const mintText = wrappedNativeProviderMintExpected
       ? "Native wrapping behavior (expected for canonical wrapped token)"
-      : mintImplementationBytecodeDetected && !mintProxyBytecodeDetected
-        ? "Detected in implementation"
-        : mintBytecodeDetected
-          ? "Detected"
-          : (goplus?.isMintableFlag === true
-            ? (goplus?.b20?.mintable ? "Possibly (GoPlus B20; not found in bytecode)" : "Possibly (flagged by GoPlus only — not found in bytecode)")
-            : "Not detected");
-    const mintOnChain = wrappedNativeProviderMintExpected ? false : (mintBytecodeDetected || goplus?.isMintableFlag !== true);
+      : mintConfirmed
+        ? "Confirmed by verified source / ABI"
+        : (controlMeta?.abiVerified === true && mintAbi === false && mintPossible)
+          ? "Possible selector match; not exposed in verified ABI"
+          : mintPossible
+            ? (mintImplementationBytecodeDetected && !mintProxyBytecodeDetected ? "Possible in implementation (bytecode selector; unverified)" : "Possible (bytecode selector; unverified)")
+            : mintProviderOnly
+              ? (goplus?.b20?.mintable ? "Provider-reported (GoPlus B20; not independently confirmed)" : "Provider-reported (GoPlus; not independently confirmed)")
+              : "Not detected";
+    const mintType = mintConfirmed ? "bad" : mintRiskDetected ? "warn" : "ok";
+    const mintOnChain = !wrappedNativeProviderMintExpected && (mintConfirmed || mintPossible || !mintProviderOnly);
+
 
     // Raw supply observations only. The chain-local/global decision and
     // circulating-supply sanity rule are evaluated inside the protected engine.
@@ -11762,7 +11828,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const cgCirculating = Number(cexResult?.circulatingSupplyReal);
     const gtCirculating = Number(gtInfo?.circulatingSupplyReal);
 
-    let verified = null;
+    let verified = controlMeta?.sourceVerified === true ? true : controlMeta?.sourceVerified === false ? false : null;
     let blockscoutProfile = null;
     if (QS_BLOCKSCOUT_V2[net]) {
       blockscoutProfile = await qsFetchBlockscoutProfile(net, token);
@@ -11848,15 +11914,28 @@ async function qsLiqCheckBasic(net, token, provider) {
       sampleWalletAddresses: Array.isArray(evmHolderAnalysis?.sampleWalletAddresses) ? evmHolderAnalysis.sampleWalletAddresses.slice(0,5) : []
     } : null;
 
-    const cexListed = !!rep.meta?.cexListed;
+    const cexStatus = rep.meta?.cexStatus || "unavailable";
+    const cexListed = cexStatus === "listed";
     const liquidityUsdForScore = Number(rep?.meta?.liquidityUsdEst);
     const dsMarket = rep?.meta?.dexscreener || null;
 
-    const mintSource = mintImplementationBytecodeDetected && !mintProxyBytecodeDetected
-      ? "implementation"
-      : mintBytecodeDetected
-        ? "bytecode"
+    const mintSource = mintConfirmed
+      ? "verified_abi"
+      : mintPossible
+        ? (mintImplementationBytecodeDetected && !mintProxyBytecodeDetected ? "implementation" : "bytecode")
         : (goplus?.b20?.mintable ? "goplus_b20" : (goplus?.isMintableFlag === true ? "goplus" : null));
+    const controlEvidence = {
+      abiVerified: controlMeta?.abiVerified === true,
+      mintAbi: typeof controlMeta?.mintAbi === "boolean" ? controlMeta.mintAbi : null,
+      mintConfirmed: mintConfirmed === true,
+      mintPossible: mintPossible === true,
+      pauseAbi: typeof controlMeta?.pauseAbi === "boolean" ? controlMeta.pauseAbi : null,
+      pauseConfirmed: pauseConfirmed === true,
+      pausePossible: pausePossible === true,
+      blacklistAbi: typeof controlMeta?.blacklistAbi === "boolean" ? controlMeta.blacklistAbi : null,
+      tradingParamsAbi: typeof controlMeta?.tradingParamsAbi === "boolean" ? controlMeta.tradingParamsAbi : null,
+      sourceProvider: controlMeta?.sourceProvider || null
+    };
 
     let secureEval;
     try {
@@ -11867,8 +11946,11 @@ async function qsLiqCheckBasic(net, token, provider) {
         devHoldingPct,
         hasLiquidity: !!rep.liq?.any,
         cexListed,
-        mintDetected,
+        cexStatus,
+        mintDetected: !!mintRiskDetected,
+        mintConfidence,
         mintSource,
+        controlEvidence,
         network: net,
         tokenAddress: token,
         pausedState,
@@ -12002,10 +12084,20 @@ async function qsLiqCheckBasic(net, token, provider) {
         proxyDetected: !!isProxy,
         implementationAddress: impl || null,
         mintDetected: !!mintRiskDetected,
+        mintConfirmed: mintConfirmed === true,
+        mintPossible: mintPossible === true,
+        mintAbi: typeof controlMeta?.mintAbi === "boolean" ? controlMeta.mintAbi : null,
         mintSource: mintSource || null,
         pauseDetected: !!pauseDetected,
+        pauseConfirmed: pauseConfirmed === true,
+        pausePossible: pausePossible === true,
+        pauseAbi: typeof controlMeta?.pauseAbi === "boolean" ? controlMeta.pauseAbi : null,
         pauseActive: pausedState === true ? true : pausedState === false ? false : null,
-        sourceVerified: verified === true ? true : verified === false ? false : null
+        blacklistAbi: typeof controlMeta?.blacklistAbi === "boolean" ? controlMeta.blacklistAbi : null,
+        tradingParamsAbi: typeof controlMeta?.tradingParamsAbi === "boolean" ? controlMeta.tradingParamsAbi : null,
+        abiVerified: controlMeta?.abiVerified === true,
+        sourceVerified: verified === true ? true : verified === false ? false : null,
+        evidenceSource: controlMeta ? "deep-control-meta" : "quick-scan"
       },
       evmLiquidity: {
         v2PairAddress: gpV2Pair || (!gpOnlyConcentrated ? lpAddr : null),
@@ -12131,7 +12223,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       // ✅ FIX: onChain flag set per the mintOnChain rule above — true for
       // both "Detected" (bytecode) and "Not detected" (bytecode searched,
       // found nothing), false for the GoPlus-only "Possibly" case.
-      { type: mintRiskDetected ? "bad" : "ok", title: "Mint", value: mintText, onChain: mintOnChain },
+      { type: mintType, title: "Mint", value: mintText, onChain: mintOnChain },
       // ✅ FIX (real bug, not just wording): type was HARDCODED to "ok"
       // (green) regardless of pauseText's actual content — a token that IS
       // currently paused would still show a green dot next to "Detected
@@ -12139,14 +12231,15 @@ async function qsLiqCheckBasic(net, token, provider) {
       // warn when merely pausable, ok only when no pause capability exists
       // at all. Always on-chain — bytecode selectors + a live paused()
       // eth_call, no API dependency.
-      { type: pausedState === true ? "bad" : pauseDetected ? "warn" : "ok", title: "Pause", value: pauseText, onChain: true },
+      { type: pauseType, title: "Pause", value: pauseText, onChain: true },
       {
         type: cexListed ? "ok" : "warn",
         title: "CEX Listed",
-        // ✅ NEW: show 24h CEX volume when available, not just yes/no.
         value: cexListed
           ? `${rep.meta?.cexExchanges?.length ? rep.meta.cexExchanges.slice(0,3).join(", ") : "Yes"}${rep.meta?.cexVolume24hUsd ? ` (~$${Math.round(rep.meta.cexVolume24hUsd).toLocaleString()}/24h)` : ""}`
-          : "Not found in tracked sources"
+          : cexStatus === "unavailable"
+            ? "Provider unavailable — listing status not confirmed"
+            : "Not found in tracked CEX sources"
       },
       // ✅ NEW: onChain:true — real deployment block timestamp (explorer's
       // txHash → eth_getTransactionByHash → eth_getBlockByNumber), a
@@ -12483,6 +12576,7 @@ async function qsLiqCheckBasic(net, token, provider) {
         hasDexScreener: !!ds,
         hasGeckoTerminal: !!gt,
         cexListed: !!cex?.listed,
+        cexStatus: cex?.status || (cex?.listed ? "listed" : "unavailable"),
         holdersKnown: !!effHoldersKnown,
         // v3: raw token-account concentration is context only. Strong holder
         // penalties use wallet fields only when backend classification is reliable.
@@ -12563,6 +12657,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     rep.overallText = overallText;
     rep.meta.contractScore = contractScore;
     rep.meta.marketScore = marketScore;
+    rep.meta.cexStatus = cex?.status || (cex?.listed ? "listed" : "unavailable");
     rep.meta.cexListed = !!cex?.listed;
     rep.meta.cexExchanges = cex?.exchanges || [];
     rep.meta.cexVolume24hUsd = cex?.totalVolume24hUsd ?? null;
@@ -12886,7 +12981,9 @@ async function qsLiqCheckBasic(net, token, provider) {
         type: cex?.listed?"ok":"warn", title: "CEX Listed",
         value: cex?.listed
           ? `${cex.exchanges.slice(0,3).join(", ")||"Yes"}${rep.meta?.cexVolume24hUsd ? ` (~$${Math.round(rep.meta.cexVolume24hUsd).toLocaleString()}/24h)` : ""}`
-          : "Not found in tracked sources"
+          : cex?.status === "unavailable"
+            ? "Provider unavailable — listing status not confirmed"
+            : "Not found in tracked CEX sources"
       },
 
       ...(solAgeDays != null ? [{
