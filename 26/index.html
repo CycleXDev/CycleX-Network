@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5153,11 +5154,12 @@ const translations = {
     deep_passed: "Passed",
     deep_simulated: "Simulated",
     deep_signal_default: "Deep signal",
-    deep_signal_none_title: "No major deep-pattern warning found",
+    deep_signal_none_title: "No major warning found within available coverage",
     deep_signal_none_detail: "No high-confidence historical pattern was flagged within the available coverage. This is not a safety guarantee.",
     deep_verdict_review: "Deep review recommended",
     deep_verdict_context: "Additional context found",
     deep_verdict_complete: "Deep Intelligence complete",
+    deep_verdict_partial: "Analysis complete · Partial coverage",
     deep_coverage: "{pct}% coverage",
     deep_partial_coverage: "partial coverage",
     deep_result_note: "Protected historical analysis · evidence only · does not alter the current Overall Score.",
@@ -5220,6 +5222,32 @@ const translations = {
     quick_age_contract: "contract age",
     quick_age_trading: "trading age",
     deep_k_creator: "Creator",
+    deep_k_creator_source: "Creator source",
+    deep_k_creator_holding: "Creator holding",
+    deep_k_funding_lead: "Observed funding before launch",
+    deep_k_holder_classification: "Holder classification",
+    deep_k_holder_count: "Wallet owners observed",
+    deep_k_top_wallet: "Largest classified wallet",
+    deep_k_top10_wallets: "Top 10 classified wallets",
+    deep_k_pool_count: "Pools observed",
+    deep_k_lock_checked_pools: "Pools with lock evidence checked",
+    deep_k_locked_pool_signals: "Pools with lock signal",
+    deep_k_no_lock_signals: "Pools with no tracked lock signal",
+    deep_k_token_program: "Token program",
+    deep_k_mint_authority: "Mint authority",
+    deep_k_freeze_authority: "Freeze authority",
+    deep_k_permanent_delegate: "Permanent delegate",
+    deep_k_transfer_hook: "Transfer hook",
+    deep_k_transfer_fee: "Transfer fee",
+    deep_k_global_pause: "Global pause",
+    deep_k_non_transferable: "Non-transferable",
+    deep_none: "None",
+    deep_yes: "Yes",
+    deep_no: "No",
+    deep_active: "Active",
+    deep_available: "Available",
+    deep_mutable: "mutable",
+    deep_fixed: "fixed",
     deep_k_deployer: "Deployer",
     deep_k_funding_source: "Funding source",
     deep_k_funding_tx: "Funding tx",
@@ -5629,11 +5657,12 @@ const translations = {
     deep_passed: "通过",
     deep_simulated: "已模拟",
     deep_signal_default: "深度信号",
-    deep_signal_none_title: "未发现主要深度模式警告",
+    deep_signal_none_title: "在当前可用覆盖范围内未发现主要警告",
     deep_signal_none_detail: "在当前可用覆盖范围内未标记高置信度历史风险模式。这并不代表安全保证。",
     deep_verdict_review: "建议进行深度复核",
     deep_verdict_context: "发现额外上下文",
     deep_verdict_complete: "Deep Intelligence 完成",
+    deep_verdict_partial: "分析完成 · 部分覆盖",
     deep_coverage: "覆盖率 {pct}%",
     deep_partial_coverage: "部分覆盖",
     deep_result_note: "受保护的历史分析 · 仅作为证据层 · 不改变当前总体评分。",
@@ -5696,6 +5725,32 @@ const translations = {
     quick_age_contract: "合约年龄",
     quick_age_trading: "交易年龄",
     deep_k_creator: "创建者",
+    deep_k_creator_source: "创建者来源",
+    deep_k_creator_holding: "创建者持仓",
+    deep_k_funding_lead: "上线前观测到的资金注入",
+    deep_k_holder_classification: "持有人分类覆盖",
+    deep_k_holder_count: "已观察钱包持有人",
+    deep_k_top_wallet: "最大已分类钱包",
+    deep_k_top10_wallets: "前 10 个已分类钱包",
+    deep_k_pool_count: "已观察池数量",
+    deep_k_lock_checked_pools: "已检查锁定证据的池",
+    deep_k_locked_pool_signals: "检测到锁定信号的池",
+    deep_k_no_lock_signals: "未检测到锁定信号的池",
+    deep_k_token_program: "代币程序",
+    deep_k_mint_authority: "增发权限",
+    deep_k_freeze_authority: "冻结权限",
+    deep_k_permanent_delegate: "永久委托",
+    deep_k_transfer_hook: "转账钩子",
+    deep_k_transfer_fee: "转账费",
+    deep_k_global_pause: "全局暂停",
+    deep_k_non_transferable: "不可转让",
+    deep_none: "无",
+    deep_yes: "是",
+    deep_no: "否",
+    deep_active: "启用",
+    deep_available: "可用",
+    deep_mutable: "可变更",
+    deep_fixed: "固定",
     deep_k_deployer: "部署者",
     deep_k_funding_source: "资金来源",
     deep_k_funding_tx: "资金交易",
@@ -6105,11 +6160,12 @@ const translations = {
     deep_passed: "نجح",
     deep_simulated: "تمت المحاكاة",
     deep_signal_default: "إشارة عميقة",
-    deep_signal_none_title: "لم يتم العثور على تحذير نمطي عميق مهم",
+    deep_signal_none_title: "لم يتم العثور على تحذير مهم ضمن التغطية المتاحة",
     deep_signal_none_detail: "لم يتم رصد نمط تاريخي عالي الثقة ضمن التغطية المتاحة. هذا ليس ضمانًا للأمان.",
     deep_verdict_review: "يوصى بمراجعة عميقة",
     deep_verdict_context: "تم العثور على سياق إضافي",
     deep_verdict_complete: "اكتمل Deep Intelligence",
+    deep_verdict_partial: "اكتمل التحليل · تغطية جزئية",
     deep_coverage: "تغطية {pct}%",
     deep_partial_coverage: "تغطية جزئية",
     deep_result_note: "تحليل تاريخي محمي · للأدلة فقط · لا يغيّر التقييم الإجمالي الحالي.",
@@ -6172,6 +6228,32 @@ const translations = {
     quick_age_contract: "عمر العقد",
     quick_age_trading: "عمر التداول",
     deep_k_creator: "المنشئ",
+    deep_k_creator_source: "مصدر المنشئ",
+    deep_k_creator_holding: "حيازة المنشئ",
+    deep_k_funding_lead: "تمويل مرصود قبل الإطلاق",
+    deep_k_holder_classification: "تغطية تصنيف الحائزين",
+    deep_k_holder_count: "مالكو المحافظ المرصودون",
+    deep_k_top_wallet: "أكبر محفظة مصنفة",
+    deep_k_top10_wallets: "أكبر 10 محافظ مصنفة",
+    deep_k_pool_count: "مجمعات السيولة المرصودة",
+    deep_k_lock_checked_pools: "مجمعات تم فحص دليل القفل لها",
+    deep_k_locked_pool_signals: "مجمعات بإشارة قفل",
+    deep_k_no_lock_signals: "مجمعات بلا إشارة قفل متتبعة",
+    deep_k_token_program: "برنامج التوكن",
+    deep_k_mint_authority: "صلاحية الإصدار",
+    deep_k_freeze_authority: "صلاحية التجميد",
+    deep_k_permanent_delegate: "المفوّض الدائم",
+    deep_k_transfer_hook: "خطاف التحويل",
+    deep_k_transfer_fee: "رسوم التحويل",
+    deep_k_global_pause: "الإيقاف العام",
+    deep_k_non_transferable: "غير قابل للتحويل",
+    deep_none: "لا يوجد",
+    deep_yes: "نعم",
+    deep_no: "لا",
+    deep_active: "نشط",
+    deep_available: "متاح",
+    deep_mutable: "قابل للتغيير",
+    deep_fixed: "ثابت",
     deep_k_deployer: "الناشر",
     deep_k_funding_source: "مصدر التمويل",
     deep_k_funding_tx: "معاملة التمويل",
@@ -6581,11 +6663,12 @@ const translations = {
     deep_passed: "Пройдено",
     deep_simulated: "Симулировано",
     deep_signal_default: "Глубокий сигнал",
-    deep_signal_none_title: "Серьёзных глубоких паттернов риска не найдено",
+    deep_signal_none_title: "В доступном покрытии серьёзных предупреждений не найдено",
     deep_signal_none_detail: "В доступном покрытии не выявлен исторический паттерн риска с высокой уверенностью. Это не гарантия безопасности.",
     deep_verdict_review: "Рекомендуется глубокая проверка",
     deep_verdict_context: "Найден дополнительный контекст",
     deep_verdict_complete: "Deep Intelligence завершён",
+    deep_verdict_partial: "Анализ завершён · частичное покрытие",
     deep_coverage: "Покрытие {pct}%",
     deep_partial_coverage: "частичное покрытие",
     deep_result_note: "Защищённый исторический анализ · только слой доказательств · не меняет текущий Overall Score.",
@@ -6648,6 +6731,32 @@ const translations = {
     quick_age_contract: "возраст контракта",
     quick_age_trading: "торговый возраст",
     deep_k_creator: "Создатель",
+    deep_k_creator_source: "Источник создателя",
+    deep_k_creator_holding: "Доля создателя",
+    deep_k_funding_lead: "Финансирование до запуска",
+    deep_k_holder_classification: "Покрытие классификации держателей",
+    deep_k_holder_count: "Наблюдаемые владельцы кошельков",
+    deep_k_top_wallet: "Крупнейший классифицированный кошелёк",
+    deep_k_top10_wallets: "Топ-10 классифицированных кошельков",
+    deep_k_pool_count: "Обнаружено пулов",
+    deep_k_lock_checked_pools: "Пулы с проверенными данными о блокировке",
+    deep_k_locked_pool_signals: "Пулы с сигналом блокировки",
+    deep_k_no_lock_signals: "Пулы без отслеживаемого сигнала блокировки",
+    deep_k_token_program: "Токен-программа",
+    deep_k_mint_authority: "Право выпуска",
+    deep_k_freeze_authority: "Право заморозки",
+    deep_k_permanent_delegate: "Постоянный делегат",
+    deep_k_transfer_hook: "Transfer hook",
+    deep_k_transfer_fee: "Комиссия перевода",
+    deep_k_global_pause: "Глобальная пауза",
+    deep_k_non_transferable: "Непередаваемый",
+    deep_none: "Нет",
+    deep_yes: "Да",
+    deep_no: "Нет",
+    deep_active: "Активно",
+    deep_available: "Доступно",
+    deep_mutable: "изменяемая",
+    deep_fixed: "фиксированная",
     deep_k_deployer: "Деплоер",
     deep_k_funding_source: "Источник финансирования",
     deep_k_funding_tx: "Транзакция финансирования",
@@ -10282,7 +10391,7 @@ async function qsLiqCheckBasic(net, token, provider) {
 
   function cxDeepEl(id){ return document.getElementById(id); }
   function cxDeepEsc(v){ return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-  function cxDeepFinite(v){ const n=Number(v); return Number.isFinite(n) ? n : null; }
+  function cxDeepFinite(v){ if(v===null||v===undefined||v==="") return null; const n=Number(v); return Number.isFinite(n) ? n : null; }
   function cxDeepTr(key, vars={}){ let s=t(currentLang,key)||t("en",key)||key; for(const [k,v] of Object.entries(vars||{})) s=s.replaceAll(`{${k}}`,String(v)); return s; }
   function cxDeepLocale(){ return ({en:"en-US",zh:"zh-CN",ar:"ar",ru:"ru-RU"})[currentLang]||"en-US"; }
   function cxDeepShort(v, a=6, b=4){ const s=String(v||""); return s.length > a+b+3 ? `${s.slice(0,a)}…${s.slice(-b)}` : s || "—"; }
@@ -10387,7 +10496,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const x=map[s?.code]; if(x) return {title:cxDeepTr(x[0],x[2]),detail:cxDeepTr(x[1],x[2])};
     return {title:s?.title||cxDeepTr("deep_signal_default"),detail:s?.detail||""};
   }
-  function cxDeepVerdictLabel(v){ const code=v?.code; if(code==="deep_review_recommended") return cxDeepTr("deep_verdict_review"); if(code==="additional_context_found") return cxDeepTr("deep_verdict_context"); if(code==="deep_intelligence_complete") return cxDeepTr("deep_verdict_complete"); return v?.label||cxDeepTr("deep_verdict_complete"); }
+  function cxDeepVerdictLabel(v){ const code=v?.code; if(code==="deep_review_recommended") return cxDeepTr("deep_verdict_review"); if(code==="additional_context_found") return cxDeepTr("deep_verdict_context"); if(code==="deep_intelligence_partial") return cxDeepTr("deep_verdict_partial"); if(code==="deep_intelligence_complete") return cxDeepTr("deep_verdict_complete"); return v?.label||cxDeepTr("deep_verdict_complete"); }
 
   function cxDeepRenderResult(r){
     const host=cxDeepEl("cx-deep-results"); if(!host||!r) return; _cxDeepLastResult=r;
@@ -10400,6 +10509,9 @@ async function qsLiqCheckBasic(net, token, provider) {
     const depAddr=dep.deployer||dep.creator||null;
     const depRows=[
       depAddr?cxDeepKV(cxDeepTr(r.net==="solana"?"deep_k_creator":"deep_k_deployer"),cxDeepEsc(cxDeepShort(depAddr,8,6)),true):null,
+      r.net==="solana"&&dep.creatorSource?cxDeepKV(cxDeepTr("deep_k_creator_source"),cxDeepEsc(dep.creatorSource)):null,
+      r.net==="solana"&&dep.creatorHoldingPct!=null?cxDeepKV(cxDeepTr("deep_k_creator_holding"),`${cxDeepPct(dep.creatorHoldingPct,2)}${dep.creatorHoldingAmountUi!=null?` · ${cxDeepEsc(Number(dep.creatorHoldingAmountUi).toLocaleString(cxDeepLocale(),{maximumFractionDigits:4}))} tokens`:""}`):null,
+      dep.fundingLeadDays!=null?cxDeepKV(cxDeepTr("deep_k_funding_lead"),cxDeepTr("deep_unit_days",{value:cxDeepFinite(dep.fundingLeadDays).toLocaleString(cxDeepLocale(),{maximumFractionDigits:2})})):null,
       dep.fundingSource?cxDeepKV(cxDeepTr("deep_k_funding_source"),`${cxDeepEsc(cxDeepShort(dep.fundingSource,8,6))}${dep.fundingSourceLabel?` · ${cxDeepEsc(dep.fundingSourceLabel)}`:""}`,true):null,
       dep.fundingTx?cxDeepKV(cxDeepTr("deep_k_funding_tx"),cxDeepValueLink(r.net,dep.fundingTx)):null,
       dep.walletAgeBeforeLaunchDays!=null?cxDeepKV(cxDeepTr("deep_k_wallet_age_before_launch"),cxDeepTr("deep_unit_days",{value:cxDeepFinite(dep.walletAgeBeforeLaunchDays).toLocaleString(cxDeepLocale(),{maximumFractionDigits:1})})):null,
@@ -10421,7 +10533,12 @@ async function qsLiqCheckBasic(net, token, provider) {
       early.firstActivityAt?cxDeepKV(cxDeepTr("deep_k_first_activity"),cxDeepEsc(cxDeepWhen(early.firstActivityAt))):null,
       early.truncated===true?cxDeepKV(cxDeepTr("deep_k_coverage"),cxDeepTr("deep_v_launch_truncated")):null
     ];
+    const holderCtx=clusters?.holderContext||null;
     const clusterRows=[
+      r.net==="solana"&&holderCtx?.holderCount!=null?cxDeepKV(cxDeepTr("deep_k_holder_count"),cxDeepEsc(Number(holderCtx.holderCount).toLocaleString(cxDeepLocale()))):null,
+      r.net==="solana"&&holderCtx?.classificationCoveragePct!=null?cxDeepKV(cxDeepTr("deep_k_holder_classification"),cxDeepPct(holderCtx.classificationCoveragePct,1)):null,
+      r.net==="solana"&&holderCtx?.walletTopHolderPct!=null?cxDeepKV(cxDeepTr("deep_k_top_wallet"),cxDeepPct(holderCtx.walletTopHolderPct,2)):null,
+      r.net==="solana"&&holderCtx?.walletTop10Pct!=null?cxDeepKV(cxDeepTr("deep_k_top10_wallets"),cxDeepPct(holderCtx.walletTop10Pct,1)):null,
       clusters.checkedWallets!=null?cxDeepKV(cxDeepTr("deep_k_early_wallets_checked"),cxDeepEsc(clusters.checkedWallets)):null,
       clusterCount!=null?cxDeepKV(cxDeepTr("deep_k_shared_clusters"),cxDeepEsc(clusterCount)):null,
       topCluster?cxDeepKV(cxDeepTr("deep_k_largest_cluster"),cxDeepTr("deep_unit_wallets_pct",{count:topCluster.walletCount,pct:cxDeepPct(topCluster.observedSupplyPct,2)})):null,
@@ -10431,6 +10548,10 @@ async function qsLiqCheckBasic(net, token, provider) {
     const liqRows=[
       liq.liquidityType?cxDeepKV(cxDeepTr("deep_k_liq_type"),cxDeepEsc(liq.liquidityType)):null,
       liq.liquidityUsd!=null?cxDeepKV(cxDeepTr("deep_k_liq_observed"),cxDeepEsc(cxDeepMoney(liq.liquidityUsd))):null,
+      r.net==="solana"&&liq.poolCount!=null?cxDeepKV(cxDeepTr("deep_k_pool_count"),cxDeepEsc(liq.poolCount)):null,
+      r.net==="solana"&&liq.lockCheckedPoolCount!=null?cxDeepKV(cxDeepTr("deep_k_lock_checked_pools"),cxDeepEsc(liq.lockCheckedPoolCount)):null,
+      r.net==="solana"&&liq.lockedPoolCount!=null?cxDeepKV(cxDeepTr("deep_k_locked_pool_signals"),cxDeepEsc(liq.lockedPoolCount)):null,
+      r.net==="solana"&&liq.lockNotDetectedPoolCount!=null?cxDeepKV(cxDeepTr("deep_k_no_lock_signals"),cxDeepEsc(liq.lockNotDetectedPoolCount)):null,
       liq.providerLockedPct!=null?cxDeepKV(cxDeepTr("deep_k_provider_lock"),cxDeepPct(liq.providerLockedPct,2)):null,
       liq.directBurnedPct!=null?cxDeepKV(cxDeepTr("deep_k_direct_burn"),cxDeepPct(liq.directBurnedPct,2)):null,
       liq.providerBurnTaggedPct!=null?cxDeepKV(cxDeepTr("deep_k_provider_burn"),cxDeepPct(liq.providerBurnTaggedPct,2)):null,
@@ -10442,7 +10563,17 @@ async function qsLiqCheckBasic(net, token, provider) {
       liq.latestRemoveAt?cxDeepKV(cxDeepTr("deep_k_latest_removal"),cxDeepEsc(cxDeepWhen(liq.latestRemoveAt))):null,
       (liq.v3PositionCount ?? (Array.isArray(liq.v3Positions)?liq.v3Positions.length:0))?cxDeepKV(cxDeepTr("deep_k_v3_positions"),cxDeepEsc(liq.v3PositionCount ?? liq.v3Positions.length)):null
     ];
+    const cc=changes?.currentControls||null;
+    const authValue=(active,address)=>active===true?`${cxDeepTr("deep_active")}${address?` · ${cxDeepEsc(cxDeepShort(address,8,6))}`:""}`:active===false?cxDeepTr("deep_none"):cxDeepTr("deep_unknown");
     const changeRows=[
+      r.net==="solana"&&cc?.tokenProgram?cxDeepKV(cxDeepTr("deep_k_token_program"),cxDeepEsc(cc.tokenProgram)):null,
+      r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_mint_authority"),authValue(cc.mintAuthorityActive,cc.mintAuthority)):null,
+      r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_freeze_authority"),authValue(cc.freezeAuthorityActive,cc.freezeAuthority)):null,
+      r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_permanent_delegate"),cc.permanentDelegateAddress?cxDeepEsc(cxDeepShort(cc.permanentDelegateAddress,8,6)):cxDeepTr("deep_none")):null,
+      r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_transfer_hook"),cc.transferHookProgramId?cxDeepEsc(cxDeepShort(cc.transferHookProgramId,8,6)):cxDeepTr("deep_none")):null,
+      r.net==="solana"&&cc?.transferFeePct!=null?cxDeepKV(cxDeepTr("deep_k_transfer_fee"),`${cxDeepPct(cc.transferFeePct,2)} · ${cxDeepTr(cc.transferFeeCanChange?"deep_mutable":"deep_fixed")}`):null,
+      r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_global_pause"),cc.pauseActive?cxDeepTr("deep_active"):cc.pauseEnabled?cxDeepTr("deep_available"):cxDeepTr("deep_none")):null,
+      r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_non_transferable"),cxDeepTr(cc.nonTransferable?"deep_yes":"deep_no")):null,
       changes.ownershipTransferCount!=null?cxDeepKV(cxDeepTr("deep_k_ownership_transfers"),cxDeepEsc(changes.ownershipTransferCount)):null,
       changes.proxyUpgradeCount!=null?cxDeepKV(cxDeepTr("deep_k_proxy_upgrades"),cxDeepEsc(changes.proxyUpgradeCount)):null,
       changes.adminChangeCount!=null?cxDeepKV(cxDeepTr("deep_k_admin_changes"),cxDeepEsc(changes.adminChangeCount)):null,
@@ -10550,7 +10681,38 @@ async function qsLiqCheckBasic(net, token, provider) {
     else if(state==="error"){ cxDeepBadge(cxDeepTr("deep_badge_unavailable")); cxDeepCurrent(cxDeepTr("deep_status_quick_complete_deep_failed")); }
   }
 
-  function cxDeepSnapshot(rep){ const m=rep?.meta||{}; const net=String(rep?.net||"").toLowerCase(); const dev=String(m?.devAddress||"").trim(); return {symbol:m?.symbol||"",name:m?.name||"",score:rep?.score,contractScore:m?.contractScore,marketScore:m?.marketScore,deployerAddress:net!=="solana"&&/^0x[a-fA-F0-9]{40}$/.test(dev)?dev:null,creatorAddress:net==="solana"&&/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(dev)?dev:null,totalSupplyUi:cxDeepFinite(m?.supplyUiDisplay ?? m?.totalSupplyUi ?? m?.supplyUi),decimals:cxDeepFinite(m?.decimals),liquidityUsd:cxDeepFinite(m?.liquidityUsdEst),dataCoverage:m?.confidence||m?.dataCoverage||""}; }
+  function cxDeepSnapshot(rep){
+    const m=rep?.meta||{}, net=String(rep?.net||"").toLowerCase();
+    const dev=String(m?.devAddress||"").trim();
+    const deepCreator=String(m?.deepCreatorAddress||"").trim();
+    const sh=m?.solanaHolderAnalysis&&typeof m.solanaHolderAnalysis==="object"?m.solanaHolderAnalysis:null;
+    const sc=m?.solanaControls&&typeof m.solanaControls==="object"?m.solanaControls:null;
+    const poolRows=net==="solana"&&Array.isArray(rep?.liq?.rows)?rep.liq.rows.slice(0,12):[];
+    const pools=poolRows.map(r=>{
+      const note=String(r?.note||"");
+      const lockStatus=/\bLP locked\b/i.test(note)?"locked":/LP lock:\s*not detected/i.test(note)?"not_detected":"unknown";
+      return {address:r?.addr||null,type:r?.type||null,lockStatus};
+    });
+    const lockCheckedPoolCount=pools.filter(p=>p.lockStatus!=="unknown").length;
+    const lockedPoolCount=pools.filter(p=>p.lockStatus==="locked").length;
+    const lockNotDetectedPoolCount=pools.filter(p=>p.lockStatus==="not_detected").length;
+    return {
+      symbol:m?.symbol||"",name:m?.name||"",score:rep?.score,contractScore:m?.contractScore,marketScore:m?.marketScore,
+      deployerAddress:net!=="solana"&&/^0x[a-fA-F0-9]{40}$/.test(dev)?dev:null,
+      creatorAddress:net==="solana"&&/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(deepCreator)?deepCreator:null,
+      creatorSource:net==="solana"?(m?.creatorSource||"quick-scan"):null,
+      creatorHoldingPct:net==="solana"&&deepCreator&&deepCreator===dev?cxDeepFinite(m?.devHoldingPct??sh?.creatorHoldingPct):null,
+      creatorHoldingAmountUi:net==="solana"&&deepCreator&&deepCreator===dev?cxDeepFinite(sh?.creatorHoldingAmountUi):null,
+      totalSupplyUi:cxDeepFinite(m?.supplyUiDisplay??m?.totalSupplyUi??m?.supplyUi),decimals:cxDeepFinite(m?.decimals),
+      liquidityUsd:cxDeepFinite(m?.liquidityUsdEst),dataCoverage:m?.confidence||m?.dataCoverage||"",
+      solanaHolderAnalysis:net==="solana"&&sh?{
+        reliable:sh.reliable===true,classificationCoveragePct:cxDeepFinite(sh.classificationCoveragePct),walletTopHolderPct:cxDeepFinite(sh.walletTopHolderPct),walletTop10Pct:cxDeepFinite(sh.walletTop10Pct),holderCount:cxDeepFinite(sh.holderCount),tokenAccountCount:cxDeepFinite(sh.tokenAccountCount),unknownAuthorityPct:cxDeepFinite(sh.unknownAuthorityPct),creatorHoldingPct:cxDeepFinite(sh.creatorHoldingPct),creatorHoldingAmountUi:cxDeepFinite(sh.creatorHoldingAmountUi)
+      }:null,
+      tokenProgram:net==="solana"?(m?.tokenProgram||null):null,
+      solanaControls:net==="solana"&&sc?{...sc}:null,
+      solanaLiquidity:net==="solana"?{poolCount:pools.length,lockCheckedPoolCount,lockedPoolCount,lockNotDetectedPoolCount,pools}:null
+    };
+  }
 
   async function cxRunDeepScan(rep,{force=false}={}){
     const net=String(rep?.net||"").toLowerCase(), token=String(rep?.token||"").trim(); const valid=net==="solana" ? /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token) : /^0x[a-fA-F0-9]{40}$/.test(token); if(!valid) return;
@@ -11955,6 +12117,12 @@ async function qsLiqCheckBasic(net, token, provider) {
     rep.meta.suspiciousMarketPattern = secureEval.suspiciousMarketPattern === true;
     rep.meta.suspiciousMarketReason = secureEval.suspiciousMarketReason || null;
     rep.meta.secureEngine = secureEval.version || "protected";
+    // Bridge Quick Scan's already-resolved Solana creator into Deep Intelligence.
+    // This is critical for pump.fun tokens where Metaplex creators may be empty.
+    rep.meta.devAddress = devCandidateAddress || null;
+    rep.meta.devHoldingPct = devHoldingPct;
+    rep.meta.deepCreatorAddress = heliusCreator || gp?.creatorAddress || null;
+    rep.meta.creatorSource = heliusCreator ? "cyclex-solanaCreator" : gp?.creatorAddress ? "GoPlus" : null;
     rep.meta.goplusRaw = gp?.raw || null;
     rep.meta.holdersReturned = solHolders?.holderCount ?? gp?.holdersReturned ?? null;
     rep.meta.top10ConcentrationPct = rawTop10TokenAccountsPct;
@@ -11993,6 +12161,26 @@ async function qsLiqCheckBasic(net, token, provider) {
       permissionedBurnAuthority,
       extensionTypes: t22.extensionTypes || []
     } : null;
+    rep.meta.solanaControls = {
+      tokenProgram: mintInfo?.tokenProgram || "Unknown",
+      tokenProgramOnChain: !!mintInfo,
+      mintAuthorityActive: effMintActive,
+      mintAuthority: effMintAuthorityAddr || null,
+      freezeAuthorityActive: effFreezeActive,
+      freezeAuthority: effFreezeAuthorityAddr || null,
+      permanentDelegateAddress,
+      transferHookProgramId,
+      transferHookAuthority,
+      transferFeePct,
+      transferFeeCanChange,
+      defaultAccountFrozen,
+      pauseEnabled,
+      pauseActive,
+      pauseAuthority,
+      nonTransferable,
+      mintCloseAuthority,
+      permissionedBurnAuthority
+    };
 
     // ✅ FIX (major finding, from live testing): GoPlus's dex array was
     // being used as the PRIMARY pool list (capped at 6), with DexScreener
