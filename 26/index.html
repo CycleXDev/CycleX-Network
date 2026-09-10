@@ -5170,6 +5170,37 @@ const translations = {
     deep_section_liquidity: "Liquidity Ownership",
     deep_section_control: "Control & Upgrade History",
     deep_section_simulation: "Dynamic Simulation",
+    deep_section_market: "Market Structure",
+    deep_section_history: "Historical Activity",
+    deep_reason_market_partial: "Market / pool coverage is incomplete",
+    deep_found_market: "Observed {pools} pool(s) · {liquidity} liquidity.",
+    deep_found_market_partial: "Market evidence is available, but pool / liquidity coverage is incomplete.",
+    deep_why_market: "Pool and liquidity context anchors launch timing and helps distinguish market activity from ordinary token transfers.",
+    deep_found_history: "Sampled {count} launch-period transfer record(s).",
+    deep_found_history_partial: "Launch-period history could not be fully reconstructed.",
+    deep_why_history: "Historical coverage is used to identify pool-origin early activity and funding relationships without treating missing data as proof.",
+    deep_k_market_pairs: "Observed pools",
+    deep_k_market_liquidity: "Observed liquidity",
+    deep_k_market_dex: "Primary DEX",
+    deep_k_market_pair: "Primary pair / pool",
+    deep_k_market_launch: "Earliest observed pool",
+    deep_k_market_volume: "24h volume",
+    deep_k_market_txns: "24h transactions",
+    deep_k_history_transactions: "Transactions sampled",
+    deep_k_history_scope: "History scope",
+    deep_k_history_provider: "History provider",
+    deep_k_history_window: "Launch-window coverage",
+    deep_v_scope_launch: "Launch-period history",
+    deep_v_window_covered: "Covered",
+    deep_v_window_partial: "Partial",
+    deep_unit_classified: "{classified} / {tracked} classified",
+    deep_k_lp_tracked: "LP supply covered by provider",
+    deep_k_owner_current: "Current owner",
+    deep_k_proxy_current: "Current proxy",
+    deep_k_implementation: "Implementation",
+    deep_k_mint_current: "Current mint capability",
+    deep_k_pause_current: "Current pause capability",
+    deep_k_source_verified: "Source verified",
 
     deep_details_title: "Intelligence Details",
     deep_details_sub: "Open any section to see what was found, why it matters, and the evidence behind it.",
@@ -5209,6 +5240,7 @@ const translations = {
     deep_found_liquidity_partial: "Liquidity was observed, but LP ownership / lock evidence could not be fully verified.",
     deep_why_liquidity: "LP ownership, burns, locks, and removal history help show how much control exists over available liquidity.",
     deep_found_control: "Observed {ownership} ownership transfer(s), {upgrades} proxy upgrade(s), and {admin} admin change(s) in the sampled history.",
+    deep_found_control_solana: "Current Solana authorities verified; {authority} historical authority-change event(s) observed.",
     deep_found_control_partial: "Control and upgrade history was only partially reconstructable from the available logs.",
     deep_why_control: "Ownership transfers, proxy upgrades, and admin changes can materially alter contract control after deployment.",
     deep_found_simulation: "Buy-like path: {buy}. Sell-like path: {sell}. Wallet transfer: {wallet}.",
@@ -5290,6 +5322,10 @@ const translations = {
     deep_k_latest_upgrade_tx: "Latest upgrade tx",
     deep_k_latest_admin_tx: "Latest admin-change tx",
     deep_k_authority_events: "Authority-related events",
+    deep_k_authority_changes: "Authority changes",
+    deep_k_latest_authority_tx: "Latest authority-change tx",
+    deep_k_authority_types: "Authority types observed",
+    deep_k_unclassified_transfers: "Excluded unclassified transfers",
     deep_k_sim_provider: "Simulation provider",
     deep_k_buy_path: "Buy-like transfer path",
     deep_k_sell_path: "Sell-like transfer path",
@@ -5673,6 +5709,37 @@ const translations = {
     deep_section_liquidity: "流动性所有权",
     deep_section_control: "控制与升级历史",
     deep_section_simulation: "动态模拟",
+    deep_section_market: "市场结构",
+    deep_section_history: "历史活动",
+    deep_reason_market_partial: "市场 / 池覆盖不完整",
+    deep_found_market: "观察到 {pools} 个池 · 流动性 {liquidity}。",
+    deep_found_market_partial: "已有市场证据，但池 / 流动性覆盖不完整。",
+    deep_why_market: "池和流动性背景用于锚定启动时间，并帮助区分市场活动与普通代币转账。",
+    deep_found_history: "抽样了 {count} 条启动期转账记录。",
+    deep_found_history_partial: "无法完整重建启动期历史。",
+    deep_why_history: "历史覆盖用于识别来自池的早期活动和资金关系，同时不会把缺失数据当作证据。",
+    deep_k_market_pairs: "观察到的池",
+    deep_k_market_liquidity: "观察到的流动性",
+    deep_k_market_dex: "主要 DEX",
+    deep_k_market_pair: "主要交易对 / 池",
+    deep_k_market_launch: "最早观察到的池",
+    deep_k_market_volume: "24 小时交易量",
+    deep_k_market_txns: "24 小时交易次数",
+    deep_k_history_transactions: "抽样交易数",
+    deep_k_history_scope: "历史范围",
+    deep_k_history_provider: "历史数据提供方",
+    deep_k_history_window: "启动窗口覆盖",
+    deep_v_scope_launch: "启动期历史",
+    deep_v_window_covered: "已覆盖",
+    deep_v_window_partial: "部分",
+    deep_unit_classified: "已分类 {classified} / {tracked}",
+    deep_k_lp_tracked: "提供方覆盖的 LP 供应量",
+    deep_k_owner_current: "当前所有者",
+    deep_k_proxy_current: "当前代理",
+    deep_k_implementation: "实现合约",
+    deep_k_mint_current: "当前增发能力",
+    deep_k_pause_current: "当前暂停能力",
+    deep_k_source_verified: "源码已验证",
 
     deep_details_title: "智能详情",
     deep_details_sub: "打开任一部分，查看发现内容、其重要性以及背后的证据。",
@@ -5712,6 +5779,7 @@ const translations = {
     deep_found_liquidity_partial: "已观察到流动性，但 LP 所有权 / 锁仓证据未能完全验证。",
     deep_why_liquidity: "LP 所有权、销毁、锁仓和移除历史有助于判断可用流动性的控制程度。",
     deep_found_control: "在采样历史中观察到 {ownership} 次所有权转移、{upgrades} 次代理升级和 {admin} 次管理员变更。",
+    deep_found_control_solana: "当前 Solana 权限已验证；观察到 {authority} 个历史权限变更事件。",
     deep_found_control_partial: "基于当前可用日志，只能部分重建控制与升级历史。",
     deep_why_control: "所有权转移、代理升级和管理员变更可能在部署后实质改变合约控制权。",
     deep_found_simulation: "类买入路径：{buy}。类卖出路径：{sell}。钱包转账：{wallet}。",
@@ -5793,6 +5861,10 @@ const translations = {
     deep_k_latest_upgrade_tx: "最近升级交易",
     deep_k_latest_admin_tx: "最近管理员变更交易",
     deep_k_authority_events: "权限相关事件",
+    deep_k_authority_changes: "权限变更",
+    deep_k_latest_authority_tx: "最新权限变更交易",
+    deep_k_authority_types: "观察到的权限类型",
+    deep_k_unclassified_transfers: "已排除的未归类转账",
     deep_k_sim_provider: "模拟提供方",
     deep_k_buy_path: "类似买入的转账路径",
     deep_k_sell_path: "类似卖出的转账路径",
@@ -6176,6 +6248,37 @@ const translations = {
     deep_section_liquidity: "ملكية السيولة",
     deep_section_control: "سجل التحكم والترقيات",
     deep_section_simulation: "المحاكاة الديناميكية",
+    deep_section_market: "بنية السوق",
+    deep_section_history: "النشاط التاريخي",
+    deep_reason_market_partial: "تغطية السوق / مجمعات السيولة غير مكتملة",
+    deep_found_market: "تم رصد {pools} مجمعًا · سيولة {liquidity}.",
+    deep_found_market_partial: "توجد أدلة سوقية، لكن تغطية المجمعات / السيولة غير مكتملة.",
+    deep_why_market: "يساعد سياق المجمعات والسيولة على تثبيت توقيت الإطلاق والتمييز بين نشاط السوق والتحويلات العادية.",
+    deep_found_history: "تم أخذ عينة من {count} سجل تحويل خلال فترة الإطلاق.",
+    deep_found_history_partial: "تعذر إعادة بناء تاريخ فترة الإطلاق بالكامل.",
+    deep_why_history: "تُستخدم التغطية التاريخية لتحديد النشاط المبكر الصادر من المجمعات وعلاقات التمويل دون اعتبار البيانات المفقودة دليلاً.",
+    deep_k_market_pairs: "المجمعات المرصودة",
+    deep_k_market_liquidity: "السيولة المرصودة",
+    deep_k_market_dex: "منصة DEX الرئيسية",
+    deep_k_market_pair: "زوج / مجمع رئيسي",
+    deep_k_market_launch: "أقدم مجمع مرصود",
+    deep_k_market_volume: "حجم 24 ساعة",
+    deep_k_market_txns: "معاملات 24 ساعة",
+    deep_k_history_transactions: "المعاملات في العينة",
+    deep_k_history_scope: "نطاق التاريخ",
+    deep_k_history_provider: "مزود بيانات التاريخ",
+    deep_k_history_window: "تغطية نافذة الإطلاق",
+    deep_v_scope_launch: "تاريخ فترة الإطلاق",
+    deep_v_window_covered: "مغطاة",
+    deep_v_window_partial: "جزئية",
+    deep_unit_classified: "تم تصنيف {classified} / {tracked}",
+    deep_k_lp_tracked: "نسبة LP التي يغطيها المزود",
+    deep_k_owner_current: "المالك الحالي",
+    deep_k_proxy_current: "البروكسي الحالي",
+    deep_k_implementation: "عقد التنفيذ",
+    deep_k_mint_current: "قدرة الإصدار الحالية",
+    deep_k_pause_current: "قدرة الإيقاف الحالية",
+    deep_k_source_verified: "المصدر البرمجي موثّق",
 
     deep_details_title: "تفاصيل الذكاء",
     deep_details_sub: "افتح أي قسم لمعرفة ما تم العثور عليه، ولماذا يهم، والأدلة التي تدعمه.",
@@ -6215,6 +6318,7 @@ const translations = {
     deep_found_liquidity_partial: "تم رصد السيولة، لكن تعذر التحقق الكامل من ملكية / قفل LP.",
     deep_why_liquidity: "تساعد ملكية LP والحرق والقفل وسجل الإزالة على فهم مقدار التحكم في السيولة المتاحة.",
     deep_found_control: "تم رصد {ownership} نقل ملكية و{upgrades} ترقية Proxy و{admin} تغيير إداري في السجل الذي تم فحصه.",
+    deep_found_control_solana: "تم التحقق من صلاحيات Solana الحالية؛ تم رصد {authority} حدثًا تاريخيًا لتغيير الصلاحية.",
     deep_found_control_partial: "أمكنت إعادة بناء سجل التحكم والترقيات بشكل جزئي فقط من السجلات المتاحة.",
     deep_why_control: "يمكن لنقل الملكية وترقيات Proxy والتغييرات الإدارية تغيير التحكم بالعقد بشكل جوهري بعد النشر.",
     deep_found_simulation: "مسار شبيه بالشراء: {buy}. مسار شبيه بالبيع: {sell}. تحويل محفظة: {wallet}.",
@@ -6296,6 +6400,10 @@ const translations = {
     deep_k_latest_upgrade_tx: "أحدث معاملة ترقية",
     deep_k_latest_admin_tx: "أحدث معاملة تغيير مسؤول",
     deep_k_authority_events: "أحداث مرتبطة بالصلاحيات",
+    deep_k_authority_changes: "تغييرات الصلاحيات",
+    deep_k_latest_authority_tx: "أحدث معاملة لتغيير الصلاحية",
+    deep_k_authority_types: "أنواع الصلاحيات المرصودة",
+    deep_k_unclassified_transfers: "التحويلات غير المصنفة المستبعدة",
     deep_k_sim_provider: "مزود المحاكاة",
     deep_k_buy_path: "مسار تحويل شبيه بالشراء",
     deep_k_sell_path: "مسار تحويل شبيه بالبيع",
@@ -6679,6 +6787,37 @@ const translations = {
     deep_section_liquidity: "Владение ликвидностью",
     deep_section_control: "Контроль и обновления",
     deep_section_simulation: "Динамическая симуляция",
+    deep_section_market: "Структура рынка",
+    deep_section_history: "Историческая активность",
+    deep_reason_market_partial: "Покрытие рынка / пулов неполное",
+    deep_found_market: "Обнаружено пулов: {pools} · ликвидность {liquidity}.",
+    deep_found_market_partial: "Рыночные данные доступны, но покрытие пулов / ликвидности неполное.",
+    deep_why_market: "Контекст пулов и ликвидности помогает определить момент запуска и отличить рыночную активность от обычных переводов токена.",
+    deep_found_history: "В выборке {count} записей переводов за период запуска.",
+    deep_found_history_partial: "Историю периода запуска не удалось восстановить полностью.",
+    deep_why_history: "Историческое покрытие используется для поиска ранней активности из пулов и связей финансирования без трактовки отсутствующих данных как доказательства.",
+    deep_k_market_pairs: "Наблюдаемые пулы",
+    deep_k_market_liquidity: "Наблюдаемая ликвидность",
+    deep_k_market_dex: "Основной DEX",
+    deep_k_market_pair: "Основная пара / пул",
+    deep_k_market_launch: "Самый ранний наблюдаемый пул",
+    deep_k_market_volume: "Объём за 24ч",
+    deep_k_market_txns: "Транзакции за 24ч",
+    deep_k_history_transactions: "Транзакций в выборке",
+    deep_k_history_scope: "Область истории",
+    deep_k_history_provider: "Провайдер истории",
+    deep_k_history_window: "Покрытие окна запуска",
+    deep_v_scope_launch: "История периода запуска",
+    deep_v_window_covered: "Покрыто",
+    deep_v_window_partial: "Частично",
+    deep_unit_classified: "Классифицировано {classified} / {tracked}",
+    deep_k_lp_tracked: "Доля LP, покрытая провайдером",
+    deep_k_owner_current: "Текущий владелец",
+    deep_k_proxy_current: "Текущий proxy",
+    deep_k_implementation: "Implementation",
+    deep_k_mint_current: "Текущая возможность mint",
+    deep_k_pause_current: "Текущая возможность паузы",
+    deep_k_source_verified: "Исходный код подтверждён",
 
     deep_details_title: "Детали аналитики",
     deep_details_sub: "Откройте любой раздел, чтобы увидеть, что найдено, почему это важно и какие данные это подтверждают.",
@@ -6718,6 +6857,7 @@ const translations = {
     deep_found_liquidity_partial: "Ликвидность обнаружена, но данные о владении / блокировке LP подтверждены не полностью.",
     deep_why_liquidity: "Владение LP, сжигание, блокировки и история изъятий помогают оценить контроль над доступной ликвидностью.",
     deep_found_control: "В выборке обнаружено: передач владения — {ownership}, обновлений Proxy — {upgrades}, изменений администратора — {admin}.",
+    deep_found_control_solana: "Текущие полномочия Solana проверены; исторических изменений полномочий: {authority}.",
     deep_found_control_partial: "По доступным логам историю контроля и обновлений удалось восстановить только частично.",
     deep_why_control: "Передача владения, обновления Proxy и изменения администратора могут существенно менять контроль над контрактом после деплоя.",
     deep_found_simulation: "Путь, похожий на покупку: {buy}. Путь, похожий на продажу: {sell}. Перевод кошелька: {wallet}.",
@@ -6799,6 +6939,10 @@ const translations = {
     deep_k_latest_upgrade_tx: "Последняя транзакция обновления",
     deep_k_latest_admin_tx: "Последняя транзакция смены администратора",
     deep_k_authority_events: "События, связанные с полномочиями",
+    deep_k_authority_changes: "Изменения полномочий",
+    deep_k_latest_authority_tx: "Последняя транзакция изменения полномочий",
+    deep_k_authority_types: "Наблюдаемые типы полномочий",
+    deep_k_unclassified_transfers: "Исключённые неклассифицированные переводы",
     deep_k_sim_provider: "Провайдер симуляции",
     deep_k_buy_path: "Путь, похожий на покупку",
     deep_k_sell_path: "Путь, похожий на продажу",
@@ -7662,7 +7806,7 @@ function initPanels() {
 (function () {
   "use strict";
 
-  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v2_hardened";
+  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v3_deep4";
   const QS_LS_HISTORY  = "cx_sec_qs_history_safe_v6";
   const QS_LS_API_KEYS = "cx_sec_explorer_keys";
 
@@ -8975,8 +9119,8 @@ async function qsLiqCheckBasic(net, token, provider) {
         const res = await fetch(url, { signal: ctrl.signal });
         if (res.ok) {
           j = await res.json();
-        } else {
-          console.error("CoinGecko CEX call failed, status:", res.status);
+        } else if (res.status !== 404) {
+          console.warn("CoinGecko CEX lookup failed, status:", res.status);
         }
       } finally {
         clearTimeout(tmr);
@@ -9196,7 +9340,9 @@ async function qsLiqCheckBasic(net, token, provider) {
       source: String(source || "holder source"),
       holderCount: Number.isFinite(Number(holderCount)) && Number(holderCount) > 0 ? Math.trunc(Number(holderCount)) : null,
       trackedCount, classifiedCount, holderAnalysisReliable, walletTop10Reliable,
-      walletTopHolderPct, walletTop10Pct, rawTopHolderAccountPct, rawTop10HolderAccountsPct
+      walletTopHolderPct, walletTop10Pct, rawTopHolderAccountPct, rawTop10HolderAccountsPct,
+      topWalletAddress: holderAnalysisReliable ? (walletRows[0]?.address || null) : null,
+      sampleWalletAddresses: holderAnalysisReliable ? walletRows.slice(0, 5).map(r => r.address).filter(Boolean) : []
     };
   }
 
@@ -9326,18 +9472,19 @@ async function qsLiqCheckBasic(net, token, provider) {
         const p = await qsFetchBlockscoutProfile(net, token);
         const deployerAddress = p?.creatorAddress || null;
         const txHash = p?.creationTxHash || null;
-        if (!txHash) return deployerAddress ? { deployerAddress, holdersCount: p?.holdersCount ?? null } : null;
-        let deployTs = null;
+        if (!txHash) return deployerAddress ? { deployerAddress, holdersCount: p?.holdersCount ?? null, creationTx:null, creationBlock:null } : null;
+        let deployTs = null, creationBlock = null;
         try {
           const txData = await withRpcFallback(net, async (provider) => await provider.getTransaction(txHash));
           if (txData?.blockNumber) {
+            creationBlock = Number(txData.blockNumber);
             const block = await withRpcFallback(net, async (provider) => await provider.getBlock(txData.blockNumber));
             if (block?.timestamp) deployTs = Number(block.timestamp);
           }
         } catch {}
-        if (!deployTs) return deployerAddress ? { deployerAddress, holdersCount: p?.holdersCount ?? null } : null;
+        if (!deployTs) return deployerAddress ? { deployerAddress, holdersCount: p?.holdersCount ?? null, creationTx:txHash, creationBlock } : null;
         const ageDays = Math.floor((Date.now() / 1000 - deployTs) / 86400);
-        return { deployTs, ageDays, deployerAddress, holdersCount: p?.holdersCount ?? null };
+        return { deployTs, ageDays, deployerAddress, holdersCount: p?.holdersCount ?? null, creationTx:txHash, creationBlock };
       }
 
       if (!apiKey) return null;
@@ -9361,18 +9508,19 @@ async function qsLiqCheckBasic(net, token, provider) {
           deployerAddress = j1?.result?.[0]?.contractCreator || null;
         }
       } catch {} finally { clearTimeout(tmr1); }
-      if (!txHash) return deployerAddress ? { deployerAddress } : null;
-      let deployTs = null;
+      if (!txHash) return deployerAddress ? { deployerAddress, creationTx:null, creationBlock:null } : null;
+      let deployTs = null, creationBlock = null;
       try {
         const txData = await withRpcFallback(net, async (provider) => await provider.getTransaction(txHash));
         if (txData?.blockNumber) {
+          creationBlock = Number(txData.blockNumber);
           const block = await withRpcFallback(net, async (provider) => await provider.getBlock(txData.blockNumber));
           if (block?.timestamp) deployTs = Number(block.timestamp);
         }
       } catch {}
-      if (!deployTs) return deployerAddress ? { deployerAddress } : null;
+      if (!deployTs) return deployerAddress ? { deployerAddress, creationTx:txHash, creationBlock } : null;
       const ageDays = Math.floor((Date.now() / 1000 - deployTs) / 86400);
-      return { deployTs, ageDays, deployerAddress };
+      return { deployTs, ageDays, deployerAddress, creationTx:txHash, creationBlock };
     } catch { return null; }
   }
 
@@ -10243,6 +10391,7 @@ async function qsLiqCheckBasic(net, token, provider) {
               top10TokenAccountsPct: num(j.top10TokenAccountsPct),
               walletTopHolderPct: num(j.walletTopHolderPct),
               walletTopHolderAmountUi: num(j.walletTopHolderAmountUi),
+              walletTopHolderAddress: String(j.topWalletAddress || j.walletTopHolderAddress || "").trim() || null,
               walletTop10Pct: num(j.walletTop10Pct),
               holderAnalysisReliable: j.holderAnalysisReliable === true,
               ownerAnalysisComplete: j.ownerAnalysisComplete === true,
@@ -10297,6 +10446,7 @@ async function qsLiqCheckBasic(net, token, provider) {
         top10TokenAccountsPct: rows.slice(0, 10).reduce((acc, r) => acc + r.pct, 0),
         walletTopHolderPct: null,
         walletTopHolderAmountUi: null,
+        walletTopHolderAddress: null,
         walletTop10Pct: null,
         holderAnalysisReliable: false,
         ownerAnalysisComplete: false,
@@ -10466,6 +10616,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       el.classList.remove("running","done","partial"); el.classList.add(v==="ok"?"done":"partial");
     }
     const reasons={
+      market:coverage.market==="partial"?"deep_reason_market_partial":null,
       identity:coverage.identity==="partial"?"deep_reason_identity_partial":null,
       history:coverage.history==="partial"?"deep_reason_history_partial":null,
       deployer:signalCodes.has("fresh_deployer_funding")?"deep_reason_fresh_funding":coverage.deployer==="partial"?"deep_reason_deployer_partial":null,
@@ -10502,9 +10653,25 @@ async function qsLiqCheckBasic(net, token, provider) {
     const host=cxDeepEl("cx-deep-results"); if(!host||!r) return; _cxDeepLastResult=r;
     const rawLevel=String(r?.verdict?.level||"partial"), coverage=cxDeepFinite(r?.verdict?.coveragePct);
     const level=rawLevel==="attention"?"elevated":rawLevel==="review"?"review":coverage!=null&&coverage<100?"partial":"clear";
-    const signals=Array.isArray(r?.signals)?r.signals:[]; const dep=r?.deployer||{}, early=r?.earlyActivity||{}, clusters=r?.clusters||{}, liq=r?.liquidity||{}, changes=r?.controlHistory||{}, sim=r?.simulation||{};
+    const signals=Array.isArray(r?.signals)?r.signals:[]; const market=r?.market||{}, hist=r?.history||{}, dep=r?.deployer||{}, early=r?.earlyActivity||{}, clusters=r?.clusters||{}, liq=r?.liquidity||{}, changes=r?.controlHistory||{}, sim=r?.simulation||{};
     const clusterList=Array.isArray(clusters?.sharedFundingClusters)?clusters.sharedFundingClusters:[]; const topCluster=clusters?.topCluster||clusterList[0]||null; const clusterCount=clusters?.sharedFundingClusterCount ?? clusterList.length;
     const signalHtml=signals.length ? signals.slice(0,7).map(s=>{ const st=cxDeepSignalText(s); return `<div class="cx-deep-signal" data-severity="${cxDeepEsc(s?.severity||"context")}"><div class="cx-deep-signal-title"><i class="cx-deep-signal-dot"></i>${cxDeepEsc(st.title)}</div><div class="cx-deep-signal-detail">${cxDeepEsc(st.detail)}</div></div>`; }).join("") : `<div class="cx-deep-signal" data-severity="context"><div class="cx-deep-signal-title"><i class="cx-deep-signal-dot"></i>${cxDeepEsc(cxDeepTr("deep_signal_none_title"))}</div><div class="cx-deep-signal-detail">${cxDeepEsc(cxDeepTr("deep_signal_none_detail"))}</div></div>`;
+
+    const marketRows=[
+      market.pairCount!=null?cxDeepKV(cxDeepTr("deep_k_market_pairs"),cxDeepEsc(market.pairCount)):null,
+      market.liquidityUsd!=null?cxDeepKV(cxDeepTr("deep_k_market_liquidity"),cxDeepEsc(cxDeepMoney(market.liquidityUsd))):null,
+      market.dexId?cxDeepKV(cxDeepTr("deep_k_market_dex"),cxDeepEsc(market.dexId)):null,
+      market.bestPair?cxDeepKV(cxDeepTr("deep_k_market_pair"),cxDeepEsc(cxDeepShort(market.bestPair,8,6)),true):null,
+      market.earliestPairCreatedAt?cxDeepKV(cxDeepTr("deep_k_market_launch"),cxDeepEsc(cxDeepWhen(market.earliestPairCreatedAt))):null,
+      market.volume24h!=null?cxDeepKV(cxDeepTr("deep_k_market_volume"),cxDeepEsc(cxDeepMoney(market.volume24h))):null,
+      market.txns24h!=null?cxDeepKV(cxDeepTr("deep_k_market_txns"),cxDeepEsc(market.txns24h)):null
+    ];
+    const historyRows=[
+      hist.observedTransactions!=null?cxDeepKV(cxDeepTr("deep_k_history_transactions"),cxDeepEsc(hist.observedTransactions)):null,
+      hist.scope?cxDeepKV(cxDeepTr("deep_k_history_scope"),cxDeepTr(hist.scope==="launch-window"?"deep_v_scope_launch":"deep_unknown")):null,
+      hist.provider?cxDeepKV(cxDeepTr("deep_k_history_provider"),cxDeepEsc(hist.provider)):null,
+      cxDeepKV(cxDeepTr("deep_k_history_window"),cxDeepTr(hist.windowCovered?"deep_v_window_covered":hist.truncated?"deep_v_window_partial":"deep_unknown"))
+    ];
 
     const depAddr=dep.deployer||dep.creator||null;
     const depRows=[
@@ -10531,14 +10698,18 @@ async function qsLiqCheckBasic(net, token, provider) {
       immediatePct!=null?cxDeepKV(cxDeepTr("deep_k_immediate_supply"),cxDeepPct(immediatePct,2)):null,
       early.firstTradeAt?cxDeepKV(cxDeepTr("deep_k_first_activity"),cxDeepEsc(cxDeepWhen(early.firstTradeAt))):null,
       early.firstActivityAt?cxDeepKV(cxDeepTr("deep_k_first_activity"),cxDeepEsc(cxDeepWhen(early.firstActivityAt))):null,
+      early.unclassifiedWindowTransfers>0?cxDeepKV(cxDeepTr("deep_k_unclassified_transfers"),cxDeepEsc(early.unclassifiedWindowTransfers)):null,
       early.truncated===true?cxDeepKV(cxDeepTr("deep_k_coverage"),cxDeepTr("deep_v_launch_truncated")):null
     ];
     const holderCtx=clusters?.holderContext||null;
     const clusterRows=[
-      r.net==="solana"&&holderCtx?.holderCount!=null?cxDeepKV(cxDeepTr("deep_k_holder_count"),cxDeepEsc(Number(holderCtx.holderCount).toLocaleString(cxDeepLocale()))):null,
-      r.net==="solana"&&holderCtx?.classificationCoveragePct!=null?cxDeepKV(cxDeepTr("deep_k_holder_classification"),cxDeepPct(holderCtx.classificationCoveragePct,1)):null,
-      r.net==="solana"&&holderCtx?.walletTopHolderPct!=null?cxDeepKV(cxDeepTr("deep_k_top_wallet"),cxDeepPct(holderCtx.walletTopHolderPct,2)):null,
-      r.net==="solana"&&holderCtx?.walletTop10Pct!=null?cxDeepKV(cxDeepTr("deep_k_top10_wallets"),cxDeepPct(holderCtx.walletTop10Pct,1)):null,
+      holderCtx?.holderCount!=null?cxDeepKV(cxDeepTr("deep_k_holder_count"),cxDeepEsc(Number(holderCtx.holderCount).toLocaleString(cxDeepLocale()))):null,
+      holderCtx?.classificationCoveragePct!=null
+        ?cxDeepKV(cxDeepTr("deep_k_holder_classification"),cxDeepPct(holderCtx.classificationCoveragePct,1))
+        :(holderCtx?.trackedCount!=null&&holderCtx?.classifiedCount!=null
+          ?cxDeepKV(cxDeepTr("deep_k_holder_classification"),cxDeepTr("deep_unit_classified",{classified:holderCtx.classifiedCount,tracked:holderCtx.trackedCount})):null),
+      holderCtx?.walletTopHolderPct!=null?cxDeepKV(cxDeepTr("deep_k_top_wallet"),`${cxDeepPct(holderCtx.walletTopHolderPct,2)}${holderCtx?.topWalletAddress?` · ${cxDeepEsc(cxDeepShort(holderCtx.topWalletAddress,8,6))}`:""}`):null,
+      holderCtx?.walletTop10Pct!=null?cxDeepKV(cxDeepTr("deep_k_top10_wallets"),cxDeepPct(holderCtx.walletTop10Pct,1)):null,
       clusters.checkedWallets!=null?cxDeepKV(cxDeepTr("deep_k_early_wallets_checked"),cxDeepEsc(clusters.checkedWallets)):null,
       clusterCount!=null?cxDeepKV(cxDeepTr("deep_k_shared_clusters"),cxDeepEsc(clusterCount)):null,
       topCluster?cxDeepKV(cxDeepTr("deep_k_largest_cluster"),cxDeepTr("deep_unit_wallets_pct",{count:topCluster.walletCount,pct:cxDeepPct(topCluster.observedSupplyPct,2)})):null,
@@ -10548,7 +10719,8 @@ async function qsLiqCheckBasic(net, token, provider) {
     const liqRows=[
       liq.liquidityType?cxDeepKV(cxDeepTr("deep_k_liq_type"),cxDeepEsc(liq.liquidityType)):null,
       liq.liquidityUsd!=null?cxDeepKV(cxDeepTr("deep_k_liq_observed"),cxDeepEsc(cxDeepMoney(liq.liquidityUsd))):null,
-      r.net==="solana"&&liq.poolCount!=null?cxDeepKV(cxDeepTr("deep_k_pool_count"),cxDeepEsc(liq.poolCount)):null,
+      liq.poolCount!=null?cxDeepKV(cxDeepTr("deep_k_pool_count"),cxDeepEsc(liq.poolCount)):null,
+      liq.providerTrackedPct!=null?cxDeepKV(cxDeepTr("deep_k_lp_tracked"),cxDeepPct(liq.providerTrackedPct,1)):null,
       r.net==="solana"&&liq.lockCheckedPoolCount!=null?cxDeepKV(cxDeepTr("deep_k_lock_checked_pools"),cxDeepEsc(liq.lockCheckedPoolCount)):null,
       r.net==="solana"&&liq.lockedPoolCount!=null?cxDeepKV(cxDeepTr("deep_k_locked_pool_signals"),cxDeepEsc(liq.lockedPoolCount)):null,
       r.net==="solana"&&liq.lockNotDetectedPoolCount!=null?cxDeepKV(cxDeepTr("deep_k_no_lock_signals"),cxDeepEsc(liq.lockNotDetectedPoolCount)):null,
@@ -10565,7 +10737,15 @@ async function qsLiqCheckBasic(net, token, provider) {
     ];
     const cc=changes?.currentControls||null;
     const authValue=(active,address)=>active===true?`${cxDeepTr("deep_active")}${address?` · ${cxDeepEsc(cxDeepShort(address,8,6))}`:""}`:active===false?cxDeepTr("deep_none"):cxDeepTr("deep_unknown");
+    const boolValue=(v)=>v===true?cxDeepTr("deep_yes"):v===false?cxDeepTr("deep_no"):cxDeepTr("deep_unknown");
+    const authorityTypes=changes?.authorityChangeTypes&&typeof changes.authorityChangeTypes==="object"?Object.entries(changes.authorityChangeTypes).filter(([,v])=>Number(v)>0).slice(0,6).map(([k,v])=>`${cxDeepEsc(k)} ×${cxDeepEsc(v)}`).join(" · "):"";
     const changeRows=[
+      r.net!=="solana"&&cc?.ownerAddress?cxDeepKV(cxDeepTr("deep_k_owner_current"),`${cc.ownerRenounced?cxDeepTr("deep_none"):cxDeepEsc(cxDeepShort(cc.ownerAddress,8,6))}`):null,
+      r.net!=="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_proxy_current"),boolValue(cc.proxyDetected)):null,
+      r.net!=="solana"&&cc?.implementationAddress?cxDeepKV(cxDeepTr("deep_k_implementation"),cxDeepEsc(cxDeepShort(cc.implementationAddress,8,6)),true):null,
+      r.net!=="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_mint_current"),boolValue(cc.mintDetected)):null,
+      r.net!=="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_pause_current"),cc.pauseActive===true?cxDeepTr("deep_active"):cc.pauseDetected===true?cxDeepTr("deep_available"):cc.pauseDetected===false?cxDeepTr("deep_none"):cxDeepTr("deep_unknown")):null,
+      r.net!=="solana"&&cc?.sourceVerified!=null?cxDeepKV(cxDeepTr("deep_k_source_verified"),boolValue(cc.sourceVerified)):null,
       r.net==="solana"&&cc?.tokenProgram?cxDeepKV(cxDeepTr("deep_k_token_program"),cxDeepEsc(cc.tokenProgram)):null,
       r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_mint_authority"),authValue(cc.mintAuthorityActive,cc.mintAuthority)):null,
       r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_freeze_authority"),authValue(cc.freezeAuthorityActive,cc.freezeAuthority)):null,
@@ -10576,10 +10756,13 @@ async function qsLiqCheckBasic(net, token, provider) {
       r.net==="solana"&&cc?cxDeepKV(cxDeepTr("deep_k_non_transferable"),cxDeepTr(cc.nonTransferable?"deep_yes":"deep_no")):null,
       changes.ownershipTransferCount!=null?cxDeepKV(cxDeepTr("deep_k_ownership_transfers"),cxDeepEsc(changes.ownershipTransferCount)):null,
       changes.proxyUpgradeCount!=null?cxDeepKV(cxDeepTr("deep_k_proxy_upgrades"),cxDeepEsc(changes.proxyUpgradeCount)):null,
-      changes.adminChangeCount!=null?cxDeepKV(cxDeepTr("deep_k_admin_changes"),cxDeepEsc(changes.adminChangeCount)):null,
+      r.net!=="solana"&&changes.adminChangeCount!=null?cxDeepKV(cxDeepTr("deep_k_admin_changes"),cxDeepEsc(changes.adminChangeCount)):null,
+      r.net==="solana"&&changes.authorityChangeCount!=null?cxDeepKV(cxDeepTr("deep_k_authority_changes"),cxDeepEsc(changes.authorityChangeCount)):null,
+      r.net==="solana"&&authorityTypes?cxDeepKV(cxDeepTr("deep_k_authority_types"),authorityTypes):null,
       changes.latestOwnershipTransfer?.tx?cxDeepKV(cxDeepTr("deep_k_latest_ownership_tx"),cxDeepValueLink(r.net,changes.latestOwnershipTransfer.tx)):null,
       changes.latestUpgrade?.tx?cxDeepKV(cxDeepTr("deep_k_latest_upgrade_tx"),cxDeepValueLink(r.net,changes.latestUpgrade.tx)):null,
-      changes.latestAdminChange?.tx?cxDeepKV(cxDeepTr("deep_k_latest_admin_tx"),cxDeepValueLink(r.net,changes.latestAdminChange.tx)):null,
+      r.net!=="solana"&&changes.latestAdminChange?.tx?cxDeepKV(cxDeepTr("deep_k_latest_admin_tx"),cxDeepValueLink(r.net,changes.latestAdminChange.tx)):null,
+      r.net==="solana"&&changes.latestAuthorityChange?.tx?cxDeepKV(cxDeepTr("deep_k_latest_authority_tx"),cxDeepValueLink(r.net,changes.latestAuthorityChange.tx)):null,
       changes.observedCount!=null?cxDeepKV(cxDeepTr("deep_k_authority_events"),cxDeepEsc(changes.observedCount)):null
     ];
     const simRows=[
@@ -10588,12 +10771,14 @@ async function qsLiqCheckBasic(net, token, provider) {
       sim.sellPath?cxDeepKV(cxDeepTr("deep_k_sell_path"),cxDeepEsc(cxDeepStatusWord(sim.sellPath))):null,
       sim.walletTransfer?cxDeepKV(cxDeepTr("deep_k_wallet_path"),cxDeepEsc(cxDeepStatusWord(sim.walletTransfer))):null,
       sim.fullSwapSimulation===false?cxDeepKV(cxDeepTr("deep_k_scope"),cxDeepTr("deep_v_sim_scope")):null,
-      sim.reasonCode?cxDeepKV(cxDeepTr("deep_k_sim_coverage"),cxDeepTr(sim.reasonCode==="evm_transfer_path"?"deep_sim_reason_evm":"deep_sim_reason_solana")):sim.reason?cxDeepKV(cxDeepTr("deep_k_sim_coverage"),cxDeepEsc(sim.reason)):null
+      sim.reasonCode?cxDeepKV(cxDeepTr("deep_k_sim_coverage"),cxDeepTr(String(sim.reasonCode||"").startsWith("evm_")?"deep_sim_reason_evm":"deep_sim_reason_solana")):sim.reason?cxDeepKV(cxDeepTr("deep_k_sim_coverage"),cxDeepEsc(sim.reason)):null
     ];
     const signalCodes=new Set(signals.map(s=>s?.code).filter(Boolean));
     const cov=r?.coverage||{};
     const sectionStatus=(coverageKey,{review=false,context=false}={})=>review?"review":context?"context":cov?.[coverageKey]==="partial"?"partial":"verified";
 
+    const marketStatus=sectionStatus("market");
+    const historyStatus=sectionStatus("history");
     const depStatus=sectionStatus("deployer",{review:signalCodes.has("fresh_deployer_funding")});
     const launchStatus=sectionStatus("earlyActivity",{review:signalCodes.has("immediate_launch_activity")});
     const walletStatus=sectionStatus("clusters",{review:signalCodes.has("shared_funding_risk"),context:signalCodes.has("shared_funding_context")&&!signalCodes.has("shared_funding_risk")});
@@ -10601,6 +10786,12 @@ async function qsLiqCheckBasic(net, token, provider) {
     const controlStatus=sectionStatus("controlHistory",{review:signalCodes.has("proxy_upgrade_history")});
     const simStatus=sectionStatus("simulation",{review:signalCodes.has("simulation_reverted")});
 
+    const marketFound=cov.market==="partial"
+      ?cxDeepTr("deep_found_market_partial")
+      :cxDeepTr("deep_found_market",{pools:market.pairCount??0,liquidity:cxDeepMoney(market.liquidityUsd)});
+    const historyFound=cov.history==="partial"
+      ?cxDeepTr("deep_found_history_partial")
+      :cxDeepTr("deep_found_history",{count:hist.observedTransactions??0});
     const depFound=(cov.deployer==="partial"||cov.identity==="partial"||!depAddr)
       ?cxDeepTr("deep_found_deployer_partial")
       :cxDeepTr("deep_found_deployer_ok");
@@ -10618,7 +10809,9 @@ async function qsLiqCheckBasic(net, token, provider) {
       :cxDeepTr("deep_found_liquidity",{liquidity:cxDeepMoney(liq.liquidityUsd),locked:liq.providerLockedPct!=null?cxDeepPct(liq.providerLockedPct,2):cxDeepTr("deep_unknown")});
     const controlFound=cov.controlHistory==="partial"
       ?cxDeepTr("deep_found_control_partial")
-      :cxDeepTr("deep_found_control",{ownership:changes.ownershipTransferCount??0,upgrades:changes.proxyUpgradeCount??0,admin:changes.adminChangeCount??0});
+      :r.net==="solana"
+        ?cxDeepTr("deep_found_control_solana",{authority:changes.authorityChangeCount??changes.adminChangeCount??0})
+        :cxDeepTr("deep_found_control",{ownership:changes.ownershipTransferCount??0,upgrades:changes.proxyUpgradeCount??0,admin:changes.adminChangeCount??0});
     const simFound=cov.simulation==="partial"
       ?cxDeepTr("deep_found_simulation_partial")
       :cxDeepTr("deep_found_simulation",{buy:cxDeepStatusWord(sim.buyPath),sell:cxDeepStatusWord(sim.sellPath),wallet:cxDeepStatusWord(sim.walletTransfer)});
@@ -10641,6 +10834,8 @@ async function qsLiqCheckBasic(net, token, provider) {
         <div class="cx-deep-details-sub">${cxDeepEsc(cxDeepTr("deep_details_sub"))}</div>
       </div>
       <div class="cx-deep-details">
+        ${cxDeepDetail("market",cxDeepTr("deep_section_market"),marketRows,{status:marketStatus,preview:previewFor(marketStatus,"deep_reason_market_partial"),found:marketFound,why:cxDeepTr("deep_why_market")})}
+        ${cxDeepDetail("history",cxDeepTr("deep_section_history"),historyRows,{status:historyStatus,preview:previewFor(historyStatus,"deep_reason_history_partial"),found:historyFound,why:cxDeepTr("deep_why_history")})}
         ${cxDeepDetail("deployer",cxDeepTr(r.net==="solana"?"deep_section_creator":"deep_section_deployer"),depRows,{status:depStatus,preview:previewFor(depStatus,"deep_reason_deployer_partial","deep_reason_fresh_funding"),found:depFound,why:cxDeepTr("deep_why_deployer"),open:depStatus==="review"})}
         ${cxDeepDetail("launch",cxDeepTr("deep_section_launch"),earlyRows,{status:launchStatus,preview:previewFor(launchStatus,"deep_reason_early_partial","deep_reason_immediate_launch"),found:launchFound,why:cxDeepTr("deep_why_launch"),open:launchStatus==="review"})}
         ${cxDeepDetail("wallets",cxDeepTr("deep_section_wallets"),clusterRows,{status:walletStatus,preview:walletStatus==="review"||walletStatus==="context"?cxDeepTr("deep_reason_shared_clusters"):walletStatus==="partial"?cxDeepTr("deep_reason_clusters_partial"):"",found:walletFound,why:cxDeepTr("deep_why_wallets"),open:walletStatus==="review"})}
@@ -10651,22 +10846,23 @@ async function qsLiqCheckBasic(net, token, provider) {
     host.classList.add("show"); cxDeepApplyCoverage(r);
   }
 
-  const CX_DEEP_STAGE_DETAIL_MAP=Object.freeze({identity:"deployer",deployer:"deployer",history:"launch",buyers:"launch",clusters:"wallets",liquidity:"liquidity",changes:"control",simulation:"simulation"});
+  const CX_DEEP_STAGE_DETAIL_MAP=Object.freeze({market:"market",identity:"deployer",deployer:"deployer",history:"history",buyers:"launch",clusters:"wallets",liquidity:"liquidity",changes:"control",simulation:"simulation",finalize:"__report"});
   cxDeepEl("cx-deep-stages")?.addEventListener("click",(e)=>{
     const stage=e.target.closest("[data-deep-stage]"); if(!stage) return;
     const key=CX_DEEP_STAGE_DETAIL_MAP[stage.dataset.deepStage]; if(!key) return;
-    const detail=cxDeepEl("cx-deep-results")?.querySelector(`details[data-deep-detail="${CSS.escape(key)}"]`);
-    if(!detail) return;
-    detail.open=true;
+    const results=cxDeepEl("cx-deep-results");
+    const target=key==="__report"?results:results?.querySelector(`details[data-deep-detail="${CSS.escape(key)}"]`);
+    if(!target) return;
+    if(key!=="__report") target.open=true;
     requestAnimationFrame(()=>{
       const backdrop=cxDeepEl("modalBackdrop");
       if(backdrop && backdrop.classList.contains("open")){
         const backdropRect=backdrop.getBoundingClientRect();
-        const detailRect=detail.getBoundingClientRect();
-        const y=backdrop.scrollTop + detailRect.top - backdropRect.top - 18;
+        const targetRect=target.getBoundingClientRect();
+        const y=backdrop.scrollTop + targetRect.top - backdropRect.top - 18;
         backdrop.scrollTo({top:Math.max(0,y),behavior:"smooth"});
       }else{
-        const y=window.scrollY + detail.getBoundingClientRect().top - 18;
+        const y=window.scrollY + target.getBoundingClientRect().top - 18;
         window.scrollTo({top:Math.max(0,y),behavior:"smooth"});
       }
     });
@@ -10683,19 +10879,33 @@ async function qsLiqCheckBasic(net, token, provider) {
 
   function cxDeepSnapshot(rep){
     const m=rep?.meta||{}, net=String(rep?.net||"").toLowerCase();
-    const dev=String(m?.devAddress||"").trim();
-    const deepCreator=String(m?.deepCreatorAddress||"").trim();
+    const dev=String(m?.devAddress||"").trim(), deepCreator=String(m?.deepCreatorAddress||"").trim();
     const sh=m?.solanaHolderAnalysis&&typeof m.solanaHolderAnalysis==="object"?m.solanaHolderAnalysis:null;
     const sc=m?.solanaControls&&typeof m.solanaControls==="object"?m.solanaControls:null;
-    const poolRows=net==="solana"&&Array.isArray(rep?.liq?.rows)?rep.liq.rows.slice(0,12):[];
+    const eh=m?.evmHolderAnalysis&&typeof m.evmHolderAnalysis==="object"?m.evmHolderAnalysis:null;
+    const ec=m?.evmControls&&typeof m.evmControls==="object"?m.evmControls:null;
+    const el=m?.evmLiquidity&&typeof m.evmLiquidity==="object"?m.evmLiquidity:null;
+    const cr=m?.evmCreation&&typeof m.evmCreation==="object"?m.evmCreation:null;
+
+    const poolRows=Array.isArray(rep?.liq?.rows)?rep.liq.rows.slice(0,12):[];
     const pools=poolRows.map(r=>{
       const note=String(r?.note||"");
       const lockStatus=/\bLP locked\b/i.test(note)?"locked":/LP lock:\s*not detected/i.test(note)?"not_detected":"unknown";
       return {address:r?.addr||null,type:r?.type||null,lockStatus};
-    });
+    }).filter(p=>p.address);
     const lockCheckedPoolCount=pools.filter(p=>p.lockStatus!=="unknown").length;
     const lockedPoolCount=pools.filter(p=>p.lockStatus==="locked").length;
     const lockNotDetectedPoolCount=pools.filter(p=>p.lockStatus==="not_detected").length;
+
+    const ds=m?.dexscreener&&typeof m.dexscreener==="object"?m.dexscreener:null;
+    const dsPools=Array.isArray(ds?.allPairs)?ds.allPairs.slice(0,12).map(p=>({
+      address:p?.pairAddress||null,dexId:p?.dex||null,liquidityUsd:cxDeepFinite(p?.liquidityUsd),pairCreatedAt:cxDeepFinite(p?.createdAtMs)
+    })).filter(p=>p.address):[];
+    const marketPools=[...dsPools];
+    const marketSeen=new Set(marketPools.map(p=>String(p.address||"").toLowerCase()));
+    for(const p of pools){const k=String(p.address||"").toLowerCase();if(k&&!marketSeen.has(k)){marketSeen.add(k);marketPools.push({address:p.address,dexId:p.type||null,liquidityUsd:null,pairCreatedAt:null});}}
+    const marketPairCount=Math.max(cxDeepFinite(ds?.pairCount)||0,cxDeepFinite(m?.marketPairCount)||0,cxDeepFinite(m?.liqActivePools)||0,marketPools.length,pools.length);
+
     return {
       symbol:m?.symbol||"",name:m?.name||"",score:rep?.score,contractScore:m?.contractScore,marketScore:m?.marketScore,
       deployerAddress:net!=="solana"&&/^0x[a-fA-F0-9]{40}$/.test(dev)?dev:null,
@@ -10703,14 +10913,37 @@ async function qsLiqCheckBasic(net, token, provider) {
       creatorSource:net==="solana"?(m?.creatorSource||"quick-scan"):null,
       creatorHoldingPct:net==="solana"&&deepCreator&&deepCreator===dev?cxDeepFinite(m?.devHoldingPct??sh?.creatorHoldingPct):null,
       creatorHoldingAmountUi:net==="solana"&&deepCreator&&deepCreator===dev?cxDeepFinite(sh?.creatorHoldingAmountUi):null,
-      totalSupplyUi:cxDeepFinite(m?.supplyUiDisplay??m?.totalSupplyUi??m?.supplyUi),decimals:cxDeepFinite(m?.decimals),
-      liquidityUsd:cxDeepFinite(m?.liquidityUsdEst),dataCoverage:m?.confidence||m?.dataCoverage||"",
+      totalSupplyUi:cxDeepFinite(m?.supplyUiDisplay??m?.totalSupplyUi??m?.supplyUi),
+      decimals:cxDeepFinite(m?.decimals),liquidityUsd:cxDeepFinite(m?.liquidityUsdEst),dataCoverage:m?.confidence||m?.dataCoverage||"",
+      marketContext:{
+        poolCount:marketPairCount,
+        liquidityUsd:cxDeepFinite(m?.liquidityUsdEst),
+        earliestPairCreatedAt:cxDeepFinite(m?.deepMarketEarliestPoolMs??ds?.earliestPairCreatedAt),
+        pools:marketPools
+      },
+      evmCreation:net!=="solana"&&cr?{
+        deployerAddress:cr.deployerAddress||null,creationTx:cr.creationTx||null,creationBlock:cxDeepFinite(cr.creationBlock),createdAt:cxDeepFinite(cr.createdAt)
+      }:null,
+      evmControls:net!=="solana"&&ec?{...ec}:null,
+      evmHolderAnalysis:net!=="solana"&&eh?{
+        holderAnalysisReliable:eh.holderAnalysisReliable===true,trackedCount:cxDeepFinite(eh.trackedCount),classifiedCount:cxDeepFinite(eh.classifiedCount),
+        walletTopHolderPct:cxDeepFinite(eh.walletTopHolderPct),walletTop10Pct:cxDeepFinite(eh.walletTop10Pct),
+        topWalletAddress:/^0x[a-fA-F0-9]{40}$/.test(String(eh.topWalletAddress||""))?eh.topWalletAddress:null
+      }:null,
+      evmLiquidity:net!=="solana"&&el?{
+        v2PairAddress:/^0x[a-fA-F0-9]{40}$/.test(String(el.v2PairAddress||""))?el.v2PairAddress:null,
+        poolCount:cxDeepFinite(el.poolCount),providerLockedPct:cxDeepFinite(el.providerLockedPct),providerTrackedPct:cxDeepFinite(el.providerTrackedPct),
+        providerLockDataKnown:el.providerLockDataKnown===true,directBurnedPct:cxDeepFinite(el.directBurnedPct),
+        activeLockUnlockTs:cxDeepFinite(el.activeLockUnlockTs),lockKnown:el.lockKnown===true,liquidityTypes:Array.isArray(el.liquidityTypes)?el.liquidityTypes.slice(0,8):[]
+      }:null,
       solanaHolderAnalysis:net==="solana"&&sh?{
-        reliable:sh.reliable===true,classificationCoveragePct:cxDeepFinite(sh.classificationCoveragePct),walletTopHolderPct:cxDeepFinite(sh.walletTopHolderPct),walletTop10Pct:cxDeepFinite(sh.walletTop10Pct),holderCount:cxDeepFinite(sh.holderCount),tokenAccountCount:cxDeepFinite(sh.tokenAccountCount),unknownAuthorityPct:cxDeepFinite(sh.unknownAuthorityPct),creatorHoldingPct:cxDeepFinite(sh.creatorHoldingPct),creatorHoldingAmountUi:cxDeepFinite(sh.creatorHoldingAmountUi)
+        reliable:sh.reliable===true,classificationCoveragePct:cxDeepFinite(sh.classificationCoveragePct),walletTopHolderPct:cxDeepFinite(sh.walletTopHolderPct),
+        topWalletAddress:/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(String(sh.topWalletAddress||""))?sh.topWalletAddress:null,
+        walletTop10Pct:cxDeepFinite(sh.walletTop10Pct),holderCount:cxDeepFinite(sh.holderCount),tokenAccountCount:cxDeepFinite(sh.tokenAccountCount),unknownAuthorityPct:cxDeepFinite(sh.unknownAuthorityPct),creatorHoldingPct:cxDeepFinite(sh.creatorHoldingPct),creatorHoldingAmountUi:cxDeepFinite(sh.creatorHoldingAmountUi)
       }:null,
       tokenProgram:net==="solana"?(m?.tokenProgram||null):null,
       solanaControls:net==="solana"&&sc?{...sc}:null,
-      solanaLiquidity:net==="solana"?{poolCount:pools.length,lockCheckedPoolCount,lockedPoolCount,lockNotDetectedPoolCount,pools}:null
+      solanaLiquidity:net==="solana"?{poolCount:pools.length||marketPairCount,lockCheckedPoolCount,lockedPoolCount,lockNotDetectedPoolCount,pools}:null
     };
   }
 
@@ -11221,6 +11454,8 @@ async function qsLiqCheckBasic(net, token, provider) {
     if (livePrice)            rep.meta.nativeUsdPrice   = livePrice;
     rep.meta.contractAgeDays  = contractAge?.ageDays    ?? null;
     rep.meta.contractDeployTs = contractAge?.deployTs   ?? null;
+    rep.meta.contractCreationTx = contractAge?.creationTx || null;
+    rep.meta.contractCreationBlock = contractAge?.creationBlock ?? null;
     if (explorerHolderCount)  rep.meta.holderCount      = explorerHolderCount;
     if (contractAge?.holdersCount && !rep.meta.holderCount) rep.meta.holderCount = contractAge.holdersCount;
     if (marketSnapshot)       rep.meta.dexscreener      = marketSnapshot;
@@ -11427,7 +11662,9 @@ async function qsLiqCheckBasic(net, token, provider) {
       walletTopHolderPct: evmWalletTopHolderPct,
       walletTop10Pct: evmWalletTop10Pct,
       rawTopHolderAccountPct: evmRawTopHolderAccountPct,
-      rawTop10HolderAccountsPct: evmRawTop10HolderAccountsPct
+      rawTop10HolderAccountsPct: evmRawTop10HolderAccountsPct,
+      topWalletAddress: evmHolderAnalysis?.topWalletAddress || null,
+      sampleWalletAddresses: Array.isArray(evmHolderAnalysis?.sampleWalletAddresses) ? evmHolderAnalysis.sampleWalletAddresses.slice(0,5) : []
     } : null;
 
     const cexListed = !!rep.meta?.cexListed;
@@ -11559,10 +11796,47 @@ async function qsLiqCheckBasic(net, token, provider) {
       ownerPct,
       devHoldingPct,
       devAddress: bestDevAddress,
+      totalSupplyUi,
+      deepMarketEarliestPoolMs: (() => {
+        const xs = [
+          newEvmMarketAgg?.earliestPoolCreatedAtMs ?? null,
+          dexscreener?.earliestPairCreatedAt ?? null,
+          geckoterminal?.earliestPoolCreatedAtMs ?? null
+        ].map(Number).filter(n => Number.isFinite(n) && n > 0);
+        return xs.length ? Math.min(...xs) : null;
+      })(),
       globalCirculatingSupply: globalCirculatingSupplyText,
       globalCirculatingSource,
       marketDataSource: dsMarket?.source || null,
-      secureEngine: secureEval.version || "protected"
+      secureEngine: secureEval.version || "protected",
+      evmCreation: {
+        deployerAddress: contractAge?.deployerAddress || bestDevAddress || null,
+        creationTx: contractAge?.creationTx || rep.meta?.contractCreationTx || null,
+        creationBlock: contractAge?.creationBlock ?? rep.meta?.contractCreationBlock ?? null,
+        createdAt: contractAge?.deployTs ? Number(contractAge.deployTs) * 1000 : null
+      },
+      evmControls: {
+        ownerAddress: owner || null,
+        ownerRenounced: owner ? !!ownerIsRenounced : null,
+        proxyDetected: !!isProxy,
+        implementationAddress: impl || null,
+        mintDetected: !!mintRiskDetected,
+        mintSource: mintSource || null,
+        pauseDetected: !!pauseDetected,
+        pauseActive: pausedState === true ? true : pausedState === false ? false : null,
+        sourceVerified: verified === true ? true : verified === false ? false : null
+      },
+      evmLiquidity: {
+        v2PairAddress: gpV2Pair || (!gpOnlyConcentrated ? lpAddr : null),
+        poolCount: Math.max(Number(rep.liq?.rows?.filter(r => r?.ok).length || 0), Number(rep.meta?.marketPairCount || 0), Number(rep.meta?.liqActivePools || 0)),
+        providerLockedPct: goplus?.lpLockDataKnown ? (goplus?.lpLockedPct ?? null) : null,
+        providerTrackedPct: goplus?.lpLockDataKnown ? (goplus?.lpTrackedPct ?? null) : null,
+        providerLockDataKnown: goplus?.lpLockDataKnown === true,
+        directBurnedPct: lpBurnInfo?.burnedPct ?? null,
+        activeLockUnlockTs: liqLock?.locked ? (liqLock?.unlockTs ?? null) : null,
+        lockKnown: !!liqLock,
+        liquidityTypes: Array.isArray(goplus?.liquidityTypes) ? goplus.liquidityTypes.slice(0,8) : []
+      }
     };
 
     rep.mini = [
@@ -11937,6 +12211,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     // RPC-based source alongside the existing getTokenSupply-based one, so
     // a hiccup in either single call doesn't leave supply blank.
     rep.meta.supplyUiDisplay = solHolders?.supplyUi ?? mintInfo?.supplyUi ?? null;
+    rep.meta.decimals = mintInfo?.decimals ?? null;
 
     // ✅ NEW: Mint Authority / Freeze Authority now read from the on-chain
     // Mint account FIRST (qsFetchSolanaMintInfo) — the canonical source,
@@ -12001,7 +12276,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const holderAnalysisReliable = solHolders?.holderAnalysisReliable === true;
     const effHoldersKnown = rawTopTokenAccountPct != null || rawTop10TokenAccountsPct != null || !!(gp?.holdersReturned > 0);
 
-    const devCandidateAddress = heliusCreator || gp?.creatorAddress || effMintAuthorityAddr || effFreezeAuthorityAddr || null;
+    const devCandidateAddress = heliusCreator || gp?.creatorAddress || null;
     const devSupplyForPct = solHolders?.supplyUi ?? mintInfo?.supplyUi ?? null;
     const apiDevHoldingPct = Number.isFinite(Number(solHolders?.creatorHoldingPct)) ? Number(solHolders.creatorHoldingPct) : null;
     const apiDevHoldingAmountUi = Number.isFinite(Number(solHolders?.creatorHoldingAmountUi)) ? Number(solHolders.creatorHoldingAmountUi) : null;
@@ -12112,6 +12387,11 @@ async function qsLiqCheckBasic(net, token, provider) {
     rep.meta.cexVolume24hUsd = cex?.totalVolume24hUsd ?? null;
     rep.meta.liquidityUsdEst = liqUsd;
     rep.meta.liqQuality = secureEval.liqQuality || "unknown";
+    rep.meta.deepMarketEarliestPoolMs = (() => {
+      const xs = [ds?.earliestPairCreatedAt ?? null, gt?.earliestPoolCreatedAtMs ?? null]
+        .map(Number).filter(n => Number.isFinite(n) && n > 0);
+      return xs.length ? Math.min(...xs) : null;
+    })();
     rep.meta.tradingAgeDays = solAgeDays;
     rep.meta.dataBlackout = dataBlackout;
     rep.meta.suspiciousMarketPattern = secureEval.suspiciousMarketPattern === true;
@@ -12132,6 +12412,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       rawTop10TokenAccountsPct,
       walletTopHolderPct,
       walletTopHolderAmountUi,
+      topWalletAddress: solHolders?.walletTopHolderAddress || null,
       walletTop10Pct,
       classificationCoveragePct: solHolders?.classificationCoveragePct ?? null,
       tokenAccountCoveragePct: solHolders?.tokenAccountCoveragePct ?? null,
