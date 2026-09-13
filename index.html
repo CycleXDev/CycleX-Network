@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2294,6 +2295,10 @@ html, body { overflow-x: hidden; }
 
 </style>
  
+  <!-- CycleX Reward Claims — Cloudflare Turnstile -->
+  <link rel="preconnect" href="https://challenges.cloudflare.com">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+
 </head>
 <body>
  <div class="page-shell">
@@ -3790,6 +3795,96 @@ function cxUpdateModalState() {
     const CX_REWARD_API = "https://cycles.cyclex.network";
     const CX_CHAIN_ID = 56;
 
+    // Public Turnstile Site Key. The matching SECRET stays only in the Reward Gateway Worker.
+    const CX_TURNSTILE_SITE_KEY = "0x4AAAAAAEykQoSaiA4Q56VX";
+    const CX_TURNSTILE_ACTIONS = Object.freeze({
+      "/v1/eligibility": "cyclex_eligibility",
+      "/v1/proof": "cyclex_proof",
+    });
+
+    function cxWaitForTurnstile(timeoutMs = 12000) {
+      if (window.turnstile?.render && window.turnstile?.execute) {
+        return Promise.resolve(window.turnstile);
+      }
+
+      return new Promise((resolve, reject) => {
+        const started = Date.now();
+        const timer = setInterval(() => {
+          if (window.turnstile?.render && window.turnstile?.execute) {
+            clearInterval(timer);
+            resolve(window.turnstile);
+            return;
+          }
+
+          if (Date.now() - started >= timeoutMs) {
+            clearInterval(timer);
+            reject(new Error("Turnstile failed to load"));
+          }
+        }, 50);
+      });
+    }
+
+    async function cxGetTurnstileToken(action) {
+      const ts = await cxWaitForTurnstile();
+
+      const host = document.createElement("div");
+      host.setAttribute("aria-hidden", "true");
+      host.style.cssText =
+        "position:fixed;right:16px;bottom:16px;z-index:2147483647;" +
+        "min-width:1px;min-height:1px;";
+      document.body.appendChild(host);
+
+      let widgetId = null;
+
+      try {
+        const token = await new Promise((resolve, reject) => {
+          let settled = false;
+
+          const finish = (fn, value) => {
+            if (settled) return;
+            settled = true;
+            clearTimeout(timeout);
+            fn(value);
+          };
+
+          const timeout = setTimeout(
+            () => finish(reject, new Error("Turnstile verification timed out")),
+            30000
+          );
+
+          widgetId = ts.render(host, {
+            sitekey: CX_TURNSTILE_SITE_KEY,
+            action,
+            execution: "execute",
+            appearance: "interaction-only",
+            theme: "dark",
+            retry: "auto",
+            "refresh-expired": "manual",
+            callback: (value) => finish(resolve, String(value || "")),
+            "error-callback": () =>
+              finish(reject, new Error("Turnstile verification failed")),
+            "expired-callback": () =>
+              finish(reject, new Error("Turnstile token expired")),
+            "timeout-callback": () =>
+              finish(reject, new Error("Turnstile challenge timed out")),
+          });
+
+          ts.execute(widgetId);
+        });
+
+        if (!token || token.length > 2048) {
+          throw new Error("Invalid Turnstile token");
+        }
+
+        return token;
+      } finally {
+        try {
+          if (widgetId !== null) ts.remove(widgetId);
+        } catch {}
+        host.remove();
+      }
+    }
+
     let cxClaimInFlight = false;
     let cxProvider = null;
     let cxSigner = null;
@@ -3854,20 +3949,48 @@ function cxUpdateModalState() {
 
     async function cxApiJson(path, { method = "GET", body = null, retries = 1 } = {}) {
       let lastErr = null;
+      const normalizedMethod = String(method || "GET").toUpperCase();
+      const turnstileAction =
+        normalizedMethod === "POST" ? CX_TURNSTILE_ACTIONS[path] || null : null;
+
       for (let attempt = 0; attempt <= retries; attempt++) {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 9000);
+
         try {
+          // Turnstile tokens are single-use. Generate a fresh token inside the retry
+          // loop so a network retry never reuses a token that may already be consumed.
+          let requestBody = body ? { ...body } : null;
+          if (turnstileAction) {
+            requestBody = requestBody || {};
+            requestBody.turnstileToken = await cxGetTurnstileToken(turnstileAction);
+          }
+
           const r = await fetch(`${CX_REWARD_API}${path}`, {
-            method,
+            method: normalizedMethod,
             cache: "no-store",
             credentials: "omit",
-            headers: body ? { "Content-Type": "application/json" } : undefined,
-            body: body ? JSON.stringify(body) : undefined,
+            headers: requestBody ? { "Content-Type": "application/json" } : undefined,
+            body: requestBody ? JSON.stringify(requestBody) : undefined,
             signal: controller.signal,
           });
+
           const data = await r.json().catch(() => ({}));
           clearTimeout(timer);
+
+          // A Turnstile token can expire or be consumed. On the one configured retry,
+          // obtain a brand-new token rather than returning a transient verification error.
+          if (
+            turnstileAction &&
+            attempt < retries &&
+            (data?.error === "turnstile_failed" ||
+             data?.error === "turnstile_token_missing" ||
+             data?.error === "turnstile_unavailable")
+          ) {
+            await new Promise(r => setTimeout(r, 250 * (attempt + 1)));
+            continue;
+          }
+
           return { response: r, data };
         } catch (e) {
           clearTimeout(timer);
@@ -3875,6 +3998,7 @@ function cxUpdateModalState() {
           if (attempt < retries) await new Promise(r => setTimeout(r, 250 * (attempt + 1)));
         }
       }
+
       throw lastErr || new Error("Reward API unavailable");
     }
 
