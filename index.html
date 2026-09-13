@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1296,7 +1297,7 @@ body::after{
     to{   opacity:1; transform:translateY(0); }
   }
   /* eligible — green glow card */
-  #claim-status:not(.pending):not(.success):not(.error){
+  #claim-status.success{
     background: rgba(0,230,118,.07);
     border: 1px solid rgba(0,230,118,.3);
     color: #00e676;
@@ -1402,6 +1403,385 @@ body::after{
   .eligibility-body ol{ padding-left: 18px; margin:0; }
   .eligibility-body li + li{ margin-top: 8px; }
   .eligibility-body ul{ margin-top: 6px; padding-left: 16px; list-style-type: disc; }
+
+
+  /* Reward portal v4 — private R2 gateway, no wallet signature */
+  .modal{ max-height:min(88vh,760px); overflow-y:auto; }
+  .modal > *{ position:relative; z-index:1; }
+  .modal-tagline{
+    color:rgba(0,229,255,.92);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.04em;
+    margin:2px 0 10px;
+  }
+  .claim-cycle-meta{
+    display:none;
+    width:max-content;
+    max-width:100%;
+    margin:0 0 10px;
+    padding:5px 9px;
+    border-radius:999px;
+    border:1px solid rgba(0,229,255,.18);
+    background:rgba(0,229,255,.06);
+    color:rgba(244,246,255,.72);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .btn-wallet.is-connected{
+    background:rgba(0,230,118,.07);
+    color:#00e676;
+    border-color:rgba(0,230,118,.30);
+    box-shadow:0 0 18px rgba(0,230,118,.08);
+    cursor:default;
+    transform:none;
+  }
+  .btn-wallet:disabled{ opacity:.56; cursor:not-allowed; transform:none; }
+  #claim-status.neutral{
+    background:rgba(0,229,255,.07);
+    border:1px solid rgba(0,229,255,.22);
+    color:rgba(230,250,255,.92);
+    box-shadow:0 0 28px rgba(0,229,255,.06);
+  }
+  #claim-status.muted{
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.10);
+    color:rgba(244,246,255,.72);
+    box-shadow:none;
+  }
+
+  @media (max-width:600px){
+    .modal-backdrop{ padding:12px; align-items:center; }
+    .modal{
+      width:100%;
+      max-height:calc(100dvh - 24px);
+      border-radius:20px;
+      padding:20px 16px 18px;
+      overscroll-behavior:contain;
+    }
+    .modal-title{ font-size:21px; line-height:1.12; padding-right:24px; }
+    html[dir="rtl"] .modal-title{ padding-right:0; padding-left:24px; }
+    .modal-subtitle{ font-size:12.5px; line-height:1.55; }
+    .eligibility-body{ max-height:50dvh; font-size:12.5px; line-height:1.58; padding-right:4px; }
+    .modal-actions{ gap:8px; }
+    .modal-actions .btn-wallet{ flex:1 1 100%; min-height:48px; }
+    .modal-actions .btn-close{ margin-inline:auto; }
+    #cx-claim-now-btn{ min-height:50px; font-size:15px; }
+    .modal-close-x{ top:8px; right:9px; font-size:17px; }
+    html[dir="rtl"] .modal-close-x{ right:auto; left:9px; }
+  }
+
+
+  /* =========================
+     REWARD MODALS — PREMIUM V6
+     ========================= */
+  .reward-rules-modal{
+    width:min(940px,96vw);
+    max-height:calc(100dvh - 24px);
+    padding:20px 30px 18px;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:thin;
+  }
+  .reward-portal-modal{
+    width:min(540px,94vw);
+    max-height:calc(100dvh - 24px);
+    padding:20px 26px 20px;
+    overflow:visible;
+  }
+
+  /* The close button floats above the layout and never consumes a row. */
+  .reward-rules-modal > .modal-close-x,
+  .reward-portal-modal > .modal-close-x,
+  html[dir="rtl"] .reward-rules-modal > .modal-close-x,
+  html[dir="rtl"] .reward-portal-modal > .modal-close-x{
+    position:absolute !important;
+    z-index:20 !important;
+    top:10px !important;
+    right:12px !important;
+    left:auto !important;
+    bottom:auto !important;
+    margin:0 !important;
+    width:30px;
+    height:30px;
+    display:grid;
+    place-items:center;
+    padding:0;
+    border-radius:999px;
+    font-size:18px;
+    line-height:1;
+    color:rgba(244,246,255,.62);
+    transform:none;
+  }
+  .reward-rules-modal > .modal-close-x:hover,
+  .reward-portal-modal > .modal-close-x:hover{
+    background:rgba(255,255,255,.055);
+    color:rgba(244,246,255,.96);
+    transform:none;
+  }
+
+  .reward-rules-modal .modal-badge,
+  .reward-portal-modal .modal-badge{
+    margin-top:0;
+    margin-bottom:5px;
+  }
+  .reward-rules-modal .modal-title,
+  .reward-portal-modal .modal-title{
+    padding:0 !important;
+    margin-right:0 !important;
+    margin-left:0 !important;
+  }
+  .reward-rules-modal .modal-title{
+    font-size:26px;
+    line-height:1.08;
+    margin-bottom:7px;
+  }
+  .reward-rules-modal .modal-subtitle{
+    max-width:790px;
+    font-size:13px;
+    line-height:1.45;
+    margin-bottom:11px;
+  }
+  .reward-rules-modal .eligibility-body{
+    max-height:none;
+    overflow:visible;
+    padding:0;
+    margin:0 0 12px;
+    font-size:12.6px;
+    line-height:1.45;
+  }
+  .reward-rules-modal .eligibility-body ol{
+    margin:0;
+    padding-inline-start:22px;
+  }
+  .reward-rules-modal .eligibility-body li{
+    padding:5px 0 7px;
+    color:rgba(244,246,255,.70);
+  }
+  .reward-rules-modal .eligibility-body li + li{
+    margin-top:0;
+    border-top:1px solid rgba(255,255,255,.065);
+  }
+  .reward-rules-modal .eligibility-body li strong{
+    color:rgba(249,251,255,.95);
+    font-weight:850;
+  }
+  .eligibility-warning{
+    margin-top:7px;
+    padding:8px 11px;
+    border-radius:10px;
+    border:1px solid rgba(255,92,116,.22);
+    background:rgba(255,92,116,.07);
+    color:rgba(255,226,231,.92);
+    line-height:1.42;
+  }
+  .eligibility-warning strong{ color:#ff9dad !important; }
+  .eligibility-rate-note{
+    margin-top:9px;
+    padding:8px 10px;
+    border-radius:10px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.08);
+    color:rgba(244,246,255,.62);
+    font-size:11.2px;
+    line-height:1.42;
+  }
+
+  /* Center the agreement CTA and the text below it. */
+  .rules-actions{
+    justify-content:center;
+    margin-top:8px;
+    margin-bottom:4px;
+  }
+  .rules-actions .btn-wallet{
+    flex:0 1 430px;
+    width:min(430px,100%);
+    max-width:430px;
+    min-height:48px;
+  }
+  .rules-caption{
+    max-width:760px;
+    margin:6px auto 0;
+    text-align:center;
+    color:rgba(244,246,255,.58);
+    font-size:10.8px;
+    line-height:1.45;
+  }
+
+  .reward-portal-modal .modal-title{
+    font-size:25px;
+    line-height:1.08;
+    margin-bottom:8px;
+  }
+  .reward-portal-modal .modal-subtitle{
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:12px;
+    color:rgba(244,246,255,.68);
+  }
+  .claim-primary-actions{
+    margin-top:12px;
+    flex-wrap:nowrap;
+  }
+  .claim-primary-actions .btn-wallet{ min-height:48px; }
+  .claim-primary-actions .btn-close{
+    flex:0 0 auto;
+    min-height:38px;
+    padding-inline:16px;
+  }
+  .claim-caption{
+    color:rgba(244,246,255,.48);
+    line-height:1.45;
+  }
+
+  .verified-cycle-note{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:9px;
+    padding:5px 9px;
+    border-radius:999px;
+    border:1px solid rgba(0,229,255,.18);
+    background:rgba(0,229,255,.055);
+    color:rgba(174,245,255,.88);
+    font-size:10.5px;
+    font-weight:800;
+    letter-spacing:.02em;
+  }
+  .future-eligibility-card{
+    margin-top:12px;
+    padding:12px 13px;
+    border-radius:14px;
+    border:1px solid rgba(255,193,7,.30);
+    background:linear-gradient(180deg,rgba(255,193,7,.10),rgba(255,153,0,.055));
+    color:rgba(255,229,150,.94);
+    text-align:center;
+  }
+  .future-eligibility-card strong{
+    display:block;
+    color:#ffd75e;
+    margin-bottom:4px;
+    font-size:13px;
+  }
+  .future-eligibility-card span{
+    font-size:11.5px;
+    line-height:1.45;
+  }
+  #claim-status.claimed{
+    background:rgba(0,229,255,.065);
+    border:1px solid rgba(0,229,255,.22);
+    color:rgba(225,250,255,.94);
+    box-shadow:0 0 26px rgba(0,229,255,.06);
+  }
+  .btn-wallet.is-loading{ cursor:wait; opacity:.88; }
+  .btn-wallet.is-loading::before{
+    content:"";
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    border:2px solid rgba(5,6,10,.28);
+    border-top-color:#05060a;
+    display:inline-block;
+    margin-inline-end:8px;
+    vertical-align:-2px;
+    animation:cxSpin .75s linear infinite;
+  }
+  @keyframes cxSpin{ to{ transform:rotate(360deg); } }
+
+  /* Arabic stays RTL, but the close control remains consistently top-right. */
+  html[dir="rtl"] .reward-rules-modal,
+  html[dir="rtl"] .reward-portal-modal{
+    text-align:right;
+  }
+  html[dir="rtl"] .reward-rules-modal .modal-badge,
+  html[dir="rtl"] .reward-portal-modal .modal-badge{
+    padding-right:34px;
+  }
+
+  @media (min-width:701px) and (max-height:760px){
+    .reward-rules-modal{
+      width:min(980px,97vw);
+      padding:17px 26px 15px;
+    }
+    .reward-rules-modal .modal-title{ font-size:23px; }
+    .reward-rules-modal .modal-subtitle{ margin-bottom:7px; font-size:12.2px; }
+    .reward-rules-modal .eligibility-body{
+      font-size:11.7px;
+      line-height:1.36;
+      margin-bottom:8px;
+    }
+    .reward-rules-modal .eligibility-body li{ padding:3px 0 5px; }
+    .eligibility-warning{ margin-top:5px; padding:6px 9px; }
+    .eligibility-rate-note{ margin-top:6px; padding:6px 9px; }
+    .rules-actions{ margin-top:5px; }
+    .rules-actions .btn-wallet{ padding-block:10px; min-height:44px; }
+    .rules-caption{ font-size:10.2px; margin-top:4px; }
+  }
+
+  @media (max-width:700px){
+    .reward-rules-modal,
+    .reward-portal-modal{
+      width:100%;
+      max-height:calc(100dvh - 16px);
+      border-radius:20px;
+      padding:18px 16px 16px;
+      overflow-y:auto;
+      overscroll-behavior:contain;
+    }
+    .reward-rules-modal .modal-title,
+    .reward-portal-modal .modal-title{
+      padding:0 !important;
+      font-size:21px;
+      line-height:1.12;
+    }
+    .reward-rules-modal .modal-subtitle,
+    .reward-portal-modal .modal-subtitle{
+      font-size:12.4px;
+      line-height:1.5;
+      padding:0;
+    }
+    .reward-rules-modal .eligibility-body{
+      max-height:none;
+      overflow:visible;
+      font-size:12px;
+      line-height:1.46;
+      padding:0;
+    }
+    .reward-rules-modal .eligibility-body ol{ padding-inline-start:20px; }
+    .reward-rules-modal .eligibility-body li{ padding:6px 0 7px; }
+    .rules-actions{
+      justify-content:center;
+      width:100%;
+    }
+    .rules-actions .btn-wallet{
+      flex:1 1 100%;
+      max-width:none;
+      width:100%;
+      min-height:48px;
+    }
+    .rules-caption{
+      width:100%;
+      max-width:none;
+      margin-top:6px;
+      padding-inline:4px;
+      font-size:10.4px;
+    }
+    .claim-primary-actions{ flex-wrap:wrap; }
+    .claim-primary-actions .btn-wallet{ flex:1 1 100%; }
+    .claim-primary-actions .btn-close{ margin-inline:auto; }
+    .reward-rules-modal > .modal-close-x,
+    .reward-portal-modal > .modal-close-x,
+    html[dir="rtl"] .reward-rules-modal > .modal-close-x,
+    html[dir="rtl"] .reward-portal-modal > .modal-close-x{
+      top:7px !important;
+      right:7px !important;
+      left:auto !important;
+      width:30px;
+      height:30px;
+    }
+  }
 
   /* =========================
      CALCULATOR MODAL
@@ -2306,61 +2686,53 @@ html, body { overflow-x: hidden; }
   </footer>
 </div>
 
-<!-- Eligibility modal (first-visit popup, multi-language) -->
+<!-- Reward rules gate (shown before every Claim attempt) -->
 <div class="modal-backdrop" id="eligibility-modal-backdrop" aria-hidden="true">
-  <div class="modal">
-    <h2 class="modal-title" data-i18n="elig_title">
-      Eligibility &amp; Holding Rules
-    </h2>
+  <div class="modal reward-rules-modal" role="dialog" aria-modal="true" aria-labelledby="eligibility-modal-title">
+    <button class="modal-close-x" id="eligibility-modal-close-x" type="button" aria-label="Close">&times;</button>
+    <div class="modal-badge" data-i18n="elig_badge">CYCLEX</div>
+    <h2 class="modal-title" id="eligibility-modal-title" data-i18n="elig_title">Reward Eligibility Rules</h2>
     <p class="modal-subtitle" data-i18n="elig_subtitle">
-      To be included in a reward cycle, you must hold CYCLEX correctly and respect the 60-day Web3 holding rule:
+      A few simple rules decide which CYCX earns a reward in each cycle. Please read them before you continue.
     </p>
     <div class="eligibility-body" data-i18n="elig_body">
       <ol>
-        <li><strong>Hold in a self-custody Web3 wallet</strong> (MetaMask, Trust Wallet, Ledger) for at least 60 days.</li>
-        <li><strong>Exchange balances do not count</strong> until tokens are withdrawn to your own Web3 wallet.</li>
-        <li><strong>Snapshots are taken before each cycle</strong>; moving or selling before snapshot removes eligibility.</li>
-        <li><strong>Rewards are based on duration + balance only</strong>, not on buy price or trading history.</li>
-        <li><strong>Claims use Merkle-proof</strong> and can only be triggered by the owner wallet.</li>
+        <li><strong>Keep CYCX in your own Web3 wallet for 60 full days.</strong><br>MetaMask, Trust Wallet, Ledger and similar self-custody wallets qualify. <strong>CYCX held on an exchange — Binance, Coinbase, KuCoin or any other — does NOT count</strong>, because those tokens are not in your wallet.</li>
+        <li><strong>Every amount you receive starts its own 60-day count.</strong><br>New CYCX begins counting from the moment it arrives in your wallet. Older CYCX keeps the age it already earned.</li>
+        <li><strong>If you move part of your CYCX out, the oldest portion is counted as leaving first.</strong><br>This is a FIFO calculation used for eligibility only. The CYCX that remains keeps its recorded holding age — a partial sale or transfer does not reset the rest of your balance.</li>
+        <li><strong>Your eligible balance is fixed at the cycle snapshot.</strong><br>Only CYCX that completed the full 60 days by the moment of the snapshot can earn a reward in that cycle.</li>
+        <li><strong>Rewards must be claimed for each cycle.</strong><div class="eligibility-warning"><strong>Unclaimed rewards do not roll over and are not added to the next cycle.</strong> Each reward cycle is calculated separately.</div></li>
+        <li><strong>Only the wallet that held the CYCX can claim.</strong><br>Each allocation is secured by a Merkle proof, and the smart contract only allows that wallet to claim its own allocation.</li>
+        <li><strong>Claimed rewards can qualify in future cycles.</strong><br>Once claimed, they sit in your wallet like any other CYCX and start their own 60-day count.</li>
       </ol>
+      <div class="eligibility-rate-note">The reward rate is a per-cycle target calculated off-chain, not a fixed or guaranteed return.</div>
     </div>
-    <div class="modal-actions">
-      <button class="btn-wallet" id="eligibility-continue-btn" data-i18n="elig_continue">
-        I understand – continue
-      </button>
+    <div class="modal-actions rules-actions">
+      <button class="btn-wallet" id="eligibility-continue-btn" data-i18n="elig_continue">I understand — continue</button>
     </div>
-    <p class="modal-caption" data-i18n="elig_caption">
-      By continuing, you confirm that you understand how eligibility is calculated and acknowledge these rules before interacting with the reward system.
+    <p class="modal-caption rules-caption" data-i18n="elig_caption">
+      By continuing, you confirm that you have read and understood how CycleX reward eligibility is calculated.
     </p>
   </div>
 </div>
 
 <!-- Claim modal -->
 <div class="modal-backdrop" id="claim-modal-backdrop" aria-hidden="true">
-  <div class="modal">
-    <button class="modal-close-x" id="modal-close-x" aria-label="Close">&times;</button>
-    <div class="modal-badge" data-i18n="claim_badge">Claim Portal</div>
-    <h2 class="modal-title" data-i18n="claim_title">Claim your rewards</h2>
+  <div class="modal reward-portal-modal" role="dialog" aria-modal="true" aria-labelledby="claim-modal-title">
+    <button class="modal-close-x" id="modal-close-x" type="button" aria-label="Close">&times;</button>
+    <div class="modal-badge" data-i18n="claim_badge">Reward Portal</div>
+    <h2 class="modal-title" id="claim-modal-title" data-i18n="claim_title">Check your reward</h2>
     <p class="modal-subtitle" data-i18n="claim_subtitle">
-      Connect your wallet to check your eligibility and claim what’s yours. Rewards are calculated per cycle based on
-      the official target-rate model (9% per cycle) and 60-day holding rule.
-      Claim is required every cycle to receive your rewards. Unclaimed rewards do not roll over.
+      Connect the wallet that held CYCX at the snapshot. CycleX checks only the active reward cycle and never asks for your seed phrase or private key.
     </p>
-    <p class="modal-tagline" data-i18n="claim_tagline">
-      For important and loyal holders only.
-    </p>
+    <div class="claim-cycle-meta" id="claim-cycle-meta"></div>
     <div id="claim-status"></div>
-    <div class="modal-actions">
-      <button class="btn-wallet" id="btn-connect-wallet" data-i18n="claim_btn_connect">
-        Connect wallet
-      </button>
-      <button class="btn-close" id="btn-close-modal" data-i18n="claim_btn_close">
-        Close
-      </button>
+    <div class="modal-actions claim-primary-actions">
+      <button class="btn-wallet" id="btn-connect-wallet" data-i18n="claim_btn_connect">Connect wallet &amp; check</button>
+      <button class="btn-close" id="btn-close-modal" data-i18n="claim_btn_close">Close</button>
     </div>
-    <p class="modal-caption" data-i18n="claim_caption">
-      Connect with MetaMask / WalletConnect to read your Merkle allocation and submit the
-      on-chain <code>claim()</code> transaction from your wallet.
+    <p class="modal-caption claim-caption" data-i18n="claim_caption">
+      Checking eligibility is free. BNB gas is paid only when you submit the final claim transaction.
     </p>
   </div>
 </div>
@@ -2561,21 +2933,46 @@ html, body { overflow-x: hidden; }
     footer_docs: "Docs",
 
     // ===== Claim Modal =====
-    claim_badge: "Claim Portal",
-    claim_title: "Claim your rewards",
+    claim_badge: "Reward Portal",
+    claim_title: "Check your reward",
     claim_subtitle:
-      "Connect your wallet to check your eligibility and claim what’s yours. Rewards are calculated per cycle based on the official target-rate model (9% per cycle) and 60-day holding rule. Claim is required every cycle to receive your rewards. Unclaimed rewards do not roll over.",
-    claim_tagline: "For important and loyal holders only.",
-    claim_btn_connect: "Connect wallet",
+      "Connect the wallet that held CYCX at the snapshot. CycleX checks only the active reward cycle and never asks for your seed phrase or private key.",
+    claim_btn_connect: "Connect wallet & check",
+    claim_connecting_wallet: "Connecting wallet…",
+    claim_connected: "Connected",
+    claim_connection_timeout: "Connection timed out. Please try again.",
+    claim_connection_failed: "Wallet connection failed. Please try again.",
+    claim_verified_cycle: "Verified against Cycle #{cycle} on-chain.",
     claim_btn_close: "Close",
     claim_caption:
-      "Connect with MetaMask / WalletConnect to read your Merkle allocation and submit the on-chain claim() transaction from your wallet.",
+      "Checking is free. You only pay BNB gas on the final claim transaction.",
+    claim_checking_status: "Checking the reward cycle…",
+    claim_no_active_cycle: "No reward cycle is currently open. The next CycleX reward window will be announced through official channels.",
+    claim_portal_closed: "Claims are not open yet. Please follow the official CycleX announcement for the opening time.",
+    claim_cycle_not_ready: "The reward cycle is still being prepared. Please try again shortly.",
+    claim_cycle_mismatch: "The reward portal is being prepared for the current cycle. Please try again after the official announcement.",
+    claim_service_unavailable: "The reward service is temporarily unavailable. No transaction was sent. Please try again.",
+    claim_wrong_network: "Please switch your wallet to BNB Chain and try again.",
+    claim_checking_eligibility: "Checking this wallet’s eligibility…",
+    claim_now: "CLAIM REWARD",
+    claim_already_claimed: "Reward already claimed",
+    claim_already_claimed_text: "This wallet has already claimed its reward for the current cycle.",
+    claim_claimed_amount: "Claimed allocation",
+    claim_preparing_proof: "Preparing and verifying your claim…",
+    claim_pending: "Confirm the claim transaction in your wallet. BNB gas is paid by you.",
+    claim_success: "Claim successful. Your CYCX reward was transferred on-chain.",
+    claim_cancelled: "Transaction cancelled. Nothing was claimed.",
+    claim_failed: "The claim could not be completed. No reward was marked as claimed unless the transaction confirmed on-chain.",
+    claim_no_allocation: "No allocation was found for this wallet in the active cycle.",
+    claim_proof_invalid: "The reward proof could not be verified. No transaction was sent.",
 
-    not_eligible_title: "Become eligible for future cycles",
-    not_eligible_text: "Acquire and hold CYCX in a self-custody wallet to qualify for upcoming distributions.",
-    eligible_title: "You are eligible for this reward cycle",
+    not_eligible_title: "Not eligible for this reward cycle",
+    not_eligible_text: "This wallet has no eligible CYCX allocation in the active cycle.",
+    future_eligible_title: "Become eligible for future cycles",
+    future_eligible_text: "Hold CYCX in a self-custody wallet and complete the 60-day holding period before a future snapshot.",
+    eligible_title: "Eligible for this reward cycle",
     eligible_wallet: "Wallet",
-    eligible_amount: "Allocation",
+    eligible_amount: "Reward allocation",
 
     /* ===== Reward Calculator ===== */
     calc_title: "Reward Calculator",
@@ -2616,41 +3013,25 @@ html, body { overflow-x: hidden; }
     social_faq_btn: "Open",
 
     // ===== Eligibility popup =====
-    elig_title: "Eligibility & Holding Rules",
+    elig_badge: "CYCLEX",
+    elig_title: "Reward Eligibility Rules",
     elig_subtitle:
-      "To be included in a reward cycle, you must hold CYCLEX correctly and respect the 60-day Web3 holding rule:",
+      "A few simple rules decide which CYCX earns a reward in each cycle. Please read them before you continue.",
     elig_body: `
-<p><strong>To qualify for rewards, you must follow these simple rules:</strong></p>
 <ol>
-  <li>
-    <strong>Hold your tokens in a Web3 wallet for 60 full days</strong><br>
-    MetaMask, Trust Wallet, Ledger, and similar wallets are allowed.<br>
-    <strong>Tokens kept on exchanges (Binance, Coinbase, KuCoin, etc.) do NOT count.</strong>
-  </li>
-  <li>
-    <strong>The 60-day timer starts only after tokens arrive in your Web3 wallet</strong><br>
-    If you withdraw today, the countdown begins today.
-  </li>
-  <li>
-    <strong>If tokens leave your wallet — the timer resets to zero</strong><br>
-    Selling, transferring, or moving tokens cancels eligibility for the next cycle.
-  </li>
-  <li>
-    <strong>Eligibility is calculated automatically</strong><br>
-    Snapshots verify:<br>
-    • Holding duration<br>
-    • Wallet balance<br>
-    • Continuous 60-day period
-  </li>
-  <li>
-    <strong>Rewards can be claimed only by the wallet that held the tokens</strong><br>
-    Merkle-proof ensures each user receives only their own allocation.
-  </li>
+  <li><strong>Keep CYCX in your own Web3 wallet for 60 full days.</strong><br>MetaMask, Trust Wallet, Ledger and similar self-custody wallets qualify. <strong>CYCX held on an exchange — Binance, Coinbase, KuCoin or any other — does NOT count</strong>, because those tokens are not in your wallet.</li>
+  <li><strong>Every amount you receive starts its own 60-day count.</strong><br>New CYCX begins counting from the moment it arrives in your wallet. Older CYCX keeps the age it already earned.</li>
+  <li><strong>If you move part of your CYCX out, the oldest portion is counted as leaving first.</strong><br>This is a FIFO calculation used for eligibility only. The CYCX that remains keeps its recorded holding age — a partial sale or transfer does not reset the rest of your balance.</li>
+  <li><strong>Your eligible balance is fixed at the cycle snapshot.</strong><br>Only CYCX that completed the full 60 days by the moment of the snapshot can earn a reward in that cycle.</li>
+  <li><strong>Rewards must be claimed for each cycle.</strong><div class="eligibility-warning"><strong>Unclaimed rewards do not roll over and are not added to the next cycle.</strong> Each reward cycle is calculated separately.</div></li>
+  <li><strong>Only the wallet that held the CYCX can claim.</strong><br>Each allocation is secured by a Merkle proof, and the smart contract only allows that wallet to claim its own allocation.</li>
+  <li><strong>Claimed rewards can qualify in future cycles.</strong><br>Once claimed, they sit in your wallet like any other CYCX and start their own 60-day count.</li>
 </ol>
+<div class="eligibility-rate-note">The reward rate is a per-cycle target calculated off-chain, not a fixed or guaranteed return.</div>
 `,
-    elig_continue: "I understand – continue",
+    elig_continue: "I understand — continue",
     elig_caption:
-      "By continuing, you confirm that you understand how eligibility is calculated and acknowledge these rules before interacting with the reward system.",
+      "By continuing, you confirm that you have read and understood how CycleX reward eligibility is calculated.",
   },
 
   zh: {
@@ -2781,19 +3162,44 @@ html, body { overflow-x: hidden; }
     footer_telegram: "Telegram",
     footer_docs: "文档",
 
-    claim_badge: "奖励领取入口",
-    claim_title: "领取你的奖励",
+    claim_badge: "奖励门户",
+    claim_title: "查看您的奖励",
     claim_subtitle:
-      "连接你的钱包以检查资格并领取属于你的奖励。奖励基于官方目标利率模型（每周期 9%）与 60 天持有规则按周期计算。每个周期都必须领取奖励才能获得收益。未领取的奖励不会累积到下个周期。",
-    claim_tagline: "仅限重要且忠诚的持有者。",
-    claim_btn_connect: "连接钱包",
+      "连接在快照时持有 CYCX 的钱包。CycleX 只检查当前有效的奖励周期，并且绝不会要求您的助记词或私钥。",
+    claim_btn_connect: "连接钱包并检查",
+    claim_connecting_wallet: "正在连接钱包…",
+    claim_connected: "已连接",
+    claim_connection_timeout: "连接超时，请重试。",
+    claim_connection_failed: "钱包连接失败，请重试。",
+    claim_verified_cycle: "已根据链上第 #{cycle} 个奖励周期完成验证。",
     claim_btn_close: "关闭",
     claim_caption:
-      "通过 MetaMask / WalletConnect 连接钱包，以读取你的 Merkle 分配，并从你的钱包提交链上 claim() 交易。",
+      "检查免费。只有在最终领取交易时才需要支付 BNB Gas。",
+    claim_checking_status: "正在检查奖励周期…",
+    claim_no_active_cycle: "当前没有开放的奖励周期。下一次 CycleX 奖励窗口将通过官方渠道公布。",
+    claim_portal_closed: "奖励领取尚未开放。请以 CycleX 官方公告的开放时间为准。",
+    claim_cycle_not_ready: "奖励周期仍在准备中，请稍后再试。",
+    claim_cycle_mismatch: "奖励门户正在为当前周期准备中。请在官方公告后再试。",
+    claim_service_unavailable: "奖励服务暂时不可用。未发送任何交易，请稍后再试。",
+    claim_wrong_network: "请将钱包切换到 BNB Chain 后再试。",
+    claim_checking_eligibility: "正在检查此钱包的资格…",
+    claim_now: "领取奖励",
+    claim_already_claimed: "奖励已领取",
+    claim_already_claimed_text: "此钱包已经领取了当前周期的奖励。",
+    claim_claimed_amount: "已领取额度",
+    claim_preparing_proof: "正在准备并验证您的领取信息…",
+    claim_pending: "请在钱包中确认领取交易。BNB Gas 由您支付。",
+    claim_success: "领取成功。您的 CYCX 奖励已在链上转入钱包。",
+    claim_cancelled: "交易已取消，没有领取任何奖励。",
+    claim_failed: "领取未能完成。除非交易已在链上确认，否则奖励不会被标记为已领取。",
+    claim_no_allocation: "当前周期中未找到此钱包的奖励额度。",
+    claim_proof_invalid: "奖励证明验证失败。未发送任何交易。",
 
-    not_eligible_title: "为未来周期做好资格准备",
-    not_eligible_text: "在自托管钱包中获取并持有 CYCX，以获得即将到来的分配资格。",
-    eligible_title: "您符合本次奖励周期的资格",
+    not_eligible_title: "本奖励周期暂无资格",
+    not_eligible_text: "此钱包在当前周期中没有符合条件的 CYCX 奖励额度。",
+    future_eligible_title: "为未来周期获得资格",
+    future_eligible_text: "将 CYCX 存放在自托管钱包中，并在未来快照前完成 60 天持有期。",
+    eligible_title: "符合本奖励周期资格",
     eligible_wallet: "钱包",
     eligible_amount: "奖励额度",
 
@@ -2833,41 +3239,25 @@ html, body { overflow-x: hidden; }
     social_faq_desc: "关于 CycleX 的快速解答",
     social_faq_btn: "打开",
 
-    elig_title: "资格与持有规则",
+    elig_badge: "CYCLEX",
+    elig_title: "奖励资格规则",
     elig_subtitle:
-      "要参与某一奖励周期，你必须以正确方式持有 CYCLEX，并遵守 60 天 Web3 持有规则：",
+      "以下几个简单规则决定每个周期中哪些 CYCX 可以获得奖励。继续前请先阅读。",
     elig_body: `
-<p><strong>要获得奖励，必须遵守以下简单规则：</strong></p>
 <ol>
-  <li>
-    <strong>在 Web3 钱包中持有代币满 60 天</strong><br>
-    支持 MetaMask、Trust Wallet、Ledger 等钱包。<br>
-    <strong>存放在交易所（Binance、Coinbase、KuCoin 等）的代币不计入持有时间。</strong>
-  </li>
-  <li>
-    <strong>60 天计时从代币到达您的 Web3 钱包时开始</strong><br>
-    如果您今天提现，倒计时也从今天开始。
-  </li>
-  <li>
-    <strong>如果代币离开钱包，计时将重置为零</strong><br>
-    卖出、转账或移动代币都会取消本周期的奖励资格。
-  </li>
-  <li>
-    <strong>资格计算是自动完成的</strong><br>
-    快照会验证：<br>
-    • 持有时长<br>
-    • 钱包余额<br>
-    • 连续 60 天持有
-  </li>
-  <li>
-    <strong>奖励只能由持有代币的钱包领取</strong><br>
-    Merkle-proof 确保每个用户只能领取自己的奖励。
-  </li>
+  <li><strong>将 CYCX 存放在您自己的 Web3 钱包中满 60 天。</strong><br>MetaMask、Trust Wallet、Ledger 等自托管钱包符合条件。<strong>存放在 Binance、Coinbase、KuCoin 或任何其他交易所中的 CYCX 不计入资格</strong>，因为这些代币并不在您的个人钱包中。</li>
+  <li><strong>您收到的每一笔 CYCX 都会单独开始自己的 60 天计时。</strong><br>新收到的 CYCX 从进入钱包的那一刻开始计算；更早收到的 CYCX 会保留已经累积的持有时间。</li>
+  <li><strong>如果您转出部分 CYCX，在奖励资格计算中会先计为最早持有的部分离开。</strong><br>这只是用于资格计算的 FIFO（先进先出）规则。留在钱包中的 CYCX 会保留其已记录的持有时间；部分出售或转账不会重置其余余额的持有时间。</li>
+  <li><strong>您的合格余额会在奖励周期快照时固定。</strong><br>只有在快照时已经完成完整 60 天持有期的 CYCX 才能获得该周期奖励。</li>
+  <li><strong>每个周期的奖励都需要单独领取。</strong><div class="eligibility-warning"><strong>未领取的奖励不会滚入或加入下一个周期。</strong> 每个奖励周期都会单独计算。</div></li>
+  <li><strong>只有实际持有 CYCX 的钱包才能领取。</strong><br>每个分配都由 Merkle proof 保护，智能合约只允许该钱包领取属于自己的额度。</li>
+  <li><strong>已领取的奖励也可以在未来周期获得资格。</strong><br>领取后，它们与其他 CYCX 一样留在您的钱包中，并开始自己的 60 天计时。</li>
 </ol>
+<div class="eligibility-rate-note">奖励率是每个周期在链下计算的目标值，并不是固定或保证的回报。</div>
 `,
-    elig_continue: "我已理解 – 继续",
+    elig_continue: "我已了解 — 继续",
     elig_caption:
-      "继续操作即表示你确认已理解资格的计算方式，并在与奖励系统交互前认可并接受这些规则。",
+      "继续即表示您确认已经阅读并理解 CycleX 奖励资格的计算方式。",
   },
 
   ar: {
@@ -2997,21 +3387,46 @@ html, body { overflow-x: hidden; }
     footer_telegram: "Telegram",
     footer_docs: "المستندات",
 
-    claim_badge: "بوابة المطالبة",
-    claim_title: "اطلب مكافآتك",
+    claim_badge: "بوابة المكافآت",
+    claim_title: "تحقق من مكافأتك",
     claim_subtitle:
-      "قم بتوصيل محفظتك للتحقق من أهليتك وطلب المكافآت المستحقة لك. تُحتسب المكافآت في كل دورة وفق نموذج النسبة المستهدفة الرسمي (9٪ لكل دورة) وقاعدة الاحتفاظ لمدة 60 يومًا. يجب إجراء المطالبة في كل دورة للحصول على مكافآتك. المكافآت غير المطالب بها لا تنتقل إلى الدورة التالية.",
-    claim_tagline: "فقط للحامليـن المهمين والموثوقين.",
-    claim_btn_connect: "توصيل المحفظة",
+      "قم بتوصيل المحفظة التي كانت تحتفظ بـ CYCX وقت اللقطة. يتحقق CycleX فقط من دورة المكافآت النشطة ولن يطلب منك أبدًا العبارة السرية أو المفتاح الخاص.",
+    claim_btn_connect: "توصيل المحفظة والتحقق",
+    claim_connecting_wallet: "جارٍ توصيل المحفظة…",
+    claim_connected: "متصلة",
+    claim_connection_timeout: "انتهت مهلة الاتصال. حاول مرة أخرى.",
+    claim_connection_failed: "فشل اتصال المحفظة. حاول مرة أخرى.",
+    claim_verified_cycle: "تم التحقق مقابل دورة المكافآت رقم #{cycle} على السلسلة.",
     claim_btn_close: "إغلاق",
     claim_caption:
-      "قم بتوصيل محفظتك عبر MetaMask / WalletConnect لقراءة تخصيص Merkle الخاص بك وإرسال معاملة claim() على السلسلة من محفظتك.",
+      "التحقق مجاني. تدفع رسوم BNB فقط عند تنفيذ معاملة المطالبة النهائية.",
+    claim_checking_status: "جارٍ التحقق من دورة المكافآت…",
+    claim_no_active_cycle: "لا توجد دورة مكافآت مفتوحة حاليًا. سيتم الإعلان عن نافذة مكافآت CycleX التالية عبر القنوات الرسمية.",
+    claim_portal_closed: "المطالبة بالمكافآت لم تُفتح بعد. يرجى متابعة إعلان CycleX الرسمي لمعرفة وقت الفتح.",
+    claim_cycle_not_ready: "دورة المكافآت ما زالت قيد التجهيز. حاول مرة أخرى بعد قليل.",
+    claim_cycle_mismatch: "بوابة المكافآت قيد التجهيز للدورة الحالية. حاول مجددًا بعد الإعلان الرسمي.",
+    claim_service_unavailable: "خدمة المكافآت غير متاحة مؤقتًا. لم يتم إرسال أي معاملة. حاول مرة أخرى.",
+    claim_wrong_network: "يرجى تبديل محفظتك إلى شبكة BNB Chain ثم المحاولة مرة أخرى.",
+    claim_checking_eligibility: "جارٍ التحقق من أهلية هذه المحفظة…",
+    claim_now: "المطالبة بالمكافأة",
+    claim_already_claimed: "تمت المطالبة بالمكافأة",
+    claim_already_claimed_text: "هذه المحفظة طالبت بالفعل بمكافأتها في الدورة الحالية.",
+    claim_claimed_amount: "التخصيص المطالب به",
+    claim_preparing_proof: "جارٍ إعداد مطالبتك والتحقق منها…",
+    claim_pending: "أكد معاملة المطالبة في محفظتك. رسوم BNB تدفعها أنت.",
+    claim_success: "تمت المطالبة بنجاح. تم تحويل مكافأة CYCX إلى محفظتك على السلسلة.",
+    claim_cancelled: "تم إلغاء المعاملة. لم تتم المطالبة بأي مكافأة.",
+    claim_failed: "تعذر إكمال المطالبة. لن تُعتبر المكافأة مطالَبًا بها ما لم يتم تأكيد المعاملة على السلسلة.",
+    claim_no_allocation: "لم يتم العثور على تخصيص لهذه المحفظة في الدورة النشطة.",
+    claim_proof_invalid: "تعذر التحقق من إثبات المكافأة. لم يتم إرسال أي معاملة.",
 
-    not_eligible_title: "استعدّ للأهلية في الدورات القادمة",
-    not_eligible_text: "احصل على CYCX واحتفظ به في محفظة ذاتية الحفظ للتأهل للتوزيعات القادمة.",
-    eligible_title: "أنت مؤهل لهذه الدورة من المكافآت",
+    not_eligible_title: "غير مؤهل لهذه الدورة",
+    not_eligible_text: "لا يوجد لهذه المحفظة تخصيص CYCX مؤهل في الدورة النشطة.",
+    future_eligible_title: "تأهل للدورات المستقبلية",
+    future_eligible_text: "احتفظ بـ CYCX في محفظة ذاتية الحفظ وأكمل فترة الـ 60 يومًا قبل لقطة مستقبلية.",
+    eligible_title: "مؤهل لهذه الدورة من المكافآت",
     eligible_wallet: "المحفظة",
-    eligible_amount: "قيمة المكافأة",
+    eligible_amount: "تخصيص المكافأة",
 
     calc_title: "حاسبة المكافآت",
     calc_desc: "قدّر التوزيعات المتوقعة لـ CycleX عبر دورات مكافآت متعددة.",
@@ -3050,41 +3465,25 @@ html, body { overflow-x: hidden; }
     social_faq_desc: "إجابات سريعة حول CycleX",
     social_faq_btn: "افتح",
 
-    elig_title: "قواعد الأهلية والاحتفاظ",
+    elig_badge: "CYCLEX",
+    elig_title: "قواعد أهلية المكافآت",
     elig_subtitle:
-      "للدخول في دورة مكافآت، يجب أن تحتفظ برموز CYCLEX بالطريقة الصحيحة وأن تلتزم بقاعدة الاحتفاظ لمدة 60 يومًا في Web3:",
+      "تحدد بعض القواعد البسيطة أي CYCX يمكنه الحصول على مكافأة في كل دورة. يرجى قراءتها قبل المتابعة.",
     elig_body: `
-<p><strong>للحصول على المكافآت، يجب اتباع هذه القواعد البسيطة:</strong></p>
 <ol>
-  <li>
-    <strong>احتفظ بالرموز في محفظة Web3 لمدة 60 يومًا كاملة</strong><br>
-    المحافظ المدعومة تشمل MetaMask و Trust Wallet و Ledger وغيرها.<br>
-    <strong>الرموز المحتفظ بها في المنصات المركزية (Binance، Coinbase، KuCoin وغيرها) لا تُحتسب.</strong>
-  </li>
-  <li>
-    <strong>يبدأ عدّ 60 يومًا فقط بعد وصول الرموز إلى محفظة Web3 الخاصة بك</strong><br>
-    إذا سحبت اليوم، يبدأ العدّ التنازلي اليوم.
-  </li>
-  <li>
-    <strong>إذا غادرت الرموز محفظتك — تتم إعادة العداد إلى الصفر</strong><br>
-    البيع أو التحويل أو نقل الرموز يلغي أهليتك للدورة الحالية.
-  </li>
-  <li>
-    <strong>يتم حساب الأهلية تلقائيًا</strong><br>
-    التحقق يشمل:<br>
-    • مدة الاحتفاظ<br>
-    • رصيد المحفظة<br>
-    • فترة مستمرة من 60 يومًا
-  </li>
-  <li>
-    <strong>يمكن المطالبة بالمكافآت فقط من المحفظة التي احتفظت بالرموز</strong><br>
-    تضمن تقنية Merkle-proof أن كل مستخدم يحصل فقط على مكافآته.
-  </li>
+  <li><strong>احتفظ بـ CYCX في محفظة Web3 الخاصة بك لمدة 60 يومًا كاملة.</strong><br>تتأهل محافظ الحفظ الذاتي مثل MetaMask وTrust Wallet وLedger. <strong>أما CYCX الموجود في Binance أو Coinbase أو KuCoin أو أي منصة أخرى فلا يُحتسب</strong> لأن هذه الرموز ليست داخل محفظتك الشخصية.</li>
+  <li><strong>كل كمية تستلمها تبدأ عدّاد 60 يومًا خاصًا بها.</strong><br>يبدأ عدّ CYCX الجديد من لحظة وصوله إلى محفظتك، بينما يحتفظ CYCX الأقدم بالعمر الذي اكتسبه بالفعل.</li>
+  <li><strong>إذا أخرجت جزءًا من CYCX من محفظتك، يُحتسب أقدم جزء مسجل على أنه غادر أولًا.</strong><br>هذه قاعدة FIFO للحساب الخاص بالأهلية فقط. يحتفظ CYCX المتبقي بعمر الاحتفاظ المسجل — البيع أو التحويل الجزئي لا يعيد ضبط مدة الاحتفاظ لبقية الرصيد.</li>
+  <li><strong>يتم تثبيت رصيدك المؤهل عند لقطة الدورة.</strong><br>فقط CYCX الذي أكمل 60 يومًا كاملة بحلول لحظة اللقطة يمكنه الحصول على مكافأة في تلك الدورة.</li>
+  <li><strong>يجب المطالبة بالمكافآت في كل دورة.</strong><div class="eligibility-warning"><strong>المكافآت غير المطالب بها لا تنتقل ولا تُضاف إلى الدورة التالية.</strong> يتم احتساب كل دورة مكافآت بشكل مستقل.</div></li>
+  <li><strong>فقط المحفظة التي احتفظت بـ CYCX يمكنها المطالبة.</strong><br>كل تخصيص محمي بإثبات Merkle، والعقد الذكي يسمح فقط لتلك المحفظة بالمطالبة بتخصيصها الخاص.</li>
+  <li><strong>يمكن للمكافآت المطالب بها أن تتأهل في دورات مستقبلية.</strong><br>بعد المطالبة بها، تبقى في محفظتك مثل أي CYCX آخر وتبدأ عدّاد 60 يومًا خاصًا بها.</li>
 </ol>
+<div class="eligibility-rate-note">معدل المكافأة هو هدف لكل دورة يتم احتسابه خارج السلسلة، وليس عائدًا ثابتًا أو مضمونًا.</div>
 `,
-    elig_continue: "أنا أفهم – متابعة",
+    elig_continue: "أفهم — متابعة",
     elig_caption:
-      "بالمتابعة، تؤكد أنك تفهم كيفية احتساب الأهلية وتقر بهذه القواعد قبل التفاعل مع نظام المكافآت.",
+      "بالمتابعة، تؤكد أنك قرأت وفهمت كيفية احتساب أهلية مكافآت CycleX.",
   },
 
   ru: {
@@ -3215,21 +3614,46 @@ html, body { overflow-x: hidden; }
     footer_telegram: "Telegram",
     footer_docs: "Документация",
 
-    claim_badge: "Портал начислений",
-    claim_title: "Получите свои награды",
+    claim_badge: "Портал наград",
+    claim_title: "Проверьте свою награду",
     claim_subtitle:
-      "Подключите кошелёк, чтобы проверить право на участие и получить причитающиеся вам награды. Расчёт выполняется по каждому циклу на основе официальной целевой модели (9% за цикл) и правила удержания 60 дней. Для получения вознаграждений требуется клейм в каждом цикле. Невостребованные награды не переносятся.",
-    claim_tagline: "Только для важных и лояльных держателей.",
-    claim_btn_connect: "Подключить кошелёк",
+      "Подключите кошелёк, который держал CYCX на момент снимка. CycleX проверяет только активный цикл наград и никогда не запрашивает seed-фразу или приватный ключ.",
+    claim_btn_connect: "Подключить кошелёк и проверить",
+    claim_connecting_wallet: "Подключаем кошелёк…",
+    claim_connected: "Подключено",
+    claim_connection_timeout: "Время подключения истекло. Попробуйте снова.",
+    claim_connection_failed: "Не удалось подключить кошелёк. Попробуйте снова.",
+    claim_verified_cycle: "Проверено по ончейн-циклу #{cycle}.",
     claim_btn_close: "Закрыть",
     claim_caption:
-      "Подключите кошелёк через MetaMask / WalletConnect, чтобы прочитать вашу Merkle-аллокацию и отправить ончейн-транзакцию claim() из вашего кошелька.",
+      "Проверка бесплатна. Газ в BNB оплачивается только при финальной транзакции получения награды.",
+    claim_checking_status: "Проверяем цикл наград…",
+    claim_no_active_cycle: "Сейчас нет открытого цикла наград. Следующее окно наград CycleX будет объявлено через официальные каналы.",
+    claim_portal_closed: "Получение наград ещё не открыто. Следите за официальным объявлением CycleX.",
+    claim_cycle_not_ready: "Цикл наград ещё готовится. Попробуйте снова немного позже.",
+    claim_cycle_mismatch: "Портал наград готовится к текущему циклу. Попробуйте снова после официального объявления.",
+    claim_service_unavailable: "Сервис наград временно недоступен. Транзакция не отправлялась. Попробуйте снова.",
+    claim_wrong_network: "Переключите кошелёк на BNB Chain и попробуйте снова.",
+    claim_checking_eligibility: "Проверяем право этого кошелька на награду…",
+    claim_now: "ПОЛУЧИТЬ НАГРАДУ",
+    claim_already_claimed: "Награда уже получена",
+    claim_already_claimed_text: "Этот кошелёк уже получил свою награду за текущий цикл.",
+    claim_claimed_amount: "Полученное начисление",
+    claim_preparing_proof: "Готовим и проверяем данные для получения награды…",
+    claim_pending: "Подтвердите claim-транзакцию в кошельке. Газ в BNB оплачивается вами.",
+    claim_success: "Награда успешно получена. CYCX переведены в ваш кошелёк ончейн.",
+    claim_cancelled: "Транзакция отменена. Награда не была получена.",
+    claim_failed: "Не удалось завершить получение награды. Она не считается полученной, пока транзакция не подтверждена ончейн.",
+    claim_no_allocation: "Для этого кошелька нет начисления в активном цикле.",
+    claim_proof_invalid: "Не удалось проверить Merkle-proof награды. Транзакция не отправлялась.",
 
-    not_eligible_title: "Получите право на участие в будущих циклах",
-    not_eligible_text: "Приобретите и храните CYCX в самостоятельном кошельке, чтобы получить право на участие в предстоящих распределениях.",
-    eligible_title: "Вы имеете право на участие в этом цикле вознаграждений",
+    not_eligible_title: "Нет права на награду в этом цикле",
+    not_eligible_text: "У этого кошелька нет подходящего начисления CYCX в активном цикле.",
+    future_eligible_title: "Получите право на будущие циклы",
+    future_eligible_text: "Храните CYCX в self-custody кошельке и завершите 60-дневный период до будущего снимка.",
+    eligible_title: "Есть право на награду в этом цикле",
     eligible_wallet: "Кошелёк",
-    eligible_amount: "Начисление",
+    eligible_amount: "Начисление награды",
 
     calc_title: "Калькулятор вознаграждений",
     calc_desc:
@@ -3269,41 +3693,25 @@ html, body { overflow-x: hidden; }
     social_faq_desc: "Короткие ответы о CycleX",
     social_faq_btn: "Открыть",
 
-    elig_title: "Правила участия и удержания",
+    elig_badge: "CYCLEX",
+    elig_title: "Правила получения наград",
     elig_subtitle:
-      "Чтобы попасть в наградной цикл, вы должны правильно держать токены CYCLEX и соблюдать правило 60 дней в Web3:",
+      "Несколько простых правил определяют, какие CYCX получают награду в каждом цикле. Прочитайте их перед продолжением.",
     elig_body: `
-<p><strong>Чтобы получить награды, соблюдайте эти простые правила:</strong></p>
 <ol>
-  <li>
-    <strong>Держите токены в Web3-кошельке 60 полных дней</strong><br>
-    Подходят MetaMask, Trust Wallet, Ledger и аналогичные кошельки.<br>
-    <strong>Токены на биржах (Binance, Coinbase, KuCoin и др.) не засчитываются.</strong>
-  </li>
-  <li>
-    <strong>Отсчёт 60 дней начинается только после поступления токенов в ваш Web3-кошелёк</strong><br>
-    Если вы вывели токены сегодня — таймер начинает отсчёт сегодня.
-  </li>
-  <li>
-    <strong>Если токены покидают кошелёк — таймер сбрасывается</strong><br>
-    Продажа, перевод или перемещение токенов отменяет участие в текущем цикле.
-  </li>
-  <li>
-    <strong>Право на участие рассчитывается автоматически</strong><br>
-    Снимки проверяют:<br>
-    • Время удержания<br>
-    • Баланс кошелька<br>
-    • Непрерывный период в 60 дней
-  </li>
-  <li>
-    <strong>Награды может получить только тот кошелёк, который держал токены</strong><br>
-    Технология Merkle-proof гарантирует, что каждый пользователь получает только свою долю.
-  </li>
+  <li><strong>Держите CYCX в собственном Web3-кошельке 60 полных дней.</strong><br>Подходят self-custody кошельки MetaMask, Trust Wallet, Ledger и аналогичные. <strong>CYCX на Binance, Coinbase, KuCoin или любой другой бирже не учитывается</strong>, потому что эти токены находятся не в вашем личном кошельке.</li>
+  <li><strong>Каждая полученная сумма начинает собственный 60-дневный отсчёт.</strong><br>Новый CYCX начинает отсчёт с момента поступления в кошелёк. Более старый CYCX сохраняет уже накопленный возраст удержания.</li>
+  <li><strong>Если часть CYCX уходит из кошелька, сначала считается ушедшей самая старая записанная часть.</strong><br>FIFO используется только для расчёта права на награду. Оставшийся CYCX сохраняет свой записанный возраст удержания — частичная продажа или перевод не обнуляет возраст остального баланса.</li>
+  <li><strong>Ваш подходящий баланс фиксируется в момент снимка цикла.</strong><br>Только CYCX, который завершил полные 60 дней к моменту снимка, может получить награду в этом цикле.</li>
+  <li><strong>Награды нужно получать отдельно в каждом цикле.</strong><div class="eligibility-warning"><strong>Невостребованные награды не переносятся и не добавляются к следующему циклу.</strong> Каждый цикл наград рассчитывается отдельно.</div></li>
+  <li><strong>Получить награду может только кошелёк, который держал CYCX.</strong><br>Каждое начисление защищено Merkle-proof, а смарт-контракт позволяет этому кошельку получить только собственное начисление.</li>
+  <li><strong>Полученные награды могут получить право на участие в будущих циклах.</strong><br>После получения они остаются в вашем кошельке как обычный CYCX и начинают собственный 60-дневный отсчёт.</li>
 </ol>
+<div class="eligibility-rate-note">Ставка награды — это целевой показатель на цикл, рассчитываемый офчейн, а не фиксированная или гарантированная доходность.</div>
 `,
     elig_continue: "Понимаю — продолжить",
     elig_caption:
-      "Продолжая, вы подтверждаете, что понимаете, как рассчитывается право на участие, и признаёте эти правила перед взаимодействием с системой вознаграждений.",
+      "Продолжая, вы подтверждаете, что прочитали и поняли, как рассчитывается право на награды CycleX.",
   },
 };
 
@@ -3376,367 +3784,470 @@ function cxUpdateModalState() {
     window.addEventListener("resize", cxUpdateModalState);
 
     // -------- CLAIM MODAL --------
-    // -------- CYCLEX MERKLE CLAIM SYSTEM (FRONTEND) --------
+    // -------- CYCLEX REWARD CLAIM SYSTEM (PRIVATE GATEWAY) --------
     const CX_CONTRACT_ADDRESS = "0xda63b65825AE30532a507B0C091B0bD9F8204F7E";
-    const CX_CURRENT_CYCLE_ID = 0; 
-    const CX_R2_BASE = "https://cycles.cyclex.network";
-    const CX_CYCLES_BASE = `${CX_R2_BASE}/cycles/${CX_CURRENT_CYCLE_ID}`;
-    const CX_REWARDS_URL = `${CX_CYCLES_BASE}/rewards.json?v=${CX_CURRENT_CYCLE_ID}`;
-    const CX_PROOFS_DIR  = `${CX_CYCLES_BASE}/proofs`;
-    cxlog("rewards url:", CX_REWARDS_URL);
-
-    const CX_SHARD_HEX_LEN = 2;
+    const CX_CURRENT_CYCLE_ID = 0; // MANUAL RELEASE GATE: set to the started on-chain cycle before opening claims. 0 = not configured.
+    const CX_REWARD_API = "https://cycles.cyclex.network";
+    const CX_CHAIN_ID = 56;
 
     let cxClaimInFlight = false;
     let cxProvider = null;
     let cxSigner = null;
     let cxContract = null;
     let cxUserAddress = null;
-    let cxRewardsData = null;
+    let cxPortalStatus = null;
+    let cxCurrentAllocation = null;
 
-   async function cxLoadMerkleData() {
-  try {
-    if (!cxRewardsData) {
-      const r = await fetch(CX_REWARDS_URL, { cache: "no-store" });
-      cxRewardsData = r.ok ? await r.json() : {};
-    }
-  } catch (err) {
-    console.warn("[CycleX] rewards.json not ready yet:", err);
-    cxRewardsData = cxRewardsData || {};
-  }
-}
-
-    async function cxFetchProofEntry(addrLower) {
-  const prefix = addrLower.slice(2, 2 + CX_SHARD_HEX_LEN); 
-  const url = `${CX_PROOFS_DIR}/${prefix}.json?v=${CX_CURRENT_CYCLE_ID}`;
-
-  try {
-    const r = await fetch(url, { cache: "no-store" });
-    if (r.status === 404 || r.status === 410) return null;
-
-    if (!r.ok) {
-      console.warn("[CycleX] shard fetch failed:", r.status, url);
-      return null;
+    function cxDict() {
+      const lang = document.querySelector(".lang-btn.active")?.getAttribute("data-lang") || "en";
+      return translations[lang] || translations.en;
     }
 
-    const shard = await r.json();
-    return shard?.[addrLower] || null;
-  } catch (e) {
-    console.warn("[CycleX] shard fetch error:", url, e?.message || e);
-    return null;
-  }
-}
+    function cxT(key, fallback = "") {
+      const d = cxDict();
+      return d[key] || translations.en[key] || fallback;
+    }
 
-    
-    // 🔹 Preload Merkle data on page load (CRITICAL)
-window.addEventListener("load", async () => {
-  try {
-    cxlog("🟢 [CycleX] Preloading Merkle data");
-    await cxLoadMerkleData();
-    cxlog("🟢 [CycleX] Merkle ready");
-  } catch (e) {
-    console.error("🔴 Merkle preload failed", e);
-  }
-});
+    function cxTF(key, vars = {}, fallback = "") {
+      let value = cxT(key, fallback);
+      for (const [name, replacement] of Object.entries(vars)) {
+        value = String(value).replaceAll(`{${name}}`, String(replacement));
+      }
+      return value;
+    }
 
-    async function cxGetUserAllocation(addrLower) {
-  const entry = await cxFetchProofEntry(addrLower);
-  if (!entry) return null;
+    function cxVerifiedCycleHTML(cycleId) {
+      if (!cycleId) return "";
+      return `<div class="verified-cycle-note">${cxTF("claim_verified_cycle", { cycle: cycleId }, `Verified against Cycle #${cycleId} on-chain.`)}</div>`;
+    }
 
-  const amount = entry.amount;
-  const proof  = entry.proof;
+    function cxShortAddress(address) {
+      return `${address.slice(0, 6)}…${address.slice(-4)}`;
+    }
 
-  if (!amount || !Array.isArray(proof)) return null;
+    function cxSetCycleMeta(cycleId) {
+      const el = document.getElementById("claim-cycle-meta");
+      if (!el) return;
+      if (!cycleId) {
+        el.style.display = "none";
+        el.textContent = "";
+        return;
+      }
+      el.textContent = `Cycle #${cycleId} · BNB Chain`;
+      el.style.display = "block";
+    }
 
-  return { amount, proof };
-}
+    function cxSetConnectButton({ enabled, connectedAddress = null } = {}) {
+      const btn = document.getElementById("btn-connect-wallet");
+      if (!btn) return;
+      if (connectedAddress) {
+        btn.disabled = true;
+        btn.classList.remove("is-loading");
+        btn.classList.add("is-connected");
+        btn.textContent = `${cxT("claim_connected", "Connected")}: ${cxShortAddress(connectedAddress)}`;
+        return;
+      }
+      btn.classList.remove("is-connected", "is-loading");
+      btn.disabled = !enabled;
+      btn.textContent = cxT("claim_btn_connect", "Connect wallet & check");
+    }
+
+    async function cxApiJson(path, { method = "GET", body = null, retries = 1 } = {}) {
+      let lastErr = null;
+      for (let attempt = 0; attempt <= retries; attempt++) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 9000);
+        try {
+          const r = await fetch(`${CX_REWARD_API}${path}`, {
+            method,
+            cache: "no-store",
+            credentials: "omit",
+            headers: body ? { "Content-Type": "application/json" } : undefined,
+            body: body ? JSON.stringify(body) : undefined,
+            signal: controller.signal,
+          });
+          const data = await r.json().catch(() => ({}));
+          clearTimeout(timer);
+          return { response: r, data };
+        } catch (e) {
+          clearTimeout(timer);
+          lastErr = e;
+          if (attempt < retries) await new Promise(r => setTimeout(r, 250 * (attempt + 1)));
+        }
+      }
+      throw lastErr || new Error("Reward API unavailable");
+    }
+
+    async function cxFetchPortalStatus() {
+      const { response, data } = await cxApiJson("/v1/status", { retries: 1 });
+      if (!response.ok || !data?.ok) throw new Error(data?.error || "status_failed");
+      return data;
+    }
+
+    async function cxFetchEligibility(address) {
+      const { response, data } = await cxApiJson("/v1/eligibility", {
+        method: "POST",
+        body: { address },
+        retries: 1,
+      });
+      return { response, data };
+    }
+
+    async function cxFetchClaimProof(address) {
+      const { response, data } = await cxApiJson("/v1/proof", {
+        method: "POST",
+        body: { address },
+        retries: 1,
+      });
+      return { response, data };
+    }
 
     function cxShowEligibility({ address, amount }) {
-  const box = document.getElementById("claim-status");
-  if (!box) return;
-
-  const short =
-    address.slice(0, 6) + "…" + address.slice(-4);
-
-  const humanAmount = Number(ethers.formatUnits(amount, 18)).toLocaleString("en-US", {maximumFractionDigits:2});
-
-  const lang =
-    document.querySelector(".lang-btn.active")?.getAttribute("data-lang") || "en";
-  const dict = translations[lang] || translations.en;
-
-  box.innerHTML = `
-    <div style="font-size:28px;margin-bottom:8px">🎉</div>
-    <div style="font-size:15px;font-weight:900;margin-bottom:6px">✅ ${dict.eligible_title}</div>
-    <div style="font-size:12px;opacity:.7;margin-bottom:4px">${dict.eligible_wallet}</div>
-    <div style="font-size:13px;font-weight:700;font-family:monospace;margin-bottom:10px">${short}</div>
-    <div style="font-size:12px;opacity:.7;margin-bottom:2px">${dict.eligible_amount}</div>
-    <div style="font-size:22px;font-weight:950;letter-spacing:-0.02em">${humanAmount} <span style="font-size:13px;opacity:.7">CYCX</span></div>
-  `;
-
-  box.style.display = "block";
-}
-    function cxShowNotEligible() {
-  const box = document.getElementById("claim-status");
-  if (!box) return;
-
-  const lang =
-    document.querySelector(".lang-btn.active")?.getAttribute("data-lang") || "en";
-  const dict = translations[lang] || translations.en;
-
-  box.style.background = "rgba(255, 193, 7, 0.12)";
-  box.style.border = "1px solid rgba(255, 193, 7, 0.4)";
-  box.style.color = "#ffc107";
-
-  box.innerHTML = `
-    <strong>⭐ ${dict.not_eligible_title}</strong><br>
-    ${dict.not_eligible_text}
-  `;
-
-  box.style.display = "block";
-}
-async function handleWalletConnected(address) {
-  await cxLoadMerkleData(); 
-  try {
-    cxlog("🟢 [CycleX] Checking eligibility for", address);
-
-    const alloc = await cxGetUserAllocation(address.toLowerCase());
-
-    cxUpdateWalletUI(address);
-
-    if (!alloc || !alloc.amount || alloc.amount === "0") {
-      cxShowNotEligible();
-      return;
+      const box = document.getElementById("claim-status");
+      if (!box) return;
+      const humanAmount = Number(ethers.formatUnits(amount, 18)).toLocaleString("en-US", { maximumFractionDigits: 2 });
+      const dict = cxDict();
+      const cycleId = cxPortalStatus?.activeCycle || CX_CURRENT_CYCLE_ID;
+      box.className = "success";
+      box.innerHTML = `
+        <div style="font-size:15px;font-weight:900;margin-bottom:8px">${dict.eligible_title}</div>
+        <div style="font-size:11px;opacity:.65;margin-bottom:3px">${dict.eligible_wallet}</div>
+        <div style="font-size:13px;font-weight:750;font-family:monospace;margin-bottom:10px">${cxShortAddress(address)}</div>
+        <div style="font-size:11px;opacity:.65;margin-bottom:2px">${dict.eligible_amount}</div>
+        <div style="font-size:23px;font-weight:950;letter-spacing:-.02em">${humanAmount} <span style="font-size:12px;opacity:.7">CYCX</span></div>
+        ${cxVerifiedCycleHTML(cycleId)}
+      `;
+      box.style.display = "block";
+      cxSetCycleMeta(null);
     }
 
-    cxShowEligibility({ address, amount: alloc.amount });
+    function cxShowNotEligible() {
+      const box = document.getElementById("claim-status");
+      if (!box) return;
+      const dict = cxDict();
+      const cycleId = cxPortalStatus?.activeCycle || CX_CURRENT_CYCLE_ID;
+      box.className = "muted";
+      box.innerHTML = `
+        <strong>${dict.not_eligible_title}</strong><br>
+        <span>${dict.not_eligible_text}</span>
+        ${cxVerifiedCycleHTML(cycleId)}
+        <div class="future-eligibility-card">
+          <strong>${dict.future_eligible_title}</strong>
+          <span>${dict.future_eligible_text}</span>
+        </div>
+      `;
+      box.style.display = "block";
+      cxSetCycleMeta(null);
+      cxHideClaimButton();
+    }
 
-// ✅ If already claimed - show it immediately and hide button
-try {
-  const already = await cxContract?.hasClaimed(CX_CURRENT_CYCLE_ID, address.toLowerCase());
-  if (already) {
-    cxShowAlreadyClaimed();
-    return;
-  }
-} catch (e) {
-  console.warn("hasClaimed check failed (non-fatal):", e);
-}
+    function cxHideClaimButton() {
+      const btn = document.getElementById("cx-claim-now-btn");
+      if (btn) btn.style.display = "none";
+    }
 
-cxEnsureClaimButton();
+    function cxShowAlreadyClaimed(amount = null) {
+      const cycleId = cxPortalStatus?.activeCycle || CX_CURRENT_CYCLE_ID;
+      let amountHTML = "";
+      if (amount && amount !== "0") {
+        try {
+          const humanAmount = Number(ethers.formatUnits(amount, 18)).toLocaleString("en-US", { maximumFractionDigits: 2 });
+          amountHTML = `
+            <div style="font-size:11px;opacity:.62;margin-top:10px;margin-bottom:2px">${cxT("claim_claimed_amount", "Claimed allocation")}</div>
+            <div style="font-size:20px;font-weight:950">${humanAmount} <span style="font-size:12px;opacity:.7">CYCX</span></div>
+          `;
+        } catch {}
+      }
+      cxSetClaimUI(
+        "claimed",
+        `<div style="font-size:15px;font-weight:900">${cxT("claim_already_claimed", "Reward already claimed")}</div>
+         <div style="margin-top:5px;opacity:.78">${cxT("claim_already_claimed_text", "This wallet has already claimed its reward for the current cycle.")}</div>
+         ${amountHTML}
+         ${cxVerifiedCycleHTML(cycleId)}`
+      );
+      cxSetCycleMeta(null);
+      cxHideClaimButton();
+    }
 
+    function cxSetClaimUI(state, message) {
+      const box = document.getElementById("claim-status");
+      const btn = document.getElementById("cx-claim-now-btn");
+      if (!box) return;
+      box.style.display = "block";
+      box.className = state || "";
+      box.id = "claim-status";
+      box.innerHTML = message || "";
+      if (btn) btn.disabled = state === "pending";
+    }
 
-  } catch (err) {
-    console.error("Eligibility check failed:", err);
-  }
-}
+    function cxHandleGatewayError(data) {
+      const error = data?.error || "";
+      if (error === "claims_closed") {
+        cxSetClaimUI("muted", `<strong>${cxT("claim_portal_closed")}</strong>`);
+        return;
+      }
+      if (error === "no_active_cycle") {
+        cxSetClaimUI("muted", `<strong>${cxT("claim_no_active_cycle")}</strong>`);
+        return;
+      }
+      if (["cycle_not_on_chain", "cycle_not_finalized", "r2_cycle_not_published", "cycle_integrity_mismatch", "invalid_rewards_json"].includes(error)) {
+        cxSetClaimUI("muted", `<strong>${cxT("claim_cycle_not_ready")}</strong>`);
+        return;
+      }
+      cxSetClaimUI("error", `<strong>${cxT("claim_service_unavailable")}</strong>`);
+    }
 
+    async function cxPrepareClaimPortal() {
+      cxPortalStatus = null;
+      cxCurrentAllocation = null;
+      cxHideClaimButton();
+      cxSetConnectButton({ enabled: false });
+      cxSetCycleMeta(null);
+      cxSetClaimUI("neutral", `<strong>${cxT("claim_checking_status")}</strong>`);
+
+      try {
+        const status = await cxFetchPortalStatus();
+        cxPortalStatus = status;
+
+        if (!status.activeCycle || status.reason === "no_active_cycle") {
+          cxSetClaimUI("muted", `<strong>${cxT("claim_no_active_cycle")}</strong>`);
+          return false;
+        }
+
+        cxSetCycleMeta(null);
+
+        if (!status.cycleReady) {
+          cxSetClaimUI("muted", `<strong>${cxT("claim_cycle_not_ready")}</strong>`);
+          return false;
+        }
+
+        // The site cycle is deliberately a manual release gate. It must match the
+        // cycle that the Worker independently verified from the deployed contract.
+        if (!Number.isInteger(CX_CURRENT_CYCLE_ID) || CX_CURRENT_CYCLE_ID <= 0 || Number(status.activeCycle) !== CX_CURRENT_CYCLE_ID) {
+          cxSetClaimUI("muted", `<strong>${cxT("claim_cycle_mismatch")}</strong>`);
+          return false;
+        }
+
+        if (!status.claimsOpen) {
+          cxSetClaimUI("muted", `<strong>${cxT("claim_portal_closed")}</strong>`);
+          return false;
+        }
+
+        // Ready. Do not expose any proof or allocation until a wallet is connected.
+        const box = document.getElementById("claim-status");
+        if (box) box.style.display = "none";
+        cxSetConnectButton({ enabled: true });
+
+        if (cxUserAddress && cxContract) {
+          await handleWalletConnected(cxUserAddress);
+        }
+        return true;
+      } catch (e) {
+        console.warn("[CycleX] reward portal status failed:", e?.message || e);
+        cxSetClaimUI("error", `<strong>${cxT("claim_service_unavailable")}</strong>`);
+        return false;
+      }
+    }
+
+    async function handleWalletConnected(address) {
+      try {
+        const addr = String(address || "").toLowerCase();
+        if (!ethers.isAddress(addr)) throw new Error("bad_address");
+
+        // Re-check status just before reading an allocation, so a cycle switch or
+        // emergency close is honored immediately.
+        const status = await cxFetchPortalStatus();
+        cxPortalStatus = status;
+        if (!status.claimsOpen || !status.cycleReady || Number(status.activeCycle) !== CX_CURRENT_CYCLE_ID) {
+          cxSetConnectButton({ enabled: false });
+          if (!status.claimsOpen) cxSetClaimUI("muted", `<strong>${cxT("claim_portal_closed")}</strong>`);
+          else cxSetClaimUI("muted", `<strong>${cxT("claim_cycle_mismatch")}</strong>`);
+          return;
+        }
+
+        cxSetCycleMeta(null);
+        cxSetConnectButton({ enabled: false, connectedAddress: addr });
+        cxSetClaimUI("neutral", `<strong>${cxT("claim_checking_eligibility")}</strong>`);
+
+        const { response, data } = await cxFetchEligibility(addr);
+        if (!response.ok || !data?.ok) {
+          cxHandleGatewayError(data);
+          return;
+        }
+        if (Number(data.cycleId) !== CX_CURRENT_CYCLE_ID) {
+          cxSetClaimUI("muted", `<strong>${cxT("claim_cycle_mismatch")}</strong>`);
+          return;
+        }
+        if (!data.eligible || !data.amount || data.amount === "0") {
+          cxCurrentAllocation = null;
+          cxShowNotEligible();
+          return;
+        }
+
+        cxCurrentAllocation = { cycleId: Number(data.cycleId), amount: String(data.amount) };
+
+        let already;
+        try {
+          already = await cxContract.hasClaimed(CX_CURRENT_CYCLE_ID, addr);
+        } catch (e) {
+          console.warn("[CycleX] hasClaimed failed:", e?.message || e);
+          cxSetClaimUI("error", `<strong>${cxT("claim_service_unavailable")}</strong>`);
+          return;
+        }
+        if (already) {
+          cxShowAlreadyClaimed(cxCurrentAllocation?.amount);
+          return;
+        }
+
+        cxShowEligibility({ address: addr, amount: cxCurrentAllocation.amount });
+        cxEnsureClaimButton();
+      } catch (err) {
+        console.error("[CycleX] eligibility check failed:", err);
+        cxSetClaimUI("error", `<strong>${cxT("claim_service_unavailable")}</strong>`);
+      }
+    }
 
     async function cxEnsureWeb3() {
-  if (!window.cxAppKitModal?.getWalletProvider) {
-    console.warn("[CycleX] AppKit not ready");
-    return false;
-  }
+      if (!window.cxAppKitModal?.getWalletProvider) {
+        console.warn("[CycleX] AppKit not ready");
+        return false;
+      }
 
-  let providerSource = window.cxAppKitModal.getWalletProvider();
+      let providerSource = window.cxAppKitModal.getWalletProvider();
+      if (!providerSource) {
+        await new Promise(r => setTimeout(r, 300));
+        providerSource = window.cxAppKitModal.getWalletProvider();
+      }
+      if (!providerSource) return false;
 
-  if (!providerSource) {
-    await new Promise(r => setTimeout(r, 300));
-    providerSource = window.cxAppKitModal.getWalletProvider();
-  }
+      cxProvider = new ethers.BrowserProvider(providerSource);
+      const network = await cxProvider.getNetwork();
+      if (Number(network.chainId) !== CX_CHAIN_ID) {
+        cxSetClaimUI("error", `<strong>${cxT("claim_wrong_network")}</strong>`);
+        return false;
+      }
 
-  if (!providerSource) {
-  cxlog("[CycleX] No provider yet");
-  return false; 
-}
+      cxSigner = await cxProvider.getSigner();
+      cxUserAddress = (await cxSigner.getAddress()).toLowerCase();
 
-  cxProvider = new ethers.BrowserProvider(providerSource);
-  cxSigner = await cxProvider.getSigner();
-  cxUserAddress = (await cxSigner.getAddress()).toLowerCase();
+      const CX_CONTRACT = ethers.getAddress(CX_CONTRACT_ADDRESS);
+      cxContract = new ethers.Contract(
+        CX_CONTRACT,
+        [
+          "function claim(uint256 cycleId, address account, uint256 amount, bytes32[] calldata proof) external",
+          "function hasClaimed(uint256 cycleId, address account) view returns (bool)",
+          "function canClaim(uint256 cycleId, address account, uint256 amount, bytes32[] calldata proof) view returns (bool)",
+          "function paused() view returns (bool)"
+        ],
+        cxSigner
+      );
+      return true;
+    }
 
-  if (!ethers.isAddress(CX_CONTRACT_ADDRESS)) {
-  console.error("[CycleX] Bad contract address:", CX_CONTRACT_ADDRESS);
-  return false;
-}
-const CX_CONTRACT = ethers.getAddress(CX_CONTRACT_ADDRESS);
+    window.cxEnsureWeb3 = cxEnsureWeb3;
 
-cxContract = new ethers.Contract(
-  CX_CONTRACT,
-  [
-      "function claim(uint256 cycleId, address account, uint256 amount, bytes32[] calldata proof) external",
-      "function hasClaimed(uint256 cycleId, address account) view returns (bool)"
-    ],
-    cxSigner
-  );
+    function cxUpdateWalletUI(address) {
+      cxSetConnectButton({ enabled: false, connectedAddress: address });
+    }
 
-  cxlog("🟢 [CycleX] Wallet connected:", cxUserAddress);
-  return true;
-}
-
-window.cxEnsureWeb3 = cxEnsureWeb3;
-
-
-      function cxUpdateWalletUI(address) {
-  const btn = document.getElementById("btn-connect-wallet");
-  if (!btn) return;
-  const short = address.slice(0, 6) + "…" + address.slice(-4);
-  // Swap big gradient btn → small connected chip
-  btn.outerHTML = `<span class="btn-wallet-chip" id="btn-connect-wallet">Connected: ${short}</span>`;
-}
-
-
-     function cxEnsureClaimButton() {
+    function cxEnsureClaimButton() {
       const modal = document.querySelector("#claim-modal-backdrop .modal");
       if (!modal) return;
-
       let btn = document.getElementById("cx-claim-now-btn");
       if (!btn) {
         btn = document.createElement("button");
         btn.id = "cx-claim-now-btn";
-        btn.textContent = "🔐 Claim now";
+        btn.setAttribute("data-i18n", "claim_now");
         btn.addEventListener("click", cxPerformClaim);
         modal.appendChild(btn);
       }
-    }
-   // ✅ Already-claimed UI (does NOT override success message unless we explicitly call it)
-function cxShowAlreadyClaimed() {
-  const box = document.getElementById("claim-status");
-  const claimBtn = document.getElementById("cx-claim-now-btn");
-
-  if (box) {
-    box.style.display = "block";
-    box.style.background = "rgba(180,180,180,0.12)";
-    box.style.border = "1px solid rgba(180,180,180,0.35)";
-    box.style.color = "#d0d0d0";
-    box.innerHTML = "<strong>✅ Already claimed for this cycle</strong>";
-  }
-
-  // hide claim button so user can't try again
-  if (claimBtn) claimBtn.style.display = "none";
-}
-
-// ✅ Generic status UI (keeps your success message intact, handles pending button disable)
-function cxSetClaimUI(state, message) {
-  const box = document.getElementById("claim-status");
-  const btn = document.getElementById("cx-claim-now-btn");
-
-  if (!box) return;
-
-  // reset visuals
-  box.style.display = "block";
-  box.className = "";
-  box.id = "claim-status";
-
-  // apply state class (pending/success/error)
-  if (state) box.classList.add(state);
-
-  // write message
-  box.innerHTML = message || "";
-
-  // disable button only during pending
-  if (btn) btn.disabled = (state === "pending");
-}
-
-
-
-  // window.cxConnectAndCheck = async function () {
-  //try {
-   // const ready = await cxEnsureWeb3();
-    //if (!ready) return;
-
-    //await cxLoadMerkleData();
-
-    //const address = cxUserAddress;
-    //const alloc = cxGetUserAllocation(address.toLowerCase());
-
-   // if (!alloc || !alloc.amount) {
-     // cxShowNotEligible();
-   //   return;
-  //  }
-
- //   cxShowEligibility({
-   //   address,
-   //   amount: alloc.amount
-  //  });
-
-//    cxEnsureClaimButton();
-
-//  } catch (err) {
- //   console.error(err);
-//  }
-//};
-
-   async function cxPerformClaim() {
-  if (cxClaimInFlight) return;
-  cxClaimInFlight = true;
-
-  try {
-    if (!cxUserAddress || !cxContract) {
-      alert("Please connect your wallet first.");
-      return;
+      btn.textContent = cxT("claim_now", "CLAIM REWARD");
+      btn.style.display = "block";
+      btn.disabled = false;
     }
 
-    const addr = cxUserAddress.toLowerCase();
-    const alloc = await cxGetUserAllocation(addr);
+    async function cxPerformClaim() {
+      if (cxClaimInFlight) return;
+      cxClaimInFlight = true;
 
+      try {
+        if (!cxUserAddress || !cxContract || !cxCurrentAllocation) {
+          cxSetClaimUI("error", `<strong>${cxT("claim_no_allocation")}</strong>`);
+          return;
+        }
 
-    if (!alloc) {
-      cxSetClaimUI("error", "❌ No allocation found for this wallet.");
-      return;
-    }
+        const addr = cxUserAddress.toLowerCase();
+        cxSetClaimUI("pending", `<strong>${cxT("claim_preparing_proof")}</strong>`);
 
-    // ✅ Prevent double-claim (on-chain)
-    try {
-      const already = await cxContract.hasClaimed(CX_CURRENT_CYCLE_ID, addr);
-      if (already) {
-        cxShowAlreadyClaimed();
-        return;
+        // Fetch proof only at the moment the user chooses to claim.
+        const { response, data } = await cxFetchClaimProof(addr);
+        if (!response.ok || !data?.ok) {
+          cxHandleGatewayError(data);
+          return;
+        }
+
+        if (
+          Number(data.cycleId) !== CX_CURRENT_CYCLE_ID ||
+          String(data.amount) !== String(cxCurrentAllocation.amount) ||
+          !Array.isArray(data.proof)
+        ) {
+          cxSetClaimUI("error", `<strong>${cxT("claim_proof_invalid")}</strong>`);
+          return;
+        }
+
+        // Fail closed before asking the wallet to send a transaction.
+        const already = await cxContract.hasClaimed(CX_CURRENT_CYCLE_ID, addr);
+        if (already) {
+          cxShowAlreadyClaimed(cxCurrentAllocation?.amount);
+          return;
+        }
+
+        const isPaused = await cxContract.paused();
+        if (isPaused) {
+          cxSetClaimUI("muted", `<strong>${cxT("claim_portal_closed")}</strong>`);
+          return;
+        }
+
+        const canClaim = await cxContract.canClaim(
+          CX_CURRENT_CYCLE_ID,
+          addr,
+          data.amount,
+          data.proof
+        );
+        if (!canClaim) {
+          cxSetClaimUI("error", `<strong>${cxT("claim_proof_invalid")}</strong>`);
+          return;
+        }
+
+        cxSetClaimUI("pending", `<strong>${cxT("claim_pending")}</strong>`);
+
+        const tx = await cxContract.claim(
+          CX_CURRENT_CYCLE_ID,
+          addr,
+          data.amount,
+          data.proof
+        );
+
+        await tx.wait();
+        cxSetClaimUI("success", `<strong>${cxT("claim_success")}</strong>`);
+        cxHideClaimButton();
+      } catch (err) {
+        console.error("[CycleX] claim failed:", err);
+        const isUserCancel =
+          err?.code === 4001 ||
+          err?.code === "ACTION_REJECTED" ||
+          err?.message?.toLowerCase().includes("user rejected") ||
+          err?.message?.toLowerCase().includes("user denied");
+        cxSetClaimUI(
+          "error",
+          `<strong>${isUserCancel ? cxT("claim_cancelled") : cxT("claim_failed")}</strong>`
+        );
+      } finally {
+        cxClaimInFlight = false;
+        const btn = document.getElementById("cx-claim-now-btn");
+        if (btn && btn.style.display !== "none") btn.disabled = false;
       }
-    } catch (e) {
-      console.warn("hasClaimed check failed (non-fatal):", e);
     }
-
-    // 🔹 Pending
-    cxSetClaimUI(
-      "pending",
-      "<strong>⏳ Transaction pending…</strong><br>Please confirm in your wallet."
-    );
-
-    const tx = await cxContract.claim(
-      CX_CURRENT_CYCLE_ID,
-      addr,
-      alloc.amount,
-      alloc.proof
-    );
-
-    await tx.wait();
-
-    // 🔹 Success (keep the nice message)
-    cxSetClaimUI(
-      "success",
-      "<strong>✅ Claim successful!</strong><br>Your rewards were claimed on-chain."
-    );
-
-    // ✅ Hide claim button after success (so user can't click again)
-    const claimBtn = document.getElementById("cx-claim-now-btn");
-    if (claimBtn) claimBtn.style.display = "none";
-
-  } catch (err) {
-    console.error("Claim failed:", err);
-    const isUserCancel =
-      err?.code === 4001 ||
-      err?.code === "ACTION_REJECTED" ||
-      err?.message?.toLowerCase().includes("user rejected") ||
-      err?.message?.toLowerCase().includes("user denied");
-    cxSetClaimUI(
-      "error",
-      isUserCancel
-        ? "⚠️ Transaction cancelled."
-        : "❌ Transaction failed. Please try again or check your wallet."
-    );
-  } finally {
-    cxClaimInFlight = false;
-  }
-}
-
 
     const claimBtn = document.getElementById("btn-claim");
     const modalBackdrop = document.getElementById("claim-modal-backdrop");
@@ -3749,6 +4260,7 @@ function cxSetClaimUI(state, message) {
       modalBackdrop.classList.add("active");
       modalBackdrop.setAttribute("aria-hidden", "false");
       cxUpdateModalState();
+      cxPrepareClaimPortal().catch(() => {});
     }
 
     // Token disclaimer gate: show it every time before entering the Claim flow.
@@ -3767,6 +4279,8 @@ function cxSetClaimUI(state, message) {
   cxUpdateModalState(); // ✅
 
   window.__cxCheckedAddress = null;
+  cxCurrentAllocation = null;
+  cxHideClaimButton();
 }
 
 
@@ -3818,6 +4332,7 @@ function cxSetClaimUI(state, message) {
     // -------- TOKEN / ELIGIBILITY DISCLAIMER GATE --------
     const eligibilityBackdrop = document.getElementById("eligibility-modal-backdrop");
     const eligibilityContinueBtn = document.getElementById("eligibility-continue-btn");
+    const eligibilityCloseX = document.getElementById("eligibility-modal-close-x");
 
     function openEligibilityModal() {
       if (!eligibilityBackdrop) return;
@@ -3833,6 +4348,13 @@ function cxSetClaimUI(state, message) {
       eligibilityBackdrop.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
       cxUpdateModalState();
+    }
+
+    if (eligibilityCloseX) {
+      eligibilityCloseX.addEventListener("click", () => {
+        cxEligibilityPendingAction = null;
+        closeEligibilityModal();
+      });
     }
 
     if (eligibilityContinueBtn) {
@@ -4299,40 +4821,52 @@ setMetricsDot(true);
    btn.addEventListener("click", async () => {
   cxlog("🟡 Opening wallet list");
 
-  
   const box = document.getElementById("claim-status");
-  if (box) {
-    box.style.display = "block";
-    box.style.background = "rgba(0,229,255,0.10)";
-    box.style.border = "1px solid rgba(0,229,255,0.35)";
-    box.style.color = "#00e5ff";
-    box.innerHTML = "<strong>⏳ Connecting wallet…</strong>";
-  }
+  btn.disabled = true;
+  btn.classList.add("is-loading");
+  btn.textContent = cxT("claim_connecting_wallet", "Connecting wallet…");
+  if (box) box.style.display = "none";
 
-  await loadAppKit(); // ensure loaded
+  await loadAppKit();
   await window.cxAppKitModal.open({ view: "ConnectWallet" });
 
   const provider = await waitForWalletProvider(90000);
   if (!provider) {
     console.error("🔴 Provider never became ready (timeout)");
-    if (box) box.innerHTML = "<strong>⚠️ Connection timeout. Please try again.</strong>";
+    btn.classList.remove("is-loading");
+    btn.disabled = false;
+    btn.textContent = cxT("claim_btn_connect", "Connect wallet & check");
+    if (box) {
+      box.style.display = "block";
+      box.className = "error";
+      box.innerHTML = `<strong>${cxT("claim_connection_timeout", "Connection timed out. Please try again.")}</strong>`;
+    }
     return;
   }
 
-  
+  btn.textContent = cxT("claim_checking_eligibility", "Checking this wallet’s eligibility…");
+
   const browserProvider = new ethers.BrowserProvider(provider);
   const signer = await browserProvider.getSigner();
   const address = await signer.getAddress();
 
   cxlog("🟢 [CycleX] Wallet connected:", address);
-    
-const ok = await window.cxEnsureWeb3?.();
-if (!ok) {
-  if (box) box.innerHTML = "<strong>⚠️ Web3 init failed. Try again.</strong>";
-  return;
-}
 
-  await handleWalletConnected(address); 
+  const ok = await window.cxEnsureWeb3?.();
+  if (!ok) {
+    btn.classList.remove("is-loading");
+    btn.disabled = false;
+    btn.textContent = cxT("claim_btn_connect", "Connect wallet & check");
+    if (box) {
+      box.style.display = "block";
+      box.className = "error";
+      box.innerHTML = `<strong>${cxT("claim_connection_failed", "Wallet connection failed. Please try again.")}</strong>`;
+    }
+    return;
+  }
+
+  await handleWalletConnected(address);
+  btn.classList.remove("is-loading");
 });
 
   }
