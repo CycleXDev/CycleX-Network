@@ -5017,7 +5017,7 @@ const translations = {
     qs_err_invalid_address: "Please paste a valid EVM contract or Solana mint address.",
     qs_err_selected_evm: "The selected network expects a 0x token contract.",
     qs_share_score: "CycleX Score",
-    qs_share_liquidity: "Liquidity",
+    qs_share_liquidity: "DEX Liquidity",
     qs_share_pool_one: "1 pool",
     qs_share_pool_many: "{count} pools",
     qs_share_strong: "Strong",
@@ -9261,12 +9261,12 @@ async function qsLiqCheckBasic(net, token, provider) {
     const skip = new Set(["Overall","Data Coverage","Circulating Supply","Est. Circulating Supply","Global Circulating Supply"]);
     const goodPriority = [
       "Mint Authority","Freeze Authority","Permanent Delegate","Transfer Hook","Global Pause","Mint","Pause","Proxy",
-      "LP Burned","LP Lock","Liquidity","Verified","Dev/Owner Holds","Dev/Creator Holds","Largest Wallet Holder",
+      "LP Burned","LP Lock","DEX Liquidity","Verified","Dev/Owner Holds","Dev/Creator Holds","Largest Wallet Holder",
       "Top 10 Wallet Holders","CEX Listed","Contract Age","Trading Age","Market Score","Contract Score"
     ];
     const reviewPriority = [
       "Global Pause","Non-Transferable","Permanent Delegate","Transfer Hook","Transfer Fee","Mint Authority","Freeze Authority",
-      "Mint","Pause","Liquidity","Dev/Owner Holds","Dev/Creator Holds","Largest Wallet Holder","Top 10 Wallet Holders",
+      "Mint","Pause","DEX Liquidity","Dev/Owner Holds","Dev/Creator Holds","Largest Wallet Holder","Top 10 Wallet Holders",
       "Holder Concentration","LP Lock","Proxy","Verified","Market Score","Contract Score","Trading Age","Contract Age","Price 24h"
     ];
     const candidates = mini.filter(x=>x && !skip.has(String(x.title||"")));
@@ -11630,7 +11630,7 @@ async function qsLiqCheckBasic(net, token, provider) {
             target: "pool",
             ok: !!(p.liquidityUsd && p.liquidityUsd > 0),
             note: p.liquidityUsd
-              ? `Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
+              ? `DEX Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
               : "—"
           }))
         ];
@@ -11659,7 +11659,7 @@ async function qsLiqCheckBasic(net, token, provider) {
             target: "pool",
             ok: !!(p.liquidityUsd && p.liquidityUsd > 0),
             note: p.liquidityUsd
-              ? `Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
+              ? `DEX Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
               : "—"
           }))
         ];
@@ -12254,7 +12254,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       }] : []),
       {
         type: !rep.liq?.any ? "warn" : liqQuality === "tiny" ? "bad" : liqQuality === "low" ? "bad" : liqQuality === "medium" ? "warn" : "ok",
-        title: "Liquidity",
+        title: "DEX Liquidity",
         // ✅ NEW: not tagged on-chain — this figure merges our own
         // 5-factory on-chain scan WITH pools DexScreener found that our
         // fixed factory list doesn't cover (see the merge step earlier in
@@ -12843,7 +12843,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       rep.liq.rows = ds.allPairs.map(p => {
         const gpMatch = gpDexByAddr.get(String(p.pairAddress || "").toLowerCase());
         const lockNote = gpMatch ? lpLockNote(gpMatch) : "";
-        const liqTxt = p.liquidityUsd ? `Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}` : "";
+        const liqTxt = p.liquidityUsd ? `DEX Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}` : "";
         const volTxt = p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : "";
         return {
           addr: p.pairAddress || "",
@@ -12875,7 +12875,7 @@ async function qsLiqCheckBasic(net, token, provider) {
             target: "pool",
             ok: !!(p.liquidityUsd && p.liquidityUsd > 0),
             note: p.liquidityUsd
-              ? `Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
+              ? `DEX Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
               : "—"
           })));
         }
@@ -12891,7 +12891,7 @@ async function qsLiqCheckBasic(net, token, provider) {
         target: "pool",
         ok: !!(p.liquidityUsd && p.liquidityUsd > 0),
         note: p.liquidityUsd
-          ? `Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
+          ? `DEX Liquidity: ~$${Number(p.liquidityUsd).toLocaleString(undefined,{maximumFractionDigits:0})}${p.volumeUsd24h ? ` • Vol 24h: ~$${Number(p.volumeUsd24h).toLocaleString(undefined,{maximumFractionDigits:0})}` : ""}`
           : "—"
       }));
     } else if (Array.isArray(gp?.dex) && gp.dex.length) {
@@ -12908,7 +12908,7 @@ async function qsLiqCheckBasic(net, token, provider) {
         target: "pool",
         ok: !!(liqUsd && liqUsd > 0),
         note: (liqUsd && liqUsd > 0)
-          ? `Liquidity: ~$${Number(liqUsd).toLocaleString(undefined,{maximumFractionDigits:0})}`
+          ? `DEX Liquidity: ~$${Number(liqUsd).toLocaleString(undefined,{maximumFractionDigits:0})}`
           : "Liquidity not reported (possibly bonding-curve / pre-graduation)"
       }];
     }
@@ -13036,7 +13036,7 @@ async function qsLiqCheckBasic(net, token, provider) {
           if (q === "tiny" || q === "low") return "bad";
           if (q === "medium" || q === "unknown") return "warn";
           return "ok";
-        })(), title: "Liquidity",
+        })(), title: "DEX Liquidity",
         value: (() => {
           const q=String(rep?.meta?.liqQuality||"unknown");
           const poolCount = rep.liq?.rows?.length || 0;
