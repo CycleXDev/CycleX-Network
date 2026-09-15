@@ -1518,6 +1518,131 @@ body{background:#05060a!important}
   .top3{grid-template-columns:1fr!important}.top3 .score-card.card-score{grid-column:auto!important}
 }
 </style>
+
+<style id="fw-mobile-header-security-match-v3">
+/* Mobile header copied to match the Security Hub proportions/layout. */
+@media (max-width:640px){
+  html{zoom:1!important}
+
+  /* Keep the same outer breathing room as Security Hub. */
+  .page-shell{
+    width:100%!important;
+    max-width:1160px!important;
+    margin:0 auto!important;
+    padding:32px 20px 80px!important;
+  }
+
+  .top-bar{
+    top:14px!important;
+    width:min(1160px,calc(100% - 24px))!important;
+    max-width:none!important;
+    margin:0 auto 36px!important;
+    padding:10px 12px!important;
+    border-radius:18px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:8px!important;
+    min-height:0!important;
+  }
+
+  .top-bar .brand{
+    width:100%!important;
+    justify-content:flex-start!important;
+    gap:10px!important;
+    min-width:0!important;
+  }
+  .top-bar .brand-logo{
+    width:42px!important;
+    height:42px!important;
+    border-radius:14px!important;
+    flex:0 0 auto!important;
+  }
+  .top-bar .brand-text{min-width:0!important}
+  .top-bar .brand-title{
+    font-size:13px!important;
+    letter-spacing:.10em!important;
+    white-space:nowrap!important;
+  }
+  .top-bar .brand-sub{
+    display:block!important;
+    font-size:9px!important;
+    letter-spacing:.13em!important;
+    white-space:normal!important;
+    line-height:1.35!important;
+    max-width:250px!important;
+  }
+
+  .top-right{
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    gap:10px!important;
+    align-items:center!important;
+    min-width:0!important;
+  }
+
+  .top-right .lang-switch{
+    grid-column:1 / -1!important;
+    grid-row:1!important;
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:2px!important;
+    padding:5px!important;
+    min-width:0!important;
+  }
+  .top-right .lang-btn{
+    width:100%!important;
+    min-width:0!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:4px!important;
+    font-size:10px!important;
+    padding:7px 3px!important;
+    letter-spacing:0!important;
+    white-space:nowrap!important;
+  }
+
+  /* Firewall equivalents of Security Hub's two equal action buttons. */
+  .top-right .btn-full-access-top,
+  .top-right .back-link{
+    display:inline-flex!important;
+    width:100%!important;
+    min-width:0!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:9px 10px!important;
+    font-size:10px!important;
+    line-height:1.1!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .top-right .btn-full-access-top{
+    grid-column:1!important;
+    grid-row:2!important;
+  }
+  .top-right .back-link{
+    grid-column:2!important;
+    grid-row:2!important;
+    letter-spacing:.08em!important;
+  }
+
+  /* These are state badges, not navigation actions; keep them out of the header grid. */
+  .firewall-badge{display:none!important}
+  #tierBadge{display:none!important}
+}
+
+@media (max-width:420px){
+  .top-bar .brand-sub{font-size:8.6px!important;max-width:225px!important}
+  .top-right .lang-btn{font-size:9.4px!important;padding-inline:2px!important}
+  .top-right .btn-full-access-top,
+  .top-right .back-link{font-size:9px!important;padding:9px 7px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="fw-bg-layer" aria-hidden="true"></div>
@@ -2854,102 +2979,7 @@ window.fwExportPDF = function() {
   td{padding:8px 10px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
   .footer{margin-top:32px;padding-top:16px;border-top:1px solid #e5e7eb;display:flex;justify-content:space-between;font-size:10px;color:#999}
   @media print{body{padding:20px}.score-block{break-inside:avoid}table{break-inside:auto}tr{break-inside:avoid}}
-</style>
-<style id="fw-mobile-header-match-security-v3">
-/* Mobile header: match the Security Hub proportions and spacing exactly. */
-@media (max-width:600px){
-  .top-bar{
-    width:min(1160px,calc(100% - 24px))!important;
-    max-width:none!important;
-    margin:0 auto 20px!important;
-    padding:10px 12px!important;
-    border-radius:18px!important;
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:flex-start!important;
-    gap:8px!important;
-    top:8px!important;
-  }
-  .top-bar .brand{
-    width:100%!important;
-    justify-content:flex-start!important;
-    gap:9px!important;
-    min-width:0!important;
-  }
-  .top-bar .brand-logo{
-    width:38px!important;
-    height:38px!important;
-    border-radius:11px!important;
-  }
-  .top-bar .brand-text{min-width:0!important}
-  .top-bar .brand-title{font-size:12px!important}
-  .top-bar .brand-sub{
-    display:block!important;
-    font-size:8px!important;
-    letter-spacing:.10em!important;
-    white-space:normal!important;
-    line-height:1.25!important;
-    max-width:250px!important;
-  }
-  .top-bar .top-right{
-    width:100%!important;
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
-    gap:10px!important;
-    align-items:center!important;
-    min-width:0!important;
-  }
-  .top-bar .lang-switch{
-    grid-column:1 / -1!important;
-    grid-row:1!important;
-    width:100%!important;
-    display:grid!important;
-    grid-template-columns:repeat(4,minmax(0,1fr))!important;
-    gap:2px!important;
-    padding:5px!important;
-    min-width:0!important;
-  }
-  .top-bar .lang-btn{
-    width:100%!important;
-    min-width:0!important;
-    padding:7px 3px!important;
-    text-align:center!important;
-    font-size:10px!important;
-    letter-spacing:0!important;
-    white-space:nowrap!important;
-  }
-  .top-bar .btn-full-access-top{
-    grid-column:1!important;
-    grid-row:2!important;
-    width:100%!important;
-    min-width:0!important;
-    justify-content:center!important;
-    text-align:center!important;
-    padding:9px 10px!important;
-    font-size:9px!important;
-    letter-spacing:.06em!important;
-  }
-  .top-bar .back-link{
-    display:inline-flex!important;
-    grid-column:2!important;
-    grid-row:2!important;
-    width:100%!important;
-    min-width:0!important;
-    align-items:center!important;
-    justify-content:center!important;
-    text-align:center!important;
-    padding:9px 10px!important;
-    font-size:9px!important;
-    letter-spacing:.06em!important;
-  }
-}
-@media (max-width:420px){
-  .top-bar .brand-sub{font-size:7.7px!important;max-width:225px!important}
-  .top-bar .lang-btn{font-size:9.4px!important;padding-inline:2px!important}
-  .top-bar .btn-full-access-top,.top-bar .back-link{font-size:8.4px!important;padding:8px 7px!important}
-}
-</style>
-</head><body>
+</style></head><body>
 
 <div class="header">
   <div style="display:flex;align-items:center;gap:14px">
