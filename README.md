@@ -1,4 +1,4 @@
-# CycleX
+# CycleX Network 
 
 **On-chain security tools for wallets, tokens and communities.**
 
@@ -15,7 +15,7 @@ CycleX helps users understand blockchain risk through clear, verifiable security
 
 CycleX supports Solana and multiple EVM networks, combining on-chain and market data into a single security view.
 
-## Try CycleX
+## Try CycleX Network 
 
 🌐 **Website:** https://cyclex.network  
 🤖 **Telegram Scanner:** https://t.me/CyclexScannerBot  
