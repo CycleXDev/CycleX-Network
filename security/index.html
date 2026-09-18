@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- CycleX Security Hub Premium Scanner UX v1.6 · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
+  <!-- Honeypot tri-state parity: explicit true / explicit false / provider-unknown are preserved end-to-end. -->
     <!-- Google tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXDFXJWCNQ"></script>
   <script>
@@ -8025,7 +8027,7 @@ function initPanels() {
 (function () {
   "use strict";
 
-  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v6_parity8";
+  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v6_parity9_honeypot_tristate";
   const QS_LS_HISTORY  = "cx_sec_qs_history_safe_v6";
   const QS_LS_API_KEYS = "cx_sec_explorer_keys";
 
@@ -10157,6 +10159,13 @@ async function qsLiqCheckBasic(net, token, provider) {
       const d = j?.result?.[addr] || j?.result?.[Object.keys(j.result || {})[0]];
       if (!d) return null;
       const gp1 = v => v === "1" || v === 1;
+      // Security verdicts whose absence has meaning must stay tri-state.
+      // Missing provider data is UNKNOWN, never a clean false.
+      const gpTriBool = v => {
+        if (v === "1" || v === 1 || v === true) return { known:true, value:true };
+        if (v === "0" || v === 0 || v === false) return { known:true, value:false };
+        return { known:false, value:false };
+      };
       const gpNum = v => { const n = parseFloat(v); return Number.isFinite(n) ? n : null; };
       const gpPct100 = v => {
         const n = gpNum(v);
@@ -10214,6 +10223,10 @@ async function qsLiqCheckBasic(net, token, provider) {
       const b20Admins = [...new Set(b20Entries.flatMap(x => x.admins))];
       const b20AnyKnown = b20Entries.some(x => x.known);
 
+      // Honeypot is a tri-state verdict. An omitted field is provider uncertainty,
+      // not evidence that the token is clean.
+      const honeypotState = gpTriBool(d?.is_honeypot);
+
       // v22 parity: positive LP-lock evidence from lp_holders. Missing data is
       // not interpreted as unlocked.
       const lpHoldersArr = Array.isArray(d?.lp_holders) ? d.lp_holders : [];
@@ -10235,7 +10248,8 @@ async function qsLiqCheckBasic(net, token, provider) {
       const poolFeesPct = [...new Set(dexPools.map(x => x.poolFeePct).filter(Number.isFinite).map(v => Number(v.toFixed(6))))].sort((a,b)=>a-b);
 
       return {
-        isHoneypot:           gp1(d.is_honeypot),
+        isHoneypot:           honeypotState.value,
+        isHoneypotKnown:      honeypotState.known,
         buyTax:               gpNum(d.buy_tax),
         sellTax:              gpNum(d.sell_tax),
         isBlacklisted:        gp1(d.is_blacklisted) || b20Blacklist.status,
@@ -10274,7 +10288,9 @@ async function qsLiqCheckBasic(net, token, provider) {
           blacklist: b20Blacklist.status,
           whitelist: b20Whitelist.status,
           cannotSell: b20CannotSell.status,
+          cannotSellKnown: b20CannotSell.known,
           cannotBuy: b20CannotBuy.status,
+          cannotBuyKnown: b20CannotBuy.known,
           admins: b20Admins
         },
         raw: d
@@ -11763,7 +11779,8 @@ async function qsLiqCheckBasic(net, token, provider) {
     if (newEvmMarketAgg)      rep.meta.marketPairCount  = newEvmMarketAgg.pairCount || 0;
     if (liqLock)              rep.meta.liqLock          = liqLock;
     rep.meta.goplus = goplus ? {
-      isHoneypot: goplus.isHoneypot, buyTax: goplus.buyTax, sellTax: goplus.sellTax,
+      isHoneypot: goplus.isHoneypot, isHoneypotKnown: goplus.isHoneypotKnown === true,
+      buyTax: goplus.buyTax, sellTax: goplus.sellTax,
       isBlacklisted: goplus.isBlacklisted, hiddenOwner: goplus.hiddenOwner,
       canTakeBackOwnership: goplus.canTakeBackOwnership, selfdestructDetected: goplus.selfdestructDetected,
       transferPausable: goplus.transferPausable, slippageModifiable: goplus.slippageModifiable,
@@ -12052,7 +12069,8 @@ async function qsLiqCheckBasic(net, token, provider) {
         gpTop10Pct,
         lpBurnInfo: lpBurnInfo ? { isBurned: !!lpBurnInfo.isBurned, burnedPct: lpBurnInfo.burnedPct ?? null } : null,
         goplus: goplus ? {
-          isHoneypot: !!goplus.isHoneypot,
+          isHoneypot: goplus.isHoneypot === true,
+          isHoneypotKnown: goplus.isHoneypotKnown === true,
           buyTax: goplus.buyTax ?? null,
           sellTax: goplus.sellTax ?? null,
           hiddenOwner: !!goplus.hiddenOwner,
@@ -12068,8 +12086,10 @@ async function qsLiqCheckBasic(net, token, provider) {
             ownerChangeBalance: !!goplus.b20.ownerChangeBalance,
             metadataModifiable: !!goplus.b20.metadataModifiable,
             whitelist: !!goplus.b20.whitelist,
-            cannotSell: !!goplus.b20.cannotSell,
-            cannotBuy: !!goplus.b20.cannotBuy
+            cannotSell: goplus.b20.cannotSell === true,
+            cannotSellKnown: goplus.b20.cannotSellKnown === true,
+            cannotBuy: goplus.b20.cannotBuy === true,
+            cannotBuyKnown: goplus.b20.cannotBuyKnown === true
           } : null
         } : null
       });
@@ -12377,8 +12397,18 @@ async function qsLiqCheckBasic(net, token, provider) {
           title: "Txns 24h", value: dsMarket.txns24h.toLocaleString()
         }] : [])
       ] : []),
+      // Honeypot is always explicit in the evidence grid. A missing GoPlus
+      // verdict is warning/unknown, never a green "Not detected".
+      [{
+        type: !goplus ? "warn" : (goplus.isHoneypot === true ? "bad" : (goplus.isHoneypotKnown === true ? "ok" : "warn")),
+        title: "Honeypot",
+        value: !goplus
+          ? "Unknown (GoPlus unavailable)"
+          : (goplus.isHoneypotKnown === true
+              ? (goplus.isHoneypot === true ? "⚠️ DETECTED" : "Not detected")
+              : "Unknown (not returned by GoPlus)")
+      }],
       ...(goplus ? [
-        { type: goplus.isHoneypot ? "bad" : "ok", title: "Honeypot", value: goplus.isHoneypot ? "⚠️ DETECTED" : "Not detected" },
         // ✅ FIX: same pattern already fixed for Solana's Transfer Fee — this
         // whole block only renders when goplus exists, so "Unknown" here
         // never meant "couldn't check", it meant "GoPlus responded but
@@ -12410,9 +12440,14 @@ async function qsLiqCheckBasic(net, token, provider) {
             goplus.b20.whitelist ? "whitelist" : null
           ].filter(Boolean).join(", ") || "No flagged advanced controls"
         }] : []),
-        ...(goplus?.b20?.available && (goplus.b20.cannotSell || goplus.b20.cannotBuy) ? [{
-          type:goplus.b20.cannotSell ? "bad" : "warn", title:"Trade Restrictions (B20)",
-          value:[goplus.b20.cannotSell ? "sell restricted" : null, goplus.b20.cannotBuy ? "buy restricted" : null].filter(Boolean).join(", ")
+        ...(goplus?.b20?.available ? [{
+          type: goplus.b20.cannotSell === true ? "bad"
+            : (goplus.b20.cannotBuy === true || goplus.b20.cannotSellKnown !== true || goplus.b20.cannotBuyKnown !== true) ? "warn" : "ok",
+          title:"Trade Restrictions (B20)",
+          value:[
+            goplus.b20.cannotSellKnown === true ? (goplus.b20.cannotSell ? "sell restricted" : "no sell restriction flagged") : "sell status unknown",
+            goplus.b20.cannotBuyKnown === true ? (goplus.b20.cannotBuy ? "buy restricted" : "no buy restriction flagged") : "buy status unknown"
+          ].join(" · ")
         }] : []),
         ...(goplus.hiddenOwner ? [{ type: "bad", title: "Hidden Owner", value: "Detected" }] : []),
         ...(goplus.canTakeBackOwnership ? [{ type: "bad", title: "Ownership Risk", value: "Can reclaim" }] : []),
@@ -13223,7 +13258,9 @@ async function qsLiqCheckBasic(net, token, provider) {
 
     const set = (lev, t, w) => { level = lev; title = t; why = w; };
 
-    if (/honeypot|cannot be sold|unable to sell|sell restriction|non-transferable/.test(l)) {
+    if (/honeypot status.*(could not be confirmed|unknown)|honeypot.*status is unknown/.test(l)) {
+      set("review", c.dataTitle, c.dataWhy);
+    } else if (/honeypot|cannot be sold|unable to sell|sell restriction|non-transferable/.test(l)) {
       set("high", c.honeypotTitle, c.honeypotWhy);
     } else if (
       (/\bcurrently paused\b|global pause is active|currently blocked/.test(l)) &&
