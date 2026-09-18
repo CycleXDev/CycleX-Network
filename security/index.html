@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- CycleX Security Hub Premium Scanner UX v1.6 · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
   <!-- Honeypot tri-state parity: explicit true / explicit false / provider-unknown are preserved end-to-end. -->
+  <!-- v1.6.1: fixed Honeypot mini-chip render shape (object, not nested array). -->
     <!-- Google tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXDFXJWCNQ"></script>
   <script>
@@ -12399,7 +12399,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       ] : []),
       // Honeypot is always explicit in the evidence grid. A missing GoPlus
       // verdict is warning/unknown, never a green "Not detected".
-      [{
+      {
         type: !goplus ? "warn" : (goplus.isHoneypot === true ? "bad" : (goplus.isHoneypotKnown === true ? "ok" : "warn")),
         title: "Honeypot",
         value: !goplus
@@ -12407,7 +12407,7 @@ async function qsLiqCheckBasic(net, token, provider) {
           : (goplus.isHoneypotKnown === true
               ? (goplus.isHoneypot === true ? "⚠️ DETECTED" : "Not detected")
               : "Unknown (not returned by GoPlus)")
-      }],
+      },
       ...(goplus ? [
         // ✅ FIX: same pattern already fixed for Solana's Transfer Fee — this
         // whole block only renders when goplus exists, so "Unknown" here
