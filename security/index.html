@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- CycleX Security Hub Premium Scanner UX v1.6 · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
+  <!-- CycleX Security Hub Premium Scanner UX v1.6.2 · Points-to-Review parity · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
   <!-- Honeypot tri-state parity: explicit true / explicit false / provider-unknown are preserved end-to-end. -->
   <!-- v1.6.1: fixed Honeypot mini-chip render shape (object, not nested array). -->
     <!-- Google tag (GA4) -->
@@ -8027,7 +8027,7 @@ function initPanels() {
 (function () {
   "use strict";
 
-  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v6_parity9_honeypot_tristate";
+  const QS_LS_CACHE    = "cx_sec_qs_cache_protected_v6_parity10_review_parity";
   const QS_LS_HISTORY  = "cx_sec_qs_history_safe_v6";
   const QS_LS_API_KEYS = "cx_sec_explorer_keys";
 
@@ -13247,6 +13247,83 @@ async function qsLiqCheckBasic(net, token, provider) {
     return { ...en, ...(local?.[lang] || {}) };
   }
 
+  // v1.6.2 — display-only Points-to-Review parity.
+  // These notes explain risk signals that already affect the visible Market
+  // evidence/score; they NEVER change scoring, provider inputs, or redFlags.
+  // Keeping them display-only prevents a review-copy change from altering the
+  // protected engine's security semantics.
+  function qsReviewSignalCopy(lang = currentLang){
+    const en = {
+      lowLiquidity: (veryLow, usd, pools) => `${veryLow ? "Very low" : "Low"} DEX liquidity — ~$${Math.round(usd).toLocaleString()}${pools > 0 ? ` across ${pools} active pool${pools === 1 ? "" : "s"}` : ""}.`,
+      taxBothUnknown: "Buy and sell tax status could not be confirmed by GoPlus.",
+      taxSellUnknown: "Sell tax status could not be confirmed by GoPlus.",
+      taxBuyUnknown: "Buy tax status could not be confirmed by GoPlus."
+    };
+    const local = {
+      zh: {
+        lowLiquidity: (veryLow, usd, pools) => `${veryLow ? "DEX 流动性非常低" : "DEX 流动性较低"} — 约 $${Math.round(usd).toLocaleString()}${pools > 0 ? `，分布在 ${pools} 个活跃池中` : ""}。`,
+        taxBothUnknown: "GoPlus 未能确认买入税和卖出税状态。",
+        taxSellUnknown: "GoPlus 未能确认卖出税状态。",
+        taxBuyUnknown: "GoPlus 未能确认买入税状态。"
+      },
+      ar: {
+        lowLiquidity: (veryLow, usd, pools) => `${veryLow ? "سيولة DEX منخفضة جدًا" : "سيولة DEX منخفضة"} — نحو $${Math.round(usd).toLocaleString()}${pools > 0 ? ` عبر ${pools} تجمع${pools === 1 ? " نشط" : "ات نشطة"}` : ""}.`,
+        taxBothUnknown: "تعذر على GoPlus تأكيد حالة ضريبة الشراء والبيع.",
+        taxSellUnknown: "تعذر على GoPlus تأكيد حالة ضريبة البيع.",
+        taxBuyUnknown: "تعذر على GoPlus تأكيد حالة ضريبة الشراء."
+      },
+      ru: {
+        lowLiquidity: (veryLow, usd, pools) => `${veryLow ? "Очень низкая DEX-ликвидность" : "Низкая DEX-ликвидность"} — около $${Math.round(usd).toLocaleString()}${pools > 0 ? ` в ${pools} активных пулах` : ""}.`,
+        taxBothUnknown: "GoPlus не удалось подтвердить статус налогов на покупку и продажу.",
+        taxSellUnknown: "GoPlus не удалось подтвердить статус налога на продажу.",
+        taxBuyUnknown: "GoPlus не удалось подтвердить статус налога на покупку."
+      }
+    };
+    return { ...en, ...(local?.[lang] || {}) };
+  }
+
+  function qsSyntheticReviewItems(rep){
+    const guide = qsReviewGuideCopy(currentLang);
+    const copy = qsReviewSignalCopy(currentLang);
+    const items = [];
+
+    // The evidence grid already labels < $25k as Very low and < $250k as Low
+    // (both red). Surface the same condition in Points to Review so a reduced
+    // Market Score is never unexplained. No score change is made here.
+    const q = String(rep?.meta?.liqQuality || "unknown");
+    const liqUsd = Number(rep?.meta?.liquidityUsdEst);
+    const pools = Math.max(0, Number(rep?.meta?.liqActivePools || rep?.meta?.marketPairCount || rep?.meta?.evmLiquidity?.poolCount || 0));
+    if ((q === "tiny" || q === "low") && Number.isFinite(liqUsd) && liqUsd > 0) {
+      items.push({
+        syntheticKey: "low_dex_liquidity",
+        level: "high",
+        title: guide.liquidityTitle,
+        why: guide.liquidityWhy,
+        raw: copy.lowLiquidity(q === "tiny", liqUsd, pools)
+      });
+    }
+
+    // Unknown tax is missing transfer-cost evidence, not a zero-tax verdict.
+    // Merge buy+sell into one review item to avoid noisy duplicate warnings.
+    const mini = Array.isArray(rep?.mini) ? rep.mini : [];
+    const findMini = (title) => mini.find(x => String(x?.title || "").toLowerCase() === title.toLowerCase()) || null;
+    const sellMini = findMini("Sell Tax");
+    const buyMini = findMini("Buy Tax");
+    const sellUnknown = !!sellMini && /^unknown\b/i.test(String(sellMini?.value || "").trim());
+    const buyUnknown = !!buyMini && /^unknown\b/i.test(String(buyMini?.value || "").trim());
+    if (sellUnknown || buyUnknown) {
+      items.push({
+        syntheticKey: "trading_tax_unknown",
+        level: "review",
+        title: guide.taxTitle,
+        why: guide.taxWhy,
+        raw: sellUnknown && buyUnknown ? copy.taxBothUnknown : (sellUnknown ? copy.taxSellUnknown : copy.taxBuyUnknown)
+      });
+    }
+
+    return items;
+  }
+
   function qsExplainReviewFlag(flag){
     const s = String(flag || "").trim();
     const l = s.toLowerCase();
@@ -13488,8 +13565,23 @@ async function qsLiqCheckBasic(net, token, provider) {
         }
       }
 
-      if (flags.length) {
-        const explained = flags.map(f => ({ raw:String(f || ""), ...qsExplainReviewFlag(f) }));
+      const syntheticReviewItems = qsSyntheticReviewItems(rep);
+      if (flags.length || syntheticReviewItems.length) {
+        const explainedBase = flags.map(f => ({ raw:String(f || ""), ...qsExplainReviewFlag(f) }));
+        const synthetic = syntheticReviewItems;
+        // Synthetic entries represent conditions that were previously visible
+        // only in the evidence grid. Dedupe by semantic key/title so an engine
+        // warning and a display explanation never appear twice.
+        const explained = [...explainedBase];
+        for (const item of synthetic) {
+          const duplicate = explained.some(x => {
+            const raw = String(x?.raw || "").toLowerCase();
+            if (item.syntheticKey === "low_dex_liquidity") return /no clear dex liquidity|no dex liquidity|thin liquidity|low dex liquidity|very low dex liquidity/.test(raw);
+            if (item.syntheticKey === "trading_tax_unknown") return /tax status.*could not be confirmed|sell tax.*unknown|buy tax.*unknown|trading tax.*unknown/.test(raw);
+            return false;
+          });
+          if (!duplicate) explained.push(item);
+        }
         const highItems = explained.filter(x => x.level === "high");
         const reviewItems = explained.filter(x => x.level !== "high");
 
