@@ -8656,7 +8656,7 @@ function initPanels() {
   function qsCacheKey(net, token, useApis){
     // Keep Solana's existing holder schema. EVM gets a new suffix so a cached
     // pre-wallet-classification report cannot hide the holder upgrade for 10m.
-    const holderSchema = net === "solana" ? ":holders-v4-deep7:score-v7-20-25-55" : ":evm-holders-v32-precision:score-v7-20-25-55";
+    const holderSchema = net === "solana" ? ":holders-v4-deep7:score-v7-1-provider-parity" : ":evm-holders-v33-parity:score-v7-1-provider-parity";
     return `${net}:${qsLower(token)}:${useApis ? 1 : 0}${holderSchema}`;
   }
   function addQsHistory(net, token){
@@ -11928,7 +11928,11 @@ async function qsLiqCheckBasic(net, token, provider) {
     // key isn't configured, so downstream "holders" checks can use it.
     if (rep.meta.holderCount == null && goplus?.holderCount != null) rep.meta.holderCount = goplus.holderCount;
 
-    let impl = (controlMeta?.implementationAddress && /^0x[a-fA-F0-9]{40}$/.test(controlMeta.implementationAddress)) ? controlMeta.implementationAddress : await tryEip1967Impl(net, token);
+    // v1.7.2 parity: keep rich Deep/UI proxy intelligence separate from the
+    // scoring fact. Scanner v44.05B scores proxy risk from the direct EIP-1967
+    // slot result; richer source/indexer classifications remain display-only.
+    const scoringProxyImpl = await tryEip1967Impl(net, token);
+    let impl = (controlMeta?.implementationAddress && /^0x[a-fA-F0-9]{40}$/.test(controlMeta.implementationAddress)) ? controlMeta.implementationAddress : scoringProxyImpl;
     let isProxy = controlMeta?.proxyDetected === true || !!impl;
 
     const owner = await tryReadOwner(net, token);
@@ -11936,6 +11940,12 @@ async function qsLiqCheckBasic(net, token, provider) {
     const ownerShown = owner ? (ownerIsRenounced ? "Renounced/None" : qsShortAddr(owner)) : "Unknown";
     let implementationCode = "0x";
     if (impl) implementationCode = await qsReadCodeWithFallback(net, impl);
+    let scoringImplementationCode = "0x";
+    if (scoringProxyImpl) {
+      scoringImplementationCode = qsLower(scoringProxyImpl) === qsLower(impl || "")
+        ? implementationCode
+        : await qsReadCodeWithFallback(net, scoringProxyImpl);
+    }
 
     let ownerBal = 0n;
     let ownerPct = null;
@@ -12028,6 +12038,24 @@ async function qsLiqCheckBasic(net, token, provider) {
               : "Not detected";
     const mintType = mintConfirmed ? "bad" : mintRiskDetected ? "warn" : "ok";
     const mintOnChain = !wrappedNativeProviderMintExpected && (mintConfirmed || mintPossible || !mintProviderOnly);
+
+    // v1.7.2 scoring parity facts: mirror Scanner v44.05B's direct evidence
+    // path. Deep/verified-source intelligence may still be richer in the UI,
+    // but it must not make the website score a different evidence class.
+    const scoringPauseProxyDetected = anySelector(code, SEL.pause) || anySelector(code, SEL.unpause) || anySelector(code, SEL.paused);
+    const scoringPauseImplementationDetected = !!scoringProxyImpl && scoringImplementationCode && scoringImplementationCode !== "0x" &&
+      (anySelector(scoringImplementationCode, SEL.pause) || anySelector(scoringImplementationCode, SEL.unpause) || anySelector(scoringImplementationCode, SEL.paused));
+    const scoringPauseDetected = pausedStateLocal !== null || scoringPauseProxyDetected || scoringPauseImplementationDetected;
+    const scoringMintProxyBytecodeDetected = anySelector(code, SEL.mint);
+    const scoringMintImplementationBytecodeDetected = !!scoringProxyImpl && scoringImplementationCode && scoringImplementationCode !== "0x" && anySelector(scoringImplementationCode, SEL.mint);
+    const scoringMintBytecodeDetected = scoringMintProxyBytecodeDetected || scoringMintImplementationBytecodeDetected;
+    const scoringMintProviderOnly = !scoringMintBytecodeDetected && goplus?.isMintableFlag === true;
+    const scoringWrappedNativeProviderMintExpected = !!(isCanonicalWrappedNative && scoringMintProviderOnly);
+    const scoringMintRiskDetected = (scoringMintBytecodeDetected || scoringMintProviderOnly) && !scoringWrappedNativeProviderMintExpected;
+    const scoringMintConfidence = scoringMintBytecodeDetected ? "possible" : scoringMintProviderOnly ? "provider" : "none";
+    const scoringMintSource = scoringMintBytecodeDetected
+      ? (scoringMintImplementationBytecodeDetected && !scoringMintProxyBytecodeDetected ? "implementation" : "bytecode")
+      : (scoringMintProviderOnly ? (goplus?.b20?.mintable ? "goplus_b20" : "goplus") : null);
 
 
     // Raw supply observations only. The chain-local/global decision and
@@ -12159,23 +12187,23 @@ async function qsLiqCheckBasic(net, token, provider) {
     let secureEval;
     try {
       secureEval = await qsSecureEngineEvaluate("evm", {
-        isProxy,
-        implementation: impl || null,
+        isProxy: !!scoringProxyImpl,
+        implementation: scoringProxyImpl || null,
         marketTicket: newEvmMarketAgg?.ticket || null,
         devHoldingPct,
         hasLiquidity: !!rep.liq?.any,
         cexListed,
         cexStatus,
-        mintDetected: !!mintRiskDetected,
-        mintConfidence,
-        mintSource,
+        mintDetected: !!scoringMintRiskDetected,
+        mintConfidence: scoringMintConfidence,
+        mintSource: scoringMintSource,
         controlEvidence,
         network: net,
         tokenAddress: token,
         liquidityControl: evmLiquidityControl,
         evidence: {
-          mintOnChain: mintOnChain === true,
-          pauseOnChain: true,
+          mintOnChain: scoringMintBytecodeDetected || goplus?.isMintableFlag !== true,
+          pauseOnChain: scoringPauseDetected || pausedStateLocal === true || goplus?.transferPausable !== true,
           proxyOnChain: true,
           largestAccountClassificationConfidence: evmHolderAnalysis?.largestAccountClassificationConfidence || "unknown",
           largestAccountConflict: false,
@@ -12184,7 +12212,7 @@ async function qsLiqCheckBasic(net, token, provider) {
           devHoldingOnChain: devHoldingPct != null
         },
         pausedState,
-        pauseDetected,
+        pauseDetected: scoringPauseDetected,
         verified,
         ownerKnown: !!owner,
         ownerPct,
@@ -12233,6 +12261,7 @@ async function qsLiqCheckBasic(net, token, provider) {
           transferPausable: !!goplus.transferPausable,
           holderCount: goplus.holderCount ?? null,
           isOpenSource: goplus.isOpenSource === true,
+          isMintableFlag: goplus.isMintableFlag === true,
           b20: goplus?.b20 ? {
             transferPausable: !!goplus.b20.transferPausable,
             ownerChangeBalance: !!goplus.b20.ownerChangeBalance,
