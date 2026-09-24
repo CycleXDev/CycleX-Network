@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- CycleX Security Hub Premium Scanner UX v1.7.0 · Scanner v44.05B score parity · Points-to-Review parity · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
+  <!-- CycleX Security Hub Premium Scanner UX v1.7.1 · Multi-network EVM choice · Scanner v44.05B score parity · Points-to-Review parity · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
   <!-- Honeypot tri-state parity: explicit true / explicit false / provider-unknown are preserved end-to-end. -->
   <!-- v1.6.1: fixed Honeypot mini-chip render shape (object, not nested array). -->
     <!-- Google tag (GA4) -->
@@ -3438,6 +3438,24 @@ twq('config','r4v6v');
     background:rgba(255,209,102,.026)!important;
     color:rgba(255,220,139,.88)!important;
   }
+  #panel-quick .qs-network-choices{
+    display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0;padding:0 2px;
+  }
+  #panel-quick .qs-network-choices[hidden]{display:none!important}
+  #panel-quick .qs-network-choice{
+    appearance:none;border:1px solid rgba(0,229,255,.24);border-radius:999px;
+    background:linear-gradient(180deg,rgba(0,229,255,.10),rgba(0,229,255,.045));
+    color:#aaf7ff;padding:8px 13px;min-height:34px;
+    font-family:var(--sans);font-size:10.5px;font-weight:850;letter-spacing:.035em;
+    cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.16);
+    transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+  }
+  #panel-quick .qs-network-choice:hover{
+    transform:translateY(-1px);border-color:rgba(0,229,255,.48);
+    background:linear-gradient(180deg,rgba(0,229,255,.16),rgba(0,229,255,.07));
+    box-shadow:0 10px 26px rgba(0,229,255,.10);
+  }
+  #panel-quick .qs-network-choice:focus-visible{outline:2px solid rgba(125,242,255,.95);outline-offset:2px}
 
   /* Advanced stays inside the scanner instead of floating outside the modal. */
   #panel-quick .qs-input-advanced-wrap{margin-top:9px!important}
@@ -4560,6 +4578,7 @@ twq('config','r4v6v');
         <div class="qs-detect-status" id="qs-detect-status" data-state="idle" aria-live="polite">
           <span class="qs-detect-dot"></span><span class="qs-detect-copy" data-i18n="qs_auto_idle">Paste an EVM token contract or Solana mint. CycleX will auto-detect the network when it can verify it. If the address exists on multiple networks, you’ll choose the intended one.</span>
         </div>
+        <div class="qs-network-choices" id="qs-network-choices" hidden aria-live="polite"></div>
 
         <div class="qs-input-advanced-wrap">
         <details class="qs-advanced">
@@ -5002,9 +5021,10 @@ const translations = {
     qs_auto_checking_evm: "Checking supported EVM networks…",
     qs_auto_verifying_evm: "Verifying the EVM network on-chain…",
     qs_auto_detected: "✓ {network} detected{evidence}",
+    qs_auto_market_hint: "Market match found on {network} · press Scan to verify the contract across all supported EVM networks.",
     qs_auto_seen_multi: "Seen on {networks} · press Scan to verify on-chain, or choose the intended network manually.",
     qs_auto_no_market: "No market match yet. Solana mints are recognized immediately; for this 0x token, press Scan and CycleX will verify on-chain across supported EVM networks.",
-    qs_auto_verified_multi: "Verified on multiple networks ({networks}) · choose the intended network above.",
+    qs_auto_verified_multi: "Verified on multiple networks ({networks}) · choose the intended network below.",
     qs_auto_not_found: "CycleX could not verify a supported EVM network for this contract · choose a network manually if you know it.",
     qs_auto_manual: "Manual network · {network}",
     qs_ev_mint_format: "mint format verified",
@@ -5596,9 +5616,10 @@ const translations = {
     qs_auto_checking_evm: "正在检查支持的 EVM 网络…",
     qs_auto_verifying_evm: "正在链上验证 EVM 网络…",
     qs_auto_detected: "✓ 已检测到 {network}{evidence}",
+    qs_auto_market_hint: "在 {network} 找到市场匹配 · 点击“扫描”将在所有支持的 EVM 网络上验证该合约。",
     qs_auto_seen_multi: "在 {networks} 上发现该地址 · 点击“扫描”进行链上验证，或手动选择目标网络。",
     qs_auto_no_market: "暂未找到市场匹配。Solana Mint 会立即识别；对于这个 0x 代币，请点击“扫描”，CycleX 将在支持的 EVM 网络上进行链上验证。",
-    qs_auto_verified_multi: "已在多个网络验证（{networks}）· 请在上方选择目标网络。",
+    qs_auto_verified_multi: "已在多个网络验证（{networks}）· 请在下方选择目标网络。",
     qs_auto_not_found: "CycleX 无法在支持的 EVM 网络中验证该合约 · 如果你知道所在网络，请手动选择。",
     qs_auto_manual: "手动选择网络 · {network}",
     qs_ev_mint_format: "Mint 格式已验证",
@@ -6190,9 +6211,10 @@ const translations = {
     qs_auto_checking_evm: "جارٍ فحص شبكات EVM المدعومة…",
     qs_auto_verifying_evm: "جارٍ التحقق من شبكة EVM على السلسلة…",
     qs_auto_detected: "✓ تم اكتشاف {network}{evidence}",
+    qs_auto_market_hint: "تم العثور على مطابقة سوقية على {network} · اضغط “فحص” للتحقق من العقد عبر جميع شبكات EVM المدعومة.",
     qs_auto_seen_multi: "تم العثور عليه على {networks} · اضغط “فحص” للتحقق على السلسلة، أو اختر الشبكة المقصودة يدويًا.",
     qs_auto_no_market: "لا توجد مطابقة سوقية بعد. يتم التعرف على عناوين Mint في Solana فورًا؛ لهذا التوكن 0x اضغط “فحص” وسيقوم CycleX بالتحقق على السلسلة عبر شبكات EVM المدعومة.",
-    qs_auto_verified_multi: "تم التحقق على عدة شبكات ({networks}) · اختر الشبكة المقصودة أعلاه.",
+    qs_auto_verified_multi: "تم التحقق على عدة شبكات ({networks}) · اختر الشبكة المقصودة أدناه.",
     qs_auto_not_found: "تعذر على CycleX التحقق من شبكة EVM مدعومة لهذا العقد · اختر الشبكة يدويًا إذا كنت تعرفها.",
     qs_auto_manual: "شبكة مختارة يدويًا · {network}",
     qs_ev_mint_format: "تم التحقق من صيغة Mint",
@@ -6784,9 +6806,10 @@ const translations = {
     qs_auto_checking_evm: "Проверяем поддерживаемые EVM-сети…",
     qs_auto_verifying_evm: "Подтверждаем EVM-сеть ончейн…",
     qs_auto_detected: "✓ Обнаружена сеть {network}{evidence}",
+    qs_auto_market_hint: "Рыночное совпадение найдено в {network} · нажмите «Сканировать», чтобы проверить контракт во всех поддерживаемых EVM-сетях.",
     qs_auto_seen_multi: "Адрес найден в {networks} · нажмите «Сканировать» для ончейн-проверки или выберите нужную сеть вручную.",
     qs_auto_no_market: "Рыночного совпадения пока нет. Solana mint определяется сразу; для этого 0x-токена нажмите «Сканировать», и CycleX проверит его ончейн в поддерживаемых EVM-сетях.",
-    qs_auto_verified_multi: "Подтверждено в нескольких сетях ({networks}) · выберите нужную сеть выше.",
+    qs_auto_verified_multi: "Подтверждено в нескольких сетях ({networks}) · выберите нужную сеть ниже.",
     qs_auto_not_found: "CycleX не смог подтвердить поддерживаемую EVM-сеть для этого контракта · выберите сеть вручную, если она вам известна.",
     qs_auto_manual: "Сеть выбрана вручную · {network}",
     qs_ev_mint_format: "формат mint подтверждён",
@@ -8315,9 +8338,41 @@ function initPanels() {
     const map={mint:"qs_ev_mint_format",market:"qs_ev_market_match",marketStrong:"qs_ev_market_strong",erc20:"qs_ev_erc20",contract:"qs_ev_contract",verifiedMarket:"qs_ev_verified_market"};
     return map[code] ? cxQsTr(map[code]) : String(code||"");
   }
+  function cxQsClearNetworkChoices(){
+    const host=document.querySelector("#qs-network-choices");
+    if(!host) return;
+    host.innerHTML="";
+    host.hidden=true;
+  }
+  function cxQsShowNetworkChoices(nets){
+    const host=document.querySelector("#qs-network-choices");
+    const sel=document.querySelector("#qs-net");
+    if(!host||!sel) return;
+    const ordered=[...new Set((Array.isArray(nets)?nets:[]).filter(n=>CX_QS_DETECT_NETS.includes(n)))]
+      .sort((a,b)=>CX_QS_DETECT_NETS.indexOf(a)-CX_QS_DETECT_NETS.indexOf(b));
+    host.innerHTML="";
+    for(const net of ordered){
+      const btn=document.createElement("button");
+      btn.type="button";
+      btn.className="qs-network-choice";
+      btn.dataset.net=net;
+      btn.textContent=QS_NET?.[net]?.name || CHAINS?.[net]?.name || net.toUpperCase();
+      btn.addEventListener("click",()=>{
+        ++_cxQsDetectSeq;
+        cxQsClearNetworkChoices();
+        sel.dataset.cxAutoSelected="0";
+        sel.value=net;
+        sel.dispatchEvent(new Event("change",{bubbles:true}));
+        Promise.resolve().then(()=>runQuickScan()).catch(()=>{});
+      });
+      host.appendChild(btn);
+    }
+    host.hidden=ordered.length===0;
+  }
   function cxQsSelectDetectedNetwork(net, evidenceCode){
     const sel = document.querySelector("#qs-net");
     if (!sel || !net) return;
+    cxQsClearNetworkChoices();
     // Mark this choice as auto-generated. If the user pastes a different token,
     // the selector automatically returns to Auto Detect instead of getting stuck.
     sel.dataset.cxAutoSelected="1";
@@ -8406,67 +8461,81 @@ function initPanels() {
   function cxQsNetListLabel(nets){ return nets.map(n=>QS_NET?.[n]?.name || CHAINS?.[n]?.name || n).join(", "); }
   async function cxDetectQuickNetwork(tokenRaw,{deep=false}={}){
     const raw=String(tokenRaw||"").trim(); const seq=++_cxQsDetectSeq;
+    cxQsClearNetworkChoices();
     if(qsIsSolanaAddr(raw)){
-      const out={net:"solana",evidenceCode:"mint"}; _cxQsDetectCache.set(raw,out);
+      const out={net:"solana",evidenceCode:"mint",verified:true}; _cxQsDetectCache.set(raw,out);
       if(seq===_cxQsDetectSeq) cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
     }
     if(!qsIsAddr(raw)) return {error:"invalid"};
     const key=qsLower(raw); const cached=_cxQsDetectCache.get(key);
-    if(cached?.net){ if(seq===_cxQsDetectSeq) cxQsSelectDetectedNetwork(cached.net,cached.evidenceCode||"contract"); return cached; }
+    if(cached?.net && cached?.verified===true){
+      if(seq===_cxQsDetectSeq) cxQsSelectDetectedNetwork(cached.net,cached.evidenceCode||"contract");
+      return cached;
+    }
+    if(!deep && cached?.net && cached?.verified!==true){
+      const label=QS_NET?.[cached.net]?.name || CHAINS?.[cached.net]?.name || String(cached.net).toUpperCase();
+      cxQsDetectMessage("idle","qs_auto_market_hint",{network:label});
+      return {pending:true,market:[],hintNet:cached.net};
+    }
 
     cxQsDetectMessage("detecting",deep?"qs_auto_verifying_evm":"qs_auto_checking_evm");
     const dexEntries=await cxQsDexDetect(raw);
     if(seq!==_cxQsDetectSeq) return {cancelled:true};
     const dexNets=dexEntries.map(x=>x.net);
 
-    if(dexEntries.length===1){
-      const out={net:dexEntries[0].net,evidenceCode:"market"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
-    }
-    const dominant=cxQsDominantMarket(dexEntries);
-    if(!deep && dominant){
-      const out={net:dominant.net,evidenceCode:"marketStrong"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
-    }
+    // Market data is only a hint. Never lock an EVM network from a market match:
+    // identical/predeploy token addresses can exist on several chains.
     if(!deep){
-      if(dexNets.length>1){ cxQsDetectMessage("warn","qs_auto_seen_multi",{networks:cxQsNetListLabel(dexNets)}); return {ambiguous:dexNets,market:dexEntries}; }
-      cxQsDetectMessage("idle","qs_auto_no_market"); return {pending:true,market:[]};
+      if(dexEntries.length===1){
+        const net=dexEntries[0].net;
+        const label=QS_NET?.[net]?.name || CHAINS?.[net]?.name || net.toUpperCase();
+        _cxQsDetectCache.set(key,{net,evidenceCode:"market",verified:false});
+        cxQsDetectMessage("idle","qs_auto_market_hint",{network:label});
+        return {pending:true,market:dexEntries,hintNet:net};
+      }
+      if(dexNets.length>1){
+        cxQsDetectMessage("warn","qs_auto_seen_multi",{networks:cxQsNetListLabel(dexNets)});
+        return {ambiguous:dexNets,market:dexEntries};
+      }
+      cxQsDetectMessage("idle","qs_auto_no_market");
+      return {pending:true,market:[]};
     }
 
-    // On Scan: market candidates first, but always include BSC and Robinhood
-    // because those two are the most likely to be missed by market indexing.
-    const probeSet=dexNets.length
-      ? [...new Set([...dexNets,"bsc","robinhood"])]
-      : CX_QS_DETECT_NETS;
-    let probes=await cxQsProbeNetworks(raw,probeSet);
+    // Full Scan must verify ALL supported EVM networks. Do not short-circuit on a
+    // market hint or on the first contract hit; this is what keeps shared/predeploy
+    // addresses (Base / Optimism / opBNB, etc.) from being mis-selected.
+    const probes=await cxQsProbeNetworks(raw,CX_QS_DETECT_NETS);
     if(seq!==_cxQsDetectSeq) return {cancelled:true};
-    let tokenNets=probes.filter(x=>x.tokenLike).map(x=>x.net);
-    let codeNets=probes.map(x=>x.net);
-
-    if(!tokenNets.length && probeSet.length<CX_QS_DETECT_NETS.length){
-      probes=await cxQsProbeNetworks(raw,CX_QS_DETECT_NETS);
-      if(seq!==_cxQsDetectSeq) return {cancelled:true};
-      tokenNets=probes.filter(x=>x.tokenLike).map(x=>x.net); codeNets=probes.map(x=>x.net);
-    }
+    const tokenNets=[...new Set(probes.filter(x=>x.tokenLike).map(x=>x.net))];
+    const codeNets=[...new Set(probes.map(x=>x.net))];
     const verifiedNets=tokenNets.length?tokenNets:codeNets;
+
     if(verifiedNets.length===1){
-      const out={net:verifiedNets[0],evidenceCode:tokenNets.length?"erc20":"contract"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
+      const out={net:verifiedNets[0],evidenceCode:tokenNets.length?"erc20":"contract",verified:true};
+      _cxQsDetectCache.set(key,out);
+      cxQsSelectDetectedNetwork(out.net,out.evidenceCode);
+      return out;
     }
     if(verifiedNets.length>1){
-      const verifiedMarket=dexEntries.filter(x=>verifiedNets.includes(x.net));
-      const verifiedDominant=cxQsDominantMarket(verifiedMarket);
-      if(verifiedDominant){
-        const out={net:verifiedDominant.net,evidenceCode:"verifiedMarket"}; _cxQsDetectCache.set(key,out); cxQsSelectDetectedNetwork(out.net,out.evidenceCode); return out;
-      }
-      cxQsDetectMessage("warn","qs_auto_verified_multi",{networks:cxQsNetListLabel(verifiedNets)}); return {ambiguous:verifiedNets,market:dexEntries};
+      _cxQsDetectCache.delete(key);
+      cxQsDetectMessage("warn","qs_auto_verified_multi",{networks:cxQsNetListLabel(verifiedNets)});
+      cxQsShowNetworkChoices(verifiedNets);
+      return {ambiguous:verifiedNets,market:dexEntries};
     }
-    cxQsDetectMessage("warn","qs_auto_not_found"); return {error:"not_found"};
+    _cxQsDetectCache.delete(key);
+    cxQsDetectMessage("warn","qs_auto_not_found");
+    return {error:"not_found"};
   }
   async function cxQsResolveNetwork(tokenRaw){
     const sel=document.querySelector("#qs-net"); const requested=String(sel?.value||"auto").toLowerCase();
-    // An auto-generated selection remains auto-detect behavior for the current
-    // token; a genuinely manual selection bypasses detection.
+    // A genuine manual choice is authoritative. Any auto-generated EVM hint is
+    // re-verified across every supported EVM network when Scan is pressed.
     const autoGenerated=sel?.dataset?.cxAutoSelected==="1";
     if(requested!=="auto" && !autoGenerated) return requested==="solana"?"solana":(QS_NET?.[requested]?requested:null);
-    if(autoGenerated && requested!=="auto") return requested;
+    if(autoGenerated && requested!=="auto"){
+      sel.dataset.cxAutoSelected="0";
+      sel.value="auto";
+    }
     const result=await cxDetectQuickNetwork(tokenRaw,{deep:true});
     return result?.net || null;
   }
@@ -13862,6 +13931,7 @@ async function qsLiqCheckBasic(net, token, provider) {
           netEl.dataset.cxAutoSelected="0";
           netEl.value="auto";
         }
+        cxQsClearNetworkChoices();
         if(netEl.value!=="auto") return;
         if(!raw){ cxQsDetectMessage("idle","qs_auto_idle"); return; }
         if(qsIsSolanaAddr(raw)){ timer=setTimeout(()=>cxDetectQuickNetwork(raw,{deep:false}),80); return; }
@@ -13873,6 +13943,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       netEl.addEventListener("change",(ev)=>{
         if(ev?.detail?.cxAuto) return;
         netEl.dataset.cxAutoSelected="0";
+        cxQsClearNetworkChoices();
         if(netEl.value==="auto") queue();
         else {
           const label=netEl.options[netEl.selectedIndex]?.textContent||netEl.value;
@@ -13887,6 +13958,7 @@ async function qsLiqCheckBasic(net, token, provider) {
       cxQsSetScanning(false); cxQsSetMode("input"); clearStatus($("#qs-status"));
       const tokenEl=$("#qs-token"), netEl=$("#qs-net"), share=$("#qs-share-menu");
       if (tokenEl) tokenEl.value="";
+      cxQsClearNetworkChoices();
       if (netEl) { netEl.dataset.cxAutoSelected="0"; netEl.value="auto"; netEl.dispatchEvent(new Event("change",{bubbles:true})); }
       if (share) share.open=false;
       const out=$("#qs-out"), risk=$("#qs-risk"), pairs=$("#qs-pairsWrap"), flags=$("#qs-redflagsWrap");
