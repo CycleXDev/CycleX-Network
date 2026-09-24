@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- CycleX Security Hub Premium Scanner UX v1.6.2 · Points-to-Review parity · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
+  <!-- CycleX Security Hub Premium Scanner UX v1.7.0 · Scanner v44.05B score parity · Points-to-Review parity · Deep v1.6 Entity Intelligence · Archive bridge preserved -->
   <!-- Honeypot tri-state parity: explicit true / explicit false / provider-unknown are preserved end-to-end. -->
   <!-- v1.6.1: fixed Honeypot mini-chip render shape (object, not nested array). -->
     <!-- Google tag (GA4) -->
@@ -8586,7 +8587,7 @@ function initPanels() {
   function qsCacheKey(net, token, useApis){
     // Keep Solana's existing holder schema. EVM gets a new suffix so a cached
     // pre-wallet-classification report cannot hide the holder upgrade for 10m.
-    const holderSchema = net === "solana" ? ":holders-v4-deep7" : ":evm-holders-v32-precision";
+    const holderSchema = net === "solana" ? ":holders-v4-deep7:score-v7-20-25-55" : ":evm-holders-v32-precision:score-v7-20-25-55";
     return `${net}:${qsLower(token)}:${useApis ? 1 : 0}${holderSchema}`;
   }
   function addQsHistory(net, token){
@@ -9526,6 +9527,7 @@ async function qsLiqCheckBasic(net, token, provider) {
   // holder accounts. CEX/treasury/pool/protocol/contract rows remain useful
   // context, but are never scored as if they were a single human whale.
   const QS_EVM_NON_WALLET_TAG_RE = /(binance|coinbase|okx|bybit|kucoin|kraken|bitget|mexc|gate\.?io|crypto\.?com|exchange|hot\s*wallet|cold\s*wallet|custod|liquidity|\blp\b|pool|poolmanager|router|amm|dex|pair|vault|locker|vesting|escrow|staking|stake|bridge|gateway|treasury|\bdao\b|foundation|protocol|airdrop|safe|multisig|burn|dead\s*address|black\s*hole|null)/i;
+  const QS_EVM_LIQUIDITY_TAG_RE = /(liquidity|\blp\b|pool|poolmanager|amm|dex|pair)/i;
   const QS_EVM_BURN_ADDRESSES = new Set([
     "0x0000000000000000000000000000000000000000",
     "0x000000000000000000000000000000000000dead",
@@ -9578,11 +9580,21 @@ async function qsLiqCheckBasic(net, token, provider) {
     // wallet concentration only when ten classified wallet rows are present.
     const walletTop10Reliable = holderAnalysisReliable && walletRows.length >= 10;
     const walletTop10Pct = walletTop10Reliable ? walletRows.slice(0,10).reduce((a,r)=>a+r.pct,0) : null;
+    const rawTop = clean[0] || null;
+    const largestAccountType = rawTop?.holderType === "wallet"
+      ? "wallet"
+      : rawTop?.holderType === "non_wallet"
+        ? (QS_EVM_LIQUIDITY_TAG_RE.test(String(rawTop?.tagText || "")) ? "liquidity_pool" : "non_wallet")
+        : "unknown";
+    const largestAccountClassificationConfidence = rawTop?.holderType && rawTop.holderType !== "unknown" ? "tracked" : "unknown";
     return {
       source: String(source || "holder source"),
       holderCount: Number.isFinite(Number(holderCount)) && Number(holderCount) > 0 ? Math.trunc(Number(holderCount)) : null,
       trackedCount, classifiedCount, holderAnalysisReliable, walletTop10Reliable,
       walletTopHolderPct, walletTop10Pct, rawTopHolderAccountPct, rawTop10HolderAccountsPct,
+      largestAccountAddress: rawTop?.address || null,
+      largestAccountType, largestAccountClassificationConfidence,
+      largestAccountTag: String(rawTop?.tagText || "").slice(0,120) || null,
       topWalletAddress: holderAnalysisReliable ? (walletRows[0]?.address || null) : null,
       sampleWalletAddresses: holderAnalysisReliable ? walletRows.slice(0, 5).map(r => r.address).filter(Boolean) : []
     };
@@ -9859,6 +9871,60 @@ async function qsLiqCheckBasic(net, token, provider) {
       } catch { continue; }
     }
     return { locked: false, locker: null, lockCount: 0, activeLocks: 0 };
+  }
+
+
+  function qsBuildEvmLiquidityControl(hasLiquidity, liqLock, lpBurnInfo, goplus, gpOnlyConcentrated){
+    if (!hasLiquidity) return {
+      liquidityControlStatus:"not_applicable", lpLockStatus:"not_applicable", lpLockedPct:null, lpBurnedPct:null,
+      lpUnlockAt:null, liquidityControlDataQuality:"not_applicable", mechanism:"no_verified_dex_liquidity", source:null,
+      onChainVerified:false, liquidityPoolVerified:null
+    };
+    if (lpBurnInfo?.isBurned) return {
+      liquidityControlStatus:"burned", lpLockStatus:"burned", lpLockedPct:null, lpBurnedPct:lpBurnInfo.burnedPct ?? null,
+      lpUnlockAt:null, liquidityControlDataQuality:"onchain_verified", mechanism:"lp_token_burn", source:"CycleX on-chain",
+      onChainVerified:true, liquidityPoolVerified:null
+    };
+    if (liqLock?.locked) return {
+      liquidityControlStatus:"locked", lpLockStatus:"locked", lpLockedPct:null, lpBurnedPct:null,
+      lpUnlockAt:liqLock.unlockTs ?? null, liquidityControlDataQuality:"onchain_verified", mechanism:"lp_token_locker",
+      source:liqLock.locker || "CycleX on-chain", onChainVerified:true, liquidityPoolVerified:null
+    };
+    if (goplus?.lpLockDataKnown && Number(goplus?.lpLockedPct) > 0) return {
+      liquidityControlStatus:"locked", lpLockStatus:"locked", lpLockedPct:Number(goplus.lpLockedPct), lpBurnedPct:null,
+      lpUnlockAt:null, liquidityControlDataQuality:"provider_tracked", mechanism:"provider_lp_holder_lock", source:"GoPlus",
+      onChainVerified:false, liquidityPoolVerified:null
+    };
+    if (gpOnlyConcentrated) return {
+      liquidityControlStatus:"not_verified", lpLockStatus:"not_verified", lpLockedPct:null, lpBurnedPct:null,
+      lpUnlockAt:null, liquidityControlDataQuality:"unknown", mechanism:"position_or_pool_specific", source:null,
+      onChainVerified:false, liquidityPoolVerified:null
+    };
+    if (goplus?.lpLockDataKnown || liqLock?.isExpired) return {
+      liquidityControlStatus:"not_verified", lpLockStatus:"no_tracked_signal", lpLockedPct:null, lpBurnedPct:null,
+      lpUnlockAt:liqLock?.unlockTs ?? null, liquidityControlDataQuality:"provider_partial", mechanism:"lp_token_control",
+      source:liqLock?.locker || (goplus?.lpLockDataKnown ? "GoPlus" : null), onChainVerified:liqLock?.isExpired === true,
+      liquidityPoolVerified:null
+    };
+    return {
+      liquidityControlStatus:"not_verified", lpLockStatus:"not_verified", lpLockedPct:null, lpBurnedPct:null,
+      lpUnlockAt:null, liquidityControlDataQuality:"unknown", mechanism:"unknown", source:null,
+      onChainVerified:false, liquidityPoolVerified:null
+    };
+  }
+
+  function qsLiquidityControlDisplay(lc){
+    const status=String(lc?.liquidityControlStatus||"");
+    if(status==="not_applicable") return "N/A — no verified DEX liquidity";
+    if(status==="burned") return lc?.lpBurnedPct!=null ? `Burned — ~${Number(lc.lpBurnedPct).toFixed(0)}% tracked LP` : "Burned LP evidence";
+    if(status==="locked") {
+      if(lc?.lpLockedPct!=null) return `Locked — ~${Number(lc.lpLockedPct).toFixed(0)}% tracked liquidity`;
+      if(lc?.lpUnlockAt) { const n=Number(lc.lpUnlockAt); const d=new Date(n>1e12?n:n*1000); return `Locked${lc?.source?" · "+lc.source:""}${Number.isFinite(d.getTime())?" · until "+d.toISOString().slice(0,7):""}`; }
+      return `Locked${lc?.source?" · "+lc.source:""}`;
+    }
+    if(String(lc?.mechanism||"")==="position_or_pool_specific") return "Not verified — position/pool-specific liquidity";
+    if(String(lc?.lpLockStatus||"")==="no_tracked_signal") return "No tracked lock signal — not proof of unlocked liquidity";
+    return "Not verified — liquidity control not independently confirmed";
   }
 
   // ✅ NEW: LP-burn detection — matches the bot's equivalent feature. A
@@ -11988,6 +12054,10 @@ async function qsLiqCheckBasic(net, token, provider) {
       walletTop10Pct: evmWalletTop10Pct,
       rawTopHolderAccountPct: evmRawTopHolderAccountPct,
       rawTop10HolderAccountsPct: evmRawTop10HolderAccountsPct,
+      largestAccountAddress: evmHolderAnalysis?.largestAccountAddress || null,
+      largestAccountType: evmHolderAnalysis?.largestAccountType || "unknown",
+      largestAccountClassificationConfidence: evmHolderAnalysis?.largestAccountClassificationConfidence || "unknown",
+      largestAccountTag: evmHolderAnalysis?.largestAccountTag || null,
       topWalletAddress: evmHolderAnalysis?.topWalletAddress || null,
       sampleWalletAddresses: Array.isArray(evmHolderAnalysis?.sampleWalletAddresses) ? evmHolderAnalysis.sampleWalletAddresses.slice(0,5) : []
     } : null;
@@ -12015,6 +12085,8 @@ async function qsLiqCheckBasic(net, token, provider) {
       sourceProvider: controlMeta?.sourceProvider || null
     };
 
+    const evmLiquidityControl = qsBuildEvmLiquidityControl(!!rep.liq?.any, liqLock, lpBurnInfo, goplus, gpOnlyConcentrated);
+
     let secureEval;
     try {
       secureEval = await qsSecureEngineEvaluate("evm", {
@@ -12031,6 +12103,17 @@ async function qsLiqCheckBasic(net, token, provider) {
         controlEvidence,
         network: net,
         tokenAddress: token,
+        liquidityControl: evmLiquidityControl,
+        evidence: {
+          mintOnChain: mintOnChain === true,
+          pauseOnChain: true,
+          proxyOnChain: true,
+          largestAccountClassificationConfidence: evmHolderAnalysis?.largestAccountClassificationConfidence || "unknown",
+          largestAccountConflict: false,
+          trackedRows: evmHolderAnalysis?.trackedCount ?? null,
+          classifiedRows: evmHolderAnalysis?.classifiedCount ?? null,
+          devHoldingOnChain: devHoldingPct != null
+        },
         pausedState,
         pauseDetected,
         verified,
@@ -12127,6 +12210,12 @@ async function qsLiqCheckBasic(net, token, provider) {
     rep.overallText = overallText;
     rep.meta.tradingAgeDaysEvm = evmAgeDays;
     rep.meta.dataBlackout = evmDataBlackout;
+    rep.meta.securityModelVersion = secureEval.securityModelVersion || null;
+    rep.meta.scoringModelVersion = secureEval.scoringModelVersion || null;
+    rep.meta.evidenceSchemaVersion = secureEval.evidenceSchemaVersion || null;
+    rep.meta.evidenceGuard = secureEval.evidenceGuard || null;
+    rep.meta.domainWeighted = secureEval.domainWeighted || null;
+    rep.meta.liquidityControl = secureEval.liquidityControl || evmLiquidityControl;
 
     rep.meta = {
       ...(rep.meta || {}),
@@ -12263,9 +12352,14 @@ async function qsLiqCheckBasic(net, token, provider) {
         value: evmWalletTop10Pct != null ? `${evmWalletTop10Pct.toFixed(1)}%` : "Unknown (not enough classified wallet rows)"
       }] : []),
       ...(evmRawTopHolderAccountPct != null ? [{
-        type: evmRawTopHolderAccountPct >= 50 ? "warn" : "ok",
+        type: evmHolderAnalysis?.largestAccountType === "wallet" && evmRawTopHolderAccountPct >= 30 ? "bad" : evmHolderAnalysis?.largestAccountType === "unknown" ? "warn" : "ok",
         title: "Largest Holder Account",
-        value: `${evmRawTopHolderAccountPct.toFixed(1)}% (may be CEX/treasury/pool/protocol)`
+        value: (() => {
+          const t=String(evmHolderAnalysis?.largestAccountType||"unknown");
+          const c=String(evmHolderAnalysis?.largestAccountClassificationConfidence||"unknown");
+          const label=t==="liquidity_pool"?"Liquidity Pool":t==="wallet"?"Wallet":t==="non_wallet"?"Non-wallet / protocol account":"Unknown type";
+          return `${evmRawTopHolderAccountPct.toFixed(1)}% — ${c==="unknown"?label:`${c[0].toUpperCase()+c.slice(1)} ${label}`}`;
+        })()
       }] : []),
       ...(evmRawTop10HolderAccountsPct != null ? [{
         type: evmRawTop10HolderAccountsPct >= 80 ? "warn" : "ok",
@@ -12360,24 +12454,11 @@ async function qsLiqCheckBasic(net, token, provider) {
           value: hc.toLocaleString()
         }];
       })(),
-      // ✅ NEW: LP burn chip, shown alongside/instead of lock status.
-      // onChain:true — balanceOf()/totalSupply() read directly on the LP
-      // pair contract, no API involved at all.
-      ...(lpBurnInfo?.isBurned ? [{
-        type: "ok", title: "LP Burned", value: `🔥 ~${lpBurnInfo.burnedPct.toFixed(0)}% sent to dead address`, onChain: true
-      }] : []),
-      // v22 parity: positive evidence is surfaced; absence is explicitly
-      // "not verified", never proof that liquidity is unlocked.
-      ...(liqLock?.locked ? [{
-        type:"ok", title:"LP Lock", value:`✅ ${liqLock.locker} • until ${liqLock.unlockDateStr}`, onChain:true
-      }] : liqLock?.isExpired ? [{
-        type:"warn", title:"LP Lock", value:`⚠️ ${liqLock.locker} expired`, onChain:true
-      }] : (goplus?.lpLockDataKnown && Number(goplus?.lpLockedPct) > 0) ? [{
-        type:"ok", title:"LP Lock", value:`~${Number(goplus.lpLockedPct).toFixed(0)}% tracked liquidity locked (GoPlus LP holders)`
-      }] : gpOnlyConcentrated ? [{
-        type:"warn", title:"LP Lock", value:"Not verified (V3/V4 position liquidity)"
-      }] : rep.liq?.any ? [{
-        type:"warn", title:"LP Lock", value:"No tracked lock signal (not proof of unlocked LP)"
+      ...((evmLiquidityControl?.liquidityControlStatus !== "not_applicable" || rep.liq?.any) ? [{
+        type: ["locked","burned"].includes(String(evmLiquidityControl?.liquidityControlStatus)) ? "ok" : "warn",
+        title: "Liquidity Control",
+        value: qsLiquidityControlDisplay(evmLiquidityControl),
+        onChain: evmLiquidityControl?.onChainVerified === true
       }] : []),
       ...(dsMarket ? [
         ...(dsMarket.volumeUsd24h !== null ? [{
@@ -12666,16 +12747,44 @@ async function qsLiqCheckBasic(net, token, provider) {
     const gtSumSol = Array.isArray(gt?.allPairs)
       ? gt.allPairs.reduce((a,p)=>a+(Number(p?.liquidityUsd)||0),0) : 0;
 
+    const solLiquidityControl = (ds || gt || gp?.dex?.length) ? {
+      liquidityControlStatus:"not_verified", lpLockStatus:"not_verified", lpLockedPct:null, lpBurnedPct:null, lpUnlockAt:null,
+      liquidityControlDataQuality:"unknown", mechanism:"position_or_pool_specific", source:null, onChainVerified:false, liquidityPoolVerified:null
+    } : {
+      liquidityControlStatus:"not_applicable", lpLockStatus:"not_applicable", lpLockedPct:null, lpBurnedPct:null, lpUnlockAt:null,
+      liquidityControlDataQuality:"not_applicable", mechanism:"no_verified_dex_liquidity", source:null, onChainVerified:false, liquidityPoolVerified:null
+    };
+
     let secureEval;
     try {
       secureEval = await qsSecureEngineEvaluate("solana", {
+        network: "solana",
+        tokenAddress: token,
         hasGoPlus: !!gp,
         hasMintInfo: !!mintInfo,
         hasToken2022Data: !!t22,
         hasDexScreener: !!ds,
         hasGeckoTerminal: !!gt,
+        dexScreenerUnavailable: !ds,
+        geckoTerminalUnavailable: !gt,
         cexListed: !!cex?.listed,
         cexStatus: cex?.status || (cex?.listed ? "listed" : "unavailable"),
+        holderCount: solHolders?.holderCount ?? gp?.holderCount ?? null,
+        liquidityCoverageIncomplete: !(ds && gt),
+        liquidityControl: solLiquidityControl,
+        evidence: {
+          tokenProgramOnChain: !!mintInfo,
+          mintOnChain: !!mintInfo,
+          freezeOnChain: !!mintInfo,
+          token2022: mintInfo?.tokenProgram === "Token-2022",
+          token2022ExtensionModelKnown: mintInfo?.tokenProgram !== "Token-2022" || !!t22,
+          token2022TransferModelKnown: mintInfo?.tokenProgram !== "Token-2022" || !!t22,
+          largestAccountClassificationConfidence: "unknown",
+          largestAccountConflict: false,
+          trackedRows: null,
+          classifiedRows: null,
+          devHoldingOnChain: devHoldingPct != null
+        },
         holdersKnown: !!effHoldersKnown,
         // v3: raw token-account concentration is context only. Strong holder
         // penalties use wallet fields only when backend classification is reliable.
@@ -12777,6 +12886,12 @@ async function qsLiqCheckBasic(net, token, provider) {
     rep.meta.suspiciousMarketReason = secureEval.suspiciousMarketReason || null;
     rep.meta.secureEngine = secureEval.version || "protected";
     rep.meta.scoreReasonSuffix = secureEval.scoreReasonSuffix || null;
+    rep.meta.securityModelVersion = secureEval.securityModelVersion || null;
+    rep.meta.scoringModelVersion = secureEval.scoringModelVersion || null;
+    rep.meta.evidenceSchemaVersion = secureEval.evidenceSchemaVersion || null;
+    rep.meta.evidenceGuard = secureEval.evidenceGuard || null;
+    rep.meta.domainWeighted = secureEval.domainWeighted || null;
+    rep.meta.liquidityControl = secureEval.liquidityControl || solLiquidityControl;
     // Bridge Quick Scan's already-resolved Solana creator into Deep Intelligence.
     // This is critical for pump.fun tokens where Metaplex creators may be empty.
     rep.meta.devAddress = devCandidateAddress || null;
@@ -13081,6 +13196,12 @@ async function qsLiqCheckBasic(net, token, provider) {
           if (rep.liq.any) return `${prefix || "Found"}${poolsTxt}`;
           return "No/Unknown";
         })() },
+      {
+        type: ["locked","burned"].includes(String((secureEval.liquidityControl || solLiquidityControl)?.liquidityControlStatus)) ? "ok" : "warn",
+        title: "Liquidity Control",
+        value: qsLiquidityControlDisplay(secureEval.liquidityControl || solLiquidityControl),
+        onChain: (secureEval.liquidityControl || solLiquidityControl)?.onChainVerified === true
+      },
       {
         type: cex?.listed?"ok":"warn", title: "CEX Listed",
         value: cex?.listed
@@ -13435,7 +13556,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     const score = rep.score ?? 0;
     const issuerPresentation = qsKnownIssuerPresentation(rep);
     const displayOverallText = issuerPresentation.label || rep.overallText;
-    const scoreCls = issuerPresentation.authorityContext ? "qs-score-warn" : (score >= 75 ? "qs-score-ok" : score >= 50 ? "qs-score-warn" : "qs-score-bad");
+    const scoreCls = issuerPresentation.authorityContext ? "qs-score-warn" : (score >= 85 ? "qs-score-ok" : score >= 50 ? "qs-score-warn" : "qs-score-bad");
     const thinLiqWarn = (rep?.meta?.liqQuality === "tiny")
       ? `<div style="margin-top:10px;padding:8px 12px;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);border-radius:10px;font-size:12px;color:#ff8a8a;font-weight:700;">⚠️ Thin liquidity — price impact/slippage may be extreme</div>`
       : "";
