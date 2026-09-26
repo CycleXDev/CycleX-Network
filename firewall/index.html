@@ -3669,6 +3669,9 @@ async function fwLoadAppKit() {
       defaultNetwork: bsc,
       projectId: APPKIT_PROJECT_ID,
       analytics: false,
+      // The modal is only used to connect a wallet. Hide wallet-app extras
+      // (swap, buy, send, activity, email/social login) that confuse users.
+      features: { analytics: false, swaps: false, onramp: false, send: false, history: false, email: false, socials: false },
       metadata: {
         name: "CycleX Network Firewall",
         description: "CycleX Network Wallet Firewall",
@@ -3708,6 +3711,36 @@ async function fwWaitForWallet(timeoutMs = 16000) {
     await wait(350);
   }
   return null;
+}
+
+// Opens the connect modal and waits for the user to finish connecting.
+// - Waits up to 2 minutes (choosing a wallet + approving in MetaMask can take
+//   longer than the old 20s window, which caused "Wallet not connected").
+// - Stops early if the user closes the modal without connecting.
+// - Closes the modal once connected, so the user is returned to the page
+//   instead of being left on the wallet's account screen.
+async function fwConnectViaModal(appkit, timeoutMs = 120000) {
+  await appkit.open();
+  const start = Date.now();
+  let closedSince = 0;
+  while (Date.now() - start < timeoutMs) {
+    const addr = await fwWaitForWallet(1200);
+    if (addr) {
+      try { await appkit.close?.(); } catch {}
+      return { address: addr };
+    }
+    let isOpen = true;
+    try { const st = appkit.getState?.(); if (st && typeof st.open === "boolean") isOpen = st.open; } catch {}
+    if (!isOpen) {
+      if (!closedSince) closedSince = Date.now();
+      // Short grace period: the modal can close a moment before the provider is ready.
+      if (Date.now() - closedSince > 2500) return { cancelled: true };
+    } else {
+      closedSince = 0;
+    }
+  }
+  try { await appkit.close?.(); } catch {}
+  return { timedOut: true };
 }
 
 // ── ACCESS GATE ──────────────────────────────────────────────────
@@ -3852,10 +3885,10 @@ async function requestFullAccess() {
 
   if (!window.wallet?.address) {
     try {
-      setGateStatus("Opening wallet connect…", "#a87eff");
-      await appkit.open();
-      const addr = await fwWaitForWallet(20000);
-      if (!addr) { setGateStatus("Wallet not connected. Try again.", "#ff9a6b"); return; }
+      setGateStatus("Choose your wallet and approve the connection…", "#a87eff");
+      const c = await fwConnectViaModal(appkit);
+      if (c.cancelled) { setGateStatus("Connect cancelled.", "#ff9a6b"); return; }
+      if (!c.address) { setGateStatus("Wallet connection timed out. Try again.", "#ff9a6b"); return; }
     } catch { setGateStatus("Connect cancelled.", "#ff9a6b"); return; }
   }
 
@@ -3910,6 +3943,7 @@ async function requestFullAccess() {
 
   _fwAccessVerified = true;
   _fwValidatedWallet = window.wallet?.address || null;
+  try { await window.CxAppKitModal?.close?.(); } catch {}
   unlockFull();
 
   // Re-fetch with server-authorized full approvals.
@@ -7553,10 +7587,11 @@ async function passBuyFlow(kind) {
         // that blocks AppKit modal even at higher z-index values
         const popup = document.getElementById("passPopup");
         if (popup) { popup.style.opacity = "0"; popup.style.pointerEvents = "none"; }
-        await appkit.open();
-        const addr = await fwWaitForWallet(20000);
+        setPassStatus("Choose your wallet and approve the connection…", "#a87eff");
+        const c = await fwConnectViaModal(appkit);
         if (popup) { popup.style.opacity = "1"; popup.style.pointerEvents = ""; }
-        if (!addr) { setPassStatus("Wallet not connected. Try again.", "#ff9a6b"); return; }
+        if (c.cancelled) { setPassStatus("Connect cancelled.", "#ff9a6b"); return; }
+        if (!c.address) { setPassStatus("Wallet connection timed out. Try again.", "#ff9a6b"); return; }
       } catch {
         const popup = document.getElementById("passPopup");
         if (popup) { popup.style.opacity = "1"; popup.style.pointerEvents = ""; }
