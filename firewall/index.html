@@ -3346,6 +3346,7 @@ async function _fwApiFetchPrepared(url) {
         try { window.fwOnPreparing?.(attempt, FW_PREPARING_MAX_ATTEMPTS, s); } catch {}
         await new Promise(r => setTimeout(r, 1000));
       }
+      try { window.fwOnPreparing?.(attempt, FW_PREPARING_MAX_ATTEMPTS, 0); } catch {}
     }
   }
 }
@@ -3992,8 +3993,18 @@ async function runLoadSequence(walletAddr, net, isDemo) {
 
   window.fwOnPreparing = (attempt, max, sec) => {
     const lbl = document.getElementById("loadLabel");
-    if (lbl) lbl.textContent = `⏳ Preparing approval data for ${fwShort(walletAddr)} — retrying in ${sec}s (${attempt}/${max - 1})`;
+    if (!lbl) return;
+    lbl.textContent = sec > 0
+      ? `⏳ Preparing approval data for ${fwShort(walletAddr)} — retrying in ${sec}s (${attempt}/${max - 1})`
+      : `⏳ Checking ${fwShort(walletAddr)} again… (${attempt}/${max - 1})`;
   };
+  // Long single request (heavy wallet): tell the user it's still working.
+  const fwSlowHint = setTimeout(() => {
+    const lbl = document.getElementById("loadLabel");
+    if (lbl && /^Scanning /.test(lbl.textContent)) {
+      lbl.textContent = `Still scanning ${fwShort(walletAddr)} — wallets with many approvals can take up to a minute…`;
+    }
+  }, 10000);
 
   if (!isDemo) {
     try {
@@ -4024,6 +4035,7 @@ async function runLoadSequence(walletAddr, net, isDemo) {
     await wait(700);
   }
   window.fwOnPreparing = null;
+  clearTimeout(fwSlowHint);
 
   // Provider still indexing after automatic retries: say so clearly and stop.
   // No demo data is shown for a real wallet.
