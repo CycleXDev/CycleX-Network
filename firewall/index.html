@@ -2020,7 +2020,9 @@ body{background:#05060a!important}
             <div id="passportPassSection" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
               <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:8px">✅ Full Access — Verified Passport</div>
               <button class="btn-passport sign" id="btnGetPassport">🪪 Get Verified Passport</button>
-              <button class="btn-passport sign" id="btnSignPassport" style="margin-top:8px">✍ Sign Passport (EIP-712)</button>
+              <!-- Wallet-signed (EIP-712) passport retired from the UI: the Worker-issued passport
+                   needs no extra signature. Old signed passport links still verify. -->
+              <button class="btn-passport sign" id="btnSignPassport" style="margin-top:8px;display:none">✍ Sign Passport (EIP-712)</button>
               <div class="pp-signed-badge" id="ppSignedBadge">
                 <div style="font-size:10px;letter-spacing:.08em;font-weight:900;color:#5dffb2;margin-bottom:6px;font-family:var(--sans)">✅ SIGNED — CRYPTOGRAPHIC PROOF</div>
                 <div id="ppSigShort" style="color:var(--muted)"></div>
@@ -2119,10 +2121,10 @@ body{background:#05060a!important}
           <div class="fw-watch-top" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px">
             <div class="fw-watch-header-text" style="order:2;">
               <div style="font-size:16px;font-weight:800;margin-bottom:4px" data-i18n="watch_title">Track Multiple Wallets</div>
-              <div style="font-size:13px;color:var(--muted);line-height:1.6">Monitor scores across BSC, ETH &amp; Polygon. Each wallet scans individually and saves its score history. <span id="watchLimitLabel" data-i18n="watch_limit_label" style="color:var(--muted);font-size:11px">(Free: 2 wallets max — Unlock for up to 10)</span></div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.6"><span data-i18n="watch_desc">Scores refresh when you press Scan All. You're alerted if a watched wallet drops below 60.</span> <span id="watchLimitLabel" data-i18n="watch_limit_label" style="color:var(--muted);font-size:11px">(Free: 2 wallets max — Unlock for up to 10)</span></div>
             </div>
             <div class="fw-watch-header-actions" style="order:1;">
-              <button class="fw-watch-submit" id="fwBtnScanAll" onclick="fwWatchScanAll()" style="background:rgba(93,255,178,.10);border-color:rgba(93,255,178,.3);color:var(--green)">↻ Scan All</button>
+              <button class="fw-watch-submit" id="fwBtnScanAll" onclick="fwWatchScanAll()" style="background:rgba(93,255,178,.10);border-color:rgba(93,255,178,.3);color:var(--green)" data-i18n="watch_scan_all">↻ Scan All</button>
               <button class="fw-watch-submit" id="fwBtnEnableNotif" onclick="fwRequestNotifications()">🔔 Alerts</button>
             </div>
           </div>
@@ -2143,23 +2145,23 @@ body{background:#05060a!important}
               <option value="eth">ETH</option>
               <option value="polygon">Polygon</option>
             </select>
-            <button class="fw-watch-submit" id="fwWatchAddBtn" onclick="fwWatchAdd()">+ Watch</button>
+            <button class="fw-watch-submit" id="fwWatchAddBtn" onclick="fwWatchAdd()" data-i18n="watch_add_btn">+ Watch</button>
           </div>
           <div class="fw-notif-row" id="fwNotifRow">
             <span class="fw-notif-icon">🔔</span>
-            <span class="fw-notif-text" id="fwNotifText">Enable browser alerts to get notified when a watched wallet's score drops below your threshold.</span>
+            <span class="fw-notif-text" id="fwNotifText">Get a browser notification when a watched wallet's score drops below 60 or a new approval appears. Works while this page is open.</span>
             <button class="fw-notif-btn" id="fwNotifBtn" onclick="fwRequestNotifications()">Enable</button>
           </div>
-          <!-- On-chain subscription — FULL ACCESS ONLY -->
+          <!-- Live approval monitor — FULL ACCESS ONLY (read-only, no signature) -->
           <div class="fw-notif-row" id="fwOnchainNotifRow" style="margin-top:8px;border-color:rgba(0,229,255,.18);background:rgba(0,229,255,.04)">
             <span class="fw-notif-icon">⛓</span>
             <div class="fw-notif-text">
-              <strong style="color:var(--cyan)">On-chain approval monitor</strong> — 
-              Sign a read-only subscription (no gas) to enable real-time Approval event monitoring for your wallet.
-              <span id="fwOnchainStatus" style="display:block;margin-top:3px;font-size:10px;color:var(--muted)">Not subscribed</span>
+              <strong style="color:var(--cyan)" data-i18n="monitor_title">Live approval monitor</strong> —
+              <span data-i18n="monitor_desc">Checks the scanned wallet for new token approvals every 30 seconds while this page is open. Read-only — no signature, no gas.</span>
+              <span id="fwOnchainStatus" style="display:block;margin-top:3px;font-size:10px;color:var(--muted)">Off</span>
             </div>
             <!-- shown/hidden by JS based on tier -->
-            <button class="fw-notif-btn" id="fwOnchainBtn" onclick="fwSubscribeOnchain()" style="border-color:rgba(0,229,255,.3);color:var(--cyan);display:none">Subscribe</button>
+            <button class="fw-notif-btn" id="fwOnchainBtn" onclick="fwMonitorToggle()" style="border-color:rgba(0,229,255,.3);color:var(--cyan);display:none">Start</button>
             <button class="fw-notif-btn" id="fwOnchainLockBtn" onclick="requestFullAccess()" style="border-color:rgba(124,92,255,.3);color:#a87eff">🔒 Full Access</button>
           </div>
           <!-- Telegram Alerts row — teaser free / active full -->
@@ -2167,8 +2169,8 @@ body{background:#05060a!important}
             <span class="fw-notif-icon">📣</span>
             <div class="fw-notif-text">
               <strong style="color:#ffd166">Telegram Alerts</strong> —
-              Get instant Telegram messages when a watched wallet's score drops or new risky approvals appear.
-              <span id="fwTelegramStatus" style="display:block;margin-top:3px;font-size:10px;color:var(--muted)">Coming soon</span>
+              <span data-i18n="telegram_desc">Get instant Telegram messages when a watched wallet's score drops or a new risky approval appears.</span>
+              <span id="fwTelegramStatus" style="display:block;margin-top:3px;font-size:10px;color:var(--muted)" data-i18n="coming_soon">Coming soon</span>
             </div>
             <button class="fw-notif-btn" id="fwTelegramBtn" onclick="fwOpenTelegramAlerts()" style="border-color:rgba(255,193,7,.3);color:#ffd166;display:none">Enable</button>
             <button class="fw-notif-btn" id="fwTelegramLockBtn" onclick="requestFullAccess()" style="border-color:rgba(124,92,255,.3);color:#a87eff;display:none">🔒 Unlock</button>
@@ -3147,6 +3149,7 @@ function _doUnlockUI() {
   if (onchainBtn)    onchainBtn.style.display    = "inline-flex";
   if (onchainLock)   onchainLock.style.display   = "none";
   if (onchainComing) onchainComing.style.display = "none";
+  try { fwMonitorRender(); } catch {}
 
   // Unlock per-step overlays on fix steps 2+3
   ["fixStep2Lock","fixStep3Lock"].forEach(id => {
@@ -3159,13 +3162,7 @@ function _doUnlockUI() {
   const upsellEl = document.getElementById("fwPostRevokeUpsell");
   if (upsellEl) upsellEl.style.display = "none";
 
-  // Telegram alerts: show Enable, hide Lock
-  const telegramBtn  = document.getElementById("fwTelegramBtn");
-  const telegramLock = document.getElementById("fwTelegramLockBtn");
-  const telegramStatus = document.getElementById("fwTelegramStatus");
-  if (telegramBtn)  telegramBtn.style.display  = "inline-flex";
-  if (telegramLock) telegramLock.style.display = "none";
-  if (telegramStatus) telegramStatus.textContent = "Not connected — tap Enable to set up";
+  // Telegram alerts: not launched yet — keep "Coming soon" for every tier.
 
   // Add full-tier class to body for CSS-driven detail in history banner
   document.body.classList.add("fw-tier-full");
@@ -6520,22 +6517,34 @@ async function fwWatchScanAll() {
   if (!list.length) { showPassportMsg("⚠ No wallets in watch list yet."); return; }
   const btn = document.getElementById("fwBtnScanAll");
   if (btn) { btn.disabled=true; btn.textContent="Scanning…"; }
+  const isFull = fwAccessTier === "full" && _fwAccessVerified;
+  let ok = 0, failed = 0;
   for (let i=0; i<list.length; i++) {
     const w = list[i];
-    if (btn) btn.textContent = `Scanning ${i+1}/${list.length}…`;
+    if (btn) btn.textContent = `${i+1}/${list.length}…`;
     try {
-      const approvals = await fetchApprovals(w.net||"bsc", w.wallet);
-      const metrics   = computeMetrics(approvals);
+      // Full Access: full approval list. Free tier: the preview endpoint, which
+      // returns the same scoring rows without addresses (no Full Access needed).
+      let rows;
+      if (isFull) {
+        rows = await fetchApprovals(w.net||"bsc", w.wallet);
+      } else {
+        const p = await fetchPreview(w.net||"bsc", w.wallet);
+        rows = Array.isArray(p) ? p : (Array.isArray(p?.rows) ? p.rows : []);
+      }
+      const metrics = computeMetrics(rows);
       fwWatchUpdateScore(w.wallet, w.net||"bsc", metrics.score);
-      // Also save to scan history
       fwHistorySave(w.wallet, w.net||"bsc", metrics);
+      ok++;
     } catch(e) {
-      // Skip on error — don't break the loop
+      failed++;
     }
-    await new Promise(r=>setTimeout(r,1200)); // 1.2s between scans (rate limit safety)
+    if (i < list.length - 1) await new Promise(r=>setTimeout(r,1200)); // rate-limit safety
   }
-  if (btn) { btn.disabled=false; btn.textContent="↻ Scan All"; }
-  showPassportMsg(`✅ Scanned ${list.length} wallet(s) — scores updated.`);
+  if (btn) { btn.disabled=false; btn.textContent=_t("watch_scan_all"); }
+  showPassportMsg(failed === 0
+    ? _t("watch_scan_ok").replace("{n}", ok)
+    : _t("watch_scan_partial").replace("{ok}", ok).replace("{n}", list.length).replace("{fail}", failed));
 }
 window.fwWatchScanAll = fwWatchScanAll;
 
@@ -6582,7 +6591,7 @@ function fwWatchRender() {
   if (!grid) return;
   const list = fwWatchLoad();
   if (!list.length) {
-    grid.innerHTML=`<div style="font-size:12px;color:var(--muted);grid-column:1/-1;padding:12px 0">No wallets watched yet. Add your first wallet below.</div>`;
+    grid.innerHTML=`<div style="font-size:12px;color:var(--muted);grid-column:1/-1;padding:12px 0">${_t("watch_empty")}</div>`;
     return;
   }
   grid.innerHTML = list.map(w => {
@@ -6637,47 +6646,44 @@ function fwWatchFireAlert(wallet, net, score, prevScore) {
   }
 }
 
-async function fwRequestNotifications() {
+// Renders the browser-alert row in the active language, from the live permission.
+function fwNotifRender() {
   const btn  =document.getElementById("fwNotifBtn");
   const enBtn=document.getElementById("fwBtnEnableNotif");
   const text =document.getElementById("fwNotifText");
-  if(!("Notification" in window)){if(text)text.textContent="Your browser doesn't support notifications.";return;}
-  if(Notification.permission==="granted"){
-    if(text)text.textContent="✅ Alerts enabled — you'll be notified on score drops.";
-    if(btn)btn.textContent="✅ Enabled";if(enBtn)enBtn.textContent="✅ Alerts On";return;
-  }
-  const perm=await Notification.requestPermission();
+  if(!("Notification" in window)){ if(text)text.textContent=_t("notif_unsupported"); if(btn)btn.style.display="none"; return; }
+  const perm = Notification.permission;
   if(perm==="granted"){
-    if(text)text.textContent="✅ Browser alerts enabled.";
-    if(btn)btn.textContent="✅ Enabled";if(enBtn)enBtn.textContent="✅ Alerts On";
-    showPassportMsg("✅ Browser alerts enabled!");
+    if(text)text.textContent=_t("notif_on");
+    if(btn)btn.textContent=_t("notif_enabled_btn");
+    if(enBtn)enBtn.textContent=_t("watch_alerts_on");
+  } else if(perm==="denied"){
+    if(text)text.textContent=_t("notif_blocked");
+    if(btn)btn.textContent=_t("notif_btn");
+    if(enBtn)enBtn.textContent=_t("watch_alerts_btn");
   } else {
-    if(text)text.textContent="Notifications blocked. Enable in browser settings.";
+    if(text)text.textContent=_t("notif_desc");
+    if(btn)btn.textContent=_t("notif_btn");
+    if(enBtn)enBtn.textContent=_t("watch_alerts_btn");
   }
+}
+
+async function fwRequestNotifications() {
+  if(!("Notification" in window)){ fwNotifRender(); return; }
+  if(Notification.permission==="default"){
+    try { await Notification.requestPermission(); } catch {}
+  }
+  fwNotifRender();
+  if(Notification.permission==="granted") showPassportMsg(_t("notif_on"));
 }
 
 function fwWatchInit() {
   fwWatchRender();
-  const btn =document.getElementById("fwNotifBtn");
-  const enBtn=document.getElementById("fwBtnEnableNotif");
-  const text=document.getElementById("fwNotifText");
-  if(Notification.permission==="granted"){
-    if(btn)btn.textContent="✅ Enabled";
-    if(enBtn)enBtn.textContent="✅ Alerts On";
-    if(text)text.textContent="✅ Browser alerts enabled.";
-  }
+  fwNotifRender();
   const sec=document.getElementById("fwWatchSection");
   if(sec)sec.classList.add("fw-visible");
-  // Restore on-chain subscription status if exists
-  try {
-    const sub = JSON.parse(localStorage.getItem(FW_ONCHAIN_SUB_KEY)||"null");
-    if (sub && sub.expiry > Math.floor(Date.now()/1000)) {
-      const statusEl = document.getElementById("fwOnchainStatus");
-      const subBtn   = document.getElementById("fwOnchainBtn");
-      if (statusEl) statusEl.textContent = `✅ Subscribed — monitoring ${sub.net.toUpperCase()} (expires ${new Date(sub.expiry*1000).toLocaleDateString()})`;
-      if (subBtn) { subBtn.textContent="✅ Subscribed"; subBtn.style.color="var(--green)"; subBtn.style.borderColor="rgba(93,255,178,.3)"; }
-    }
-  } catch {}
+  // Resume the live approval monitor if it was running before a refresh.
+  try { fwMonitorResume(); } catch {}
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -6765,107 +6771,157 @@ function fwApiCopy(url, btn) {
     setTimeout(()=>{btn.textContent=orig;btn.style.color=""},1800);
   }).catch(()=>{btn.textContent="Failed";});
 }
-// ── ON-CHAIN APPROVAL MONITOR (read-only, no gas) ─────────────────
-// Signs a typed-data message to register the intent; backend polls
-// eth_getLogs for Approval events and fires webhook/notification
-const FW_ONCHAIN_SUB_KEY = "cx_onchain_sub";
+// ── LIVE APPROVAL MONITOR (read-only, no signature, no gas) ──────────
+// Watches ONE wallet for new ERC-20 Approval events while this page is open.
+// No backend and no signature: it only reads public chain data, so asking the
+// user to sign added friction without adding security. State survives a
+// refresh (localStorage) and the monitor resumes automatically.
+const FW_ONCHAIN_SUB_KEY  = "cx_onchain_sub";            // legacy signed subscription (cleared)
+const FW_MONITOR_KEY      = "cx_approval_monitor_v2";
+const FW_MONITOR_POLL_MS  = 30000;
+const FW_MONITOR_MAX_SPAN = 600;                         // max blocks per check (catch-up cap)
+const FW_APPROVAL_TOPIC   = "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925";
+const FW_MONITOR_RPCS = {
+  bsc:     ["https://bsc-rpc.publicnode.com", "https://bsc-dataseed.binance.org/", "https://1rpc.io/bnb"],
+  eth:     ["https://ethereum-rpc.publicnode.com", "https://eth.llamarpc.com", "https://1rpc.io/eth"],
+  polygon: ["https://polygon-bor-rpc.publicnode.com", "https://polygon-rpc.com", "https://1rpc.io/matic"],
+};
+let _fwMonitorTimer = null;
+let _fwMonitorLastCheck = 0;
+let _fwMonitorBusy = false;
 
-async function fwSubscribeOnchain() {
+function fwMonitorLoad() {
+  try { const m = JSON.parse(localStorage.getItem(FW_MONITOR_KEY) || "null"); return m && m.wallet && m.net ? m : null; } catch { return null; }
+}
+function fwMonitorSave(m) {
+  try { m ? localStorage.setItem(FW_MONITOR_KEY, JSON.stringify(m)) : localStorage.removeItem(FW_MONITOR_KEY); } catch {}
+}
+
+async function fwMonitorRpc(net, method, params) {
+  let lastErr = null;
+  for (const url of (FW_MONITOR_RPCS[net] || FW_MONITOR_RPCS.bsc)) {
+    try { return await fwRpcRequest(url, method, params, 8000); } catch (e) { lastErr = e; }
+  }
+  throw lastErr || new Error("RPC unavailable");
+}
+
+function fwMonitorRender() {
   const btn    = document.getElementById("fwOnchainBtn");
   const status = document.getElementById("fwOnchainStatus");
-  if (!window.wallet?.signer) { requestFullAccess(); return; }
-
-  if (btn) { btn.disabled=true; btn.textContent="Signing…"; }
-
-  try {
-    // Read-only subscription: sign a typed message (no gas, no tx)
-    // Backend uses this signature as proof of intent + wallet ownership
-    const ts = Math.floor(Date.now()/1000);
-    const msgParams = JSON.stringify({
-      domain: { name:FW_EIP712_NAME, version:"1", chainId: FW_CHAIN_IDS[fwNet]||56 },
-      message: {
-        action:    "SubscribeApprovalAlerts",
-        wallet:    window.wallet.address,
-        network:   fwNet,
-        threshold: 60,
-        timestamp: BigInt(ts).toString(),
-        expiry:    BigInt(ts + 30*24*3600).toString()
-      },
-      primaryType: "AlertSubscription",
-      types: {
-        EIP712Domain:[{name:"name",type:"string"},{name:"version",type:"string"},{name:"chainId",type:"uint256"}],
-        AlertSubscription:[
-          {name:"action",type:"string"},{name:"wallet",type:"address"},
-          {name:"network",type:"string"},{name:"threshold",type:"uint256"},
-          {name:"timestamp",type:"uint256"},{name:"expiry",type:"uint256"}
-        ]
-      }
-    });
-
-    const sig = await window.wallet.providerRaw.request({
-      method:"eth_signTypedData_v4",
-      params:[window.wallet.address, msgParams]
-    });
-
-    // Store subscription locally (backend would persist this)
-    const sub = {
-      wallet: window.wallet.address, net: fwNet,
-      signature: sig, timestamp: ts,
-      expiry: ts + 30*24*3600
-    };
-    try { localStorage.setItem(FW_ONCHAIN_SUB_KEY, JSON.stringify(sub)); } catch {}
-
-    // POST to backend (if available) — non-blocking
-    fetch("/api/subscribeAlerts", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify(sub)
-    }).catch(()=>{}); // silent fail — local subscription still works
-
-    if (status) status.textContent = `✅ Subscribed — monitoring Approval events on ${fwNet.toUpperCase()} (read-only)`;
-    if (btn) { btn.textContent="✅ Subscribed"; btn.disabled=false; btn.style.color="var(--green)"; btn.style.borderColor="rgba(93,255,178,.3)"; }
-    showPassportMsg("✅ On-chain approval alerts activated!");
-
-    // Poll for new approvals every 30s (read-only eth_getLogs)
-    fwStartApprovalPoller(window.wallet.address, fwNet);
-
-  } catch(e) {
-    if (/reject|cancel|denied|4001/i.test(String(e?.message||""))) {
-      showPassportMsg("Subscription cancelled.");
-    } else {
-      showPassportMsg(`⚠ Subscribe failed: ${(e.message||"").slice(0,60)}`);
-    }
-    if (btn) { btn.disabled=false; btn.textContent="Subscribe"; }
+  const m = fwMonitorLoad();
+  const on = !!(m && _fwMonitorTimer);
+  if (btn) {
+    btn.textContent = on ? _t("monitor_stop") : _t("monitor_start");
+    btn.style.color = on ? "var(--green)" : "var(--cyan)";
+    btn.style.borderColor = on ? "rgba(93,255,178,.3)" : "rgba(0,229,255,.3)";
+  }
+  if (status) {
+    status.textContent = on
+      ? _t("monitor_on").replace("{w}", fwShort(m.wallet)).replace("{net}", m.net.toUpperCase())
+          .replace("{t}", _fwMonitorLastCheck ? new Date(_fwMonitorLastCheck).toLocaleTimeString() : "—")
+      : _t("monitor_off");
+    status.style.color = on ? "var(--green)" : "var(--muted)";
   }
 }
 
-// Read-only poller: eth_getLogs for Approval events (no gas, no tx)
-let _fwPollerInterval = null;
-function fwStartApprovalPoller(wallet, net) {
-  if (_fwPollerInterval) clearInterval(_fwPollerInterval);
-  _fwPollerInterval = setInterval(async () => {
-    try {
-      const provider = getRPC(net);
-      if (!provider) return;
-      // ERC-20 Approval event topic: keccak256("Approval(address,address,uint256)")
-      const APPROVAL_TOPIC = "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925";
-      const ownerTopic = "0x" + wallet.toLowerCase().replace("0x","").padStart(64,"0");
-      // eth_getLogs — pure read call, zero gas
-      const blockHex = await provider.send("eth_blockNumber",[]);
-      const fromBlock = "0x" + Math.max(0, parseInt(blockHex,16)-200).toString(16);
-      const logs = await provider.send("eth_getLogs",[{
-        fromBlock, toBlock:"latest",
-        topics:[APPROVAL_TOPIC, ownerTopic]
-      }]);
-      if (logs?.length) {
-        // New approval events detected since last poll
-        const count = logs.length;
-        fwWatchFireAlert(wallet, net, fwCurrentScore, null);
-        showPassportMsg(`⚠ ${count} new Approval event(s) detected on-chain for your wallet!`);
-      }
-    } catch(e) { /* read-only, silent fail */ }
-  }, 30000); // poll every 30 seconds
+async function fwMonitorTick() {
+  const m = fwMonitorLoad();
+  if (!m || _fwMonitorBusy) return;
+  _fwMonitorBusy = true;
+  try {
+    const head = parseInt(await fwMonitorRpc(m.net, "eth_blockNumber", []), 16);
+    if (!Number.isFinite(head)) return;
+    // First check only records the current block: no alerts for past approvals.
+    if (!Number.isFinite(m.lastBlock)) { m.lastBlock = head; fwMonitorSave(m); return; }
+    if (head <= m.lastBlock) return;
+    const from = Math.max(m.lastBlock + 1, head - FW_MONITOR_MAX_SPAN + 1);
+    const ownerTopic = "0x" + m.wallet.toLowerCase().replace(/^0x/, "").padStart(64, "0");
+    const logs = await fwMonitorRpc(m.net, "eth_getLogs", [{
+      fromBlock: "0x" + from.toString(16), toBlock: "0x" + head.toString(16),
+      topics: [FW_APPROVAL_TOPIC, ownerTopic],
+    }]);
+    const seen = new Set(Array.isArray(m.seen) ? m.seen : []);
+    for (const log of (Array.isArray(logs) ? logs : [])) {
+      if (!Array.isArray(log?.topics) || log.topics.length !== 3) continue; // ERC-20 only
+      const id = `${log.transactionHash}:${log.logIndex}`;
+      if (seen.has(id)) continue;
+      seen.add(id);
+      let value = 0n;
+      try { value = BigInt(log.data && log.data !== "0x" ? log.data : "0x0"); } catch {}
+      if (value === 0n) continue; // a revoke is not a threat
+      fwMonitorAlert(m, log.address, "0x" + String(log.topics[2]).slice(-40), value >= (2n ** 255n));
+    }
+    m.seen = [...seen].slice(-300);
+    m.lastBlock = head;
+    fwMonitorSave(m);
+  } catch (e) {
+    // Read-only: a failed check is retried on the next tick.
+  } finally {
+    _fwMonitorBusy = false;
+    _fwMonitorLastCheck = Date.now();
+    fwMonitorRender();
+  }
 }
+
+function fwMonitorAlert(m, token, spender, unlimited) {
+  const title = _t("monitor_alert_title").replace("{w}", fwShort(m.wallet)).replace("{net}", m.net.toUpperCase());
+  const desc  = _t("monitor_alert_desc").replace("{token}", fwShort(token)).replace("{spender}", fwShort(spender))
+                  .replace("{unl}", unlimited ? _t("monitor_unlimited") : "");
+  const banner = document.getElementById("fwAlertBanner");
+  const tEl = document.getElementById("fwAlertTitle");
+  const dEl = document.getElementById("fwAlertDesc");
+  if (banner) banner.classList.add("show");
+  if (tEl) tEl.textContent = title;
+  if (dEl) {
+    dEl.textContent = desc + " ";
+    const a = document.createElement("a");
+    a.href = "javascript:void(0)";
+    a.style.cssText = "color:var(--cyan);font-weight:800";
+    a.textContent = _t("monitor_rescan") + " ↺";
+    a.onclick = () => { try { resetLoadSteps(); } catch {} runLoadSequence(m.wallet, m.net, false); };
+    dEl.appendChild(a);
+  }
+  showPassportMsg(title);
+  if ("Notification" in window && Notification.permission === "granted") {
+    try { new Notification(title, { body: desc, icon: "/favicon-32x32.png" }); } catch {}
+  }
+}
+
+function fwMonitorStartTimer() {
+  if (_fwMonitorTimer) clearInterval(_fwMonitorTimer);
+  _fwMonitorTimer = setInterval(fwMonitorTick, FW_MONITOR_POLL_MS);
+  fwMonitorTick();
+}
+
+function fwMonitorToggle() {
+  if (fwAccessTier !== "full" || !_fwAccessVerified) { requestFullAccess(); return; }
+  if (_fwMonitorTimer) {
+    clearInterval(_fwMonitorTimer); _fwMonitorTimer = null;
+    fwMonitorSave(null);
+    fwMonitorRender();
+    return;
+  }
+  const wallet = (fwWallet && fwWallet !== DEMO_WALLET) ? fwWallet : window.wallet?.address;
+  const net = fwNet || "bsc";
+  if (!wallet || !fwIsAddr(wallet)) { showPassportMsg(_t("monitor_need_scan")); return; }
+  fwMonitorSave({ wallet, net, startedAt: Date.now(), lastBlock: null, seen: [] });
+  const status = document.getElementById("fwOnchainStatus");
+  if (status) status.textContent = _t("monitor_starting");
+  fwMonitorStartTimer();
+  fwMonitorRender();
+}
+
+function fwMonitorResume() {
+  try { localStorage.removeItem(FW_ONCHAIN_SUB_KEY); } catch {}   // legacy signed record
+  const m = fwMonitorLoad();
+  if (m) fwMonitorStartTimer();
+  fwMonitorRender();
+}
+
+// Legacy entry points kept for any cached markup.
+function fwSubscribeOnchain() { fwMonitorToggle(); }
+function fwStartApprovalPoller() { fwMonitorResume(); }
+window.fwMonitorToggle    = fwMonitorToggle;
 window.fwSubscribeOnchain = fwSubscribeOnchain;
 
 window.fwApiCopy             = fwApiCopy;
@@ -6926,6 +6982,34 @@ const FW_TRANSLATIONS = {
     export_sub:"Download your complete scan as CSV or JSON, or copy a shareable report.",
     rel_title:"Protocol & Exchange Relationships",
     watch_limit_label:"(Free: 2 wallets max — Unlock for up to 10)",
+    watch_desc:"Scores refresh when you press Scan All. You're alerted if a watched wallet drops below 60.",
+    watch_scan_all:"↻ Scan All",
+    watch_add_btn:"+ Watch",
+    watch_alerts_btn:"🔔 Alerts",
+    watch_alerts_on:"✅ Alerts On",
+    watch_empty:"No wallets watched yet. Add your first wallet below.",
+    watch_scan_ok:"✅ Scanned {n} wallet(s) — scores updated.",
+    watch_scan_partial:"⚠ Scanned {ok} of {n} wallet(s) — {fail} failed. Try again in a minute.",
+    notif_desc:"Get a browser notification when a watched wallet's score drops below 60 or a new approval appears. Works while this page is open.",
+    notif_btn:"Enable",
+    notif_enabled_btn:"✅ Enabled",
+    notif_on:"✅ Browser alerts enabled — they work while this page is open.",
+    notif_blocked:"Notifications are blocked. Allow them in your browser settings.",
+    notif_unsupported:"Your browser doesn't support notifications.",
+    monitor_title:"Live approval monitor",
+    monitor_desc:"Checks the scanned wallet for new token approvals every 30 seconds while this page is open. Read-only — no signature, no gas.",
+    monitor_start:"Start",
+    monitor_stop:"Stop",
+    monitor_off:"Off",
+    monitor_starting:"Starting…",
+    monitor_on:"✅ Monitoring {w} on {net} — last check {t}",
+    monitor_need_scan:"⚠ Scan a wallet first, then start the monitor.",
+    monitor_alert_title:"⚠ New approval detected — {w} ({net})",
+    monitor_alert_desc:"{token} was approved for spender {spender}{unl}. If you didn't do this, review and revoke it now.",
+    monitor_unlimited:" (unlimited)",
+    monitor_rescan:"Rescan now",
+    telegram_desc:"Get instant Telegram messages when a watched wallet's score drops or a new risky approval appears.",
+    coming_soon:"Coming soon",
     tier_badge:"✓ FULL ACCESS",
   },
   zh: {
@@ -6964,6 +7048,34 @@ const FW_TRANSLATIONS = {
     export_sub:"下载CSV或JSON格式的完整扫描报告，或复制可分享的摘要。",
     rel_title:"协议和交易所关系",
     watch_limit_label:"（免费: 最多2个钱包 — 解锁可追踪10个）",
+    watch_desc:"点击「全部扫描」时更新评分；若监控钱包的评分低于 60，将提醒你。",
+    watch_scan_all:"↻ 全部扫描",
+    watch_add_btn:"+ 监控",
+    watch_alerts_btn:"🔔 提醒",
+    watch_alerts_on:"✅ 提醒已开启",
+    watch_empty:"还没有监控的钱包。请在下方添加第一个钱包。",
+    watch_scan_ok:"✅ 已扫描 {n} 个钱包 — 评分已更新。",
+    watch_scan_partial:"⚠ 已扫描 {ok}/{n} 个钱包 — {fail} 个失败。请稍后再试。",
+    notif_desc:"当监控钱包的评分低于 60 或出现新的授权时，发送浏览器通知。页面打开时有效。",
+    notif_btn:"启用",
+    notif_enabled_btn:"✅ 已启用",
+    notif_on:"✅ 浏览器提醒已启用 — 页面打开时有效。",
+    notif_blocked:"通知已被阻止。请在浏览器设置中允许。",
+    notif_unsupported:"你的浏览器不支持通知。",
+    monitor_title:"实时授权监控",
+    monitor_desc:"页面打开时，每 30 秒检查已扫描钱包是否出现新的代币授权。只读 — 无需签名，无需 Gas。",
+    monitor_start:"开始",
+    monitor_stop:"停止",
+    monitor_off:"未开启",
+    monitor_starting:"启动中…",
+    monitor_on:"✅ 正在监控 {w}（{net}）— 上次检查 {t}",
+    monitor_need_scan:"⚠ 请先扫描一个钱包，再开启监控。",
+    monitor_alert_title:"⚠ 检测到新授权 — {w}（{net}）",
+    monitor_alert_desc:"{token} 已授权给 {spender}{unl}。如果不是你本人操作，请立即检查并撤销。",
+    monitor_unlimited:"（无限授权）",
+    monitor_rescan:"立即重新扫描",
+    telegram_desc:"当监控钱包评分下降或出现新的高风险授权时，立即通过 Telegram 通知你。",
+    coming_soon:"即将推出",
     tier_badge:"✓ 完整访问",
   },
   ar: {
@@ -7003,6 +7115,34 @@ const FW_TRANSLATIONS = {
     export_sub:"حمّل الفحص كاملاً بصيغة CSV أو JSON، أو انسخ تقريراً قابلاً للمشاركة.",
     rel_title:"علاقات البروتوكولات والبورصات",
     watch_limit_label:"(مجاني: 2 محافظ كحد أقصى — الفتح يتيح 10)",
+    watch_desc:"تُحدَّث الدرجات عند الضغط على «فحص الكل»، وستتلقى تنبيهاً إذا انخفضت درجة محفظة مراقَبة عن 60.",
+    watch_scan_all:"↻ فحص الكل",
+    watch_add_btn:"+ مراقبة",
+    watch_alerts_btn:"🔔 التنبيهات",
+    watch_alerts_on:"✅ التنبيهات مفعّلة",
+    watch_empty:"لا توجد محافظ مراقَبة بعد. أضف محفظتك الأولى بالأسفل.",
+    watch_scan_ok:"✅ تم فحص {n} محفظة — تم تحديث الدرجات.",
+    watch_scan_partial:"⚠ تم فحص {ok} من {n} محفظة — فشل {fail}. حاول مرة أخرى بعد دقيقة.",
+    notif_desc:"احصل على إشعار في المتصفح عندما تنخفض درجة محفظة مراقَبة عن 60 أو تظهر موافقة جديدة. يعمل أثناء فتح هذه الصفحة.",
+    notif_btn:"تفعيل",
+    notif_enabled_btn:"✅ مفعّل",
+    notif_on:"✅ تم تفعيل تنبيهات المتصفح — تعمل أثناء فتح هذه الصفحة.",
+    notif_blocked:"الإشعارات محظورة. اسمح بها من إعدادات المتصفح.",
+    notif_unsupported:"متصفحك لا يدعم الإشعارات.",
+    monitor_title:"مراقبة الموافقات المباشرة",
+    monitor_desc:"يفحص المحفظة التي تم فحصها بحثاً عن موافقات رموز جديدة كل 30 ثانية أثناء فتح هذه الصفحة. للقراءة فقط — بدون توقيع وبدون رسوم غاز.",
+    monitor_start:"تشغيل",
+    monitor_stop:"إيقاف",
+    monitor_off:"متوقف",
+    monitor_starting:"جارٍ التشغيل…",
+    monitor_on:"✅ جارٍ مراقبة {w} على {net} — آخر فحص {t}",
+    monitor_need_scan:"⚠ افحص محفظة أولاً، ثم شغّل المراقبة.",
+    monitor_alert_title:"⚠ تم رصد موافقة جديدة — {w} ({net})",
+    monitor_alert_desc:"تمت الموافقة على {token} للمفوَّض {spender}{unl}. إذا لم تقم بذلك، راجعها وألغها الآن.",
+    monitor_unlimited:" (غير محدودة)",
+    monitor_rescan:"أعد الفحص الآن",
+    telegram_desc:"احصل على رسائل فورية عبر Telegram عندما تنخفض درجة محفظة مراقَبة أو تظهر موافقة خطرة جديدة.",
+    coming_soon:"قريباً",
     tier_badge:"✓ وصول كامل",
   },
   ru: {
@@ -7043,6 +7183,34 @@ const FW_TRANSLATIONS = {
     export_sub:"Скачай полный отчёт в CSV или JSON, или скопируй краткое резюме.",
     rel_title:"Связи протоколов и бирж",
     watch_limit_label:"(Бесплатно: макс 2 кошелька — разблокируй до 10)",
+    watch_desc:"Оценки обновляются по кнопке «Сканировать все». Если оценка отслеживаемого кошелька упадёт ниже 60 — ты получишь предупреждение.",
+    watch_scan_all:"↻ Сканировать все",
+    watch_add_btn:"+ Следить",
+    watch_alerts_btn:"🔔 Уведомления",
+    watch_alerts_on:"✅ Уведомления вкл.",
+    watch_empty:"Пока нет отслеживаемых кошельков. Добавь первый ниже.",
+    watch_scan_ok:"✅ Просканировано кошельков: {n} — оценки обновлены.",
+    watch_scan_partial:"⚠ Просканировано {ok} из {n} — ошибок: {fail}. Попробуй ещё раз через минуту.",
+    notif_desc:"Получай уведомление в браузере, если оценка отслеживаемого кошелька упадёт ниже 60 или появится новый approval. Работает, пока страница открыта.",
+    notif_btn:"Включить",
+    notif_enabled_btn:"✅ Включено",
+    notif_on:"✅ Уведомления браузера включены — работают, пока страница открыта.",
+    notif_blocked:"Уведомления заблокированы. Разреши их в настройках браузера.",
+    notif_unsupported:"Твой браузер не поддерживает уведомления.",
+    monitor_title:"Мониторинг approvals в реальном времени",
+    monitor_desc:"Каждые 30 секунд, пока страница открыта, проверяет просканированный кошелёк на новые approvals токенов. Только чтение — без подписи и без газа.",
+    monitor_start:"Старт",
+    monitor_stop:"Стоп",
+    monitor_off:"Выключен",
+    monitor_starting:"Запуск…",
+    monitor_on:"✅ Мониторинг {w} в {net} — последняя проверка {t}",
+    monitor_need_scan:"⚠ Сначала просканируй кошелёк, затем запусти мониторинг.",
+    monitor_alert_title:"⚠ Обнаружен новый approval — {w} ({net})",
+    monitor_alert_desc:"{token} одобрен для {spender}{unl}. Если это был не ты — проверь и отзови его сейчас.",
+    monitor_unlimited:" (безлимитный)",
+    monitor_rescan:"Пересканировать",
+    telegram_desc:"Мгновенные сообщения в Telegram, когда оценка отслеживаемого кошелька падает или появляется новый рискованный approval.",
+    coming_soon:"Скоро",
     tier_badge:"✓ ПОЛНЫЙ ДОСТУП",
   }
 };
@@ -7082,6 +7250,7 @@ function fwSetLanguage(lang) {
   document.querySelectorAll(".lang-btn").forEach(btn => {
     btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
   });
+  try { fwNotifRender(); fwMonitorRender(); fwWatchRender(); } catch {}
   try { localStorage.setItem("cx_lang", lang); } catch {}
   setTimeout(() => document.body.classList.remove("lang-switching"), 280);
 }
@@ -7187,6 +7356,8 @@ document.getElementById("btnQuickShare")?.addEventListener("click", fwQuickShare
 
 // ── TELEGRAM ALERTS ──────────────────────────────────────────────
 function fwOpenTelegramAlerts() {
+  // Alerts bot is not live yet; the button is hidden. Guard against stale callers.
+  return;
   if (fwAccessTier !== "full" || !_fwAccessVerified) { requestFullAccess(); return; }
   const wallet  = fwWallet || "";
   const net     = fwNet || "bsc";
