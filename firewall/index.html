@@ -1,6 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <!-- Google tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXDFXJWCNQ"></script>
   <script>
@@ -17,10 +20,22 @@ a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,
 twq('config','r4v6v');
 </script>
 <!-- End X conversion tracking base code -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>CycleX Firewall — Wallet Protection</title>
-  <meta name="description" content="Turn any wallet into a protected wallet in 60 seconds. Scan approvals, see your Blast Radius, get a Fix Plan." />
+  <title>Wallet Firewall | CycleX Network</title>
+  <meta name="description" content="CycleX Network Firewall: turn any wallet into a protected wallet in 60 seconds. Scan approvals, see your Blast Radius, get a Fix Plan." />
+  <link rel="canonical" href="https://cyclex.network/firewall" />
+  <!-- Share previews (Telegram / X / WhatsApp / Discord) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="CycleX Network" />
+  <meta property="og:title" content="Wallet Firewall | CycleX Network" />
+  <meta property="og:description" content="Scan wallet approvals, see your Blast Radius and get a guided Fix Plan. Read-only, no seed phrases." />
+  <meta property="og:url" content="https://cyclex.network/firewall" />
+  <meta property="og:image" content="https://cyclex.network/logo.png" />
+  <meta property="og:image:alt" content="CycleX Network logo" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@CyclexNetwork" />
+  <meta name="twitter:title" content="Wallet Firewall | CycleX Network" />
+  <meta name="twitter:description" content="Scan wallet approvals, see your Blast Radius and get a guided Fix Plan. Read-only, no seed phrases." />
+  <meta name="twitter:image" content="https://cyclex.network/logo.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#05060a">
@@ -1648,10 +1663,10 @@ body{background:#05060a!important}
 
   <!-- TOP BAR -->
   <header class="top-bar">
-    <a class="brand" href="/" title="Back to CycleX">
+    <a class="brand" href="/" title="Back to CycleX Network">
       <picture>
         <source srcset="/logo.webp" type="image/webp">
-        <img src="/logo.png" alt="CycleX" class="brand-logo" width="42" height="42" onerror="this.style.display='none'">
+        <img src="/logo.png" alt="CycleX Network" class="brand-logo" width="42" height="42" onerror="this.style.display='none'">
       </picture>
       <div class="brand-text">
         <div class="brand-title">CYCLEX Network</div>
@@ -1745,7 +1760,7 @@ body{background:#05060a!important}
         <strong data-i18n="notice_live_title">Live scan.</strong> <span data-i18n="notice_live_body">Read-only on-chain data. No transactions made.</span>
       </div>
       <div class="notice" id="demoNotice">
-        <strong data-i18n="notice_demo_title">Demo mode:</strong> <span data-i18n="notice_demo_body">Showing sample data. Enter a real wallet address and click "Run Firewall" to scan live.</span>
+        <strong data-i18n="notice_demo_title">Demo mode:</strong> <span data-i18n="notice_demo_body">Showing sample data. Enter a real wallet address and click "Scan Wallet" to scan live.</span>
       </div>
 
       <!-- ACCESS GATE OVERLAY -->
@@ -1950,13 +1965,13 @@ body{background:#05060a!important}
                 <div class="pp-logo">
                   <div class="pp-logo-shield">🛡</div>
                   <div>
-                    <div class="pp-logo-text">CYCLEX FIREWALL</div>
+                    <div class="pp-logo-text">CYCLEX NETWORK FIREWALL</div>
                     <div class="pp-logo-sub">Wallet Security Report</div>
                   </div>
                 </div>
                 <div class="pp-issue-badge">CYCX SCAN</div>
               </div>
-              <div class="pp-sig-chip" id="ppSigChip">✅ Verified by CycleX</div>
+              <div class="pp-sig-chip" id="ppSigChip">✅ Verified by CycleX Network</div>
               <div class="pp-wallet" id="ppWallet">0x...</div>
               <div class="pp-score-row">
                 <div class="pp-score-wrap">
@@ -2185,7 +2200,7 @@ body{background:#05060a!important}
           <div style="font-size:28px;margin-bottom:10px">🔌</div>
           <div style="font-size:16px;font-weight:800;margin-bottom:6px">Developer API — Coming Soon</div>
           <div style="font-size:13px;color:var(--muted);line-height:1.65;max-width:380px;margin:0 auto">
-            Programmatic access to CycleX security data is on the roadmap — API keys, webhook support, and rate-limited endpoints for wallet scoring and approval data. Current features (scan, revoke, passport) are available via the UI now.
+            Programmatic access to CycleX Network security data is on the roadmap — API keys, webhook support, and rate-limited endpoints for wallet scoring and approval data. Current features (scan, revoke, passport) are available via the UI now.
           </div>
         </div>
       </div>
@@ -2649,7 +2664,7 @@ window.fwExportCSV = function() {
   const dateStr = new Date().toLocaleString();
 
   // ── HEADER SUMMARY ──────────────────────────────────────────
-  let csv = `CycleX Firewall Report\n`;
+  let csv = `CycleX Network Firewall Report\n`;
   csv += `Generated,${q(dateStr)}\n`;
   csv += `Wallet,${q(fwWallet)}\n`;
   csv += `Network,${q((fwNet||'bsc').toUpperCase())}\n`;
@@ -2812,7 +2827,7 @@ window.fwCopyReport = function() {
   const d = fwScanData;
   const rels = (window.__fwRelations||[]).slice(0,8).map(r=>`  ${r.entity.type.toUpperCase()}: ${r.entity.name} (${r.in+r.out} txs)`).join("\n");
   const threats = (d.threats||[]).slice(0,3).map(t=>`  - ${t.name}: ${t.label}`).join("\n");
-  const text = `=== CycleX Firewall Report ===
+  const text = `=== CycleX Network Firewall Report ===
 Date:    ${new Date().toLocaleString()}
 Wallet:  ${fwWallet}
 Network: ${fwNet.toUpperCase()}
@@ -2955,7 +2970,7 @@ window.fwExportPDF = function() {
 
   const html = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<title>CycleX Firewall Report — ${wallet.slice(0,10)}…</title>
+<title>CycleX Network Firewall Report — ${wallet.slice(0,10)}…</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#111;background:#fff;padding:32px;font-size:13px;line-height:1.5}
@@ -3629,8 +3644,8 @@ async function fwLoadAppKit() {
       projectId: APPKIT_PROJECT_ID,
       analytics: false,
       metadata: {
-        name: "CycleX Firewall",
-        description: "CycleX Wallet Firewall",
+        name: "CycleX Network Firewall",
+        description: "CycleX Network Wallet Firewall",
         url: window.location.origin,
         icons: [`${window.location.origin}/logo.png`]
       }
@@ -4348,9 +4363,14 @@ const FW_CHAIN_IDS = { bsc: 56, eth: 1, polygon: 137 };
 const FW_PASSPORT_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
 // EIP-712 domain + types (must match on sign and verify)
-function fwGetEIP712Domain(net) {
+// New Passports are signed as "CycleX Network Firewall". Passports signed
+// before the rename used "CycleX Firewall" and stay valid for up to 30 days,
+// so verification accepts both names (new first, then legacy).
+const FW_EIP712_NAME        = "CycleX Network Firewall";
+const FW_EIP712_NAME_LEGACY = "CycleX Firewall";
+function fwGetEIP712Domain(net, name = FW_EIP712_NAME) {
   return {
-    name:    "CycleX Firewall",
+    name,
     version: "1",
     chainId: FW_CHAIN_IDS[net] || 56
   };
@@ -4490,7 +4510,7 @@ function _fwShowSignedState(signature, verifyURL) {
     shareXBtn.addEventListener("click", () => {
       const score   = fwScanData?.score || "—";
       const riskLvl = score >= 85 ? "✅ Protected" : score >= 60 ? "⚠️ Exposed" : "🚨 Critical";
-      const text = `🛡️ CycleX Firewall Score: ${score}/100 ${riskLvl}\n\nVerifiable on-chain proof 👇\n${verifyURL}\n\n#CycleX #WalletSecurity #DeFi`;
+      const text = `🛡️ CycleX Network Firewall Score: ${score}/100 ${riskLvl}\n\nVerifiable on-chain proof 👇\n${verifyURL}\n\n#CycleXNetwork #WalletSecurity #DeFi`;
       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
     });
     shareXBtn.__fwBound = true;
@@ -4628,14 +4648,19 @@ async function fwVerifyPassport(encoded) {
       expiry:    BigInt(expiry)
     };
 
-    const domain = fwGetEIP712Domain(network);
     const E = getE();
-    let recovered;
-    try {
-      recovered = E.verifyTypedData(domain, FW_PASSPORT_TYPES, value, signature);
-    } catch { throw new Error("Signature verification failed"); }
+    let recovered = null;
+    let verifyError = false;
+    for (const domainName of [FW_EIP712_NAME, FW_EIP712_NAME_LEGACY]) {
+      try {
+        const r = E.verifyTypedData(fwGetEIP712Domain(network, domainName), FW_PASSPORT_TYPES, value, signature);
+        recovered = r;
+        if (r.toLowerCase() === String(wallet).toLowerCase()) break;
+      } catch { verifyError = true; }
+    }
+    if (recovered == null && verifyError) throw new Error("Signature verification failed");
 
-    const isValid = recovered.toLowerCase() === wallet.toLowerCase();
+    const isValid = recovered != null && recovered.toLowerCase() === String(wallet).toLowerCase();
 
     let hasFullAccess = false;
     if (isValid) {
@@ -5692,7 +5717,7 @@ function getPassportText() {
   const drain   = document.getElementById("ppDrain")?.textContent || "—";
   const net     = document.getElementById("ppChain")?.textContent || fwNet.toUpperCase();
   const risky   = document.getElementById("ppApprovals")?.textContent || "—";
-  return `🔥 CycleX Firewall Scan — ${today()}
+  return `🔥 CycleX Network Firewall Scan — ${today()}
 
 Wallet: ${fwShort(fwWallet)}
 Network: ${net}
@@ -5703,7 +5728,7 @@ Network: ${net}
 🎯 Risky Approvals: ${risky}
 
 Scan your wallet → https://cyclex.network/firewall
-#CycleX #WalletSecurity #DeFi`;
+#CycleXNetwork #WalletSecurity #DeFi`;
 }
 
 
@@ -5753,7 +5778,7 @@ async function fwGetWorkerPassport() {
     const wm = document.getElementById("ppWatermark");
     if (wm) wm.style.display = "none";
     const chip = document.getElementById("ppSigChip");
-    if (chip) { chip.textContent = "✅ Verified by CycleX"; chip.style.display = "flex"; }
+    if (chip) { chip.textContent = "✅ Verified by CycleX Network"; chip.style.display = "flex"; }
     showPassportMsg("✅ Verified Passport issued — share your link!");
   } catch(e) {
     showPassportMsg(`⚠ ${(e.message||"").slice(0,80)}`);
@@ -5870,7 +5895,7 @@ function fwDownloadShareCard() {
   x.textAlign = "left";
   x.font = "bold 12px system-ui,sans-serif";
   x.fillStyle = "#00e5ff";
-  x.fillText("CYCLEX FIREWALL", pad+31, y+10);
+  x.fillText("CYCLEX NETWORK FIREWALL", pad+31, y+10);
   x.font = "bold 8px system-ui,sans-serif";
   x.fillStyle = "rgba(255,255,255,0.32)";
   x.fillText("WALLET SECURITY REPORT", pad+31, y+20);
@@ -5900,10 +5925,10 @@ function fwDownloadShareCard() {
   if (isSigned) {
     x.fillStyle = "rgba(93,255,178,0.10)";
     x.strokeStyle = "rgba(93,255,178,0.30)"; x.lineWidth = 1;
-    rr(pad,y,142,20,10); x.fill(); x.stroke();
+    rr(pad,y,176,20,10); x.fill(); x.stroke();
     x.font = "bold 9px system-ui,sans-serif";
     x.fillStyle = "#5dffb2"; x.textAlign = "center";
-    x.fillText("✅ Verified by CycleX", pad+71, y+14);
+    x.fillText("✅ Verified by CycleX Network", pad+88, y+14);
     x.textAlign = "left";
     y += 26;
   }
@@ -6503,7 +6528,7 @@ function fwWatchFireAlert(wallet, net, score, prevScore) {
     if(desc) desc.textContent =`Score dropped to ${score}/100${prevScore?` from ${prevScore}`:""}. Review approvals immediately.`;
   }
   if(Notification.permission==="granted"){
-    try{new Notification("⚠ CycleX Firewall Alert",{body:`${fwShort(wallet)} score dropped to ${score}/100 on ${net.toUpperCase()}.`,icon:"/favicon-32x32.png"});}catch{}
+    try{new Notification("⚠ CycleX Network Firewall Alert",{body:`${fwShort(wallet)} score dropped to ${score}/100 on ${net.toUpperCase()}.`,icon:"/favicon-32x32.png"});}catch{}
   }
 }
 
@@ -6652,7 +6677,7 @@ async function fwSubscribeOnchain() {
     // Backend uses this signature as proof of intent + wallet ownership
     const ts = Math.floor(Date.now()/1000);
     const msgParams = JSON.stringify({
-      domain: { name:"CycleX Firewall", version:"1", chainId: FW_CHAIN_IDS[fwNet]||56 },
+      domain: { name:FW_EIP712_NAME, version:"1", chainId: FW_CHAIN_IDS[fwNet]||56 },
       message: {
         action:    "SubscribeApprovalAlerts",
         wallet:    window.wallet.address,
@@ -6757,6 +6782,8 @@ const FW_TRANSLATIONS = {
     step3:"Calculating Blast Radius", step4:"Building Fix Plan",
     // notices
     notice_live_title:"Live scan.", notice_live_body:"Read-only on-chain data. No transactions made.",
+    notice_demo_body:"Showing sample data. Enter a real wallet address and click \"Scan Wallet\" to scan live.",
+    gate_msg:"Free: remove your biggest threat. <strong style=\"color:var(--cyan)\">Full Access:</strong> clean the rest — bulk revoke, full Blast Radius, Wallet Passport, exports, and advanced protection.",
     notice_demo_title:"Demo mode:", notice_demo_body:'Showing sample data. Enter a real wallet address and click "Scan Wallet" to scan live.',
     // section titles
     sec_status:"Security Snapshot", sec_fix:"Fix Mode", sec_passport:"Wallet Passport",
@@ -6804,7 +6831,8 @@ const FW_TRANSLATIONS = {
     demo_try:"使用演示钱包", micro_readonly:"只读扫描", micro_noconnect:"扫描无需连接钱包", micro_revoke:"仅撤销时连接", micro_chains:"BSC + ETH + Polygon",
     step1:"获取授权日志", step2:"分析风险合约", step3:"计算爆炸半径", step4:"生成修复计划",
     notice_live_title:"实时扫描。", notice_live_body:"只读链上数据，不产生任何交易。",
-    notice_demo_title:"演示模式：", notice_demo_body:"显示示例数据。输入真实钱包地址并点击「运行防火墙」进行实时扫描。",
+    gate_msg:"免费：移除你最大的威胁。<strong style=\"color:var(--cyan)\">完整访问：</strong>清理其余全部 —— 批量撤销、完整爆炸半径、钱包护照、导出报告及高级防护。",
+    notice_demo_title:"演示模式：", notice_demo_body:"显示示例数据。输入真实钱包地址并点击「扫描钱包」进行实时扫描。",
     scan_running:"正在扫描钱包…",
     sec_status:"安全概览", sec_fix:"修复模式", sec_passport:"钱包护照",
     sec_rules:"防火墙规则", sec_relations:"钱包关联", sec_export:"导出报告",
@@ -6841,6 +6869,8 @@ const FW_TRANSLATIONS = {
     demo_try:"جرّب محفظة تجريبية", micro_readonly:"فحص للقراءة فقط", micro_noconnect:"لا يلزم ربط المحفظة للفحص", micro_revoke:"الربط مطلوب فقط للإلغاء", micro_chains:"BSC + ETH + Polygon",
     step1:"جلب سجلات الموافقات", step2:"تحليل مخاطر العقود", step3:"حساب نطاق الضرر", step4:"بناء خطة الإصلاح",
     notice_live_title:"فحص مباشر.", notice_live_body:"بيانات للقراءة فقط. لا معاملات.",
+    notice_demo_body:"عرض بيانات تجريبية. أدخل عنوان محفظة حقيقياً واضغط «فحص المحفظة» لإجراء فحص مباشر.",
+    gate_msg:"مجاناً: أزل أكبر تهديد لديك. <strong style=\"color:var(--cyan)\">وصول كامل:</strong> نظّف الباقي — إلغاء جماعي، نطاق الضرر الكامل، جواز المحفظة، التصدير، وحماية متقدمة.",
     notice_demo_title:"وضع العرض التجريبي:", notice_demo_body:'بيانات نموذجية. أدخل عنوان محفظة حقيقية واضغط "تشغيل الجدار" للفحص الفعلي.',
     scan_running:"جارٍ فحص المحفظة…",
     sec_status:"ملخص الأمان", sec_fix:"وضع الإصلاح", sec_passport:"جواز المحفظة",
@@ -6879,6 +6909,8 @@ const FW_TRANSLATIONS = {
     step1:"Загрузка данных об одобрениях", step2:"Анализ рисков контрактов",
     step3:"Расчёт зоны поражения", step4:"Формирование плана защиты",
     notice_live_title:"Живое сканирование.", notice_live_body:"Только чтение. Транзакции не создаются.",
+    notice_demo_body:"Показаны демо-данные. Введи реальный адрес кошелька и нажми «Сканировать» для живого сканирования.",
+    gate_msg:"Бесплатно: устрани самую большую угрозу. <strong style=\"color:var(--cyan)\">Полный Доступ:</strong> очисти остальное — массовый отзыв, полная Зона Поражения, Паспорт Кошелька, экспорт и расширенная защита.",
     notice_demo_title:"Демо-режим:", notice_demo_body:'Тестовые данные. Введи адрес кошелька и нажми "Запустить" для реального сканирования.',
     scan_running:"Сканирование кошелька…",
     sec_status:"Сводка Безопасности", sec_fix:"Режим Исправления", sec_passport:"Паспорт Кошелька",
@@ -7033,7 +7065,7 @@ function fwQuickShare() {
   const net     = (fwNet || "BSC").toUpperCase();
   const wallet  = fwWallet ? fwShort(fwWallet) : "—";
   const url     = `https://cyclex.network/firewall`;
-  const text    = `🔥 Just scanned my wallet with CycleX Firewall
+  const text    = `🔥 Just scanned my wallet with CycleX Network Firewall
 
 🛡 Score: ${score}/100
 💥 Blast Radius: ${blast}
@@ -7042,7 +7074,7 @@ function fwQuickShare() {
 🌐 Network: ${net}
 
 Scan yours → ${url}
-#CycleX #WalletSecurity #DeFi`;
+#CycleXNetwork #WalletSecurity #DeFi`;
   window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank", "noopener");
 }
 
