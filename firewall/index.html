@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3320,9 +3319,35 @@ async function _fwApiFetch(url, timeoutMs=50000) {
     const res = await fetch(url, { method:"GET", headers, signal:ctrl.signal });
     if (res.status === 429) { const e=new Error("RATE_LIMIT"); e.status=429; throw e; }
     if (res.status === 401 || res.status === 403) { const e=new Error("FULL_ACCESS_REQUIRED"); e.status=res.status; throw e; }
+    if (res.status === 503) {
+      // Worker v8: provider still preparing this wallet's approval data.
+      const body = await res.json().catch(() => null);
+      if (body?.error === "PREPARING") {
+        const e = new Error("PREPARING"); e.status = 503; e.code = "PREPARING";
+        e.retryAfterSec = Math.max(5, Math.min(30, Number(body.retryAfterSec) || 15));
+        throw e;
+      }
+    }
     if (!res.ok)            { const e=new Error(`API_${res.status}`); e.status=res.status; throw e; }
     return await res.json();
   } finally { clearTimeout(t); }
+}
+
+// Retries automatically while approval data is being prepared (up to ~1 min).
+// Never substitutes partial or demo data for a real wallet.
+const FW_PREPARING_MAX_ATTEMPTS = 4;
+async function _fwApiFetchPrepared(url) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await _fwApiFetch(url);
+    } catch (e) {
+      if (e?.code !== "PREPARING" || attempt >= FW_PREPARING_MAX_ATTEMPTS) throw e;
+      for (let s = e.retryAfterSec; s > 0; s--) {
+        try { window.fwOnPreparing?.(attempt, FW_PREPARING_MAX_ATTEMPTS, s); } catch {}
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    }
+  }
 }
 
 // Preview: only score + counts — safe to call for free tier
@@ -3330,7 +3355,7 @@ async function fetchPreview(net, address) {
   const u = new URL("/api/preview", API_BASE);
   u.searchParams.set("net", net);
   u.searchParams.set("address", address);
-  const data = await _fwApiFetch(u.toString());
+  const data = await _fwApiFetchPrepared(u.toString());
 
   // Worker /api/preview returns: { score, riskLevel, rows: [...stripped] }
   // rows have: allowance, symbol, risk, verified, decimals — NO token/spender addresses
@@ -3364,7 +3389,7 @@ async function fetchApprovals(net, address) {
   const u = new URL("/api/getApprovals", API_BASE);
   u.searchParams.set("net", net);
   u.searchParams.set("address", address);
-  const data = await _fwApiFetch(u.toString());
+  const data = await _fwApiFetchPrepared(u.toString());
   const arr = Array.isArray(data)                ? data
     : Array.isArray(data?.approvals)             ? data.approvals
     : Array.isArray(data?.result)                ? data.result
@@ -3965,6 +3990,11 @@ async function runLoadSequence(walletAddr, net, isDemo) {
   let approvals = [];
   let scanError = null;
 
+  window.fwOnPreparing = (attempt, max, sec) => {
+    const lbl = document.getElementById("loadLabel");
+    if (lbl) lbl.textContent = `⏳ Preparing approval data for ${fwShort(walletAddr)} — retrying in ${sec}s (${attempt}/${max - 1})`;
+  };
+
   if (!isDemo) {
     try {
       // Privacy: free tier gets preview only (no addresses in network tab)
@@ -3992,6 +4022,19 @@ async function runLoadSequence(walletAddr, net, isDemo) {
   } else {
     approvals = getDemoApprovals();
     await wait(700);
+  }
+  window.fwOnPreparing = null;
+
+  // Provider still indexing after automatic retries: say so clearly and stop.
+  // No demo data is shown for a real wallet.
+  if (scanError?.code === "PREPARING") {
+    const lbl = document.getElementById("loadLabel");
+    if (lbl) lbl.innerHTML =
+      `⏳ Approval data for ${fwShort(walletAddr)} is still being prepared by our data provider.<br>` +
+      `<span style="font-size:12px;color:var(--muted)">This usually takes under a minute for wallets that haven't been scanned recently.</span><br>` +
+      `<a href="javascript:fwRetryPreparing()" style="color:var(--cyan);font-weight:800">Retry now ↺</a>` +
+      ` &nbsp;·&nbsp; <a href="javascript:fwBackToScanInput()" style="color:var(--muted);font-weight:700">Scan another wallet</a>`;
+    return;
   }
   s1.classList.remove("active"); s1.classList.add("done");
   s1.querySelector(".step-icon").textContent = "✓";
@@ -5380,7 +5423,8 @@ async function fwRescanFull() {
         ? "⚠ Approvals found but addresses missing from API. Open DevTools > Console for details."
         : "✅ Full data loaded.");
   } catch(e) {
-    const is500 = e?.message?.includes("500") || e?.status === 500 || String(e).includes("500");
+    const isPreparing = e?.code === "PREPARING";
+    const is500 = !isPreparing && (e?.message?.includes("500") || e?.status === 500 || String(e).includes("500"));
 
     const tlEl2 = document.getElementById("threatsList");
     if (tlEl2) tlEl2.innerHTML = `
@@ -5388,7 +5432,7 @@ async function fwRescanFull() {
            border:1px solid rgba(255,100,80,.2);">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:${is500?'10px':'0'}">
           <span style="font-size:13px;color:#ff9a6b">
-            ${is500 ? '⚠ Server error (500) — /api/getApprovals is down.' : '⚠ Could not load full approval data.'}
+            ${isPreparing ? '⏳ Approval data is still being prepared — try again in a minute.' : is500 ? '⚠ Server error (500) — /api/getApprovals is down.' : '⚠ Could not load full approval data.'}
           </span>
           <button onclick="fwRescanFull()" style="padding:6px 14px;border-radius:8px;
             border:1px solid rgba(255,150,100,.4);background:rgba(255,150,100,.08);
@@ -6371,6 +6415,21 @@ function showPassportMsg(msg) {
   if (!el) return;
   el.textContent = msg; el.classList.add("show");
   setTimeout(() => el.classList.remove("show"), 5000);
+}
+
+function fwRetryPreparing() {
+  if (!fwWallet || !fwNet) return startScan();
+  resetLoadSteps();
+  runLoadSequence(fwWallet, fwNet, false);
+}
+
+function fwBackToScanInput() {
+  resetLoadSteps();
+  const loadWrap = document.getElementById("loadWrap");
+  const hero = document.getElementById("heroSection");
+  if (loadWrap) loadWrap.style.display = "none";
+  if (hero) { hero.style.display = ""; hero.style.opacity = "1"; hero.style.transform = "none"; }
+  document.getElementById("walletInput")?.focus();
 }
 
 function startScan() {
