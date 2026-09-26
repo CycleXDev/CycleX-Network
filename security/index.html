@@ -5452,6 +5452,41 @@ const translations = {
     deep_path_buy: "buy-like",
     deep_path_sell: "sell-like",
     deep_path_wallet: "wallet-transfer",
+    deep_sig_trade_buy_failed_title: "Buy failed in router simulation",
+    deep_sig_trade_buy_failed_detail: "Buying through {dex} failed in simulation. Trading may be paused or restricted for new buyers.",
+    deep_sig_trade_sell_blocked_title: "Selling is blocked",
+    deep_sig_trade_sell_blocked_detail: "Selling through {dex} failed both right after buying and from an existing holder. This matches honeypot behavior.",
+    deep_sig_trade_sell_failed_title: "Sell failed after buying",
+    deep_sig_trade_sell_failed_detail: "Selling through {dex} failed right after a simulated buy, and no ordinary holder was available to confirm. Anti-bot cooldowns can cause this, but it can also be a honeypot.",
+    deep_sig_trade_cooldown_title: "Sell cooldown after buying",
+    deep_sig_trade_cooldown_detail: "Selling failed in the same block as the buy, but an existing holder could sell. This looks like an anti-bot cooldown, not a honeypot.",
+    deep_sig_trade_tax_extreme_title: "Extreme trading tax",
+    deep_sig_trade_tax_high_title: "High trading tax",
+    deep_sig_trade_tax_detail: "Simulated tax — buy {buy} · sell {sell} · transfer {transfer}.",
+    deep_sig_trade_ok_title: "Buy and sell work in simulation",
+    deep_sig_trade_ok_detail: "Buying and selling through {dex} worked in simulation (buy tax {buy}, sell tax {sell}).",
+    deep_k_trade_dex: "DEX router",
+    deep_k_trade_buy: "Buy",
+    deep_k_trade_sell: "Sell",
+    deep_k_trade_transfer: "Wallet-to-wallet transfer",
+    deep_k_trade_pool: "Simulated pool",
+    deep_k_trade_router: "Router simulation",
+    deep_trade_route_direct: "direct pool",
+    deep_trade_route_hop: "via an intermediate pool",
+    deep_trade_passed_tax: "Passed · tax {tax}",
+    deep_trade_failed: "Failed",
+    deep_trade_sell_cooldown: "Passed for existing holders · tax {tax} · blocked right after buying (cooldown)",
+    deep_trade_sell_blocked: "Blocked — confirmed with an existing holder",
+    deep_trade_sell_unconfirmed: "Failed right after buying — no holder available to confirm",
+    deep_trade_sell_skipped: "Not tested — the buy failed",
+    deep_v_trade_scope: "Real buy and sell through the DEX router, simulated · no transaction sent",
+    deep_found_trade: "Buy: {buy}. Sell: {sell}. Transfer: {transfer}.",
+    deep_reason_trade_issue: "The trade simulation found a problem",
+    deep_trade_reason_no_supported_v2_pool: "Not tested — no supported V2 pool (V3/V4 or another DEX type)",
+    deep_trade_reason_no_pool: "Not tested — no pool found",
+    deep_trade_reason_no_router_table: "Not available on this network yet",
+    deep_trade_reason_rpc_unavailable: "Not tested — network data unavailable",
+    deep_trade_reason_unknown: "Not tested",
     deep_k_why_partial: "Why incomplete",
     deep_cr_explorer_plan: "The block-explorer data plan does not cover this chain",
     deep_cr_rate_limited: "A data provider hit its rate limit",
@@ -6106,6 +6141,41 @@ const translations = {
     deep_path_buy: "类似买入",
     deep_path_sell: "类似卖出",
     deep_path_wallet: "钱包转账",
+    deep_sig_trade_buy_failed_title: "路由模拟中买入失败",
+    deep_sig_trade_buy_failed_detail: "通过 {dex} 买入在模拟中失败。交易可能已暂停或对新买家受限。",
+    deep_sig_trade_sell_blocked_title: "卖出被阻止",
+    deep_sig_trade_sell_blocked_detail: "通过 {dex} 卖出在买入后立即失败，现有持有者卖出也失败。这符合貔貅盘行为。",
+    deep_sig_trade_sell_failed_title: "买入后卖出失败",
+    deep_sig_trade_sell_failed_detail: "模拟买入后立即通过 {dex} 卖出失败，且没有普通持有者可用于确认。防机器人冷却可能导致此情况，但也可能是貔貅盘。",
+    deep_sig_trade_cooldown_title: "买入后卖出冷却",
+    deep_sig_trade_cooldown_detail: "在与买入相同的区块内卖出失败，但现有持有者可以卖出。这看起来是防机器人冷却，而非貔貅盘。",
+    deep_sig_trade_tax_extreme_title: "极高交易税",
+    deep_sig_trade_tax_high_title: "较高交易税",
+    deep_sig_trade_tax_detail: "模拟税率 — 买入 {buy} · 卖出 {sell} · 转账 {transfer}。",
+    deep_sig_trade_ok_title: "模拟中买入和卖出正常",
+    deep_sig_trade_ok_detail: "通过 {dex} 的买入和卖出在模拟中成功（买入税 {buy}，卖出税 {sell}）。",
+    deep_k_trade_dex: "DEX 路由",
+    deep_k_trade_buy: "买入",
+    deep_k_trade_sell: "卖出",
+    deep_k_trade_transfer: "钱包间转账",
+    deep_k_trade_pool: "模拟的池",
+    deep_k_trade_router: "路由模拟",
+    deep_trade_route_direct: "直接池",
+    deep_trade_route_hop: "经由中间池",
+    deep_trade_passed_tax: "通过 · 税 {tax}",
+    deep_trade_failed: "失败",
+    deep_trade_sell_cooldown: "现有持有者可卖出 · 税 {tax} · 买入后立即卖出被阻止（冷却）",
+    deep_trade_sell_blocked: "被阻止 — 已通过现有持有者确认",
+    deep_trade_sell_unconfirmed: "买入后立即失败 — 没有持有者可确认",
+    deep_trade_sell_skipped: "未测试 — 买入失败",
+    deep_v_trade_scope: "通过 DEX 路由进行真实买卖的模拟 · 未发送任何交易",
+    deep_found_trade: "买入：{buy}。卖出：{sell}。转账：{transfer}。",
+    deep_reason_trade_issue: "交易模拟发现问题",
+    deep_trade_reason_no_supported_v2_pool: "未测试 — 没有受支持的 V2 池（V3/V4 或其他 DEX 类型）",
+    deep_trade_reason_no_pool: "未测试 — 未找到池",
+    deep_trade_reason_no_router_table: "此网络暂不支持",
+    deep_trade_reason_rpc_unavailable: "未测试 — 网络数据不可用",
+    deep_trade_reason_unknown: "未测试",
     deep_k_why_partial: "不完整原因",
     deep_cr_explorer_plan: "区块浏览器数据方案不支持此链",
     deep_cr_rate_limited: "数据提供方达到速率限制",
@@ -6760,6 +6830,41 @@ const translations = {
     deep_path_buy: "شبيه بالشراء",
     deep_path_sell: "شبيه بالبيع",
     deep_path_wallet: "تحويل المحفظة",
+    deep_sig_trade_buy_failed_title: "فشل الشراء في محاكاة الموجّه",
+    deep_sig_trade_buy_failed_detail: "فشل الشراء عبر {dex} في المحاكاة. قد يكون التداول متوقفًا أو مقيّدًا للمشترين الجدد.",
+    deep_sig_trade_sell_blocked_title: "البيع محظور",
+    deep_sig_trade_sell_blocked_detail: "فشل البيع عبر {dex} مباشرة بعد الشراء ومن حامل موجود أيضًا. هذا يطابق سلوك الـ honeypot.",
+    deep_sig_trade_sell_failed_title: "فشل البيع بعد الشراء",
+    deep_sig_trade_sell_failed_detail: "فشل البيع عبر {dex} مباشرة بعد شراء محاكى، ولم يتوفر حامل عادي للتأكيد. قد يسبب ذلك تهدئة مضادة للبوتات، لكنه قد يكون أيضًا honeypot.",
+    deep_sig_trade_cooldown_title: "تهدئة للبيع بعد الشراء",
+    deep_sig_trade_cooldown_detail: "فشل البيع في نفس كتلة الشراء، لكن حاملًا موجودًا تمكّن من البيع. يبدو هذا تهدئة مضادة للبوتات وليس honeypot.",
+    deep_sig_trade_tax_extreme_title: "ضريبة تداول مفرطة",
+    deep_sig_trade_tax_high_title: "ضريبة تداول مرتفعة",
+    deep_sig_trade_tax_detail: "الضريبة المحاكاة — شراء {buy} · بيع {sell} · تحويل {transfer}.",
+    deep_sig_trade_ok_title: "الشراء والبيع يعملان في المحاكاة",
+    deep_sig_trade_ok_detail: "نجح الشراء والبيع عبر {dex} في المحاكاة (ضريبة الشراء {buy}، ضريبة البيع {sell}).",
+    deep_k_trade_dex: "موجّه DEX",
+    deep_k_trade_buy: "الشراء",
+    deep_k_trade_sell: "البيع",
+    deep_k_trade_transfer: "تحويل بين المحافظ",
+    deep_k_trade_pool: "المجمع المحاكى",
+    deep_k_trade_router: "محاكاة الموجّه",
+    deep_trade_route_direct: "مجمع مباشر",
+    deep_trade_route_hop: "عبر مجمع وسيط",
+    deep_trade_passed_tax: "نجح · ضريبة {tax}",
+    deep_trade_failed: "فشل",
+    deep_trade_sell_cooldown: "نجح للحاملين الحاليين · ضريبة {tax} · محظور مباشرة بعد الشراء (تهدئة)",
+    deep_trade_sell_blocked: "محظور — تم التأكيد مع حامل موجود",
+    deep_trade_sell_unconfirmed: "فشل مباشرة بعد الشراء — لا يوجد حامل للتأكيد",
+    deep_trade_sell_skipped: "لم يُختبر — فشل الشراء",
+    deep_v_trade_scope: "شراء وبيع حقيقيان عبر موجّه DEX بالمحاكاة · لم تُرسل أي معاملة",
+    deep_found_trade: "الشراء: {buy}. البيع: {sell}. التحويل: {transfer}.",
+    deep_reason_trade_issue: "وجدت محاكاة التداول مشكلة",
+    deep_trade_reason_no_supported_v2_pool: "لم يُختبر — لا يوجد مجمع V2 مدعوم (V3/V4 أو نوع DEX آخر)",
+    deep_trade_reason_no_pool: "لم يُختبر — لم يُعثر على مجمع",
+    deep_trade_reason_no_router_table: "غير متاح على هذه الشبكة بعد",
+    deep_trade_reason_rpc_unavailable: "لم يُختبر — بيانات الشبكة غير متاحة",
+    deep_trade_reason_unknown: "لم يُختبر",
     deep_k_why_partial: "سبب عدم الاكتمال",
     deep_cr_explorer_plan: "خطة بيانات مستكشف الكتل لا تغطي هذه الشبكة",
     deep_cr_rate_limited: "بلغ مزوّد البيانات حد الطلبات",
@@ -7414,6 +7519,41 @@ const translations = {
     deep_path_buy: "покупки",
     deep_path_sell: "продажи",
     deep_path_wallet: "перевода кошелька",
+    deep_sig_trade_buy_failed_title: "Покупка не прошла в симуляции роутера",
+    deep_sig_trade_buy_failed_detail: "Покупка через {dex} не прошла в симуляции. Торговля может быть приостановлена или ограничена для новых покупателей.",
+    deep_sig_trade_sell_blocked_title: "Продажа заблокирована",
+    deep_sig_trade_sell_blocked_detail: "Продажа через {dex} не прошла ни сразу после покупки, ни от существующего держателя. Это соответствует поведению honeypot.",
+    deep_sig_trade_sell_failed_title: "Продажа не прошла после покупки",
+    deep_sig_trade_sell_failed_detail: "Продажа через {dex} не прошла сразу после симулированной покупки, а обычного держателя для проверки не нашлось. Причиной может быть анти-бот задержка, но это может быть и honeypot.",
+    deep_sig_trade_cooldown_title: "Задержка продажи после покупки",
+    deep_sig_trade_cooldown_detail: "Продажа в том же блоке, что и покупка, не прошла, но существующий держатель смог продать. Это похоже на анти-бот задержку, а не на honeypot.",
+    deep_sig_trade_tax_extreme_title: "Экстремальный торговый налог",
+    deep_sig_trade_tax_high_title: "Высокий торговый налог",
+    deep_sig_trade_tax_detail: "Налог в симуляции — покупка {buy} · продажа {sell} · перевод {transfer}.",
+    deep_sig_trade_ok_title: "Покупка и продажа работают в симуляции",
+    deep_sig_trade_ok_detail: "Покупка и продажа через {dex} прошли в симуляции (налог на покупку {buy}, на продажу {sell}).",
+    deep_k_trade_dex: "DEX-роутер",
+    deep_k_trade_buy: "Покупка",
+    deep_k_trade_sell: "Продажа",
+    deep_k_trade_transfer: "Перевод между кошельками",
+    deep_k_trade_pool: "Пул в симуляции",
+    deep_k_trade_router: "Симуляция роутера",
+    deep_trade_route_direct: "прямой пул",
+    deep_trade_route_hop: "через промежуточный пул",
+    deep_trade_passed_tax: "Успешно · налог {tax}",
+    deep_trade_failed: "Не прошло",
+    deep_trade_sell_cooldown: "Успешно для существующих держателей · налог {tax} · заблокировано сразу после покупки (задержка)",
+    deep_trade_sell_blocked: "Заблокировано — подтверждено на существующем держателе",
+    deep_trade_sell_unconfirmed: "Не прошло сразу после покупки — нет держателя для проверки",
+    deep_trade_sell_skipped: "Не проверено — покупка не прошла",
+    deep_v_trade_scope: "Реальная покупка и продажа через DEX-роутер в симуляции · транзакции не отправляются",
+    deep_found_trade: "Покупка: {buy}. Продажа: {sell}. Перевод: {transfer}.",
+    deep_reason_trade_issue: "Симуляция торговли выявила проблему",
+    deep_trade_reason_no_supported_v2_pool: "Не проверено — нет поддерживаемого V2-пула (V3/V4 или другой тип DEX)",
+    deep_trade_reason_no_pool: "Не проверено — пул не найден",
+    deep_trade_reason_no_router_table: "Пока недоступно в этой сети",
+    deep_trade_reason_rpc_unavailable: "Не проверено — сетевые данные недоступны",
+    deep_trade_reason_unknown: "Не проверено",
     deep_k_why_partial: "Почему неполно",
     deep_cr_explorer_plan: "Тариф API обозревателя блоков не покрывает эту сеть",
     deep_cr_rate_limited: "Провайдер данных достиг лимита запросов",
@@ -11349,6 +11489,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     cxDeepSetProgress(CX_DEEP_STAGE_IDS.length);
   }
 
+  function cxDeepTaxTxt(v){ const n=cxDeepFinite(v); return n==null?"?":`${n.toLocaleString(cxDeepLocale(),{minimumFractionDigits:1,maximumFractionDigits:1})}%`; }
   function cxDeepSignalText(s){
     const p=s?.params||{}; const pathKey=p.path==="buy-like"?"deep_path_buy":p.path==="sell-like"?"deep_path_sell":"deep_path_wallet"; const path=cxDeepTr(pathKey);
     const map={
@@ -11358,6 +11499,13 @@ async function qsLiqCheckBasic(net, token, provider) {
       lp_lock_expiring:["deep_sig_lp_expiring_title","deep_sig_lp_expiring_detail",{pct:p.pct,days:p.days}],
       lp_lock_expired:["deep_sig_lp_expired_title","deep_sig_lp_expired_detail",{pct:p.pct}],
       known_issuer_context:["deep_sig_issuer_title","deep_sig_issuer_detail",{issuer:p.issuer||cxDeepTr("deep_unknown")}],
+      trade_buy_failed:["deep_sig_trade_buy_failed_title","deep_sig_trade_buy_failed_detail",{dex:p.dex||"DEX"}],
+      trade_sell_blocked:["deep_sig_trade_sell_blocked_title","deep_sig_trade_sell_blocked_detail",{dex:p.dex||"DEX"}],
+      trade_sell_failed:["deep_sig_trade_sell_failed_title","deep_sig_trade_sell_failed_detail",{dex:p.dex||"DEX"}],
+      trade_sell_cooldown:["deep_sig_trade_cooldown_title","deep_sig_trade_cooldown_detail",{}],
+      trade_tax_extreme:["deep_sig_trade_tax_extreme_title","deep_sig_trade_tax_detail",{buy:cxDeepTaxTxt(p.buy),sell:cxDeepTaxTxt(p.sell),transfer:cxDeepTaxTxt(p.transfer)}],
+      trade_tax_high:["deep_sig_trade_tax_high_title","deep_sig_trade_tax_detail",{buy:cxDeepTaxTxt(p.buy),sell:cxDeepTaxTxt(p.sell),transfer:cxDeepTaxTxt(p.transfer)}],
+      trade_ok:["deep_sig_trade_ok_title","deep_sig_trade_ok_detail",{dex:p.dex||"DEX",buy:cxDeepTaxTxt(p.buy),sell:cxDeepTaxTxt(p.sell)}],
       immediate_launch_activity:["deep_sig_immediate_title","deep_sig_immediate_detail",{count:p.count}],
       shared_funding_risk:["deep_sig_shared_risk_title","deep_sig_shared_risk_detail",{count:p.count}],
       shared_funding_context:["deep_sig_shared_context_title","deep_sig_shared_context_detail",{count:p.count}],
@@ -11541,8 +11689,29 @@ async function qsLiqCheckBasic(net, token, provider) {
       cxDeepKV(cxDeepTr("deep_k_scope"),cxDeepTr("deep_v_sim_scope")),
       sim.provider?cxDeepKV(cxDeepTr("deep_k_sim_provider"),cxDeepEsc(sim.provider)):null
     ];
-    const simStatus=r.net==="solana"?"partial":simAnyRevert?"review":simAllPassed?"verified":"partial";
-    const simFound=r.net==="solana"?cxDeepTr("deep_found_simulation_solana"):cxDeepTr("deep_found_simulation",{buy:simShort(sim.buyPath),sell:simShort(sim.sellPath),wallet:simShort(sim.walletTransfer)});
+    let simStatus=r.net==="solana"?"partial":simAnyRevert?"review":simAllPassed?"verified":"partial";
+    let simFound=r.net==="solana"?cxDeepTr("deep_found_simulation_solana"):cxDeepTr("deep_found_simulation",{buy:simShort(sim.buyPath),sell:simShort(sim.sellPath),wallet:simShort(sim.walletTransfer)});
+    const trade=r.net!=="solana"?sim.trade:null;
+    const legTxt=(leg)=>leg?.ok===true?cxDeepTr("deep_trade_passed_tax",{tax:cxDeepTaxTxt(leg.taxPct)}):leg?.ok===false?cxDeepTr("deep_trade_failed"):cxDeepTr("deep_sim_code_unknown");
+    const sellTxt=(t)=>{ const sl=t?.sell||{}; if(sl.ok===true) return sl.sameBlockBlocked?cxDeepTr("deep_trade_sell_cooldown",{tax:cxDeepTaxTxt(sl.taxPct)}):cxDeepTr("deep_trade_passed_tax",{tax:cxDeepTaxTxt(sl.taxPct)}); if(sl.ok===false) return sl.holderChecked?cxDeepTr("deep_trade_sell_blocked"):cxDeepTr("deep_trade_sell_unconfirmed"); return cxDeepTr(t?.buy?.ok===false?"deep_trade_sell_skipped":"deep_sim_code_unknown"); };
+    if(trade?.attempted){
+      simRows.length=0;
+      simRows.push(
+        cxDeepKV(cxDeepTr("deep_k_trade_dex"),`${cxDeepEsc(trade.dex||"DEX")} · ${cxDeepEsc(cxDeepTr(trade.hops>1?"deep_trade_route_hop":"deep_trade_route_direct"))}`),
+        cxDeepKV(cxDeepTr("deep_k_trade_buy"),cxDeepEsc(legTxt(trade.buy))),
+        cxDeepKV(cxDeepTr("deep_k_trade_sell"),cxDeepEsc(sellTxt(trade))),
+        cxDeepKV(cxDeepTr("deep_k_trade_transfer"),cxDeepEsc(legTxt(trade.transfer))),
+        trade.pool?cxDeepKV(cxDeepTr("deep_k_trade_pool"),cxDeepEsc(cxDeepShort(trade.pool,8,6)),true):null,
+        cxDeepKV(cxDeepTr("deep_k_scope"),cxDeepTr("deep_v_trade_scope"))
+      );
+      const bad=signals.some(x=>["trade_buy_failed","trade_sell_blocked","trade_sell_failed","trade_tax_extreme","trade_tax_high"].includes(x?.code));
+      simStatus=bad?"review":(trade.buy?.ok===true&&trade.sell?.ok===true)?"verified":"partial";
+      simFound=cxDeepTr("deep_found_trade",{buy:legTxt(trade.buy),sell:sellTxt(trade),transfer:legTxt(trade.transfer)});
+    }else if(r.net!=="solana"&&trade){
+      const rk="deep_trade_reason_"+(trade.reasonCode||"unknown"); const rv=cxDeepTr(rk);
+      simRows.unshift(cxDeepKV(cxDeepTr("deep_k_trade_router"),cxDeepEsc(rv===rk?cxDeepTr("deep_trade_reason_unknown"):rv)));
+      if(simStatus==="verified") simStatus="partial";
+    }
     const entityRows=[
       ent.checkedCount!=null?cxDeepKV(cxDeepTr("deep_k_entity_checked"),cxDeepEsc(ent.checkedCount)):null,
       (ent.structuralClassifiedCount??ent.classifiedCount)!=null?cxDeepKV(cxDeepTr("deep_k_entity_classified"),cxDeepEsc(ent.structuralClassifiedCount??ent.classifiedCount)):null,
@@ -11638,7 +11807,7 @@ async function qsLiqCheckBasic(net, token, provider) {
         ${cxDeepDetail("wallets",cxDeepTr("deep_section_wallets"),clusterRows,{status:walletStatus,preview:walletStatus==="review"||walletStatus==="context"?cxDeepTr("deep_reason_shared_clusters"):walletStatus==="partial"?cxDeepTr("deep_reason_clusters_partial"):"",found:walletFound,why:cxDeepTr("deep_why_wallets"),open:walletStatus==="review"})}
         ${cxDeepDetail("liquidity",cxDeepTr("deep_section_liquidity"),liqRows,{status:liqStatus,preview:previewFor(liqStatus,"deep_reason_liquidity_partial"),found:liqFound,why:cxDeepTr("deep_why_liquidity")})}
         ${cxDeepDetail("control",cxDeepTr("deep_section_control"),changeRows,{status:controlStatus,preview:previewFor(controlStatus,"deep_reason_control_partial","deep_reason_proxy_history"),found:controlFound,why:cxDeepTr("deep_why_control"),open:controlStatus==="review"})}
-        ${cxDeepDetail("simulation",cxDeepTr("deep_section_simulation"),simRows,{status:simStatus,preview:simStatus==="review"?cxDeepTr("deep_reason_sim_reverted"):simStatus==="partial"?cxDeepTr("deep_reason_simulation_partial"):"",found:simFound,why:cxDeepTr("deep_why_simulation"),open:simStatus==="review"})}
+        ${cxDeepDetail("simulation",cxDeepTr("deep_section_simulation"),simRows,{status:simStatus,preview:simStatus==="review"?cxDeepTr(trade?.attempted?"deep_reason_trade_issue":"deep_reason_sim_reverted"):simStatus==="partial"?cxDeepTr("deep_reason_simulation_partial"):"",found:simFound,why:cxDeepTr("deep_why_simulation"),open:simStatus==="review"})}
         ${cxDeepDetail("entity",cxDeepTr("deep_section_entity"),entityRows,{status:entityStatus,preview:previewFor(entityStatus,"deep_reason_entity_partial"),found:entityFound,why:entityWhy})}
       </div>`;
     host.classList.add("show"); cxDeepApplyCoverage(r);
