@@ -9926,7 +9926,9 @@ async function qsLiqCheckBasic(net, token, provider) {
           lowTrustExchangeCount: Number.isFinite(Number(j.lowTrustExchangeCount)) ? Number(j.lowTrustExchangeCount) : null,
           totalVolume24hUsd: Number.isFinite(Number(j.totalVolume24hUsd)) ? Number(j.totalVolume24hUsd) : null,
           circulatingSupplyReal: Number.isFinite(Number(j.circulatingSupplyReal)) ? Number(j.circulatingSupplyReal) : null,
-          totalSupplyFromCg: Number.isFinite(Number(j.totalSupplyFromCg)) ? Number(j.totalSupplyFromCg) : null
+          totalSupplyFromCg: Number.isFinite(Number(j.totalSupplyFromCg)) ? Number(j.totalSupplyFromCg) : null,
+          // Same allowlist + semantics as Scanner v44.25 (served by Deep worker v1.12).
+          canonicalSymbol: (j.canonicalAsset && typeof j.canonicalAsset.symbol === "string") ? j.canonicalAsset.symbol.slice(0, 12) : null
         };
       } finally { clearTimeout(tmr); }
     } catch (e) {
@@ -12483,6 +12485,7 @@ async function qsLiqCheckBasic(net, token, provider) {
     rep.meta.cexTrustedExchangeCount = cexResult.trustedExchangeCount ?? null;
     rep.meta.cexLowTrustExchangeCount = cexResult.lowTrustExchangeCount ?? null;
     rep.meta.cexVolume24hUsd = cexResult.totalVolume24hUsd ?? null;
+    rep.meta.cexCanonicalSymbol = cexResult.canonicalSymbol || null;
     if (livePrice)            rep.meta.nativeUsdPrice   = livePrice;
     rep.meta.contractAgeDays  = contractAge?.ageDays    ?? null;
     rep.meta.contractDeployTs = contractAge?.deployTs   ?? null;
@@ -13090,7 +13093,7 @@ async function qsLiqCheckBasic(net, token, provider) {
         type: cexListed ? "ok" : "warn",
         title: "CEX Listed",
         value: cexListed
-          ? `${rep.meta?.cexExchanges?.length ? rep.meta.cexExchanges.slice(0,3).join(", ") : "Yes"}${rep.meta?.cexVolume24hUsd ? ` (~$${Math.round(rep.meta.cexVolume24hUsd).toLocaleString()}/24h)` : ""}`
+          ? `${rep.meta?.cexExchanges?.length ? rep.meta.cexExchanges.slice(0,3).join(", ") : "Yes"}${rep.meta?.cexVolume24hUsd ? ` (~$${Math.round(rep.meta.cexVolume24hUsd).toLocaleString()}/24h)` : ""}${rep.meta?.cexCanonicalSymbol ? ` · via canonical ${rep.meta.cexCanonicalSymbol}` : ""}`
           : cexStatus === "unavailable"
             ? "Provider unavailable — listing status not confirmed"
             : cexStatus === "lower_trust_only"
