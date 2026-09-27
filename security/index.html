@@ -9266,6 +9266,141 @@ function initPanels() {
 
 
 
+  // v44.27 parity with the Telegram scanner: proxy pattern, upgrade authority,
+  // owner kind and pending owner. Display only here (the website score comes
+  // from the CycleX Network engine). Calls are issued in parallel so the read
+  // provider can batch them.
+  const QS_CTL_SLOTS = {
+    admin: "0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103",
+    beacon: "0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50",
+    ozLegacy: "0x7050c9e0f4ca769c69bd3a8ef740bc37934f8e2c036e5a723fd8ee048ed3f8c3",
+    eip1822: "0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7"
+  };
+  function qsCtlRead(net){
+    const _getRP =
+      (typeof getReadProvider === "function" && getReadProvider) ||
+      (typeof window.getReadProvider === "function" && window.getReadProvider) ||
+      (typeof window.CX?.getReadProvider === "function" && window.CX.getReadProvider) ||
+      null;
+    return _getRP ? _getRP(net) : null;
+  }
+  function qsCtlAddr(raw){
+    const h = String(raw || "").replace(/^0x/, "");
+    if (!/^[0-9a-fA-F]+$/.test(h)) return null;
+    const a = ("0x" + h.padStart(64, "0").slice(-40)).toLowerCase();
+    return a === "0x0000000000000000000000000000000000000000" ? null : a;
+  }
+  function qsCtlCallRaw(read, to, data){
+    return read.call({ to, data }).then(v => (v && v !== "0x") ? v : null).catch(() => null);
+  }
+  function qsCtlHasDelegatecall(codeHex){
+    let h = String(codeHex || "").replace(/^0x/, "").toLowerCase();
+    if (h.length >= 4) {
+      const len = parseInt(h.slice(-4), 16);
+      if (len > 0 && (len + 2) * 2 < h.length && /^a[1-9a-f]/.test(h.slice(-(len + 2) * 2, -4))) h = h.slice(0, -(len + 2) * 2);
+    }
+    for (let i = 0; i + 1 < h.length; i += 2) {
+      const op = parseInt(h.substr(i, 2), 16);
+      if (op === 0xf4) return true;
+      if (op >= 0x60 && op <= 0x7f) i += (op - 0x5f) * 2;
+    }
+    return false;
+  }
+  // kind: none | eoa | multisig | timelock | contract_owned | contract | unknown
+  async function qsCtlKind(read, addr){
+    const a = qsLower(addr);
+    if (!a || DEAD_ADDRESSES.has(a)) return { kind: "none" };
+    const [code, thr, delay, own, probe] = await Promise.all([
+      read.getCode(a).catch(() => null),
+      qsCtlCallRaw(read, a, "0xe75235b8"),
+      qsCtlCallRaw(read, a, "0xf27a0c92"),
+      qsCtlCallRaw(read, a, "0x8da5cb5b"),
+      qsCtlCallRaw(read, a, "0xdeadbeef") // returns data only on a catch-all fallback
+    ]);
+    if (code == null) return { kind: "unknown" };
+    const c = String(code).toLowerCase();
+    if (c === "0x" || c === "0x0" || /^0xef0100[0-9a-f]{40}$/.test(c)) return { kind: "eoa" };
+    const big = (h) => { try { return h ? BigInt("0x" + String(h).replace(/^0x/, "").slice(0, 64)) : null; } catch { return null; } };
+    const t = big(thr); if (t != null && t > 0n && t < 1000n) return { kind: "multisig", threshold: Number(t) };
+    const d = big(delay); if (d != null && d > 0n && d < 10n ** 12n) return { kind: "timelock", delaySec: Number(d) };
+    const o = qsCtlAddr(own);
+    if (o && !DEAD_ADDRESSES.has(o)) return { kind: "contract_owned", owner: o };
+    if (own != null && big(own) === 0n && String(own).replace(/^0x/, "").length === 64 && probe == null) return { kind: "contract_owned", owner: "0x0000000000000000000000000000000000000000" };
+    return { kind: "contract" };
+  }
+  async function qsCtlAuthority(read, addr){
+    const k = await qsCtlKind(read, addr);
+    if (k.kind === "none") return { effective: "none" };
+    if (k.kind === "eoa") return { effective: "single_key" };
+    if (k.kind === "multisig") return { effective: k.threshold <= 1 ? "single_key" : "multisig", threshold: k.threshold };
+    if (k.kind === "timelock") return { effective: "timelock", delaySec: k.delaySec };
+    if (k.kind === "contract_owned") {
+      if (DEAD_ADDRESSES.has(qsLower(k.owner))) return { effective: "none" };
+      const o = await qsCtlKind(read, k.owner);
+      if (o.kind === "eoa") return { effective: "single_key", via: true };
+      if (o.kind === "multisig") return { effective: o.threshold <= 1 ? "single_key" : "multisig", threshold: o.threshold };
+      if (o.kind === "timelock") return { effective: "timelock", delaySec: o.delaySec };
+      return { effective: "contract" };
+    }
+    return { effective: k.kind === "unknown" ? "unknown" : "contract" };
+  }
+  async function qsProxyControl(net, token, code, eip1967Impl, owner){
+    const out = { type: "unknown", upgradeable: null, authority: null, ownerAuthority: null, pendingOwner: null, ownerSource: null };
+    const read = qsCtlRead(net);
+    if (!read) return out;
+    try {
+      const [admin, beacon, legacy, u1822, pending] = await Promise.all([
+        read.getStorage(token, QS_CTL_SLOTS.admin).then(qsCtlAddr).catch(() => null),
+        read.getStorage(token, QS_CTL_SLOTS.beacon).then(qsCtlAddr).catch(() => null),
+        read.getStorage(token, QS_CTL_SLOTS.ozLegacy).then(qsCtlAddr).catch(() => null),
+        read.getStorage(token, QS_CTL_SLOTS.eip1822).then(qsCtlAddr).catch(() => null),
+        qsCtlCallRaw(read, token, "0xe30c3978")
+      ]);
+      const p = qsCtlAddr(pending); out.pendingOwner = p && !DEAD_ADDRESSES.has(p) ? p : null;
+      const codeStr = String(code || "").toLowerCase();
+      const clone = codeStr.match(/^0x363d3d373d3d3d363d73([0-9a-f]{40})5af43d82803e903d91602b57fd5bf3$/) || codeStr.match(/^0x365f5f375f5f365f73([0-9a-f]{40})5af43d5f5f3e5f3d91602a57fd5bf3$/);
+      let authorityAddr = null, authorityVerified = false;
+      if (eip1967Impl) { out.type = "eip1967"; out.upgradeable = true; if (admin) { authorityAddr = admin; authorityVerified = true; } }
+      else if (clone) { out.type = "clone"; out.upgradeable = false; }
+      else if (beacon) { out.type = "beacon"; out.upgradeable = true; authorityAddr = beacon; authorityVerified = true; }
+      else if (u1822) { out.type = "eip1822"; out.upgradeable = true; }
+      else if (legacy) { out.type = "oz_legacy"; out.upgradeable = true; }
+      else if (codeStr && codeStr !== "0x" && qsCtlHasDelegatecall(codeStr)) { out.type = "possible_custom"; }
+      else if (codeStr && codeStr !== "0x") { out.type = "none"; out.upgradeable = false; }
+      const ownerActive = owner && !DEAD_ADDRESSES.has(qsLower(owner));
+      const [auth, ownerAuth] = await Promise.all([
+        authorityVerified ? qsCtlAuthority(read, authorityAddr) : Promise.resolve(null),
+        ownerActive ? qsCtlKind(read, owner) : Promise.resolve(null)
+      ]);
+      out.authority = auth;
+      out.ownerAuthority = ownerAuth;
+    } catch {}
+    return out;
+  }
+  function qsProxyCardValue(pc, isProxyFallback){
+    if (!pc || pc.type === "unknown") return isProxyFallback ? "Detected" : "Unknown";
+    if (pc.type === "clone") return "Clone · fixed logic";
+    if (pc.type === "possible_custom") return "Possible custom proxy";
+    if (pc.type === "none") return isProxyFallback ? "Detected" : "No";
+    const who = { single_key: "single wallet", multisig: `multisig (${pc.authority?.threshold ?? "?"} required)`, timelock: "timelock", none: "renounced", contract: "contract" }[pc.authority?.effective];
+    return `Upgradeable${who ? ` · ${who}` : ""}`;
+  }
+  function qsOwnerKindText(k){
+    if (!k) return "";
+    return { eoa: "wallet", multisig: `multisig, ${k.threshold} required`, timelock: "timelock", contract_owned: "contract", contract: "contract" }[k.kind] || "";
+  }
+  async function tryReadOwnerDetailed(net, token){
+    const o = await tryReadOwner(net, token);
+    if (o) return { owner: o, source: "owner()" };
+    const read = qsCtlRead(net);
+    if (!read) return { owner: "", source: null };
+    const raw = await qsCtlCallRaw(read, token, "0x893d20e8");
+    const a = qsCtlAddr(raw);
+    if (a) return { owner: qsNormAddr(a), source: "getOwner()" };
+    if (raw && /^0x0*$/.test(raw)) return { owner: "0x0000000000000000000000000000000000000000", source: "getOwner()" };
+    return { owner: "", source: null };
+  }
+
   // v17 parity: bytecode alone is not enough (smart accounts can have code).
   // Require standard ERC-20 read behavior before assigning a Token Score.
   async function qsProbeErc20Contract(token, provider){
@@ -12518,9 +12653,15 @@ async function qsLiqCheckBasic(net, token, provider) {
     let impl = (controlMeta?.implementationAddress && /^0x[a-fA-F0-9]{40}$/.test(controlMeta.implementationAddress)) ? controlMeta.implementationAddress : scoringProxyImpl;
     let isProxy = controlMeta?.proxyDetected === true || !!impl;
 
-    const owner = await tryReadOwner(net, token);
+    const ownerRead = await tryReadOwnerDetailed(net, token);
+    const owner = ownerRead.owner;
     const ownerIsRenounced = owner && DEAD_ADDRESSES.has(qsLower(owner));
-    const ownerShown = owner ? (ownerIsRenounced ? "Renounced/None" : qsShortAddr(owner)) : "Unknown";
+    // v44.27: proxy pattern, upgrade authority, owner kind and pending owner.
+    const proxyControl = await qsProxyControl(net, token, code, scoringProxyImpl, owner).catch(() => null);
+    const ownerKindText = !ownerIsRenounced ? qsOwnerKindText(proxyControl?.ownerAuthority) : "";
+    const ownerShown = owner
+      ? (ownerIsRenounced ? "Renounced/None" : `${qsShortAddr(owner)}${ownerKindText ? ` (${ownerKindText})` : ""}${ownerRead.source === "getOwner()" ? " · getOwner()" : ""}`)
+      : "Unknown";
     let implementationCode = "0x";
     if (impl) implementationCode = await qsReadCodeWithFallback(net, impl);
     let scoringImplementationCode = "0x";
@@ -12988,7 +13129,9 @@ async function qsLiqCheckBasic(net, token, provider) {
       // storage slot read), so it's a genuine negative — not "unknown".
       // ✅ NEW: onChain:true — this check always runs (no API dependency),
       // for both the "Detected" and "No" outcomes.
-      { type: isProxy ? "warn" : "ok", title: "Proxy", value: isProxy ? "Detected" : "No", onChain: true },
+      { type: (proxyControl && (proxyControl.upgradeable === true || proxyControl.type === "possible_custom")) || (isProxy && proxyControl?.type !== "clone") ? "warn" : "ok",
+        title: "Proxy", value: qsProxyCardValue(proxyControl, isProxy), onChain: true },
+      ...(proxyControl?.pendingOwner ? [{ type: "warn", title: "Pending Owner", value: `${qsShortAddr(proxyControl.pendingOwner)} (transfer not yet accepted)`, onChain: true }] : []),
       // ✅ NEW: onChain:true — Owner here is read directly via owner() and
       // never falls back to GoPlus on this site (unlike the bot), so it's
       // always on-chain when we have a value at all.
