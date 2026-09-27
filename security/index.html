@@ -9373,6 +9373,7 @@ function initPanels() {
         ownerActive ? qsCtlKind(read, owner) : Promise.resolve(null)
       ]);
       out.authority = auth;
+      out.authorityRef = authorityVerified ? (out.type === "beacon" ? "beacon" : "admin") : null;
       out.ownerAuthority = ownerAuth;
     } catch {}
     return out;
@@ -12913,6 +12914,13 @@ async function qsLiqCheckBasic(net, token, provider) {
       secureEval = await qsSecureEngineEvaluate("evm", {
         isProxy: !!scoringProxyImpl,
         implementation: scoringProxyImpl || null,
+        // v44.27 parity: the engine grades the proxy penalty by who can upgrade.
+        proxyControl: proxyControl ? {
+          type: proxyControl.type || "unknown",
+          upgradeable: proxyControl.upgradeable === true,
+          authorityRef: proxyControl.authorityRef || null,
+          effective: proxyControl.authority?.effective || null
+        } : null,
         marketTicket: newEvmMarketAgg?.ticket || null,
         devHoldingPct,
         hasLiquidity: !!rep.liq?.any,
