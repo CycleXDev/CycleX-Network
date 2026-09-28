@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#06080d">
+<title>Privacy Notice | CycleX Network</title>
+<meta name="description" content="Privacy Notice for CycleX Network software, APIs, monitoring and security services.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CycleX Network">
+<meta property="og:title" content="Privacy Notice | CycleX Network">
+<meta property="og:description" content="Privacy Notice for CycleX Network software, APIs, monitoring and security services.">
+<meta property="og:image" content="/og-image-1200x630.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+<link rel="manifest" href="/site.webmanifest">
+<style>
+:root{
+  --bg:#06080d;
+  --panel:#0c1119;
+  --panel-2:#091019;
+  --text:#f5f7fb;
+  --muted:#a4afbd;
+  --dim:#748091;
+  --hair:rgba(255,255,255,.10);
+  --hair-strong:rgba(255,255,255,.15);
+  --cyan:#42dbff;
+  --cyan-soft:rgba(66,219,255,.08);
+  --max:940px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth;color-scheme:dark}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(900px 520px at 78% 2%,rgba(66,219,255,.075),transparent 62%),
+    radial-gradient(720px 460px at 10% 30%,rgba(113,77,255,.035),transparent 68%),
+    linear-gradient(180deg,#06080d,#070a10 58%,#06080d);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+::selection{background:rgba(66,219,255,.22);color:#fff}
+.shell{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+.nav{
+  margin:16px auto 0;
+  min-height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:10px 14px;
+  border:1px solid var(--hair);
+  border-radius:16px;
+  background:rgba(8,11,17,.86);
+  box-shadow:0 12px 34px rgba(0,0,0,.18);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  position:sticky;
+  top:14px;
+  z-index:20;
+}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;min-width:max-content}
+.brand:hover{text-decoration:none}
+.brand img{
+  width:38px;
+  height:38px;
+  display:block;
+  object-fit:contain;
+  border-radius:11px;
+  filter:drop-shadow(0 6px 16px rgba(66,219,255,.10));
+}
+.brand strong{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.navlinks{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.navlinks a{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1;
+  padding:9px 10px;
+  border-radius:9px;
+  transition:background .18s ease,color .18s ease;
+}
+.navlinks a:hover{color:#eef6ff;background:rgba(255,255,255,.045);text-decoration:none}
+.navlinks a[aria-current="page"]{color:#ecfbff;background:rgba(66,219,255,.075)}
+.hero{padding:82px 0 34px}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+h1{font-size:clamp(38px,7vw,64px);line-height:1.02;letter-spacing:-.045em;margin:0}
+.meta{margin-top:18px;color:var(--dim);font-size:12px}
+.intro{margin-top:22px;color:var(--muted);font-size:16px;line-height:1.75;max-width:800px}
+.card{
+  position:relative;
+  overflow:hidden;
+  margin:26px 0 70px;
+  padding:32px;
+  border:1px solid var(--hair);
+  border-radius:20px;
+  background:linear-gradient(180deg,rgba(13,18,27,.97),rgba(8,12,18,.985));
+  box-shadow:0 28px 90px rgba(0,0,0,.30);
+}
+.card:before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(66,219,255,.28),transparent);
+  pointer-events:none;
+}
+h2{margin:36px 0 10px;font-size:21px;letter-spacing:-.02em}
+h2:first-child{margin-top:0}
+h3{margin:22px 0 8px;font-size:15px}
+p,li{color:var(--muted);font-size:14px;line-height:1.78}
+p{margin:0 0 12px}
+ul{padding-left:22px;margin-top:10px}
+li+li{margin-top:5px}
+strong{color:#eaf0f7}
+.notice{
+  margin:22px 0 28px;
+  padding:15px 17px;
+  border:1px solid rgba(66,219,255,.17);
+  border-radius:13px;
+  background:linear-gradient(180deg,rgba(66,219,255,.060),rgba(66,219,255,.035));
+  color:#bdcad8;
+  font-size:13px;
+  line-height:1.68;
+}
+.notice strong{color:#edfaff}
+.footer{border-top:1px solid var(--hair);padding:26px 0 42px;color:var(--dim);font-size:11px}
+.footerlinks{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px}
+.footerlinks a{color:#8d9aad}
+.footerlinks a:hover{color:#c8d4df}
+@media(max-width:640px){
+  .shell{width:min(var(--max),calc(100% - 28px))}
+  .nav{align-items:flex-start;flex-direction:column;padding:10px 12px}
+  .navlinks{gap:4px}
+  .navlinks a{padding:8px}
+  .hero{padding-top:56px}
+  .card{padding:24px 19px;border-radius:17px}
+  h2{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .navlinks a{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="nav">
+  <a class="brand" href="/" aria-label="CycleX Network home">
+    <img src="/cyclex32.svg" alt="" width="38" height="38">
+    <strong>CycleX Network</strong>
+  </a>
+  <nav class="navlinks" aria-label="Legal and product navigation">
+    <a href="/api/">API</a><a href="/terms.html">Terms</a><a href="/privacy.html" aria-current="page">Privacy</a><a href="/refund.html">Refunds</a>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Privacy</div>
+    <h1>Privacy Notice</h1>
+    <div class="meta">Effective date: September 28, 2026</div>
+    <p class="intro">This Notice explains what information CycleX Network processes, why we process it, and the choices available to you.</p>
+  </section>
+  <article class="card">
+<h2>1. Scope</h2>
+<p>This Privacy Notice explains how CycleX Network handles personal information when you visit our websites, create an account, use the dashboard, APIs, monitoring and security tools, contact us, or purchase a software subscription.</p>
+
+<div class="notice"><strong>Designed around data minimization.</strong> CycleX Network processes the information needed to operate and secure the Services. We do not need your wallet seed phrase or private key for the standard Services, and you should never send either to us.</div>
+
+<h2>2. Information we collect</h2>
+<h3>Account and contact information</h3>
+<p>We may receive your name, email address, account identifiers and authentication information from our identity provider when you sign in, as well as information you provide when contacting support or sales.</p>
+
+<h3>Billing information</h3>
+<p>Paid subscription purchases are processed by Paddle as authorized reseller and Merchant of Record. We may receive billing-related identifiers, subscription status, plan, billing cycle, transaction metadata and customer identifiers needed to provide access and support. For Paddle-processed transactions, CycleX Network does not need to store your full payment-card number.</p>
+
+<h3>Service and technical usage</h3>
+<p>We may collect IP address, browser or device information, timestamps, request metadata, API usage, rate-limit information, error logs, security logs, webhook delivery metadata and product interactions needed to operate, secure and improve the Services.</p>
+
+<h3>Blockchain and monitoring inputs</h3>
+<p>If you submit wallet addresses, token addresses, contract addresses, transaction hashes, watchlists or other blockchain identifiers, we process them to provide the requested security, monitoring or intelligence function. Depending on the context and applicable law, a wallet address or other blockchain identifier may be treated as personal information. Blockchain information may already be public and immutable.</p>
+
+<h3>Support and communications</h3>
+<p>If you contact support or sales, we process the information in your message and related correspondence so we can respond, investigate issues and maintain appropriate support records.</p>
+
+<h2>3. How we use information</h2>
+<ul>
+  <li>provide, authenticate and operate the Services;</li>
+  <li>enforce plan entitlements, usage limits and security controls;</li>
+  <li>process billing state and provide subscription support;</li>
+  <li>detect abuse, fraud, attacks and operational problems;</li>
+  <li>send service, security and account communications;</li>
+  <li>respond to support, sales and legal requests;</li>
+  <li>analyze and improve reliability, usability and product performance; and</li>
+  <li>comply with legal obligations and protect our rights and users.</li>
+</ul>
+
+<h2>4. Analytics, cookies and measurement</h2>
+<p>Our websites may use analytics and conversion-measurement technologies, including Google Analytics and X measurement tools, as well as essential technologies used for hosting, authentication and payments. These technologies may process device, browser, page-view and interaction data. Where consent is legally required, non-essential measurement technologies should be used only in accordance with the consent choices made available to you.</p>
+
+<h2>5. Service providers and payment roles</h2>
+<p>We use service providers to run parts of the Services. Depending on the feature, these may include Cloudflare for hosting and network/security infrastructure, Clerk for authentication, and analytics or measurement providers such as Google and X.</p>
+<p>Paddle has a separate role for Paddle-processed purchases as the authorized reseller and Merchant of Record. Paddle processes payment and buyer information under its own applicable terms and privacy notice. You can review <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">Paddle's Privacy Notice</a> for more information.</p>
+
+<h2>6. Legal bases</h2>
+<p>Where applicable law requires a legal basis, we process information as necessary to perform our contract with you, pursue legitimate interests in operating and securing the Services, comply with legal obligations, and obtain consent where consent is legally required. The legal basis may vary depending on the information, feature and jurisdiction.</p>
+
+<h2>7. Sharing and disclosures</h2>
+<p>We may share information with service providers and professional advisers where reasonably necessary to operate, secure and support the Services, or when required by law. We may also disclose information to protect rights or safety, investigate abuse, or in connection with a corporate transaction subject to appropriate safeguards.</p>
+<p>CycleX Network does not sell personal information for monetary consideration. Some analytics or measurement activities may be treated as "sharing," "targeted advertising" or a similar concept under certain privacy laws, in which case any applicable rights or consent controls will apply.</p>
+
+<h2>8. Retention</h2>
+<p>We retain personal information only as long as reasonably necessary for the purposes described here, including account operation, security, audit, billing, dispute resolution and legal compliance. Retention periods may differ by data type. Public blockchain data may remain permanently available on the underlying network even if we stop associating it with your account.</p>
+
+<h2>9. Security</h2>
+<p>We use technical and organizational measures designed to protect information, including access controls, restricted administrative access and encrypted secrets where appropriate. No Internet service can guarantee absolute security, so you should also protect your account credentials, API keys, webhook secrets and connected wallets.</p>
+
+<h2>10. International processing</h2>
+<p>CycleX Network and its service providers may process information in countries other than the country where you live. Where required, we use or rely on recognized legal mechanisms for international transfers.</p>
+
+<h2>11. Your choices and rights</h2>
+<p>Depending on where you live, you may have rights to request access, correction, deletion, restriction, portability or objection, and to withdraw consent where processing is based on consent. You may also control certain cookies or tracking technologies through browser settings or any consent controls that are made available.</p>
+<p>We may need to verify your identity before completing certain privacy requests. We may also retain information where required by law or where an applicable exception permits retention.</p>
+
+<h2>12. Children</h2>
+<p>The Services are not directed to children who are not legally able to enter into the relevant agreement in their jurisdiction. We do not knowingly seek to collect personal information from children for paid subscriptions.</p>
+
+<h2>13. Changes to this Notice</h2>
+<p>We may update this Privacy Notice as the Services, providers or legal requirements change. The effective date above shows when this version became effective. If a change materially affects your privacy rights, we will provide additional notice where required by law.</p>
+
+<h2>14. Contact</h2>
+<p>Privacy questions or rights requests may be sent to <a href="mailto:support@cyclex.network">support@cyclex.network</a>.</p>
+  </article>
+</main>
+<footer class="footer">
+  &copy; 2026 CycleX Network. All rights reserved.
+  <div class="footerlinks">
+    <a href="/">Home</a>
+    <a href="/api/">API</a>
+    <a href="mailto:support@cyclex.network">support@cyclex.network</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/refund.html">Refund Policy</a>
+  </div>
+</footer>
+</div>
+</body>
+</html>
