@@ -35,6 +35,7 @@
 html{background:var(--bg);scroll-behavior:smooth;color-scheme:dark}
 body{
   margin:0;
+  min-height:100vh;
   color:var(--text);
   background:
     radial-gradient(900px 520px at 78% 2%,rgba(66,219,255,.075),transparent 62%),
@@ -46,6 +47,7 @@ body{
 }
 a{color:var(--cyan);text-decoration:none}
 a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid rgba(66,219,255,.72);outline-offset:3px;border-radius:7px}
 ::selection{background:rgba(66,219,255,.22);color:#fff}
 .shell{width:min(var(--max),calc(100% - 40px));margin:0 auto}
 .nav{
@@ -88,15 +90,15 @@ a:hover{text-decoration:underline}
 }
 .navlinks a:hover{color:#eef6ff;background:rgba(255,255,255,.045);text-decoration:none}
 .navlinks a[aria-current="page"]{color:#ecfbff;background:rgba(66,219,255,.075)}
-.hero{padding:82px 0 34px}
-.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+.hero{padding:52px 0 18px}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
 h1{font-size:clamp(38px,7vw,64px);line-height:1.02;letter-spacing:-.045em;margin:0}
-.meta{margin-top:18px;color:var(--dim);font-size:12px}
-.intro{margin-top:22px;color:var(--muted);font-size:16px;line-height:1.75;max-width:800px}
+.meta{margin-top:14px;color:var(--dim);font-size:12px}
+.intro{margin-top:16px;color:var(--muted);font-size:16px;line-height:1.72;max-width:780px}
 .card{
   position:relative;
   overflow:hidden;
-  margin:26px 0 70px;
+  margin:14px 0 60px;
   padding:32px;
   border:1px solid var(--hair);
   border-radius:20px;
@@ -114,7 +116,7 @@ h1{font-size:clamp(38px,7vw,64px);line-height:1.02;letter-spacing:-.045em;margin
 h2{margin:36px 0 10px;font-size:21px;letter-spacing:-.02em}
 h2:first-child{margin-top:0}
 h3{margin:22px 0 8px;font-size:15px}
-p,li{color:var(--muted);font-size:14px;line-height:1.78}
+p,li{color:var(--muted);font-size:14px;line-height:1.76}
 p{margin:0 0 12px}
 ul{padding-left:22px;margin-top:10px}
 li+li{margin-top:5px}
@@ -134,12 +136,14 @@ strong{color:#eaf0f7}
 .footerlinks{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px}
 .footerlinks a{color:#8d9aad}
 .footerlinks a:hover{color:#c8d4df}
+.card a{font-weight:600}
+.card,.footer{overflow-wrap:anywhere}
 @media(max-width:640px){
   .shell{width:min(var(--max),calc(100% - 28px))}
   .nav{align-items:flex-start;flex-direction:column;padding:10px 12px}
   .navlinks{gap:4px}
   .navlinks a{padding:8px}
-  .hero{padding-top:56px}
+  .hero{padding:34px 0 14px}
   .card{padding:24px 19px;border-radius:17px}
   h2{font-size:19px}
 }
@@ -171,7 +175,7 @@ strong{color:#eaf0f7}
 <h2>1. About these Terms</h2>
 <p>These Terms of Service govern access to and use of the CycleX Network websites, dashboards, APIs, developer tools, security tools, monitoring features and related software services (the "Services"). CycleX Network is the supplier and licensor of the Services. By accessing or using the Services, you agree to these Terms. If you use the Services for an organization, you represent that you are authorized to accept these Terms on its behalf.</p>
 
-<div class="notice"><strong>Software subscription scope.</strong> A paid CycleX Network subscription purchases access to software, API, monitoring and intelligence features. It does not include the purchase, sale, custody or exchange of CYCX or any other digital asset, and it is not an investment, brokerage, payment or custodial product.</div>
+<div class="notice"><strong>Software subscription scope.</strong> A paid CycleX Network subscription provides access to software, API, monitoring and intelligence features. Paddle billing applies to that software subscription and the related service access.</div>
 
 <h2>2. Accounts and access</h2>
 <p>You are responsible for keeping account credentials, API keys, webhook secrets and other access credentials secure. You must provide accurate account information and promptly notify us if you believe your account or credentials have been compromised. You may not share access in a way that bypasses plan limits or exposes the Services to unauthorized users.</p>
@@ -179,16 +183,16 @@ strong{color:#eaf0f7}
 <h2>3. Permitted use</h2>
 <p>You may use the Services for lawful internal, development and production purposes subject to the limits of your plan and the documentation. You must not:</p>
 <ul>
-  <li>attempt to bypass plan limits, authentication, rate limits or security controls;</li>
-  <li>interfere with or disrupt the Services or other users;</li>
-  <li>use the Services to distribute malware, conduct unauthorized access, fraud or abuse;</li>
-  <li>misrepresent CycleX Network data as independently verified by you when it is not;</li>
-  <li>use automated access in a manner that materially degrades the Services or violates published API limits; or</li>
-  <li>resell or sublicense the Services except under a separate written agreement.</li>
+  <li>attempt to bypass plan limits, authentication, rate limits or security controls</li>
+  <li>interfere with or disrupt the Services or other users</li>
+  <li>use the Services to distribute malware or to conduct unauthorized access, fraud or abuse</li>
+  <li>misrepresent CycleX Network data as independently verified when it has not been independently verified</li>
+  <li>use automated access in a manner that materially degrades the Services or violates published API limits</li>
+  <li>resell or sublicense the Services except under a separate written agreement</li>
 </ul>
 
 <h2>4. Submitted data and blockchain identifiers</h2>
-<p>You retain any rights you have in information you lawfully submit to the Services. You give CycleX Network permission to process wallet addresses, token or contract addresses, transaction hashes, watchlists, webhook destinations and related inputs only as reasonably necessary to provide, secure, support and improve the Services. Public blockchain information may already be publicly available and immutable.</p>
+<p>You retain any rights you have in information you lawfully submit to the Services. You give CycleX Network permission to process wallet addresses, asset or contract addresses, transaction hashes, watchlists, webhook destinations and related inputs only as reasonably necessary to provide, secure, support and improve the Services. Public blockchain information may already be publicly available and immutable.</p>
 <p>CycleX Network does not require your wallet seed phrase or private key to provide the standard Services. You should never send a seed phrase or private key to us through support, forms, APIs or any other channel.</p>
 
 <h2>5. On-chain intelligence and security information</h2>
@@ -200,11 +204,11 @@ strong{color:#eaf0f7}
 
 <h2>7. Plans, usage and availability</h2>
 <p>Features, monitored-asset limits, API usage, history, webhook capacity and other entitlements are determined by the active plan shown in the product. We may apply reasonable technical limits, anti-abuse controls, security measures and maintenance windows. Service levels may also depend on third-party infrastructure and blockchain networks.</p>
-<p>We may improve, replace or discontinue features as the Services evolve. Where a change materially affects a paid subscription, we will provide notice when required by applicable law or the applicable billing terms.</p>
+<p>We may improve, replace or discontinue features as the Services evolve over time. Where a change materially affects a paid subscription, we will provide notice when required by applicable law or the applicable billing terms.</p>
 
 <h2>8. Paid subscriptions and Paddle</h2>
 <p>Paid CycleX Network subscriptions may be offered monthly or annually and automatically renew until canceled. The price, billing period and material subscription terms are shown before purchase.</p>
-<p>Our online order process for Paddle-processed purchases is conducted by Paddle.com. Paddle acts as the authorized reseller and Merchant of Record for those transactions and handles payment processing, applicable taxes, receipts, billing administration and approved refunds under Paddle's buyer terms and refund policy. The CycleX Network software itself is supplied and supported by CycleX Network.</p>
+<p>Our online order process for Paddle-processed purchases is conducted by Paddle.com. Paddle acts as the authorized reseller and Merchant of Record for those transactions and handles payment processing, applicable taxes, receipts, billing administration and approved refunds under Paddle's buyer terms and refund policy. CycleX Network supplies and supports the software Services.</p>
 <p>By completing a Paddle checkout, you also agree to the applicable <a href="https://www.paddle.com/legal/buyer-terms" target="_blank" rel="noopener noreferrer">Paddle Buyer Terms</a> for the purchase transaction.</p>
 
 <h2>9. Cancellation and refunds</h2>
@@ -224,7 +228,7 @@ strong{color:#eaf0f7}
 <p>To the maximum extent permitted by law, the Services are provided on an "as is" and "as available" basis. We do not guarantee uninterrupted operation, complete detection of every risk, or that any score, alert, event, incident, market measure or security indicator will predict future behavior.</p>
 
 <h2>14. Limitation of liability</h2>
-<p>To the maximum extent permitted by applicable law, CycleX Network will not be liable for indirect, incidental, special, consequential or punitive damages, loss of profits, loss of digital assets, trading losses, loss of data or business interruption arising from use of or inability to use the Services.</p>
+<p>To the maximum extent permitted by applicable law, CycleX Network will not be liable for indirect, incidental, special, consequential or punitive damages, loss of profits, loss of data or business interruption arising from use of or inability to use the Services.</p>
 <p>To the maximum extent permitted by law, CycleX Network's aggregate liability for direct damages arising out of the Services will not exceed the amount paid for the affected CycleX Network subscription during the 12 months before the event giving rise to the claim, or USD 100 if no subscription fees were paid. These limitations do not apply where liability cannot lawfully be limited or excluded.</p>
 
 <h2>15. Changes to these Terms</h2>

@@ -35,6 +35,7 @@
 html{background:var(--bg);scroll-behavior:smooth;color-scheme:dark}
 body{
   margin:0;
+  min-height:100vh;
   color:var(--text);
   background:
     radial-gradient(900px 520px at 78% 2%,rgba(66,219,255,.075),transparent 62%),
@@ -46,6 +47,7 @@ body{
 }
 a{color:var(--cyan);text-decoration:none}
 a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid rgba(66,219,255,.72);outline-offset:3px;border-radius:7px}
 ::selection{background:rgba(66,219,255,.22);color:#fff}
 .shell{width:min(var(--max),calc(100% - 40px));margin:0 auto}
 .nav{
@@ -88,15 +90,15 @@ a:hover{text-decoration:underline}
 }
 .navlinks a:hover{color:#eef6ff;background:rgba(255,255,255,.045);text-decoration:none}
 .navlinks a[aria-current="page"]{color:#ecfbff;background:rgba(66,219,255,.075)}
-.hero{padding:82px 0 34px}
-.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+.hero{padding:52px 0 18px}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
 h1{font-size:clamp(38px,7vw,64px);line-height:1.02;letter-spacing:-.045em;margin:0}
-.meta{margin-top:18px;color:var(--dim);font-size:12px}
-.intro{margin-top:22px;color:var(--muted);font-size:16px;line-height:1.75;max-width:800px}
+.meta{margin-top:14px;color:var(--dim);font-size:12px}
+.intro{margin-top:16px;color:var(--muted);font-size:16px;line-height:1.72;max-width:780px}
 .card{
   position:relative;
   overflow:hidden;
-  margin:26px 0 70px;
+  margin:14px 0 60px;
   padding:32px;
   border:1px solid var(--hair);
   border-radius:20px;
@@ -114,7 +116,7 @@ h1{font-size:clamp(38px,7vw,64px);line-height:1.02;letter-spacing:-.045em;margin
 h2{margin:36px 0 10px;font-size:21px;letter-spacing:-.02em}
 h2:first-child{margin-top:0}
 h3{margin:22px 0 8px;font-size:15px}
-p,li{color:var(--muted);font-size:14px;line-height:1.78}
+p,li{color:var(--muted);font-size:14px;line-height:1.76}
 p{margin:0 0 12px}
 ul{padding-left:22px;margin-top:10px}
 li+li{margin-top:5px}
@@ -134,12 +136,14 @@ strong{color:#eaf0f7}
 .footerlinks{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:10px}
 .footerlinks a{color:#8d9aad}
 .footerlinks a:hover{color:#c8d4df}
+.card a{font-weight:600}
+.card,.footer{overflow-wrap:anywhere}
 @media(max-width:640px){
   .shell{width:min(var(--max),calc(100% - 28px))}
   .nav{align-items:flex-start;flex-direction:column;padding:10px 12px}
   .navlinks{gap:4px}
   .navlinks a{padding:8px}
-  .hero{padding-top:56px}
+  .hero{padding:34px 0 14px}
   .card{padding:24px 19px;border-radius:17px}
   h2{font-size:19px}
 }
@@ -165,11 +169,11 @@ strong{color:#eaf0f7}
     <div class="eyebrow">Billing &amp; refunds</div>
     <h1>Refund Policy</h1>
     <div class="meta">Effective date: September 28, 2026</div>
-    <p class="intro">This Policy explains cancellation and refund handling for paid CycleX Network software subscriptions processed through Paddle.</p>
+    <p class="intro">This Policy explains how cancellations and refunds are handled for paid CycleX Network software subscriptions processed through Paddle.</p>
   </section>
   <article class="card">
 <h2>1. Scope</h2>
-<p>This Refund Policy applies to paid CycleX Network software subscriptions purchased through Paddle. It does not apply to blockchain network fees, on-chain transactions, CYCX tokens or other digital assets that are not sold through the Paddle subscription checkout.</p>
+<p>This Refund Policy applies to paid CycleX Network software subscriptions purchased through Paddle and to the subscription charges processed through that checkout.</p>
 
 <div class="notice"><strong>Paddle handles the purchase transaction.</strong> For Paddle-processed subscriptions, Paddle is the authorized reseller and Merchant of Record and handles payment processing, applicable taxes, receipts, billing administration and approved refunds. Mandatory consumer rights always apply where required by law.</div>
 
@@ -177,16 +181,16 @@ strong{color:#eaf0f7}
 <p>You may cancel an active subscription through the Paddle Customer Portal or the subscription-management controls made available by CycleX Network. Unless mandatory law or Paddle's applicable terms provide otherwise, cancellation takes effect at the end of the current billing period. You keep paid access through that period and will not be charged for the next renewal.</p>
 
 <h2>3. Standard refund position</h2>
-<p>Except where required by law, or where a refund is approved under Paddle's applicable refund rules or by agreement with CycleX Network through Paddle, subscription charges are generally non-refundable after the paid service has been made available. We do not normally provide prorated refunds or credits for unused time after cancellation.</p>
+<p>Except where required by law or where a refund is approved under Paddle's applicable refund rules, subscription charges are generally non-refundable after the paid service has been made available. We do not normally provide prorated refunds or credits for unused time after cancellation.</p>
 
 <h2>4. When a refund may be appropriate</h2>
 <p>You may contact us or Paddle if you believe a refund should be considered, including for:</p>
 <ul>
-  <li>a duplicate or incorrect charge;</li>
-  <li>a material technical defect that prevents access to the paid service and cannot be resolved within a reasonable time;</li>
-  <li>an unauthorized transaction, subject to verification;</li>
-  <li>a statutory withdrawal or refund right that applies in your jurisdiction; or</li>
-  <li>another case where Paddle determines a refund is appropriate under its policies.</li>
+  <li>a duplicate or incorrect charge</li>
+  <li>a material technical defect that prevents access to the paid service and cannot be resolved within a reasonable time</li>
+  <li>an unauthorized transaction, subject to verification</li>
+  <li>a statutory withdrawal or refund right that applies in your jurisdiction</li>
+  <li>another case where Paddle determines a refund is appropriate under its policies</li>
 </ul>
 
 <h2>5. Statutory and Paddle rights</h2>
@@ -198,7 +202,7 @@ strong{color:#eaf0f7}
 <p>Any approved refund for a Paddle-processed transaction is issued through Paddle to the applicable payment method. CycleX Network does not send a separate direct payment to replace a Paddle refund.</p>
 
 <h2>7. Effect of an approved refund</h2>
-<p>If a transaction is refunded, access associated with the refunded purchase may end or be adjusted as required to reflect the refunded subscription. Processing time for funds to appear can depend on Paddle, the payment method and the relevant financial institution.</p>
+<p>If a transaction is refunded, access associated with the refunded purchase may end or be adjusted as required to reflect the refunded subscription. The time required for refunded funds to appear may depend on Paddle, the payment method and the relevant financial institution.</p>
 
 <h2>8. Abuse, fraud and chargebacks</h2>
 <p>Refunds may be declined where there is evidence of fraud, refund abuse, chargeback abuse or other manipulative behavior, subject to applicable law and Paddle's policies. We may also suspend access where reasonably necessary to investigate a disputed or unauthorized transaction.</p>
