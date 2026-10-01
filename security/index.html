@@ -9055,7 +9055,7 @@ function initPanels() {
   // build adds a short-lived same-site challenge bound to the browser's edge
   // fingerprint. A copied site on another origin cannot simply call this API
   // from its browser and reuse Elofid's private engine.
-  const QS_SECURE_ENGINE_URL = window.ELOFID_SECURE_ENGINE_URL || "/api/cyclex-engine";
+  const QS_SECURE_ENGINE_URL = window.ELOFID_SECURE_ENGINE_URL || "/api/engine";
   let _qsEngineChallenge = { token:null, expiresAt:0 };
 
   async function qsGetSecureEngineChallenge(force = false){
