@@ -1,10 +1,10 @@
 # Security Policy
 
-CycleX Network builds security tools, and we hold our own systems to the same standard. We take every report seriously and appreciate the work of researchers who help keep our users safe.
+Elofid builds security tools, and we hold our own systems to the same standard. We take every report seriously and appreciate the work of researchers who help keep our users safe.
 
 ## Supported versions
 
-CycleX Network is continuously deployed. Only the current production version at [cyclex.network](https://cyclex.network) and its related services receive security updates.
+Elofid is continuously deployed. Only the current production version at [elofid.com](https://elofid.com) and its related services receive security updates.
 
 ## Reporting a vulnerability
 
@@ -13,7 +13,7 @@ CycleX Network is continuously deployed. Only the current production version at 
 Report privately through one of these channels:
 
 1. **GitHub [Private Vulnerability Reporting](../../security/advisories/new)** for this repository (preferred)
-2. **Email:** [support@cyclex.network](mailto:support@cyclex.network) with the subject line **"Security Report"**
+2. **Email:** [support@elofid.com](mailto:support@elofid.com) with the subject line **"Security Report"**
 
 A good report includes:
 
@@ -38,7 +38,7 @@ We will keep you informed while we investigate. With your permission, we are hap
 ### In scope
 
 - **CYCX smart contract** on BNB Smart Chain: [`0xda63b65825AE30532a507B0C091B0bD9F8204F7E`](https://bscscan.com/address/0xda63b65825AE30532a507B0C091B0bD9F8204F7E)
-- The CycleX Network website and **Security Hub** (Quick Scan, Deep Intelligence, Tx Decoder, RPC Health Checker)
+- The Elofid website and **Security Hub** (Quick Scan, Deep Intelligence, Tx Decoder, RPC Health Checker)
 - **Firewall**, including Wallet Watch and Wallet Passport
 - **Scanner Bot** on Telegram
 - **Developer API** and related public infrastructure
@@ -47,11 +47,11 @@ We will keep you informed while we investigate. With your permission, we are hap
 ### Out of scope
 
 - Denial of service, load testing or request flooding
-- Social engineering, phishing or physical attacks against CycleX Network or its users
+- Social engineering, phishing or physical attacks against Elofid or its users
 - Reports from automated scanners without a demonstrated, practical impact
 - Missing security headers or best-practice suggestions without a concrete exploit
-- Issues in third-party services, blockchain networks, wallets, exchanges or external APIs that CycleX Network does not control
-- Scan results that you believe are inaccurate. Please send those to [support@cyclex.network](mailto:support@cyclex.network) as regular feedback.
+- Issues in third-party services, blockchain networks, wallets, exchanges or external APIs that Elofid does not control
+- Scan results that you believe are inaccurate. Please send those to [support@elofid.com](mailto:support@elofid.com) as regular feedback.
 
 ## Rules of engagement
 
@@ -67,12 +67,12 @@ We will not pursue legal action against researchers who act in good faith, follo
 
 ## Rewards
 
-We value every valid report. Submitting a report does not guarantee a reward or bounty. Any recognition is at the discretion of CycleX Network.
+We value every valid report. Submitting a report does not guarantee a reward or bounty. Any recognition is at the discretion of Elofid.
 
 ## Beware of impersonation
 
-CycleX Network will never contact you first, and will never ask for a seed phrase, a private key or a wallet signature to "fix" a security problem. If someone does, it is a scam.
+Elofid will never contact you first, and will never ask for a seed phrase, a private key or a wallet signature to "fix" a security problem. If someone does, it is a scam.
 
 ---
 
-**CycleX Network** · [cyclex.network](https://cyclex.network) · [support@cyclex.network](mailto:support@cyclex.network)
+**Elofid** · [elofid.com](https://elofid.com) · [support@elofid.com](mailto:support@elofid.com)
