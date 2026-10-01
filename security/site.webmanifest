@@ -1,6 +1,6 @@
 {
-  "name": "CycleX Security Hub",
-  "short_name": "CycleX",
+  "name": "Elofid Security Hub",
+  "short_name": "Elofid",
   "start_url": "/security",
   "display": "standalone",
   "background_color": "#05060a",
