@@ -9,7 +9,7 @@
 See what a token, a contract or a wallet permission can really do, before you sign, buy or connect.
 
 [![Website](https://img.shields.io/badge/Website-elofid.com-22d3ee?style=flat-square)](https://elofid.com)
-[![Telegram Bot](https://img.shields.io/badge/Telegram-Scanner%20Bot-6366f1?style=flat-square&logo=telegram&logoColor=white)](https://t.me/CyclexScannerBot)
+[![Telegram Bot](https://img.shields.io/badge/Telegram-Scanner%20Bot-6366f1?style=flat-square&logo=telegram&logoColor=white)](https://t.me/ElofidBot)
 [![X](https://img.shields.io/badge/X-@ElofidNetwork-0f172a?style=flat-square&logo=x&logoColor=white)](https://x.com/ElofidNetwork)
 [![Security Policy](https://img.shields.io/badge/Security-Policy-8b5cf6?style=flat-square)](SECURITY.md)
 
@@ -29,7 +29,7 @@ Elofid reads the blockchain directly, simulates what would happen before anythin
 | --- | --- |
 | **[Security Hub](https://elofid.com/security)** | Multi-chain token and contract scanner. Contract controls, liquidity, LP lock and burn evidence, holder concentration and market structure. No wallet connection required. |
 | **Deep Intelligence** | Advanced analysis inside the Security Hub. A real buy and sell simulation through the token's own DEX router detects honeypots and measures buy, sell and transfer tax. Also covers deployer history, early buyers, shared-funding wallets, LP lock expiry and ownership history. |
-| **[Scanner Bot](https://t.me/CyclexScannerBot)** | The same engine inside Telegram. Paste a contract address and get a structured security report with contract risks, DEX and CEX liquidity, holder analysis and Exit Path. |
+| **[Scanner Bot](https://t.me/ElofidBot)** | The same engine inside Telegram. Paste a contract address and get a structured security report with contract risks, DEX and CEX liquidity, holder analysis and Exit Path. |
 | **Firewall** | Wallet protection. Blast Radius maps every active approval, Fix Mode guides revocation, Wallet Watch alerts on new approvals, and Wallet Passport issues a signed, wallet-bound security record. |
 | **Developer API** | Programmatic access to monitoring, security events, incidents, watchlists and webhooks. |
 
@@ -103,7 +103,7 @@ Read more in the **[Whitepaper](https://elofid.com/whitepaper.pdf)** and the **[
 | --- | --- |
 | Website | [elofid.com](https://elofid.com) |
 | Support | [support@elofid.com](mailto:support@elofid.com) |
-| Telegram Scanner Bot | [@CyclexScannerBot](https://t.me/CyclexScannerBot) |
+| Telegram Scanner Bot | [@ElofidBot](https://t.me/ElofidBot) |
 | Official Telegram | [@cyclex_official](https://t.me/cyclex_official) |
 | Community | [@cyclexcommunity](https://t.me/cyclexcommunity) |
 | X | [@ElofidNetwork](https://x.com/ElofidNetwork) |
