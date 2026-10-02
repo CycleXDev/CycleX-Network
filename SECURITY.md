@@ -13,7 +13,7 @@ Elofid is continuously deployed. Only the current production version at [elofid.
 Report privately through one of these channels:
 
 1. **GitHub [Private Vulnerability Reporting](../../security/advisories/new)** for this repository (preferred)
-2. **Email:** [support@elofid.com](mailto:support@elofid.com) with the subject line **"Security Report"**
+2. **Email:** [security@elofid.com](mailto:security@elofid.com) with the subject line **"Security Report"**
 
 A good report includes:
 
@@ -75,4 +75,4 @@ Elofid will never contact you first, and will never ask for a seed phrase, a pri
 
 ---
 
-**Elofid** · [elofid.com](https://elofid.com) · [support@elofid.com](mailto:support@elofid.com)
+**Elofid** · [elofid.com](https://elofid.com) · [security@elofid.com](mailto:security@elofid.com)
