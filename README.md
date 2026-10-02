@@ -122,8 +122,8 @@ Read more in the **[Whitepaper](https://elofid.com/whitepaper.pdf)** and the **[
 | Support | [support@elofid.com](mailto:support@elofid.com) |
 | Security reports | [security@elofid.com](mailto:security@elofid.com) |
 | Telegram Scanner Bot | [@ElofidBot](https://t.me/ElofidBot) |
-| Official Telegram | [@cyclex_official](https://t.me/cyclex_official) |
-| Community | [@cyclexcommunity](https://t.me/cyclexcommunity) |
+| Official Telegram | [@elofid_official](https://t.me/elofid_official) |
+| Community | [@elofidcommunity](https://t.me/elofidcommunity) |
 | X | [@ElofidNetwork](https://x.com/ElofidNetwork) |
 
 > **Admins will never message you first.** Elofid will never ask for a seed phrase, a private key or a "manual claim". Treat any such message as a scam.
